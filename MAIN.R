@@ -29,7 +29,7 @@ library(lattice)
 
 
 #RAND_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/randhrs1992_2018v1.csv")
-coxph
+#coxph
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv
 HRS2008_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv")
 HRS2010_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv")
