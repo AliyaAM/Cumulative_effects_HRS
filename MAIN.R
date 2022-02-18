@@ -21,6 +21,9 @@ library(lattice)
 
 #other sources of stress, shall we include them as covariates: job strain etc, a lit of HRS stress items are here: https://g2aging.org/?section=concordance-search&sWords=stress&interval=1992%2C2016&page=1&per_page=50&af_src=1
 
+# other literature considers cumulatie effects as: cumulative stressors (global, weekly and major life events)
+#https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-08573-0 
+
 #think how we are going to restrict to a particular type of discrimination, 
 #which wave shall we use? 
 #shall we state that every wave they listed disability (ie subset HRS2004_discrim_disability == 1 & HRS2008_discrim_disability ==1 etc every wave up to 2018) 
@@ -357,6 +360,7 @@ HRS2018_BMI
 #covariates: Fixed confounding factors at baseline will include SES, sex, 
 ########################################################################### and for the onset of a particular  disease a history of that disease or diseases known to be a precuisite prior study recruitment (i.e. baseline)
 HRS2018_race_hispanic_latino
+
 HRS2018_race_white
 HRS2018_race_black
 LGB_2016
