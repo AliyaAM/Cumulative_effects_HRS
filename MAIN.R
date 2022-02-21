@@ -30,11 +30,12 @@ library(lattice)
 
 #add 2004, 2006, 2008 
 
+#from RAND below we beed to find: #wealth # in harmonised rnad file 2008 year wealth var is: #H9ATOTW 
 
 #RAND_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/randhrs1992_2018v1.csv")
 #coxph
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv
-HRS2008_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv")
+HRS2008_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset_new.csv")
 HRS2010_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv")
 HRS2012_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2012_data/HRS2012_discrimination_dataset_new.csv")
 HRS2014_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2014_data/HRS2014_discrimination_dataset_new.csv")
@@ -91,22 +92,19 @@ HRS2018_data$stop = rep(6, times = HRS2018_data_n)
 
 
 #subset to those with a disability and those who experienced discrimination due to disability throught out the years 
-HRS2008_reason_discrim
 
-#HRS2008_data = subset(HRS2008_data, HRS2008_reason_discrim1_reason_disability == 1) #add to the dataset, code is on the laptop
+
+HRS2008_data = subset(HRS2008_data, HRS2008_reason_discrim1_reason_disability == 1) 
 HRS2010_data = subset(HRS2010_data, HRS2010_reason_discrim1_reason_disability == 1)
 HRS2012_data = subset(HRS2012_data, HRS2012_reason_discrim1_reason_disability == 1)
 HRS2014_data = subset(HRS2014_data, HRS2014_reason_discrim1_reason_disability == 1)
 HRS2016_data = subset(HRS2016_data, HRS2016_reason_discrim1_reason_disability == 1)
 HRS2018_data = subset(HRS2018_data, HRS2018_reason_discrim1_reason_disability == 1)
 
-print("stop 1")
-assert:: stop 
-print("stop 2")
 
 #exposure: binary whether did experience discrimination or not (five different types, age, disability, etc)
 # cumulative effects of exposure to discrimination on outcomes 
-#HRS2008_data$reason_discrim1_reason_disability = HRS2008_data$HRS2008_reason_discrim1_reason_disability #add to the dataset, code is on the laptop
+HRS2008_data$reason_discrim1_reason_disability = HRS2008_data$HRS2008_reason_discrim1_reason_disability #add to the dataset, code is on the laptop
 HRS2010_data$reason_discrim1_reason_disability = HRS2010_data$HRS2010_reason_discrim1_reason_disability
 HRS2012_data$reason_discrim1_reason_disability = HRS2012_data$HRS2012_reason_discrim1_reason_disability
 HRS2014_data$reason_discrim1_reason_disability = HRS2014_data$HRS2014_reason_discrim1_reason_disability
@@ -121,12 +119,12 @@ HRS2018_data$reason_discrim1_reason_disability = HRS2018_data$HRS2018_reason_dis
 
 # 2008 add disability and subset the 2008 dataset above 
 
-#HRS2008_data$discrim_harassed = HRS2008_data$HRS2008_discrim_harassed 
-#HRS2008_data$discrim_lessrespect = HRS2008_data$HRS2008_discrim_lessrespect 
-#HRS2008_data$discrim_poorerservice = HRS2008_data$HRS2008_discrim_poorerservice 
-#HRS2008_data$discrim_notclever = HRS2008_data$HRS2008_discrim_notclever
-#HRS2008_data$discrim_medical = HRS2008_data$HRS2008_discrim_medical 
-#HRS2008_data$discrim_afraidothers = HRS2008_data$HRS2008_discrim_afraidothers 
+HRS2008_data$discrim_harassed = HRS2008_data$HRS2008_discrim_harassed 
+HRS2008_data$discrim_lessrespect = HRS2008_data$HRS2008_discrim_lessrespect 
+HRS2008_data$discrim_poorerservice = HRS2008_data$HRS2008_discrim_poorerservice 
+HRS2008_data$discrim_notclever = HRS2008_data$HRS2008_discrim_notclever
+HRS2008_data$discrim_medical = HRS2008_data$HRS2008_discrim_medical 
+HRS2008_data$discrim_afraidothers = HRS2008_data$HRS2008_discrim_afraidothers 
 
 # 2010 
 HRS2010_data$discrim_harassed = HRS2010_data$HRS2010_discrim_harassed 
@@ -281,7 +279,7 @@ HRS2010_data$HRS2010_heartcondition_ever
 #HRS2016_data$HRS2016_
 #HRS2018_data$HRS2018_
 
-##### ##### #####  ##### #####   other conditions 
+##### ##### #####  ##### #####  #### #### #### #### #### #### #### #### #### other conditions 
 
 ##### ##### arthritis, 
 HRS2008_data$HRS2008_arthritis_new
@@ -328,7 +326,7 @@ HRS2008_data$HRS2008_emo_psychiat_prob_bin
 
 ##### ##### #####  ##### #####continious outcomes 
 ##### self-rated health,
-HRS2008_srh
+#HRS2008_srh
 
 #HRS2012_data$HRS2012_
 #HRS2014_data$HRS2014_
@@ -336,12 +334,12 @@ HRS2008_srh
 #HRS2018_data$HRS2018_
 
 ##### weight,
-HRS2018_weight_kg
+#HRS2018_weight_kg
 
-HRS2018obese_bin
-HRS2018_underweight_bin
-HRS2018_normalweight_bin
-HRS2018_BMI
+#HRS2018obese_bin
+#HRS2018_underweight_bin
+#HRS2018_normalweight_bin
+#HRS2018_BMI
 
 ##### blood pressure, 
 ## ## ## ## ADD
@@ -355,20 +353,25 @@ HRS2018_BMI
 ########################################################################
 ########################################################################
 
+##### ##### ##### physical activity 
 
 
 #covariates: Fixed confounding factors at baseline will include SES, sex, 
 ########################################################################### and for the onset of a particular  disease a history of that disease or diseases known to be a precuisite prior study recruitment (i.e. baseline)
-HRS2018_race_hispanic_latino
+#HRS2018_race_hispanic_latino
 
-HRS2018_race_white
-HRS2018_race_black
-LGB_2016
-Straight_2016
-sex_1_0_2018
-yearsof_education2018
+#HRS2018_race_white
+#HRS2018_race_black
+#LGB_2016
+#Straight_2016
+#sex_1_0_2018
+#yearsof_education2018
 
 #Time-dependent covariates will include current age 
-age_groups2018
-continious_age2018
+#age_groups2018
+#continious_age2018
+
+#bind rows with bind_rows in dplyr 
+
+bind_rows()
   
