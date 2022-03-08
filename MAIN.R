@@ -33,14 +33,27 @@ library(lattice)
 #from RAND below we beed to find: #wealth # in harmonised rnad file 2008 year wealth var is: #H9ATOTW 
 
 #RAND_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/randhrs1992_2018v1.csv")
+
+
 #coxph
-#/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv
-HRS2008_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset_new.csv")
-HRS2010_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv")
-HRS2012_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2012_data/HRS2012_discrimination_dataset_new.csv")
-HRS2014_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2014_data/HRS2014_discrimination_dataset_new.csv")
-HRS2016_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2016_data/HRS2016_discrimination_dataset_new.csv")
-HRS2018_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2018_data/HRS2018_discrimination_dataset_new.csv")
+
+#covariates: Fixed confounding factors at baseline will include SES, sex, 
+########################################################################### and for the onset of a particular  disease a history of that disease or diseases known to be a precuisite prior study recruitment (i.e. baseline)
+#HRS2018_race_hispanic_latino
+
+#HRS2018_race_white
+#HRS2018_race_black
+#LGB_2016
+#Straight_2016
+#sex_1_0_2018
+#yearsof_education2018
+
+#Time-dependent covariates will include current age 
+#age_groups2018
+#continious_age2018
+
+#bind rows with bind_rows in dplyr 
+
 
 # add continious age variable to 2008 dataset 
 #HRS2008_data$HRS2008
@@ -356,7 +369,7 @@ HRS2008_data$HRS2008_emo_psychiat_prob_bin
 ##### ##### ##### physical activity 
 
 
-#covariates: Fixed confounding factors at baseline will include SES, sex, 
+#covariates: Fixed confounding factors at baseline will include SES, sex,  #deprivation index 
 ########################################################################### and for the onset of a particular  disease a history of that disease or diseases known to be a precuisite prior study recruitment (i.e. baseline)
 #HRS2018_race_hispanic_latino
 
@@ -367,11 +380,15 @@ HRS2008_data$HRS2008_emo_psychiat_prob_bin
 #sex_1_0_2018
 #yearsof_education2018
 
+#deprivation index 
+
+
 #Time-dependent covariates will include current age 
 #age_groups2018
 #continious_age2018
 
 #bind rows with bind_rows in dplyr 
+
 
 bind_rows()
   
