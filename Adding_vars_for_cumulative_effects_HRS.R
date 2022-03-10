@@ -1,24 +1,7 @@
 
-
-library(WCE)
-library(survival)
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2010_data/HRS_ALLData_originalVARNames.csv
 
 
-library(WCE)
-library(dplyr)
-library(car)
-library(tidyverse)
-library(epiDisplay) #tab1 function to make a frequency table 
-library(foreign)
-library(rms) # Used to extract p-value from logistic model
-library(ggplot2) #plots 
-library(corrplot)
-library(gridExtra) 
-library(sjPlot)
-library(knitr)
-library(lme4)
-library(lattice)
 
 
 
@@ -44,14 +27,11 @@ HRS2018_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_rand_har
 
 
 
-
        
        
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv
 HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_new.csv",  sep=""))
 HRS2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_new.csv",  sep=""))
-
-match("S1HHIDPN",names(HRS2010_data))
 
 # drop variables that we are not using in 2010 dataset, those are appended after S1HHIDPN which is 117 column
 HRS2010_data = HRS2010_data[-c(116:14390)]
@@ -63,11 +43,6 @@ HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination
 
 ###########  id in each wave
 
-#HRS2008_data <- HRS2008_data %>% rowwise() %>%
-#  mutate(HHIDPN = list(c(c_across(X.17:PN))))
-
-#HRS2008_data <- HRS2008_data %>% rowwise() %>%
-#  unite(HHIDPN, c("X.17", "PN"))
 
 HRS2008_data$HHIDPN_HRS2008 = as.numeric(paste(HRS2008_data$X, 0, HRS2008_data$PN, sep = ""))
 HRS2008_data$HHIDPN = HRS2008_data$HHIDPN_HRS2008
@@ -130,6 +105,7 @@ HRS2016_data$heartattack_ever = HRS2016_data$HRS2016_heartattack_ever
 HRS2018_data$HRS2018_heartattack_ever = HRS2018_data_RAND$C040
 HRS2018_data$heartattack_ever = HRS2018_data$HRS2018_heartattack_ever
 
+#####
 
 ######
 #hrs 2014: have you had other heart attack: OC040 unique(HRS2014_data_RAND$OC040)
@@ -231,46 +207,53 @@ HRS2018_data$HRS2018_hypertension_ever = HRS2018_data_RAND$C005
 HRS2018_data$hypertension_ever = HRS2018_data$HRS2018_hypertension_ever 
 
 ##### ##### diabetes new 
-HRS2008_data$diabetes_new = HRS2008_data$HRS2008_diabetes_new
-HRS2010_data$diabetes_new = HRS2010_data$HRS2010_diabetes_new
+HRS2008_data$diabetes_new = cross_waves_2008$diabetes_new_2008
+HRS2010_data$diabetes_new = cross_waves_2010$diabetes_new_2010
 
 
 #HRS2012_data$HRS2012_diabetes_new: R11DIABS, R11DIAB, R11DIABQ, r11diabs
+cross_waves$diabetes_new_1992
 
-HRS2012_data$HRS2012_diabetes_new = harmonised_data_all_waves_2012$r11diabs
-HRS2012_data$diabetes_new = HRS2012_data$HRS2012_diabetes_new 
+HRS2012_data$diabetes_new = cross_waves_2012$diabetes_new_2012
+#HRS2012_data$diabetes_new = HRS2012_data$HRS2012_diabetes_new
 
 #HRS2014_data$HRS2014_diabetes_new: R12DIABS, RAXDIAB
-HRS2014_data$HRS2014_diabetes_new = harmonised_data_all_waves_2014$r12diabs
-HRS2014_data$diabetes_new = HRS2014_data$HRS2014_diabetes_new 
+HRS2014_data$diabetes_new = cross_waves_2014$diabetes_new_2014
+#HRS2014_data$diabetes_new = HRS2014_data$HRS2014_diabetes_new 
 
 #HRS2016_data$HRS2016_diabetes_new R13DIABS
-HRS2016_data$HRS2016_diabetes_new = harmonised_data_all_waves_2016$r13diabs
-HRS2016_data$diabetes_new = HRS2016_data$HRS2016_diabetes_new
+HRS2016_data$diabetes_new = cross_waves_2016$diabetes_new_2016
+#HRS2016_data$diabetes_new = HRS2016_data$HRS2016_diabetes_new
 
 #HRS 2018 diabetes sine last wave, new diabetes: R14DIABS
-HRS2018_data$HRS2018_diabetes_new = harmonised_data_all_waves_2018$r14diabs
-HRS2018_data$diabetes_new = HRS2018_data$HRS2018_diabetes_new 
+HRS2018_data$diabetes_new = cross_waves_2018$diabetes_new_2018
+#HRS2018_data$diabetes_new = HRS2018_data$HRS2018_diabetes_new 
 
-##### ##### ever had diabetes  
-# HRS2012: ever had diabetes: R11DIABE, R3DIAB, RAXDIABE
-HRS2012_data$HRS2012_diabetes_ever  = harmonised_data_all_waves_2012$r11diabe
-HRS2012_data$diabetes_ever = HRS2012_data$HRS2012_diabetes_ever 
-
-
-#HRS 2014: ever had diabetes R12DIABE, ever had diabetes (doctor diagnosed) RALDIABE, raldiabe
-HRS2014_data$HRS2014_diabetes_ever  = harmonised_data_all_waves_2014$r12diabe
-HRS2014_data$diabetes_ever = HRS2014_data$HRS2014_diabetes_ever
-
-#HRS 2016: ever had diabetes: R13DIABE (doctor diagnosed), R7DIABE (doctor diagnosed), r13diabe
-HRS2016_data$HRS2016_diabetes_ever  = harmonised_data_all_waves_2016$r13diabe
-HRS2016_data$diabetes_ever  = HRS2016_data$HRS2016_diabetes_ever  
-
-#HRS 2018: ever had diabetes; R14DIABE
-HRS2018_data$HRS2018_diabetes_ever  = harmonised_data_all_waves_2018$r14diabe
-HRS2018_data$diabetes_ever = HRS2018_data$HRS2018_diabetes_ever  
 
 #######
+##### ##### diabetes new 
+HRS2008_data$diabetes_ever = cross_waves_2008$diabetes_ever_2008
+HRS2010_data$diabetes_ever = cross_waves_2010$diabetes_ever_2010
+
+
+#HRS2012_data$HRS2012_diabetes_new: R11DIABS, R11DIAB, R11DIABQ, r11diabs
+cross_waves$diabetes_ever_1992
+
+HRS2012_data$diabetes_ever = cross_waves_2012$diabetes_ever_2012
+#HRS2012_data$diabetes_new = HRS2012_data$HRS2012_diabetes_new
+
+#HRS2014_data$HRS2014_diabetes_new: R12DIABS, RAXDIAB
+HRS2014_data$diabetes_ever = cross_waves_2014$diabetes_ever_2014
+#HRS2014_data$diabetes_new = HRS2014_data$HRS2014_diabetes_new 
+
+#HRS2016_data$HRS2016_diabetes_new R13DIABS
+HRS2016_data$diabetes_ever = cross_waves_2016$diabetes_ever_2016
+#HRS2016_data$diabetes_new = HRS2016_data$HRS2016_diabetes_new
+
+#HRS 2018 diabetes sine last wave, new diabetes: R14DIABS
+HRS2018_data$diabetes_ever = cross_waves_2018$diabetes_ever_2018
+#HRS2018_data$diabetes_new = HRS2018_data$HRS2018_diabetes_new 
+
 
 #HRS 2014 reports diabetes this wave: R12DIAB
 HRS2014_data$HRS2014_diabetes_thisWave  = harmonised_data_all_waves_2014$r12diab
@@ -577,11 +560,12 @@ HRS2018_data$checklist_depression_bin = HRS2018_data$HRS2018_checklist_depressio
 
 
 ##### sex, in oroginal files it is coded as 1 = male and 2 = female 
+HRS2008_data$HRS2008_sex_1_2 = cross_waves_2008$sex_1_2
+HRS2008_data$sex_1_2 = HRS2008_data$HRS2008_sex_1_2 
 
-HRS2008_data_RAND$GENDER
-
-HRS2010_data_RAND$GENDER
-
+HRS2010_data$HRS2010_sex_1_2 = HRS2010_data_RAND$GENDER
+HRS2010_data$sex_1_2 = HRS2010_data$HRS2010_sex_1_2 
+  
 HRS2012_data$HRS2012_sex_1_2 = HRS2012_data_RAND$GENDER
 HRS2012_data$sex_1_2 = HRS2012_data$HRS2012_sex_1_2 
 
@@ -602,10 +586,16 @@ HRS2008_data$HRS2008_limiting_condition = HRS2008_data_RAND$LM007
 HRS2008_data$HRS2008_limiting_condition_bin = case_when(HRS2008_data_RAND$LM007 == " 1" ~ 1, 
                                                HRS2008_data_RAND$LM007 == " 5" ~ 0)
 
-HRS2008_data$limiting_condition_bin = HRS2008_data$HRS2008_limiting_condition_binHRS2008_data$HRS2008_limiting_condition_bin 
+HRS2008_data$limiting_condition_bin = HRS2008_data$HRS2008_limiting_condition_bin
 HRS2008_data$limiting_condition = HRS2008_data$HRS2008_limiting_condition 
 
 
+HRS2010_data$limiting_condition = HRS2010_data_RAND$MM007
+
+HRS2010_data$HRS2010_limiting_condition_bin = case_when(HRS2010_data$limiting_condition  == 1 ~ 1, 
+                                                        HRS2010_data$limiting_condition  == 5 ~ 0)
+
+HRS2010_data$limiting_condition_bin = HRS2010_data$HRS2010_limiting_condition_bin
 
 HRS2012_data$limiting_condition = HRS2012_data_RAND$NM007
 
@@ -822,14 +812,53 @@ HRS2018_data$wealth_noIRA = HRS2018_data$wealth_noIRA_HRS2018
 
 #bind rows with bind_rows in dplyr 
 
-HRS2008_data$continious_age =  HRS2008_data$continious_age2008
-HRS2012_data$continious_age =  HRS2012_data$continious_age2012
-HRS2014_data$continious_age = HRS2014_data$continious_age2014
-HRS2016_data$continious_age = HRS2016_data$continious_age2016
-HRS2018_data$continious_age = HRS2018_data$continious_age2018
+HRS2008_data$continious_age = cross_waves_2008$continious_age_2008
+HRS2010_data$continious_age = cross_waves_2010$continious_age_2010
+HRS2012_data$continious_age = cross_waves_2012$continious_age_2012
+HRS2014_data$continious_age = cross_waves_2014$continious_age_2014
+HRS2016_data$continious_age = cross_waves_2016$continious_age_2016
+HRS2018_data$continious_age = cross_waves_2018$continious_age_2018
+
+HRS2008_data$religion_bin = cross_waves_2008$religion_bin
+HRS2010_data$religion_bin = cross_waves_2010$religion_bin
+HRS2012_data$religion_bin = cross_waves_2012$religion_bin
+HRS2014_data$religion_bin = cross_waves_2014$religion_bin
+HRS2016_data$religion_bin = cross_waves_2016$religion_bin
+HRS2018_data$religion_bin = cross_waves_2018$religion_bin
+
+
+HRS2008_data$national_origin_ousideUS = cross_waves_2008$national_origin_ousideUS
+HRS2010_data$national_origin_ousideUS = cross_waves_2010$national_origin_ousideUS
+HRS2012_data$national_origin_ousideUS = cross_waves_2012$national_origin_ousideUS
+HRS2014_data$national_origin_ousideUS = cross_waves_2014$national_origin_ousideUS
+HRS2016_data$national_origin_ousideUS = cross_waves_2016$national_origin_ousideUS
+HRS2018_data$national_origin_ousideUS = cross_waves_2018$national_origin_ousideUS
+
+HRS2008_data$race_white = cross_waves_2008$race_white
+HRS2010_data$race_white = cross_waves_2010$race_white
+HRS2012_data$race_white = cross_waves_2012$race_white
+HRS2014_data$race_white = cross_waves_2014$race_white
+HRS2016_data$race_white = cross_waves_2016$race_white
+HRS2018_data$race_white = cross_waves_2018$race_white
+
+
+HRS2008_data$assessed_BMI_2008 = cross_waves_2008$assessed_BMI_2008
+HRS2010_data$assessed_BMI_2010 = cross_waves_2010$assessed_BMI_2010
+HRS2012_data$assessed_BMI_2012 = cross_waves_2012$assessed_BMI_2012
+HRS2014_data$assessed_BMI_2014 = cross_waves_2014$assessed_BMI_2014
+HRS2016_data$assessed_BMI_2016 = cross_waves_2016$assessed_BMI_2016
+HRS2018_data$assessed_BMI_2018 = cross_waves_2018$assessed_BMI_2018
+
+
+
+HRS2008_data$assessed_BMI = HRS2008_data$assessed_BMI_2008  
+HRS2010_data$assessed_BMI = HRS2010_data$assessed_BMI_2010  
+HRS2012_data$assessed_BMI = HRS2012_data$assessed_BMI_2012  
+HRS2014_data$assessed_BMI = HRS2014_data$assessed_BMI_2014  
+HRS2016_data$assessed_BMI = HRS2016_data$assessed_BMI_2016 
+HRS2018_data$assessed_BMI = HRS2018_data$assessed_BMI_2018 
 
 #######
-data <- merge(dataset1, dataset2, by="id")
 
 
 # add continious age variable to 2008 dataset 

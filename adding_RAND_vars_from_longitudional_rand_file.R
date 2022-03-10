@@ -27,6 +27,45 @@ cross_waves$continious_age_2014 = RAND_HRS_longitudional_file$R12AGEY_B
 cross_waves$continious_age_2016 = RAND_HRS_longitudional_file$R13AGEY_B
 cross_waves$continious_age_2018 = RAND_HRS_longitudional_file$R14AGEY_B
 
+
+
+#religion
+#1.protestant, 2.catholic, 3.jewish, 4.none/no pref, 5.other, .d=DK, .m=Oth missin, .r=RF
+
+cross_waves$religion = RAND_HRS_longitudional_file$RARELIG 
+
+cross_waves$religion_bin = case_when(cross_waves$religion == 1 ~ 0, 
+                                     cross_waves$religion == 2 ~ 0, 
+                                     cross_waves$religion == 4 ~ 0, 
+                                     cross_waves$religion == 3 ~ 1, 
+                                     cross_waves$religion == 3 ~ 1, 
+                                     cross_waves$religion == 5 ~ 1)
+                                     
+
+
+#national_origin 
+
+cross_waves$national_origin_ousideUS  = case_when(RAND_HRS_longitudional_file$RABPLACF == 1 ~ 1, 
+                                                  RAND_HRS_longitudional_file$RABPLACF == 2 ~ 0)
+
+#race 2008: rahispan, 0.not hispanic, 1.hispanic, .m=Oth missing
+#HRS2008_data$race = harmonised_data_all_waves_2012$raracem 
+#HRS2018_race_hispanic_latino
+#HRS2018_race_white
+#HRS2018_race_black
+
+#race: 2008, RARACEM: 1.white/caucasian, 2.black/african american, 3.other, .m=Oth missing
+
+cross_waves$race_white  = case_when(RAND_HRS_longitudional_file$RARACEM == 1 ~ 1, 
+                                    RAND_HRS_longitudional_file$RARACEM == 2 ~ 0, 
+                                    RAND_HRS_longitudional_file$RARACEM == 3 ~ 0)
+
+
+#LGB_2016
+
+#Straight_2016
+
+
 #cross_waves$limiting_condition not included in the rand harmonised cleaned file 
 
 #cross_waves$limiting_condition_bin not included in the rand harmonised cleaned file 
