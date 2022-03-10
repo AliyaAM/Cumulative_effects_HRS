@@ -66,22 +66,20 @@ cross_waves$assessed_BMI_2018 = RAND_HRS_longitudional_file$R14PMBMI
 
 #cross_waves$wealth_noIRA_HRS2012 = RAND_HRS_longitudional_file_2012$h11atotw
 
-wealth_noIRA_HRS1992 = RAND_HRS_longitudional_file$H1ATOTW
-wealth_noIRA_HRS1994 = RAND_HRS_longitudional_file$H2ATOTW
-wealth_noIRA_HRS1996 = RAND_HRS_longitudional_file$H3ATOTW
-wealth_noIRA_HRS1998 = RAND_HRS_longitudional_file$H4ATOTW
-wealth_noIRA_HRS2000 = RAND_HRS_longitudional_file$H5ATOTW
-wealth_noIRA_HRS2002 = RAND_HRS_longitudional_file$H6ATOTW
-wealth_noIRA_HRS2004 = RAND_HRS_longitudional_file$H7ATOTW
-wealth_noIRA_HRS2006 = RAND_HRS_longitudional_file$H8ATOTW
-
-wealth_noIRA_HRS2018 = RAND_HRS_longitudional_file$H14ATOTW
-wealth_noIRA_HRS2016 = RAND_HRS_longitudional_file$H13ATOTW
-wealth_noIRA_HRS2014 = RAND_HRS_longitudional_file$H12ATOTW
-wealth_noIRA_HRS2012 = RAND_HRS_longitudional_file$H11ATOTW
-wealth_noIRA_HRS2010 = RAND_HRS_longitudional_file$H10ATOTW
-wealth_noIRA_HRS2008 = RAND_HRS_longitudional_file$H9ATOTW
-
+cross_waves$wealth_noIRA_HRS1992 = RAND_HRS_longitudional_file$H1ATOTW
+cross_waves$wealth_noIRA_HRS1994 = RAND_HRS_longitudional_file$H2ATOTW
+cross_waves$wealth_noIRA_HRS1996 = RAND_HRS_longitudional_file$H3ATOTW
+cross_waves$wealth_noIRA_HRS1998 = RAND_HRS_longitudional_file$H4ATOTW
+cross_waves$wealth_noIRA_HRS2000 = RAND_HRS_longitudional_file$H5ATOTW
+cross_waves$wealth_noIRA_HRS2002 = RAND_HRS_longitudional_file$H6ATOTW
+cross_waves$wealth_noIRA_HRS2004 = RAND_HRS_longitudional_file$H7ATOTW
+cross_waves$wealth_noIRA_HRS2006 = RAND_HRS_longitudional_file$H8ATOTW
+cross_waves$wealth_noIRA_HRS2008 = RAND_HRS_longitudional_file$H9ATOTW
+cross_waves$wealth_noIRA_HRS2010 = RAND_HRS_longitudional_file$H10ATOTW
+cross_waves$wealth_noIRA_HRS2012 = RAND_HRS_longitudional_file$H11ATOTW
+cross_waves$wealth_noIRA_HRS2014 = RAND_HRS_longitudional_file$H12ATOTW
+cross_waves$wealth_noIRA_HRS2016 = RAND_HRS_longitudional_file$H13ATOTW
+cross_waves$wealth_noIRA_HRS2018 = RAND_HRS_longitudional_file$H14ATOTW
 
 #RAND_HRS_longitudional_file$r10rxdepres #takes medication for depression 
 
@@ -263,5 +261,6 @@ cross_waves$heartattack_new_2018 = RAND_HRS_longitudional_file$R14HEARTS
 
 write.csv(cross_waves, paste(SOURCE_ROOT, "cross_waves_march2022.csv", sep=""))
 
+head(cross_waves)
 
-
+ls(cross_waves)

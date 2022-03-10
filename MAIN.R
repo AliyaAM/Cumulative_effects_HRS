@@ -19,6 +19,16 @@ library(knitr)
 library(lme4)
 library(lattice)
 
+
+## Set the root directory to look for source code.
+#laptop: 
+#/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/
+#"/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
+
+SOURCE_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
+OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
+
+
 #other sources of stress, shall we include them as covariates: job strain etc, a lit of HRS stress items are here: https://g2aging.org/?section=concordance-search&sWords=stress&interval=1992%2C2016&page=1&per_page=50&af_src=1
 
 # other literature considers cumulatie effects as: cumulative stressors (global, weekly and major life events)
@@ -57,6 +67,16 @@ library(lattice)
 
 # add continious age variable to 2008 dataset 
 #HRS2008_data$HRS2008
+
+
+HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_march2022.csv", sep=""))
+HRS_2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_march2022.csv", sep=""))
+HRS_2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_march2022.csv", sep=""))
+HRS_2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_march2022.csv", sep=""))
+HRS_2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_march2022.csv", sep=""))
+HRS_2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_march2022.csv", sep=""))
+
+
 head(HRS2008_data)
 
 # drop variables that we are not using in 2010 dataset 
@@ -64,6 +84,7 @@ head(HRS2008_data)
 
 #exclude partners that are younger than 50 years old: 
 #there is no current age var in HRS 2008, in the codebook it says LA019 is current age but there is no such variable  therefore we could not subset HRS2008 to those younger than 50 HRS2008_data = subset(HRS2008_data, HRS2008_data$continious_age >=50)
+HRS2008_data = subset(HRS2008_data, HRS2008_data$continious_age >=50)
 HRS2010_data = subset(HRS2010_data, HRS2010_data$continious_age >=50)
 HRS2012_data = subset(HRS2012_data, HRS2012_data$continious_age >=50)
 HRS2014_data = subset(HRS2014_data, HRS2014_data$continious_age >=50)
@@ -71,13 +92,6 @@ HRS2016_data = subset(HRS2016_data, HRS2016_data$continious_age >=50)
 HRS2018_data = subset(HRS2018_data, HRS2018_data$continious_age >=50)
 
 
-########### match by id each wave
-HRS2008_data$HHIDPN = HRS2008_data$PN
-HRS2010_data$HHIDPN = HRS2010_data$HHIDPN
-HRS2012_data$HHIDPN = HRS2012_data$HHIDPN_HRS2012
-HRS2014_data$HHIDPN = HRS2014_data$HHIDPN_HRS2014
-HRS2016_data$HHIDPN = HRS2016_data$HHIDPN_HRS2016
-HRS2018_data$HHIDPN = HRS2018_data$HHIDPN_HRS2018
 
 #create a dummy variable for the follow-up period 
 

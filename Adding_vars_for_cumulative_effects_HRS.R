@@ -23,9 +23,10 @@ library(lattice)
 
 
 ## Set the root directory to look for source code.
-
+#laptop: 
 #/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/
 #"/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
+
 SOURCE_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 
@@ -34,73 +35,69 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 #OUTPUT_ROOT = "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/"
 
 
-#other sources of stress, shall we include them as covariates: job strain etc, a lit of HRS stress items are here: https://g2aging.org/?section=concordance-search&sWords=stress&interval=1992%2C2016&page=1&per_page=50&af_src=1
-print("stress self-reported measures: https://g2aging.org/?section=module&moduleid=2657") 
-# other literature considers cumulatie effects as: cumulative stressors (global, weekly and major life events)
-#https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-08573-0 
-
-#think how we are going to restrict to a particular type of discrimination, 
-#which wave shall we use? 
-#shall we state that every wave they listed disability (ie subset HRS2004_discrim_disability == 1 & HRS2008_discrim_disability ==1 etc every wave up to 2018) 
-
-#add 2004, 2006, 2008 
-
-#from RAND below we beed to find: #wealth # in harmonised rnad file 2008 year wealth var is: #H9ATOTW 
-
-#RAND_data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/randhrs1992_2018v1.csv")
-
-#data files with original variables 
-
-#HRS2008_data_RAND = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_ALLData_originalVARNames.csv", sep=""))
+HRS2008_data_RAND = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_ALLData_originalVARNames.csv", sep=""))
 HRS2010_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_rand_harmonisedFile.csv", sep=""))
 HRS2012_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_rand_harmonisedFile.csv", sep=""))
 HRS2014_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_rand_harmonisedFile.csv", sep=""))
 HRS2016_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_rand_harmonisedFile.csv", sep=""))
 HRS2018_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_rand_harmonisedFile.csv", sep=""))
 
-#coxph
+
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv
-#HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_new.csv",  sep=""))
+HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_new.csv",  sep=""))
 HRS2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_new.csv",  sep=""))
 HRS2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_new.csv",  sep=""))
 HRS2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_new.csv",  sep=""))
 HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_new.csv",  sep=""))
 HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_new.csv",  sep=""))
 
-#HRS2008_data$HHIDPN =  HRS2008_data_old$X
-#HRS2008_data_old = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset.csv",  sep=""))
 
 ########### match by id each wave
+
+#HRS2008_data <- HRS2008_data %>% rowwise() %>%
+#  mutate(HHIDPN = list(c(c_across(X.17:PN))))
+
+#HRS2008_data <- HRS2008_data %>% rowwise() %>%
+#  unite(HHIDPN, c("X.17", "PN"))
+
+HRS2008_data$HHIDPN_HRS2008 = as.numeric(paste(HRS2008_data$X, 0, HRS2008_data$PN, sep = ""))
+HRS2008_data$HHIDPN = HRS2008_data$HHIDPN_HRS2008
+
 HRS2010_data$HHIDPN = HRS2010_data$HHIDPN
 HRS2012_data$HHIDPN = HRS2012_data$HHIDPN_HRS2012
 HRS2014_data$HHIDPN = HRS2014_data$HHIDPN_HRS2014
 HRS2016_data$HHIDPN = HRS2016_data$HHIDPN_HRS2016
 HRS2018_data$HHIDPN = HRS2018_data$HHIDPN_HRS2018
 
+head(HRS2008_data$PN)
+head(HRS2008_data$X)
+head(HRS2008_data$HHIDPN)
+head(HRS2010_data$HHIDPN)
+head(HRS2012_data$HHIDPN)
+head(HRS2014_data$HHIDPN)
+
+
 
 #ead HRS all waves harmonised data:
-#Harmonised_data_all_waves_HRS/
 harmonised_data_all_waves = read.csv(paste(SOURCE_ROOT, "H_HRS_c.csv", sep=""))
-wealth_cross_waves = read.csv(paste(SOURCE_ROOT, "wealth_cross_waves_march2022.csv", sep=""))
+cross_waves = read.csv(paste(SOURCE_ROOT, "cross_waves_march2022.csv", sep=""))
 
 #### subset harmonised data to the IDs in other files: 
 
-#harmonised_data_all_waves_2008 = subset(harmonised_data_all_waves, hhidpn %in% HRS2008_data$HHIDPN)
+harmonised_data_all_waves_2008 = subset(harmonised_data_all_waves, hhidpn %in% HRS2008_data$HHIDPN)
 harmonised_data_all_waves_2010 = subset(harmonised_data_all_waves, hhidpn %in% HRS2010_data$HHIDPN)
 harmonised_data_all_waves_2012 = subset(harmonised_data_all_waves, hhidpn %in% HRS2012_data$HHIDPN)
 harmonised_data_all_waves_2014 = subset(harmonised_data_all_waves, hhidpn %in% HRS2014_data$HHIDPN)
 harmonised_data_all_waves_2016 = subset(harmonised_data_all_waves, hhidpn %in% HRS2016_data$HHIDPN)
 harmonised_data_all_waves_2018 = subset(harmonised_data_all_waves, hhidpn %in% HRS2018_data$HHIDPN)
 
+cross_waves_2008 = subset(cross_waves, HHIDPN %in% HRS2008_data$HHIDPN)
+cross_waves_2010 = subset(cross_waves, HHIDPN %in% HRS2010_data$HHIDPN)
+cross_waves_2012 = subset(cross_waves, HHIDPN %in% HRS2012_data$HHIDPN)
+cross_waves_2014 = subset(cross_waves, HHIDPN %in% HRS2014_data$HHIDPN)
+cross_waves_2016 = subset(cross_waves, HHIDPN %in% HRS2016_data$HHIDPN)
+cross_waves_2018 = subset(cross_waves, HHIDPN %in% HRS2018_data$HHIDPN)
 
-#wealth_cross_waves_2008 = subset()
-
-
-
-######
-######
-######################
-######################
 
 #2008: harmonised data: R9LIMIMPAR
 #Harmonised data: hlth problems limit work r13hlthlm, r10hlthlm, r11hlthlm, r12hlthlm, r13hlthlm, r14hlthlm
@@ -108,9 +105,6 @@ harmonised_data_all_waves_2018 = subset(harmonised_data_all_waves, hhidpn %in% H
 #difficulty working several blogs: s11walks
 
 ### Add data
-
-#HRS2010_data$HRS2010_heartattack2yrs_bin
-
 
 #ever heart attack HRS2012: NC257, 1 = Yes, 5 = No, unique(HRS2012_data_RAND$NC257)
 HRS2012_data$HRS2012_heartattack_ever = HRS2012_data_RAND$NC257
@@ -158,7 +152,7 @@ HRS2018_data$heartattack2yrs_bin = HRS2018_data$HRS2018_heartattack2yrs_bin
 
 
 ##### ##### angina, 
-#HRS2008_data$angina2yrs_bin = HRS2008_data$HRS2008_angina2yrs_bin
+HRS2008_data$angina2yrs_bin = HRS2008_data$HRS2008_angina2yrs_bin
 HRS2010_data$angina2yrs_bin = HRS2010_data$HRS2010_angina2yrs_bin
 
 
@@ -204,7 +198,7 @@ HRS2018_data$angina_ever = HRS2018_data$HRS2018_angina_ever
 #are you limitting usual activities because of angina: PH204
 
 ##### ##### hypertension, 
-#HRS2008_data$hypertension_new = HRS2008_data$HRS2008_hypertension_new 
+HRS2008_data$hypertension_new = HRS2008_data$HRS2008_hypertension_new 
 HRS2010_data$hypertension_new = HRS2010_data$HRS2010_hypertension_new
 
 #HRS2012: confirmed medical diagnosis: high blood preasure NC005
@@ -228,7 +222,7 @@ HRS2018_data$HRS2018_hypertension_ever = HRS2018_data_RAND$C005
 HRS2018_data$hypertension_ever = HRS2018_data$HRS2018_hypertension_ever 
 
 ##### ##### diabetes new 
-#HRS2008_data$diabetes_new = HRS2008_data$HRS2008_diabetes_new
+HRS2008_data$diabetes_new = HRS2008_data$HRS2008_diabetes_new
 HRS2010_data$diabetes_new = HRS2010_data$HRS2010_diabetes_new
 
 
@@ -326,7 +320,7 @@ HRS2016_data$diabetes_limitsActivities = HRS2016_data$HRS2016_diabetes_limitsAct
 
 
 ##### ##### stroke, 
-#HRS2008_data$stroke_new = HRS2008_data$HRS2008_stroke_new
+HRS2008_data$stroke_new = HRS2008_data$HRS2008_stroke_new
 HRS2010_data$stroke_new = HRS2010_data$HRS2010_stroke_new
 
 #dd below
@@ -366,7 +360,7 @@ HRS2018_data$stroke_new = HRS2018_data$HRS2018_stroke_new
 
 ##### ##### heart failure,
 
-#HRS2008_data$heartfailure2yrs_bin = HRS2008_data$HRS2008_heartfailure2yrs_bin 
+HRS2008_data$heartfailure2yrs_bin = HRS2008_data$HRS2008_heartfailure2yrs_bin 
 HRS2010_data$heartfailure2yrs_bin = HRS2010_data$HRS2010_heartfailure2yrs_bin
 
 
@@ -406,7 +400,7 @@ HRS2018_data$heartfailure2yrs_bin = HRS2018_data$HRS2018_heartfailure2yrs_bin
 
 
 ###### other heart conditions 
-#HRS2008_data$heartcondition_new = HRS2008_data$HRS2008_heartcondition_new
+HRS2008_data$heartcondition_new = HRS2008_data$HRS2008_heartcondition_new
 
 HRS2010_data$heartcondition_new = HRS2010_data$HRS2010_heartcondition_new
 
@@ -421,7 +415,7 @@ HRS2010_data$heartcondition_new = HRS2010_data$HRS2010_heartcondition_new
 #HRS2018_data$HRS2018_heartcondition_new
 #HRS 2018 heart condiiton ever: C036
 
-#HRS2008_data$heartcondition_bin = HRS2008_data$HRS2008_heartcondition_bin
+HRS2008_data$heartcondition_bin = HRS2008_data$HRS2008_heartcondition_bin
 HRS2010_data$heartcondition_new = HRS2010_data$HRS2010_heartcondition_new
 
 #add below 
@@ -433,7 +427,7 @@ HRS2010_data$heartcondition_new = HRS2010_data$HRS2010_heartcondition_new
 #HRS2018_data$HRS2018_heartcondition_new
 
 #HRS2008_data$HRS2008_heartcondition_ever
-#HRS2008_data$heartcondition_ever = HRS2008_data$HRS2008_heartcondition_ever
+HRS2008_data$heartcondition_ever = HRS2008_data$HRS2008_heartcondition_ever
 
 HRS2010_data$HRS2010_heartcondition_ever
 
@@ -485,21 +479,30 @@ HRS2010_data$heartcondition_ever = HRS2010_data$HRS2010_heartcondition_ever
 
 
 ##### ##### depression 
+HRS2008_data$HRS2008_checklist_depression_bin = cross_waves_2008$depression_bin_2008
+HRS2008_data$checklist_depression_bin = HRS2008_data$HRS2008_checklist_depression_bin
 
-#HRS2008_data$HRS2008_checklist_depression_bin
 
-#HRS2008_data$checklist_depression_bin = HRS2008_data$HRS2008_checklist_depression_bin 
-#2010: r10depres
-harmonised_data_all_waves_2010$r10rxdepres #takes medication for depression 
-harmonised_data_all_waves_2010$R10
+HRS2010_data$HRS2010_checklist_depression_bin = cross_waves_2010$depression_bin_2010
+HRS2010_data$checklist_depression_bin = HRS2010_data$HRS2010_checklist_depression_bin
 
-HRS2010_data$depression_bin_2010 = harmonised_data_all_waves_2010$r10depres
-HRS2010_data$depression_bin = HRS2010_data$depression_bin_2010
 
-#HRS2012_data$HRS2012_
-#HRS2014_data$HRS2014_
-#HRS2016_data$HRS2016_
-#HRS2018_data$HRS2018_
+HRS2012_data$HRS2012_checklist_depression_bin = cross_waves_2012$depression_bin_2012
+HRS2012_data$checklist_depression_bin = HRS2012_data$HRS2012_checklist_depression_bin
+
+
+HRS2014_data$HRS2014_checklist_depression_bin = cross_waves_2014$depression_bin_2014
+HRS2014_data$checklist_depression_bin = HRS2014_data$HRS2014_checklist_depression_bin
+
+
+HRS2016_data$HRS2016_checklist_depression_bin = cross_waves_2016$depression_bin_2016
+HRS2016_data$checklist_depression_bin = HRS2016_data$HRS2014_checklist_depression_bin
+
+
+HRS2018_data$HRS2018_checklist_depression_bin = cross_waves_2018$depression_bin_2018
+HRS2018_data$checklist_depression_bin = HRS2018_data$HRS2018_checklist_depression_bin
+
+
 
 ##### and psychiatric disorders.
 #HRS2008_data$HRS2008_emo_psychiat_prob_new
@@ -566,9 +569,9 @@ HRS2010_data$depression_bin = HRS2010_data$depression_bin_2010
 
 ##### sex, in oroginal files it is coded as 1 = male and 2 = female 
 
-#HRS2008_data_RAND$GENDER
+HRS2008_data_RAND$GENDER
 
-#HRS2010_data_RAND$GENDER
+HRS2010_data_RAND$GENDER
 
 HRS2012_data$HRS2012_sex_1_2 = HRS2012_data_RAND$GENDER
 HRS2012_data$sex_1_2 = HRS2012_data$HRS2012_sex_1_2 
@@ -584,12 +587,12 @@ HRS2018_data$sex_1_2 = HRS2018_data$HRS2018_sex_1_2
 
 #2008: LM007 : 1. Yes, 5. No, 8. Don't know; not ascertained, 9. Refused, Blank. Inapplicable; partial interview
 
-#HRS2008_data$HRS2008_limiting_condition = HRS2008_data_RAND$LM007
-#HRS2008_data$HRS2008_limiting_condition_bin = case_when(HRS2008_data_RAND$LM007 == " 1" ~ 1, 
-#                                                HRS2008_data_RAND$LM007 == " 5" ~ 0)
+HRS2008_data$HRS2008_limiting_condition = HRS2008_data_RAND$LM007
+HRS2008_data$HRS2008_limiting_condition_bin = case_when(HRS2008_data_RAND$LM007 == " 1" ~ 1, 
+                                               HRS2008_data_RAND$LM007 == " 5" ~ 0)
 
-#HRS2008_data$limiting_condition_bin = HRS2008_data$HRS2008_limiting_condition_binHRS2008_data$HRS2008_limiting_condition_bin 
-#HRS2008_data$limiting_condition = HRS2008_data$HRS2008_limiting_condition 
+HRS2008_data$limiting_condition_bin = HRS2008_data$HRS2008_limiting_condition_binHRS2008_data$HRS2008_limiting_condition_bin 
+HRS2008_data$limiting_condition = HRS2008_data$HRS2008_limiting_condition 
 
 
 
@@ -699,8 +702,8 @@ HRS2018_data$HRS2018_limiting_condition_bin = case_when(harmonised_data_all_wave
 #BMI: 2008, wave 9: 
 
 #BMI categories: 
-#HRS2008_data$HRS2008_BMI_cat = harmonised_data_all_waves$r9bmicat
-#HRS2008_data$HRS2008_BMI = harmonised_data_all_waves$r9mbmi
+HRS2008_data$HRS2008_BMI_cat = harmonised_data_all_waves_2008$r9bmicat
+HRS2008_data$HRS2008_BMI = harmonised_data_all_waves$r9mbmi
 
 
 #BMI: 2010, wave 10: 
@@ -728,44 +731,34 @@ HRS2018_data$HRS2018_BMI_cat = harmonised_data_all_waves_2018$r14bmicat
 HRS2018_data$HRS2018_BMI = harmonised_data_all_waves_2018$r14mbmi
 
 
-
-#wealth add for: HRS2008_data, HRS 2012, HRS 2014, 2016, 2018 
-#HRS2008_data$wealth_noIRA = harmonised_data_all_waves_2018$H9ATOTW
-#H9ATOTB
-#HRS2008_data$wealth_noIRA = harmonised_data_all_waves_2008$H9ATOTB
-#HRS2008_data$wealth_noIRA = harmonised_data_all_waves_2008$h9atotb
-
-harmonised_data_all_waves_2008$r9atotw 
+#wealth vars are not avaliable from harmonised files so they were obtained from rand hrs file:
+#2008
+HRS2008_data$wealth_noIRA_HRS2008 = cross_waves_2008$wealth_noIRA_HRS2008
+HRS2008_data$wealth_noIRA = HRS2008_data$wealth_noIRA_HRS2008
 
 
-HRS2010_data$H10ATOTW
-
+#2010
+HRS2010_data$wealth_noIRA_HRS2010 = cross_waves_2010$wealth_noIRA_HRS2010
 HRS2010_data$wealth_noIRA = HRS2010_data$wealth_noIRA_HRS2010
-#2012: H11ATOTW
-nrow(harmonised_data_all_waves_2012)
 
-
-
-#typeof(harmonised_data_all_waves_2012$h11atotw)
-HRS2012_data$wealth_noIRA_HRS2012 = harmonised_data_all_waves_2012$H11ATOTW
+#2012
+HRS2012_data$wealth_noIRA_HRS2012 = cross_waves_2012$wealth_noIRA_HRS2012
 HRS2012_data$wealth_noIRA = HRS2012_data$wealth_noIRA_HRS2012
 
-harmonised_data_all_waves$s10scwtresp
-
-head(harmonised_data_all_waves)
-
-
-
-#2014: H12ATOTW
-HRS2014_data$wealth_noIRA_HRS2014 = harmonised_data_all_waves_2014$h12atotw
+#2014: 
+HRS2014_data$wealth_noIRA_HRS2014 = cross_waves_2014$wealth_noIRA_HRS2014
 HRS2014_data$wealth_noIRA = HRS2014_data$wealth_noIRA_HRS2014 
 
-#2016: H13ATOTW
-HRS2016_data$wealth_noIRA_HRS2016 = HRS2016_data_RAND$h13atotw
-HRS2016_data$wealth_noIRA = HRS2016_data$wealth_noIRA_HRS2016 
-#2018: H14ATOTW
-HRS2018_data$wealth_noIRA_HRS2018 = HRS2018_data_RAND$h14atotw
-HRS2018_data$wealth_noIRA = HRS2018_data$wealth_noIRA_HRS2018 
+#2016
+HRS2016_data$wealth_noIRA_HRS2016 = cross_waves_2016$wealth_noIRA_HRS2016
+HRS2016_data$wealth_noIRA = HRS2016_data$wealth_noIRA_HRS2016
+
+#2018
+HRS2018_data$wealth_noIRA_HRS2018 = cross_waves_2018$wealth_noIRA_HRS2018
+HRS2018_data$wealth_noIRA = HRS2018_data$wealth_noIRA_HRS2018
+
+
+
 
 #change in wealth: 
 #2008: H9ATOTWC
@@ -818,22 +811,22 @@ HRS2018_data$wealth_noIRA = HRS2018_data$wealth_noIRA_HRS2018
 
 #bind rows with bind_rows in dplyr 
 
+HRS2008_data$continious_age =  HRS2008_data$continious_age2008
 HRS2012_data$continious_age =  HRS2012_data$continious_age2012
 HRS2014_data$continious_age = HRS2014_data$continious_age2014
 HRS2016_data$continious_age = HRS2016_data$continious_age2016
 HRS2018_data$continious_age = HRS2018_data$continious_age2018
 
 #######
+data <- merge(dataset1, dataset2, by="id")
 
 
 # add continious age variable to 2008 dataset 
 #HRS2008_data$HRS2008
 # drop variables that we are not using in 2010 dataset 
-ls(HRS2012_data)
 
 
-
-#write.csv(HRS2008_data, paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_march2022.csv", sep=""))
+write.csv(HRS2008_data, paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_march2022.csv", sep=""))
 write.csv(HRS2010_data, paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_march2022.csv", sep=""))
 write.csv(HRS2012_data, paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_march2022.csv", sep=""))
 write.csv(HRS2014_data, paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_march2022.csv", sep=""))
