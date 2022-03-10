@@ -47,7 +47,6 @@ participant_wave = subset(WCE_dataset_lim_cond, WCE_dataset_lim_cond$HHIDPN == i
 
 if (nrow(participant_wave)== 1){
   
-  print(id)
   participant_wave$start_new = c(0)
   participant_wave$stop_new = c(1)
   
@@ -57,6 +56,7 @@ if (nrow(participant_wave)== 1){
 
 if (nrow(participant_wave) ==2){
  
+
   participant_wave$start_new = c(0, 1)
   participant_wave$stop_new = c(1, 2)
   participant_wave_df = rbind(participant_wave_df, participant_wave) 
@@ -64,10 +64,11 @@ if (nrow(participant_wave) ==2){
    }
  
 if (nrow(participant_wave)==3){
+
   
   participant_wave$start_new = c(0, 1, 2)
-  participant_wave$stop_new = c(1, 2, 3)
-  participant_wave_df = rbind(participant_wave_df, participant_wave) 
+ participant_wave$stop_new = c(1, 2, 3)
+ participant_wave_df = rbind(participant_wave_df, participant_wave) 
   
   } 
 
