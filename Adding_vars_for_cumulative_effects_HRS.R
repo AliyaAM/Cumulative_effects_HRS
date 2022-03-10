@@ -43,16 +43,25 @@ HRS2016_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_rand_har
 HRS2018_data_RAND  = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_rand_harmonisedFile.csv", sep=""))
 
 
+
+
+       
+       
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2008_data/HRS2008_discrimination_dataset.csv
 HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_new.csv",  sep=""))
 HRS2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_new.csv",  sep=""))
+
+match("S1HHIDPN",names(HRS2010_data))
+
+# drop variables that we are not using in 2010 dataset, those are appended after S1HHIDPN which is 117 column
+HRS2010_data = HRS2010_data[-c(116:14390)]
 HRS2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_new.csv",  sep=""))
 HRS2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_new.csv",  sep=""))
 HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_new.csv",  sep=""))
 HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_new.csv",  sep=""))
 
 
-########### match by id each wave
+###########  id in each wave
 
 #HRS2008_data <- HRS2008_data %>% rowwise() %>%
 #  mutate(HHIDPN = list(c(c_across(X.17:PN))))
@@ -578,8 +587,10 @@ HRS2012_data$sex_1_2 = HRS2012_data$HRS2012_sex_1_2
 
 HRS2014_data$HRS2014_sex_1_2 = HRS2014_data_RAND$GENDER
 HRS2014_data$sex_1_2 = HRS2014_data$HRS2014_sex_1_2
+
 HRS2016_data$HRS2016_sex_1_2 = HRS2016_data_RAND$GENDER
 HRS2016_data$sex_1_2  = HRS2016_data$HRS2016_sex_1_2 
+
 HRS2018_data$HRS2018_sex_1_2 = HRS2018_data_RAND$GENDER
 HRS2018_data$sex_1_2 = HRS2018_data$HRS2018_sex_1_2
 
@@ -614,14 +625,14 @@ HRS2014_data$limiting_condition_bin = HRS2014_data$HRS2014_limiting_condition_bi
 HRS2016_data$HRS2016_limiting_condition_bin = case_when(harmonised_data_all_waves_2016$r13limimpar == 1 ~ 1, 
                                                         harmonised_data_all_waves_2016$r13limimpar == 5 ~ 0)
 
-
+HRS2016_data$limiting_condition_bin = HRS2016_data$HRS2016_limiting_condition_bin
 
 #2018:  harmonised data:R14LIMIMPAR, r14limimpar
 #bellow is an empty vector, despite the website suggesting that this variable is the correct one. 
 HRS2018_data$HRS2018_limiting_condition_bin = case_when(harmonised_data_all_waves_2018$r14limimpar == 1 ~ 1, 
                                                         harmonised_data_all_waves_2018$r14limimpar == 5 ~ 0)
 
-
+HRS2018_data$limiting_condition_bin = HRS2018_data$HRS2018_limiting_condition_bin
 
 #weight
 #MC139      WEIGHT IN POUNDS
@@ -703,7 +714,7 @@ HRS2018_data$HRS2018_limiting_condition_bin = case_when(harmonised_data_all_wave
 
 #BMI categories: 
 HRS2008_data$HRS2008_BMI_cat = harmonised_data_all_waves_2008$r9bmicat
-HRS2008_data$HRS2008_BMI = harmonised_data_all_waves$r9mbmi
+HRS2008_data$HRS2008_BMI = harmonised_data_all_waves_2008$r9mbmi
 
 
 #BMI: 2010, wave 10: 
@@ -834,7 +845,4 @@ write.csv(HRS2016_data, paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination
 write.csv(HRS2018_data, paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_march2022.csv", sep=""))
 
 
-print("use non-capital letters for vars for harmonised data")
-print("organise by PN, ID, (match)") 
-print("add covariates: BMI from harmonised data") 
 print("add HRs_year to all var names, and also save the name without the HRS_year in the var name for the cumulative effects data analysis")
