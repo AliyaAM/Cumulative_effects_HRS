@@ -54,11 +54,25 @@ participant_wave_df = na.omit(participant_wave_df)
  ID <- unique(participant_wave_df$HHIDPN) 
  
  for (i in 1:bootstraps_samples){ 
-   ID.resamp <- sort(sample(ID, replace=FALSE))
-   datab <- participant_wave_df[participant_wave_df$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+   ID.resamp <- sort(sample(ID, replace=TRUE))
+   datab <- participant_wave_df[participant_wave_df$HHIDPN %in% ID.resamp,]  # select obs. but duplicated HHIDPN are ignored
   
-
    
+   # deal with duplicated HHIDPN and assign them new HHIDPN 
+   step <- 1 
+   repeat {
+     # select duplicated HHIDPN in ID.resamp 
+     ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
+     if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
+     # select obs. but remaining duplicated HHIDPN are ignored 
+     subset.dup <- drugdata[drugdata$HHIDPN %in% ID.resamp,] 
+     # assign new HHIDPN to duplicates 
+     subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(drugdata$HHIDPN))) 
+     # 10^ceiling(log10(max(drugdata$HHIDPN)) is the power of 10 
+     #above the maximum HHIDPN from original data
+     datab <- rbind(datab, subset.dup) 
+     step <- step+1 
+   }
 
    mod <- WCE(data = datab, 
               analysis = "Cox", nknots = 1:3, cutoff = Num_time_points,
@@ -67,7 +81,7 @@ participant_wave_df = na.omit(participant_wave_df)
               event = "diabetes_new_bin", 
               start = "start_new", 
               stop = "stop_new", 
-              expos = "discrim_afraidothers", 
+              expos = "discrim_notclever", 
               covariates = c("continious_age"))
    
    
