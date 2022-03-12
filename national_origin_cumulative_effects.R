@@ -487,6 +487,7 @@ participant_wave_df$discrim_afraidothers = as.numeric(participant_wave_df$discri
 participant_wave_df$assessed_BMI = as.numeric(participant_wave_df$assessed_BMI)
 participant_wave_df$continious_age = as.numeric(participant_wave_df$continious_age)
 
+
 ##participant_wave_df = participant_wave_df %>% drop_na()
 participant_wave_df <- na.omit(participant_wave_df)
 
@@ -501,8 +502,10 @@ head(participant_wave_df)
 nrow(participant_wave_df)
 
 length(unique(participant_wave_df$HHIDPN))
-
 unique(participant_wave_df$discrim_lessrespect)
+
+table(by(participant_wave_df$start_new,  participant_wave_df$HHIDPN, min)) 
+
 
 wce_age =  WCE(data = participant_wave_df,
                analysis = "Cox", 

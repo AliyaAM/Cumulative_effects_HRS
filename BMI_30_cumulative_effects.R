@@ -394,9 +394,9 @@ WCE_dataset_BMI$diabetes_new_bin = case_when(WCE_dataset_BMI$diabetes_new ==0 ~ 
 
 WCE_dataset_BMI = subset(WCE_dataset_BMI, HHIDPN != "3020")
 
-WCE_dataset_BMI = subset(WCE_dataset_BMI, discrim_medical != " NA")
+WCE_dataset_BMI = subset(WCE_dataset_BMI, discrim_afraidothers != " NA")
 
-unique(WCE_dataset_BMI$discrim_medical)
+unique(WCE_dataset_BMI$discrim_afraidothers)
 
 write.csv(WCE_dataset_BMI, paste(SOURCE_ROOT, "WCE_dataset_BMI.csv", sep=""))
 
@@ -482,7 +482,7 @@ participant_wave_df$discrim_afraidothers
 participant_wave_df$diabetes_new_bin = as.numeric(participant_wave_df$diabetes_new_bin)
 participant_wave_df$start_new = as.numeric(participant_wave_df$start_new)
 participant_wave_df$stop_new = as.numeric(participant_wave_df$stop_new)
-participant_wave_df$discrim_lessrespect = as.numeric(participant_wave_df$discrim_lessrespect)
+participant_wave_df$discrim_afraidothers = as.numeric(participant_wave_df$discrim_afraidothers)
 participant_wave_df$assessed_BMI = as.numeric(participant_wave_df$assessed_BMI)
 participant_wave_df$continious_age = as.numeric(participant_wave_df$continious_age)
 
@@ -494,7 +494,7 @@ checkWCE(participant_wave_df,
          event = "diabetes_new_bin",
          start = "start_new",
          stop = "stop_new", 
-         expos = "discrim_medical") 
+         expos = "discrim_afraidothers") 
 
 head(participant_wave_df)
 
@@ -502,7 +502,7 @@ nrow(participant_wave_df)
 
 length(unique(participant_wave_df$HHIDPN))
 
-unique(participant_wave_df$discrim_harassed)
+unique(participant_wave_df$discrim_afraidothers)
 
 wce_age =  WCE(data = participant_wave_df,
                analysis = "Cox",
@@ -515,7 +515,7 @@ wce_age =  WCE(data = participant_wave_df,
                event = "diabetes_new_bin", 
                start = "start_new", 
                stop = "stop_new", 
-               expos = "discrim_medical",
+               expos = "discrim_afraidothers",
                covariates = c("continious_age"))
 
 wce_age
@@ -532,7 +532,7 @@ wce_age_BMI <- WCE(data = participant_wave_df,
                    event = "diabetes_new_bin", 
                    start = "start_new", 
                    stop = "stop_new",
-                   expos = "discrim_medical", 
+                   expos = "discrim_afraidothers", 
                    covariates = c("assessed_BMI", "continious_age")) 
 wce_age_BMI
 summary(wce_age_BMI)
@@ -548,7 +548,7 @@ wce_BMI_age_wealth <- WCE(participant_wave_df,
                           event = "diabetes_new_bin", 
                           start = "start_new", 
                           stop = "stop_new", 
-                          expos = "discrim_medical", 
+                          expos = "discrim_afraidothers", 
                           covariates = c("assessed_BMI", "continious_age", "wealth_noIRA")) 
 wce_BMI_age_wealth
 summary(wce_BMI_age_wealth)

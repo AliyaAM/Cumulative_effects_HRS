@@ -420,6 +420,9 @@ for (id in ID){
   
   if (nrow(participant_wave)== 1){
     
+    participant_wave$timepoints_indiv = 1
+    
+    
     participant_wave$start_new = c(0)
     participant_wave$stop_new = c(1)
     
@@ -429,6 +432,7 @@ for (id in ID){
   
   if (nrow(participant_wave) ==2){
     
+    participant_wave$timepoints_indiv = 2
     
     participant_wave$start_new = c(0, 1)
     participant_wave$stop_new = c(1, 2)
@@ -438,6 +442,7 @@ for (id in ID){
   
   if (nrow(participant_wave)==3){
     
+    participant_wave$timepoints_indiv = 3
     
     participant_wave$start_new = c(0, 1, 2)
     participant_wave$stop_new = c(1, 2, 3)
@@ -448,6 +453,8 @@ for (id in ID){
   
   if (nrow(participant_wave)==4){
     
+    participant_wave$timepoints_indiv = 4
+    
     participant_wave$start_new = c(0, 1, 2, 3)
     participant_wave$stop_new = c(1, 2, 3, 4)
     participant_wave_df = rbind(participant_wave_df, participant_wave) 
@@ -455,6 +462,8 @@ for (id in ID){
   } 
   
   if (nrow(participant_wave)==5){
+    
+    participant_wave$timepoints_indiv = 5
     
     participant_wave$start_new = c(0, 1, 2, 3, 4)
     participant_wave$stop_new = c(1, 2, 3, 4, 5)
@@ -464,6 +473,7 @@ for (id in ID){
   
   if (nrow(participant_wave)==6){
     
+    participant_wave$timepoints_indiv = 6
     participant_wave$start_new = c(0, 1, 2, 3, 4, 5)
     participant_wave$stop_new = c(1, 2, 3, 4, 5, 6)
     participant_wave_df = rbind(participant_wave_df, participant_wave) 
@@ -487,10 +497,13 @@ participant_wave_df$discrim_afraidothers = as.numeric(participant_wave_df$discri
 participant_wave_df$assessed_BMI = as.numeric(participant_wave_df$assessed_BMI)
 participant_wave_df$continious_age = as.numeric(participant_wave_df$continious_age)
 
+table(by(participant_wave_df$start_new,  participant_wave_df$HHIDPN, min)) 
 
+table(participant_wave_df$start_new)
+ 
 
 ##participant_wave_df = participant_wave_df %>% drop_na()
-participant_wave_df <- na.omit(participant_wave_df)
+#participant_wave_df <- na.omit(participant_wave_df)
 
 checkWCE(participant_wave_df,
          id = "HHIDPN", 
@@ -499,17 +512,40 @@ checkWCE(participant_wave_df,
          stop = "stop_new",
          expos = "discrim_afraidothers") 
 
+# check that the minumum start of time point 0 and min for stop is 1
+table(by(participant_wave_df$start_new,  participant_wave_df$HHIDPN, min)) 
+table(by(participant_wave_df$start,  participant_wave_df$HHIDPN, min)) 
+table(by(participant_wave_df$stop,  participant_wave_df$HHIDPN, min)) 
+table(by(participant_wave_df$stop_new,  participant_wave_df$HHIDPN, min)) 
+
+#check how may people were in each wave 
+table(participant_wave_df$start_new)
+
+#check how many people took part in multiple waves 
+n_timepoints_list = unique(participant_wave_df$timepoints_indiv)
+participant_wave_df$n_timepoints_max = max(n_timepoints_list)
+
+#take the maximum number of time points value to be specified for the cut off point in WCE analysis below
+n_timepoints_max = max(participant_wave_df$n_timepoints_max)
+
 head(participant_wave_df)
-
 nrow(participant_wave_df)
-
 length(unique(participant_wave_df$HHIDPN))
+
+#check the unique values in the discrim variable, this are original form the HRS files. 
+####### coded as: 
+####### 1 Almost everyday
+####### 2 At least once a week
+####### 3 A few times a month
+####### 4 A few times a year
+####### 5 Less than once a year
+####### 6 Never
 
 unique(participant_wave_df$discrim_afraidothers)
 
 wce_age =  WCE(data = participant_wave_df,
                analysis = "Cox", 
-               nknots = 1:3, cutoff = 4, 
+               nknots = 1:3, cutoff = n_timepoints_max, 
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
                id = "HHIDPN", 
                event = "diabetes_new_bin", 
@@ -523,7 +559,7 @@ summary(wce_age)
 wce_age_BMI <- WCE(data = participant_wave_df, 
                    analysis = "Cox",
                    nknots = 1:3, 
-                   cutoff = 4, 
+                   cutoff = n_timepoints_max, 
                    constrained = "R", 
                    aic = FALSE, 
                    MatchedSet = NULL,
@@ -539,7 +575,7 @@ summary(wce_age_BMI)
 wce_BMI_age_wealth <- WCE(participant_wave_df, 
                           analysis = "Cox",
                           nknots = 1:3, 
-                          cutoff = 4, 
+                          cutoff = n_timepoints_max, 
                           constrained = "R",
                           aic = FALSE, 
                           MatchedSet = NULL, 
@@ -552,35 +588,43 @@ wce_BMI_age_wealth <- WCE(participant_wave_df,
 wce_BMI_age_wealth
 summary(wce_BMI_age_wealth)
 
-scenario1 <- rep(6, 4)
-scenario2 <- rep(0, 4) # for all models 
+# Example from the R library HR.WCE: 
+######## Exposed at a dose of 1 (constant) vs. unexposed over the time window of 90 days
+######## scenario1 <- rep(1, 90)
+######## scenario2 <- rep(0, 90)
+######## HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2)
+
+#producing hazard ratios of experiencing discrimination Almost everyday (=1) to never (=6) on the onset of diabetes type 2. 
+unique(participant_wave_df$discrim_afraidothers)
+
+scenario1 <- rep(1, n_timepoints_max)
+scenario2 <- rep(6, n_timepoints_max) # for all models 
 HR.WCE(wce_age, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
 
 
-scenario3 <- rep(5, 4)
-scenario2 <- rep(0, 4) # for all models 
+#producing hazard ratios of experiencing discrimination At least once a week (=2) to never (=6) on the onset of diabetes type 2. 
+scenario3 <- rep(2, n_timepoints_max)
+scenario2 <- rep(6, n_timepoints_max) # for all models 
 HR.WCE(wce_age, vecnum = scenario3, vecdenom = scenario2, allres = TRUE)
 
-
-scenario4 <- rep(4, 4)
-scenario2 <- rep(0, 4) # for all models 
+#producing hazard ratios of experiencing discrimination A few times a month (=3) to never (=6) on the onset of diabetes type 2. 
+scenario4 <- rep(3, n_timepoints_max)
+scenario2 <- rep(6, n_timepoints_max) # for all models 
 HR.WCE(wce_age, vecnum = scenario4, vecdenom = scenario2, allres = TRUE)
 
 
-scenario5 <- rep(3, 4)
-scenario2 <- rep(0, 4) # for all models 
+#producing hazard ratios of experiencing discrimination A few times a year (=4) to never (=6) on the onset of diabetes type 2. 
+scenario5 <- rep(4, n_timepoints_max)
+scenario2 <- rep(6, n_timepoints_max) # for all models 
 HR.WCE(wce_age, vecnum = scenario5, vecdenom = scenario2, allres = TRUE)
 
 
-
-scenario6 <- rep(2, 4)
-scenario2 <- rep(0, 4) # for all models 
+#producing hazard ratios of experiencing discrimination less than once a year  (=5) to never (=6) on the onset of diabetes type 2. 
+scenario6 <- rep(5, n_timepoints_max)
+scenario2 <- rep(6, n_timepoints_max) # for all models 
 HR.WCE(wce_age, vecnum = scenario6, vecdenom = scenario2, allres = TRUE)
 
 
-scenario7 <- rep(1, 4)
-scenario2 <- rep(0, 4) # for all models 
-HR.WCE(wce_age, vecnum = scenario7, vecdenom = scenario2, allres = TRUE)
 
 ID <- unique(participant_wave_df$HHIDPN)
 

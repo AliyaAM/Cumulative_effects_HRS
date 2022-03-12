@@ -67,7 +67,7 @@ participant_wave_df = na.omit(participant_wave_df)
               event = "diabetes_new_bin", 
               start = "start_new", 
               stop = "stop_new", 
-              expos = "discrim_lessrespect", 
+              expos = "discrim_afraidothers", 
               covariates = c("continious_age"))
    
    
