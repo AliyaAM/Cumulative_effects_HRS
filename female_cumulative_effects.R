@@ -569,8 +569,24 @@ wce_age_BMI <- WCE(data = participant_wave_df,
                    stop = "stop_new", 
                    expos = "discrim_afraidothers",
                    covariates = c("assessed_BMI", "continious_age")) 
-wce_age_BMI
-summary(wce_age_BMI)
+
+
+mat_t1_value = wce_age_BMI$WCEmat[1,1]
+mat_t2_value = wce_age_BMI$WCEmat[1,2]
+mat_t3_value = wce_age_BMI$WCEmat[1,3]
+
+loglik_value = wce_age_BMI$loglik[1]
+
+info_criterion_value = wce_age_BMI$info.criterion[1]
+
+est_value_all = wce_age_BMI$est
+est_value_D1 = est_value_all$`1 knot(s)`[1]
+est_value_D2 = est_value_all$`1 knot(s)`[2]
+est_value_D3 = est_value_all$`1 knot(s)`[3]
+est_value_D4 = est_value_all$`2 knot(s)`[4]
+est_value_D5 = est_value_all$`3 knot(s)`[5]
+
+summary = summary(wce_age_BMI)
 
 wce_BMI_age_wealth <- WCE(participant_wave_df, 
                           analysis = "Cox",
@@ -622,13 +638,15 @@ HR.WCE(wce_age, vecnum = scenario5, vecdenom = scenario2, allres = TRUE)
 #producing hazard ratios of experiencing discrimination less than once a year  (=5) to never (=6) on the onset of diabetes type 2. 
 scenario6 <- rep(5, n_timepoints_max)
 scenario2 <- rep(6, n_timepoints_max) # for all models 
-HR.WCE(wce_age, vecnum = scenario6, vecdenom = scenario2, allres = TRUE)
 
-
+HR_value_5vs6 = HR.WCE(wce_age, vecnum = scenario6, vecdenom = scenario2, allres = TRUE)
+hazard_ratio_5vs6 = HR_value[1]
 
 ID <- unique(participant_wave_df$HHIDPN)
 
 write.csv(participant_wave_df, paste(SOURCE_ROOT, "participant_wave_df_female.csv", sep=""))
 
 
-coef.WCE(wce_age)
+coef_WCE_model = coef.WCE(wce_age)
+
+coef_WCE_model$WCEest
