@@ -129,17 +129,14 @@ participant_wave_df$wealth_noIRA
 wce_age =  WCE(data = participant_wave_df, analysis = "Cox", nknots = 1:3, cutoff = 4, constrained = "R", aic = FALSE, MatchedSet = NULL, id = "HHIDPN", event = "diabetes_new_bin", start = "start_new", stop = "stop_new", expos = "discrim_harassed", covariates = c( "continious_age"))
 wce_age
 summary(wce_age)
-plot(wce_age)
 
 wce_age_BMI <- WCE(data = participant_wave_df, analysis = "Cox", nknots = 1:3, cutoff = 4, constrained = "R", aic = FALSE, MatchedSet = NULL, id = "HHIDPN", event = "diabetes_new_bin", start = "start_new", stop = "stop_new", expos = "discrim_harassed", covariates = c("assessed_BMI", "continious_age")) 
 wce_age_BMI
 summary(wce_age_BMI)
-plot(wce_age_BMI)
 
 wce_BMI_age_wealth <- WCE(participant_wave_df, analysis = "Cox", nknots = 1:3, cutoff = 4, constrained = "R", aic = FALSE, MatchedSet = NULL, id = "HHIDPN", event = "diabetes_new_bin", start = "start_new", stop = "stop_new", expos = "discrim_harassed", covariates = c("assessed_BMI", "continious_age", "wealth_noIRA")) 
 wce_BMI_age_wealth
 summary(wce_BMI_age_wealth)
-plot(wce_BMI_age_wealth)
 
 scenario1 <- rep(6, 4)
 scenario2 <- rep(0, 4) # for all models 
@@ -175,3 +172,9 @@ log (994705.1)
 ID <- unique(participant_wave_df$HHIDPN)
 
 coef.WCE(wce_age)
+
+
+write.csv(participant_wave_df)
+
+write.csv(participant_wave_df, paste(SOURCE_ROOT, "participant_wave_df_lim_cond.csv", sep=""))
+

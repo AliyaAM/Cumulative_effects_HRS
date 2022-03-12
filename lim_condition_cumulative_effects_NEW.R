@@ -1,4 +1,7 @@
 
+
+
+
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2010_data/HRS_ALLData_originalVARNames.csv
 
 library(WCE)
@@ -187,174 +190,174 @@ HRS2018_data = subset(HRS2018_data, HRS2018_data$continious_age >=50)
 
 
 
-
-HRS2008_data_female = subset(HRS2008_data, HRS2008_data$sex_1_2 == 2) 
-HRS2010_data_female = subset(HRS2010_data, HRS2010_data$sex_1_2 == 2)
-HRS2012_data_female = subset(HRS2012_data, HRS2012_data$sex_1_2 == 2)
-HRS2014_data_female = subset(HRS2014_data, HRS2014_data$sex_1_2 == 2)
-HRS2016_data_female = subset(HRS2016_data, HRS2016_data$sex_1_2 == 2)
-HRS2018_data_female = subset(HRS2018_data, HRS2018_data$sex_1_2 == 2)
-
-
-HRS2008_data_female = data_frame(HRS2008_data_female$HHIDPN,
-                                   HRS2008_data_female$diabetes_new,
-                                   HRS2008_data_female$diabetes_ever,
-                                   HRS2008_data_female$sex_1_2,
-                                   HRS2008_data_female$wealth_noIRA,
-                                   HRS2008_data_female$start,
-                                   HRS2008_data_female$stop,
-                                   HRS2008_data_female$reason_discrim1_reason_disability,
-                                   
-                                   HRS2008_data_female$discrim_harassed,
-                                   HRS2008_data_female$discrim_lessrespect,
-                                   HRS2008_data_female$discrim_medical,
-                                   HRS2008_data_female$discrim_notclever,
-                                   HRS2008_data_female$discrim_poorerservice,
-                                   HRS2008_data_female$discrim_afraidothers,
-                                   
-                                   HRS2008_data_female$continious_age,
-                                   HRS2008_data_female$assessed_BMI)
-
-nrow_2008 = nrow(HRS2008_data_female) 
-HRS2008_data_female$year_2008 = rep(2010, times = nrow_2008)
-
-HRS2008_data_female <- na.omit(HRS2008_data_female)
-
-
-HRS2010_data_female = data_frame(HRS2010_data_female$HHIDPN,
-                                   HRS2010_data_female$diabetes_new,
-                                   HRS2010_data_female$diabetes_ever,
-                                   HRS2010_data_female$sex_1_2,
-                                   HRS2010_data_female$wealth_noIRA,
-                                   HRS2010_data_female$start,
-                                   HRS2010_data_female$stop,
-                                   HRS2010_data_female$reason_discrim1_reason_disability,
-                                   
-                                   HRS2010_data_female$discrim_harassed,
-                                   HRS2010_data_female$discrim_lessrespect,
-                                   HRS2010_data_female$discrim_medical,
-                                   HRS2010_data_female$discrim_notclever,
-                                   HRS2010_data_female$discrim_poorerservice,
-                                   
-                                   HRS2010_data_female$discrim_afraidothers,
-                                   HRS2010_data_female$continious_age,
-                                   HRS2010_data_female$assessed_BMI)
-
-nrow_2010 = nrow(HRS2010_data_female) 
-HRS2010_data_female$year_2010 = rep(2010, times = nrow_2010)
-
-HRS2010_data_female <- na.omit(HRS2010_data_female)
-
-HRS2012_data_female = data_frame(HRS2012_data_female$HHIDPN,
-                                   HRS2012_data_female$diabetes_new,
-                                   HRS2012_data_female$diabetes_ever,
-                                   HRS2012_data_female$sex_1_2,
-                                   HRS2012_data_female$wealth_noIRA,
-                                   HRS2012_data_female$start,
-                                   HRS2012_data_female$stop,
-                                   HRS2012_data_female$reason_discrim1_reason_disability,
-                                   
-                                   HRS2012_data_female$discrim_harassed,
-                                   HRS2012_data_female$discrim_lessrespect,
-                                   HRS2012_data_female$discrim_medical,
-                                   HRS2012_data_female$discrim_notclever,
-                                   HRS2012_data_female$discrim_poorerservice,
-                                   HRS2012_data_female$discrim_afraidothers,
-                                   
-                                   HRS2012_data_female$continious_age,
-                                   HRS2012_data_female$assessed_BMI)
-
-
-nrow_2012 = nrow(HRS2012_data_female) 
-HRS2012_data_female$year_2012 = rep(2012, times = nrow_2012)
-
-HRS2012_data_female <- na.omit(HRS2012_data_female)
-
-
-HRS2014_data_female = data_frame(HRS2014_data_female$HHIDPN,
-                                   HRS2014_data_female$diabetes_new,
-                                   HRS2014_data_female$diabetes_ever,
-                                   HRS2014_data_female$sex_1_2,
-                                   HRS2014_data_female$wealth_noIRA,
-                                   HRS2014_data_female$start,
-                                   HRS2014_data_female$stop,
-                                   HRS2014_data_female$reason_discrim1_reason_disability,
-                                   
-                                   HRS2014_data_female$discrim_harassed,
-                                   HRS2014_data_female$discrim_lessrespect,
-                                   HRS2014_data_female$discrim_medical,
-                                   HRS2014_data_female$discrim_notclever,
-                                   HRS2014_data_female$discrim_poorerservice,
-                                   HRS2014_data_female$discrim_afraidothers,
-                                   
-                                   HRS2014_data_female$continious_age,
-                                   HRS2014_data_female$assessed_BMI)
-
-
-nrow_2014 = nrow(HRS2014_data_female) 
-HRS2014_data_female$year_2014 = rep(2014, times = nrow_2014)
-
-HRS2014_data_female <- na.omit(HRS2014_data_female)
-
-HRS2016_data_female$HHIDPN_HRS2016 = HRS2016_data_female$HHIDPN
-
-
-HRS2016_data_female = data_frame(HRS2016_data_female$HHIDPN,
-                                   HRS2016_data_female$diabetes_new,
-                                   HRS2016_data_female$diabetes_ever,
-                                   HRS2016_data_female$sex_1_2,
-                                   HRS2016_data_female$wealth_noIRA,
-                                   
-                                   HRS2016_data_female$start,
-                                   HRS2016_data_female$stop,
-                                   
-                                   HRS2016_data_female$reason_discrim1_reason_disability,
-                                   
-                                   HRS2016_data_female$discrim_harassed,
-                                   HRS2016_data_female$discrim_lessrespect,
-                                   HRS2016_data_female$discrim_medical,
-                                   HRS2016_data_female$discrim_notclever,
-                                   HRS2016_data_female$discrim_poorerservice,
-                                   HRS2016_data_female$discrim_afraidothers,
-                                   
-                                   HRS2016_data_female$continious_age,
-                                   HRS2016_data_female$assessed_BMI)
-
-nrow_2016 = nrow(HRS2016_data_female) 
-HRS2016_data_female$year_2016 = rep(2016, times = nrow_2016)
-
-HRS2016_data_female <- na.omit(HRS2016_data_female)
+HRS2008_data_lim_cond = subset(HRS2008_data, HRS2008_data$limiting_condition_bin == 1) 
+HRS2010_data_lim_cond  = subset(HRS2010_data, HRS2010_data$limiting_condition_bin == 1)
+HRS2012_data_lim_cond  = subset(HRS2012_data, HRS2012_data$limiting_condition_bin == 1)
+HRS2014_data_lim_cond  = subset(HRS2014_data, HRS2014_data$limiting_condition_bin == 1)
+HRS2016_data_lim_cond  = subset(HRS2016_data, HRS2016_data$limiting_condition_bin == 1)
+HRS2018_data_lim_cond  = subset(HRS2018_data, HRS2018_data$limiting_condition_bin == 1)
 
 
 
-HRS2018_data_female$HHIDPN = HRS2018_data_female$HHIDPN_HRS2018
+HRS2008_data_lim_cond = data_frame(HRS2008_data_lim_cond$HHIDPN,
+                                 HRS2008_data_lim_cond$diabetes_new,
+                                 HRS2008_data_lim_cond$diabetes_ever,
+                                 HRS2008_data_lim_cond$sex_1_2,
+                                 HRS2008_data_lim_cond$wealth_noIRA,
+                                 HRS2008_data_lim_cond$start,
+                                 HRS2008_data_lim_cond$stop,
+                                 HRS2008_data_lim_cond$reason_discrim1_reason_disability,
+                                 
+                                 HRS2008_data_lim_cond$discrim_harassed,
+                                 HRS2008_data_lim_cond$discrim_lessrespect,
+                                 HRS2008_data_lim_cond$discrim_medical,
+                                 HRS2008_data_lim_cond$discrim_notclever,
+                                 HRS2008_data_lim_cond$discrim_poorerservice,
+                                 HRS2008_data_lim_cond$discrim_afraidothers,
+                                 
+                                 HRS2008_data_lim_cond$continious_age,
+                                 HRS2008_data_lim_cond$assessed_BMI)
+
+nrow_2008 = nrow(HRS2008_data_lim_cond) 
+HRS2008_data_lim_cond$year_2008 = rep(2010, times = nrow_2008)
+
+HRS2008_data_lim_cond <- na.omit(HRS2008_data_lim_cond)
 
 
-HRS2018_data_female = data_frame(HRS2018_data_female$HHIDPN,
-                                   HRS2018_data_female$diabetes_new,
-                                   HRS2018_data_female$diabetes_ever,
-                                   HRS2018_data_female$sex_1_2,
-                                   HRS2018_data_female$wealth_noIRA,
-                                   
-                                   HRS2018_data_female$start,
-                                   HRS2018_data_female$stop,
-                                   
-                                   HRS2018_data_female$reason_discrim1_reason_disability,
-                                   
-                                   HRS2018_data_female$discrim_harassed,
-                                   HRS2018_data_female$discrim_lessrespect,
-                                   HRS2018_data_female$discrim_medical,
-                                   HRS2018_data_female$discrim_notclever,
-                                   HRS2018_data_female$discrim_poorerservice,
-                                   HRS2018_data_female$discrim_afraidothers,
-                                   
-                                   HRS2018_data_female$continious_age, 
-                                   HRS2018_data_female$assessed_BMI)
+HRS2010_data_lim_cond = data_frame(HRS2010_data_lim_cond$HHIDPN,
+                                 HRS2010_data_lim_cond$diabetes_new,
+                                 HRS2010_data_lim_cond$diabetes_ever,
+                                 HRS2010_data_lim_cond$sex_1_2,
+                                 HRS2010_data_lim_cond$wealth_noIRA,
+                                 HRS2010_data_lim_cond$start,
+                                 HRS2010_data_lim_cond$stop,
+                                 HRS2010_data_lim_cond$reason_discrim1_reason_disability,
+                                 
+                                 HRS2010_data_lim_cond$discrim_harassed,
+                                 HRS2010_data_lim_cond$discrim_lessrespect,
+                                 HRS2010_data_lim_cond$discrim_medical,
+                                 HRS2010_data_lim_cond$discrim_notclever,
+                                 HRS2010_data_lim_cond$discrim_poorerservice,
+                                 
+                                 HRS2010_data_lim_cond$discrim_afraidothers,
+                                 HRS2010_data_lim_cond$continious_age,
+                                 HRS2010_data_lim_cond$assessed_BMI)
 
-nrow_2018 = nrow(HRS2018_data_female) 
-HRS2018_data_female$year_2018= rep(2018, times = nrow_2018)
+nrow_2010 = nrow(HRS2010_data_lim_cond) 
+HRS2010_data_lim_cond$year_2010 = rep(2010, times = nrow_2010)
 
-HRS2018_data_female <- na.omit(HRS2018_data_female)
+HRS2010_data_lim_cond <- na.omit(HRS2010_data_lim_cond)
+
+HRS2012_data_lim_cond = data_frame(HRS2012_data_lim_cond$HHIDPN,
+                                 HRS2012_data_lim_cond$diabetes_new,
+                                 HRS2012_data_lim_cond$diabetes_ever,
+                                 HRS2012_data_lim_cond$sex_1_2,
+                                 HRS2012_data_lim_cond$wealth_noIRA,
+                                 HRS2012_data_lim_cond$start,
+                                 HRS2012_data_lim_cond$stop,
+                                 HRS2012_data_lim_cond$reason_discrim1_reason_disability,
+                                 
+                                 HRS2012_data_lim_cond$discrim_harassed,
+                                 HRS2012_data_lim_cond$discrim_lessrespect,
+                                 HRS2012_data_lim_cond$discrim_medical,
+                                 HRS2012_data_lim_cond$discrim_notclever,
+                                 HRS2012_data_lim_cond$discrim_poorerservice,
+                                 HRS2012_data_lim_cond$discrim_afraidothers,
+                                 
+                                 HRS2012_data_lim_cond$continious_age,
+                                 HRS2012_data_lim_cond$assessed_BMI)
+
+
+nrow_2012 = nrow(HRS2012_data_lim_cond) 
+HRS2012_data_lim_cond$year_2012 = rep(2012, times = nrow_2012)
+
+HRS2012_data_lim_cond <- na.omit(HRS2012_data_lim_cond)
+
+
+HRS2014_data_lim_cond = data_frame(HRS2014_data_lim_cond$HHIDPN,
+                                 HRS2014_data_lim_cond$diabetes_new,
+                                 HRS2014_data_lim_cond$diabetes_ever,
+                                 HRS2014_data_lim_cond$sex_1_2,
+                                 HRS2014_data_lim_cond$wealth_noIRA,
+                                 HRS2014_data_lim_cond$start,
+                                 HRS2014_data_lim_cond$stop,
+                                 HRS2014_data_lim_cond$reason_discrim1_reason_disability,
+                                 
+                                 HRS2014_data_lim_cond$discrim_harassed,
+                                 HRS2014_data_lim_cond$discrim_lessrespect,
+                                 HRS2014_data_lim_cond$discrim_medical,
+                                 HRS2014_data_lim_cond$discrim_notclever,
+                                 HRS2014_data_lim_cond$discrim_poorerservice,
+                                 HRS2014_data_lim_cond$discrim_afraidothers,
+                                 
+                                 HRS2014_data_lim_cond$continious_age,
+                                 HRS2014_data_lim_cond$assessed_BMI)
+
+
+nrow_2014 = nrow(HRS2014_data_lim_cond) 
+HRS2014_data_lim_cond$year_2014 = rep(2014, times = nrow_2014)
+
+HRS2014_data_lim_cond <- na.omit(HRS2014_data_lim_cond)
+
+HRS2016_data_lim_cond$HHIDPN_HRS2016 = HRS2016_data_lim_cond$HHIDPN
+
+
+HRS2016_data_lim_cond = data_frame(HRS2016_data_lim_cond$HHIDPN,
+                                 HRS2016_data_lim_cond$diabetes_new,
+                                 HRS2016_data_lim_cond$diabetes_ever,
+                                 HRS2016_data_lim_cond$sex_1_2,
+                                 HRS2016_data_lim_cond$wealth_noIRA,
+                                 
+                                 HRS2016_data_lim_cond$start,
+                                 HRS2016_data_lim_cond$stop,
+                                 
+                                 HRS2016_data_lim_cond$reason_discrim1_reason_disability,
+                                 
+                                 HRS2016_data_lim_cond$discrim_harassed,
+                                 HRS2016_data_lim_cond$discrim_lessrespect,
+                                 HRS2016_data_lim_cond$discrim_medical,
+                                 HRS2016_data_lim_cond$discrim_notclever,
+                                 HRS2016_data_lim_cond$discrim_poorerservice,
+                                 HRS2016_data_lim_cond$discrim_afraidothers,
+                                 
+                                 HRS2016_data_lim_cond$continious_age,
+                                 HRS2016_data_lim_cond$assessed_BMI)
+
+nrow_2016 = nrow(HRS2016_data_lim_cond) 
+HRS2016_data_lim_cond$year_2016 = rep(2016, times = nrow_2016)
+
+HRS2016_data_lim_cond <- na.omit(HRS2016_data_lim_cond)
+
+
+
+HRS2018_data_lim_cond$HHIDPN = HRS2018_data_lim_cond$HHIDPN_HRS2018
+
+
+HRS2018_data_lim_cond = data_frame(HRS2018_data_lim_cond$HHIDPN,
+                                 HRS2018_data_lim_cond$diabetes_new,
+                                 HRS2018_data_lim_cond$diabetes_ever,
+                                 HRS2018_data_lim_cond$sex_1_2,
+                                 HRS2018_data_lim_cond$wealth_noIRA,
+                                 
+                                 HRS2018_data_lim_cond$start,
+                                 HRS2018_data_lim_cond$stop,
+                                 
+                                 HRS2018_data_lim_cond$reason_discrim1_reason_disability,
+                                 
+                                 HRS2018_data_lim_cond$discrim_harassed,
+                                 HRS2018_data_lim_cond$discrim_lessrespect,
+                                 HRS2018_data_lim_cond$discrim_medical,
+                                 HRS2018_data_lim_cond$discrim_notclever,
+                                 HRS2018_data_lim_cond$discrim_poorerservice,
+                                 HRS2018_data_lim_cond$discrim_afraidothers,
+                                 
+                                 HRS2018_data_lim_cond$continious_age, 
+                                 HRS2018_data_lim_cond$assessed_BMI)
+
+nrow_2018 = nrow(HRS2018_data_lim_cond) 
+HRS2018_data_lim_cond$year_2018= rep(2018, times = nrow_2018)
+
+HRS2018_data_lim_cond <- na.omit(HRS2018_data_lim_cond)
 
 
 
@@ -375,40 +378,40 @@ colnames_all = c('HHIDPN',
                  "continious_age",
                  "assessed_BMI")
 
-colnames(HRS2008_data_female) = colnames_all
-colnames(HRS2010_data_female) = colnames_all
-colnames(HRS2012_data_female) = colnames_all
-colnames(HRS2014_data_female) = colnames_all
-colnames(HRS2016_data_female) = colnames_all
-colnames(HRS2018_data_female) = colnames_all
+colnames(HRS2008_data_lim_cond) = colnames_all
+colnames(HRS2010_data_lim_cond) = colnames_all
+colnames(HRS2012_data_lim_cond) = colnames_all
+colnames(HRS2014_data_lim_cond) = colnames_all
+colnames(HRS2016_data_lim_cond) = colnames_all
+colnames(HRS2018_data_lim_cond) = colnames_all
 
 
 
-WCE_dataset_female = rbind(HRS2008_data_female, HRS2010_data_female, HRS2012_data_female, HRS2014_data_female, HRS2016_data_female, HRS2018_data_female)
+WCE_dataset_lim_cond = rbind(HRS2008_data_lim_cond, HRS2010_data_lim_cond, HRS2012_data_lim_cond, HRS2014_data_lim_cond, HRS2016_data_lim_cond, HRS2018_data_lim_cond)
 
 
-WCE_dataset_female$diabetes_new_bin = case_when(WCE_dataset_female$diabetes_new ==0 ~ 0, 
-                                                  WCE_dataset_female$diabetes_new ==1 ~ 1) 
+WCE_dataset_lim_cond$diabetes_new_bin = case_when(WCE_dataset_lim_cond$diabetes_new ==0 ~ 0, 
+                                                WCE_dataset_lim_cond$diabetes_new ==1 ~ 1) 
 
 
 
-WCE_dataset_female = subset(WCE_dataset_female, HHIDPN != "3020")
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond, HHIDPN != "3020")
 
-WCE_dataset_female = subset(WCE_dataset_female, discrim_afraidothers != " NA")
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond, discrim_afraidothers != " NA")
 
-unique(WCE_dataset_female$discrim_afraidothers)
+unique(WCE_dataset_lim_cond$discrim_afraidothers)
 
-write.csv(WCE_dataset_female, paste(SOURCE_ROOT, "WCE_dataset_female.csv", sep=""))
+write.csv(WCE_dataset_lim_cond, paste(SOURCE_ROOT, "WCE_dataset_lim_cond.csv", sep=""))
 
-#which(WCE_dataset_female, WCE_dataset_female$HHIDPN== 3020)
+#which(WCE_dataset_lim_cond, WCE_dataset_lim_cond$HHIDPN== 3020)
 
-nrow(WCE_dataset_female)
-head(WCE_dataset_female)
+nrow(WCE_dataset_lim_cond)
+head(WCE_dataset_lim_cond)
 
-ID = unique(WCE_dataset_female$HHIDPN)
+ID = unique(WCE_dataset_lim_cond$HHIDPN)
 
-#print(isTRUE(WCE_dataset_female$HHIDPN == ID[1]))
-WCE_dataset_female = WCE_dataset_female %>% drop_na()
+#print(isTRUE(WCE_dataset_lim_cond$HHIDPN == ID[1]))
+WCE_dataset_lim_cond = WCE_dataset_lim_cond %>% drop_na()
 
 participant_wave_df = data.frame()
 
@@ -416,7 +419,7 @@ n = 1
 for (id in ID){
   print(n)
   print(id)
-  participant_wave = subset(WCE_dataset_female, WCE_dataset_female$HHIDPN == id)
+  participant_wave = subset(WCE_dataset_lim_cond, WCE_dataset_lim_cond$HHIDPN == id)
   
   if (nrow(participant_wave)== 1){
     
@@ -472,13 +475,11 @@ for (id in ID){
   n = n + 1
 }
 
-
 participant_wave_df$discrim_lessrespect
 participant_wave_df$discrim_medical
 participant_wave_df$discrim_notclever
 participant_wave_df$discrim_poorerservice
 participant_wave_df$discrim_afraidothers
-
 
 participant_wave_df$diabetes_new_bin = as.numeric(participant_wave_df$diabetes_new_bin)
 participant_wave_df$start_new = as.numeric(participant_wave_df$start_new)
@@ -487,16 +488,13 @@ participant_wave_df$discrim_afraidothers = as.numeric(participant_wave_df$discri
 participant_wave_df$assessed_BMI = as.numeric(participant_wave_df$assessed_BMI)
 participant_wave_df$continious_age = as.numeric(participant_wave_df$continious_age)
 
-
-
 ##participant_wave_df = participant_wave_df %>% drop_na()
 participant_wave_df <- na.omit(participant_wave_df)
 
-checkWCE(participant_wave_df,
-         id = "HHIDPN", 
+checkWCE(participant_wave_df, id = "HHIDPN", 
          event = "diabetes_new_bin", 
-         start = "start_new",
-         stop = "stop_new",
+         start = "start_new", 
+         stop = "stop_new", 
          expos = "discrim_afraidothers") 
 
 head(participant_wave_df)
@@ -507,48 +505,44 @@ length(unique(participant_wave_df$HHIDPN))
 
 unique(participant_wave_df$discrim_afraidothers)
 
-wce_age =  WCE(data = participant_wave_df,
+wce_age =  WCE(data = participant_wave_df, 
                analysis = "Cox", 
-               nknots = 1:3, cutoff = 4, 
-               constrained = "R", aic = FALSE, MatchedSet = NULL, 
+               nknots = 1:3, cutoff = 4, constrained = "R", 
+               aic = FALSE, MatchedSet = NULL, 
                id = "HHIDPN", 
-               event = "diabetes_new_bin", 
+               event = "diabetes_new_bin",
                start = "start_new", 
                stop = "stop_new", 
-               expos = "discrim_afraidothers",
+               expos = "discrim_afraidothers", 
                covariates = c("continious_age"))
+
 wce_age
 summary(wce_age)
 
-wce_age_BMI <- WCE(data = participant_wave_df, 
+wce_age_BMI <- WCE(data = participant_wave_df,
                    analysis = "Cox",
-                   nknots = 1:3, 
-                   cutoff = 4, 
-                   constrained = "R", 
-                   aic = FALSE, 
-                   MatchedSet = NULL,
+                   nknots = 1:3, cutoff = 4, constrained = "R", 
+                   aic = FALSE, MatchedSet = NULL,
                    id = "HHIDPN", 
                    event = "diabetes_new_bin", 
                    start = "start_new", 
                    stop = "stop_new", 
-                   expos = "discrim_afraidothers",
+                   expos = "discrim_afraidothers", 
                    covariates = c("assessed_BMI", "continious_age")) 
 wce_age_BMI
 summary(wce_age_BMI)
 
-wce_BMI_age_wealth <- WCE(participant_wave_df, 
+wce_BMI_age_wealth <- WCE(participant_wave_df,
                           analysis = "Cox",
-                          nknots = 1:3, 
-                          cutoff = 4, 
-                          constrained = "R",
-                          aic = FALSE, 
-                          MatchedSet = NULL, 
-                          id = "HHIDPN",
+                          nknots = 1:3, cutoff = 4, constrained = "R",
+                          aic = FALSE, MatchedSet = NULL, 
+                          id = "HHIDPN", 
                           event = "diabetes_new_bin", 
-                          start = "start_new",
+                          start = "start_new", 
                           stop = "stop_new", 
                           expos = "discrim_afraidothers",
                           covariates = c("assessed_BMI", "continious_age", "wealth_noIRA")) 
+
 wce_BMI_age_wealth
 summary(wce_BMI_age_wealth)
 
@@ -584,7 +578,7 @@ HR.WCE(wce_age, vecnum = scenario7, vecdenom = scenario2, allres = TRUE)
 
 ID <- unique(participant_wave_df$HHIDPN)
 
-write.csv(participant_wave_df, paste(SOURCE_ROOT, "participant_wave_df_female.csv", sep=""))
+write.csv(participant_wave_df, paste(SOURCE_ROOT, "participant_wave_df_lim_cond.csv", sep=""))
 
 
 coef.WCE(wce_age)
