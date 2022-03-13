@@ -21,11 +21,11 @@ library(Hmisc)
 #laptop: 
 #/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/
 #"/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
-"/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
-
-SOURCE_ROOT =  "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 
 SOURCE_data_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
+
+
+SOURCE_ROOT =  "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 
 source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))

@@ -83,6 +83,58 @@ cross_waves_2016 = subset(cross_waves, HHIDPN %in% HRS2016_data$HHIDPN)
 cross_waves_2018 = subset(cross_waves, HHIDPN %in% HRS2018_data$HHIDPN)
 
 
+
+###########
+###########
+###########
+harmonised_data_all_waves
+
+#discrimination summary mean score
+#HRS2014_data$summary_mean_score_discrim_1992 = harmonised_data_all_waves_2008$r1dscrim
+#HRS2014_data$summary_mean_score_discrim_1994 = harmonised_data_all_waves_2008$r2dscrim
+#HRS2014_data$summary_mean_score_discrim_1996 = harmonised_data_all_waves_2008$r3dscrim 
+#HRS2014_data$summary_mean_score_discrim_1998 = harmonised_data_all_waves_2008$r4dscrim 
+#HRS2014_data$summary_mean_score_discrim_2000 = harmonised_data_all_waves_2008$r5dscrim 
+#HRS2014_data$summary_mean_score_discrim_2002 = harmonised_data_all_waves_2008$r6dscrim 
+#HRS2014_data$summary_mean_score_discrim_2004 = harmonised_data_all_waves_2008$r7dscrim 
+#HRS2014_data$summary_mean_score_discrim_2006 = harmonised_data_all_waves_2008$r8dscrim 
+HRS2008_data$summary_mean_score_discrim_2008 = harmonised_data_all_waves_2008$r9dscrim 
+HRS2010_data$summary_mean_score_discrim_2010 = harmonised_data_all_waves_2010$r10dscrim 
+HRS2012_data$summary_mean_score_discrim_2012 = harmonised_data_all_waves_2012$r11dscrim 
+HRS2014_data$summary_mean_score_discrim_2014 = harmonised_data_all_waves_2014$r12dscrim 
+HRS2016_data$summary_mean_score_discrim_2016 = harmonised_data_all_waves_2016$r13dscrim 
+HRS2018_data$summary_mean_score_discrim_2018 = harmonised_data_all_waves_2018$r14dscrim 
+
+
+#financial status discrim
+
+HRS2008_data$reason_discirim_financial_2008 = harmonised_data_all_waves_2008$r9dcfinan
+HRS2010_data$reason_discirim_financial_2010 = harmonised_data_all_waves_2010$r10dcfinan
+HRS2012_data$reason_discirim_financial_2012 = harmonised_data_all_waves_2012$r11dcfinan
+HRS2014_data$reason_discirim_financial_2014 = harmonised_data_all_waves_2014$r12dcfinan
+HRS2016_data$reason_discirim_financial_2016 = harmonised_data_all_waves_2016$r13dcfinan
+HRS2018_data$reason_discirim_financial_2018 = harmonised_data_all_waves_2018$r14dcfinan
+
+
+# sexual orientation discrim 
+#HRS2008_data$reason_discirim_sexuality_2006 = harmonised_data_all_waves$r8dcsxori
+HRS2008_data$reason_discirim_sexuality_2008 = harmonised_data_all_waves_2008$r9dcsxori
+HRS2010_data$reason_discirim_sexuality_2010 = harmonised_data_all_waves_2010$r10dcsxori
+HRS2012_data$reason_discirim_sexuality_2012 = harmonised_data_all_waves_2012$r11dcsxori
+HRS2014_data$reason_discirim_sexuality_2014 = harmonised_data_all_waves_2014$r12dcsxori
+HRS2016_data$reason_discirim_sexuality_2016 = harmonised_data_all_waves_2016$r13dcsxori
+HRS2018_data$reason_discirim_sexuality_2018 = harmonised_data_all_waves_2018$r14dcsxori
+
+
+# number of reasons for discrim 
+
+#HRS2008_data$number_reasons_discrimination_2006 = harmonised_data_all_waves$r8dcreas
+HRS2008_data$number_reasons_discrimination_2008 = harmonised_data_all_waves_2008$r9dcreas
+HRS2010_data$number_reasons_discrimination_2010 = harmonised_data_all_waves_2010$r10dcreas
+HRS2012_data$number_reasons_discrimination_2012 = harmonised_data_all_waves_2012$r11dcreas
+HRS2014_data$number_reasons_discrimination_2014 = harmonised_data_all_waves_2014$r12dcreas
+HRS2016_data$number_reasons_discrimination_2016 = harmonised_data_all_waves_2016$r13dcreas
+HRS2018_data$number_reasons_discrimination_2018 = harmonised_data_all_waves_2018$r14dcreas
 #2008: harmonised data: R9LIMIMPAR
 #Harmonised data: hlth problems limit work r13hlthlm, r10hlthlm, r11hlthlm, r12hlthlm, r13hlthlm, r14hlthlm
 #health problem limits activities: r6hlthlma
@@ -488,7 +540,7 @@ HRS2014_data$checklist_depression_bin = HRS2014_data$HRS2014_checklist_depressio
 
 
 HRS2016_data$HRS2016_checklist_depression_bin = cross_waves_2016$depression_bin_2016
-HRS2016_data$checklist_depression_bin = HRS2016_data$HRS2014_checklist_depression_bin
+HRS2016_data$checklist_depression_bin = HRS2016_data$HRS2016_checklist_depression_bin
 
 
 HRS2018_data$HRS2018_checklist_depression_bin = cross_waves_2018$depression_bin_2018
@@ -860,6 +912,11 @@ HRS2018_data$assessed_BMI = HRS2018_data$assessed_BMI_2018
 
 #######
 
+
+# discrimination 
+###########
+###########
+###########
 
 # add continious age variable to 2008 dataset 
 #HRS2008_data$HRS2008

@@ -4,6 +4,9 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 
 RAND_HRS_longitudional_file = read.csv(paste(SOURCE_ROOT, "randhrs1992_2018v1.csv", sep=""))
 
+harmonised_data_all_waves = read.csv(paste(SOURCE_ROOT, "H_HRS_c.csv", sep=""))
+
+
 HHIDPN = RAND_HRS_longitudional_file$HHIDPN
 
 cross_waves = data.frame(HHIDPN) 
@@ -296,94 +299,6 @@ cross_waves$heartattack_new_2016 = RAND_HRS_longitudional_file$R13HEARTS
 cross_waves$heartattack_new_2018 = RAND_HRS_longitudional_file$R14HEARTS
 
 
-###########
-###########
-###########
-
-#discrimination summary mean score
-cross_waves$summary_mean_score_discrim_1992 = RAND_HRS_longitudional_file$R1DSCRIMM 
-cross_waves$summary_mean_score_discrim_1994 = RAND_HRS_longitudional_file$R2DSCRIMM 
-cross_waves$summary_mean_score_discrim_1996 = RAND_HRS_longitudional_file$R3DSCRIMM 
-cross_waves$summary_mean_score_discrim_1998 = RAND_HRS_longitudional_file$R4DSCRIMM 
-cross_waves$summary_mean_score_discrim_2000 = RAND_HRS_longitudional_file$R5DSCRIMM 
-cross_waves$summary_mean_score_discrim_2002 = RAND_HRS_longitudional_file$R6DSCRIMM 
-cross_waves$summary_mean_score_discrim_2004 = RAND_HRS_longitudional_file$R7DSCRIMM 
-cross_waves$summary_mean_score_discrim_2006 = RAND_HRS_longitudional_file$R8DSCRIMM 
-cross_waves$summary_mean_score_discrim_2008 = RAND_HRS_longitudional_file$R9DSCRIMM 
-cross_waves$summary_mean_score_discrim_2010 = RAND_HRS_longitudional_file$R104DSCRIMM 
-cross_waves$summary_mean_score_discrim_2012 = RAND_HRS_longitudional_file$R114DSCRIMM 
-cross_waves$summary_mean_score_discrim_2014 = RAND_HRS_longitudional_file$R124DSCRIMM 
-cross_waves$summary_mean_score_discrim_2016 = RAND_HRS_longitudional_file$R134DSCRIMM 
-cross_waves$summary_mean_score_discrim_2018 = RAND_HRS_longitudional_file$R144DSCRIMM 
-
-
-#discrim_age 
-
-cross_waves$reason_discrim_reason_age_1992 = RAND_HRS_longitudional_file$R1DCAGE
-cross_waves$reason_discrim_reason_age_1994 = RAND_HRS_longitudional_file$R2DCAGE
-cross_waves$reason_discrim_reason_age_1996 = RAND_HRS_longitudional_file$R3DCAGE
-cross_waves$reason_discrim_reason_age_1998 = RAND_HRS_longitudional_file$R4DCAGE
-cross_waves$reason_discrim_reason_age_2000 = RAND_HRS_longitudional_file$R5DCAGE
-cross_waves$reason_discrim_reason_age_2002 = RAND_HRS_longitudional_file$R6DCAGE
-cross_waves$reason_discrim_reason_age_2004 = RAND_HRS_longitudional_file$R7DCAGE
-cross_waves$reason_discrim_reason_age_2006 = RAND_HRS_longitudional_file$R8DCAGE
-cross_waves$reason_discrim_reason_age_2008 = RAND_HRS_longitudional_file$R9DCAGE
-cross_waves$reason_discrim_reason_age_2010 = RAND_HRS_longitudional_file$R10DCAGE
-cross_waves$reason_discrim_reason_age_2012 = RAND_HRS_longitudional_file$R11DCAGE
-cross_waves$reason_discrim_reason_age_2014 = RAND_HRS_longitudional_file$R12DCAGE
-cross_waves$reason_discrim_reason_age_2016 = RAND_HRS_longitudional_file$R13DCAGE
-cross_waves$reason_discrim_reason_age_2018 = RAND_HRS_longitudional_file$R14DCAGE
-
-
-#financial status discrim
-cross_waves$reason_discirim_financial_1992 = RAND_HRS_longitudional_file$R1DCFINAN
-cross_waves$reason_discirim_financial_1994 = RAND_HRS_longitudional_file$R2DCFINAN
-cross_waves$reason_discirim_financial_1996 = RAND_HRS_longitudional_file$R3DCFINAN
-cross_waves$reason_discirim_financial_1998 = RAND_HRS_longitudional_file$R4DCFINAN
-cross_waves$reason_discirim_financial_2000 = RAND_HRS_longitudional_file$R5DCFINAN
-cross_waves$reason_discirim_financial_2002 = RAND_HRS_longitudional_file$R6DCFINAN
-cross_waves$reason_discirim_financial_2004 = RAND_HRS_longitudional_file$R7DCFINAN
-cross_waves$reason_discirim_financial_2006 = RAND_HRS_longitudional_file$R8DCFINAN
-cross_waves$reason_discirim_financial_2008 = RAND_HRS_longitudional_file$R9DCFINAN
-cross_waves$reason_discirim_financial_2010 = RAND_HRS_longitudional_file$R10DCFINAN
-cross_waves$reason_discirim_financial_2012 = RAND_HRS_longitudional_file$R11DCFINAN
-cross_waves$reason_discirim_financial_2014 = RAND_HRS_longitudional_file$R12DCFINAN
-cross_waves$reason_discirim_financial_2016 = RAND_HRS_longitudional_file$R13DCFINAN
-cross_waves$reason_discirim_financial_2018 = RAND_HRS_longitudional_file$R14DCFINAN
-
-
-# sexual orientation discrim 
-cross_waves$reason_discirim_sexuality_1992 = RAND_HRS_longitudional_file$R1DCSXORI
-cross_waves$reason_discirim_sexuality_1994 = RAND_HRS_longitudional_file$R2DCSXORI
-cross_waves$reason_discirim_sexuality_1996 = RAND_HRS_longitudional_file$R3DCSXORI
-cross_waves$reason_discirim_sexuality_1998 = RAND_HRS_longitudional_file$R4DCSXORI
-cross_waves$reason_discirim_sexuality_2000 = RAND_HRS_longitudional_file$R5DCSXORI
-cross_waves$reason_discirim_sexuality_2002 = RAND_HRS_longitudional_file$R6DCSXORI
-cross_waves$reason_discirim_sexuality_2004 = RAND_HRS_longitudional_file$R7DCSXORI
-cross_waves$reason_discirim_sexuality_2006 = RAND_HRS_longitudional_file$R8DCSXORI
-cross_waves$reason_discirim_sexuality_2008 = RAND_HRS_longitudional_file$R9DCSXORI
-cross_waves$reason_discirim_sexuality_2010 = RAND_HRS_longitudional_file$R10DCSXORI
-cross_waves$reason_discirim_sexuality_2012 = RAND_HRS_longitudional_file$R11DCSXORI
-cross_waves$reason_discirim_sexuality_2014 = RAND_HRS_longitudional_file$R12DCSXORI
-cross_waves$reason_discirim_sexuality_2016 = RAND_HRS_longitudional_file$R13DCSXORI
-cross_waves$reason_discirim_sexuality_2018 = RAND_HRS_longitudional_file$R14DCSXORI
-
-
-# number of reasons for sexual orientation 
-cross_waves$number_reasons_discrimination_1992 = RAND_HRS_longitudional_file$R1DCREAS
-cross_waves$number_reasons_discrimination_1994 = RAND_HRS_longitudional_file$R2DCREAS
-cross_waves$number_reasons_discrimination_1996 = RAND_HRS_longitudional_file$R3DCREAS
-cross_waves$number_reasons_discrimination_1998 = RAND_HRS_longitudional_file$R4DCREAS
-cross_waves$number_reasons_discrimination_2000 = RAND_HRS_longitudional_file$R5DCREAS
-cross_waves$number_reasons_discrimination_2002 = RAND_HRS_longitudional_file$R6DCREAS
-cross_waves$number_reasons_discrimination_2004 = RAND_HRS_longitudional_file$R7DCREAS
-cross_waves$number_reasons_discrimination_2006 = RAND_HRS_longitudional_file$R8DCREAS
-cross_waves$number_reasons_discrimination_2008 = RAND_HRS_longitudional_file$R9DCREAS
-cross_waves$number_reasons_discrimination_2010 = RAND_HRS_longitudional_file$R10DCREAS
-cross_waves$number_reasons_discrimination_2012 = RAND_HRS_longitudional_file$R11DCREAS
-cross_waves$number_reasons_discrimination_2014 = RAND_HRS_longitudional_file$R12DCREAS
-cross_waves$number_reasons_discrimination_2016 = RAND_HRS_longitudional_file$R13DCREAS
-cross_waves$number_reasons_discrimination_2018 = RAND_HRS_longitudional_file$R14DCREAS
 
 
 

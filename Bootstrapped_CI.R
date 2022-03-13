@@ -7,22 +7,22 @@ Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covariates_list){
   
   #all values have to be numeric for this analysis 
   
-  data_WCE$diabetes_new_bin = as.numeric(data_WCE$diabetes_new_bin)
-  data_WCE$start_new = as.numeric(data_WCE$start_new)
-  data_WCE$stop_new = as.numeric(data_WCE$stop_new)
+  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
+  WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
+  WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
   
-  data_WCE$discrim_harassed = as.numeric(data_WCE$discrim_harassed)
-  data_WCE$discrim_lessrespect = as.numeric(data_WCE$discrim_lessrespect)
-  data_WCE$discrim_medical = as.numeric(data_WCE$discrim_medical)
-  data_WCE$discrim_notclever = as.numeric(data_WCE$discrim_notclever)
-  data_WCE$discrim_poorerservice = as.numeric(data_WCE$discrim_poorerservice)
-  data_WCE$discrim_afraidothers = as.numeric(data_WCE$discrim_afraidothers)
+  WCE_data_CI$discrim_harassed = as.numeric(WCE_data_CI$discrim_harassed)
+  WCE_data_CI$discrim_lessrespect = as.numeric(WCE_data_CI$discrim_lessrespect)
+  WCE_data_CI$discrim_medical = as.numeric(WCE_data_CI$discrim_medical)
+  WCE_data_CI$discrim_notclever = as.numeric(WCE_data_CI$discrim_notclever)
+  WCE_data_CI$discrim_poorerservice = as.numeric(WCE_data_CI$discrim_poorerservice)
+  WCE_data_CI$discrim_afraidothers = as.numeric(WCE_data_CI$discrim_afraidothers)
   
-  data_WCE$wealth_noIRA = as.numeric(data_WCE$wealth_noIRA)
-  data_WCE$assessed_BMI = as.numeric(data_WCE$assessed_BMI)
-  data_WCE$continious_age = as.numeric(data_WCE$continious_age)
+  WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
+  WCE_data_CI$assessed_BMI = as.numeric(WCE_data_CI$assessed_BMI)
+  WCE_data_CI$continious_age = as.numeric(WCE_data_CI$continious_age)
   
-  data_WCE$timepoints_indiv = as.numeric(data_WCE$timepoints_indiv)
+  WCE_data_CI$timepoints_indiv = as.numeric(WCE_data_CI$timepoints_indiv)
   
   
 
