@@ -4,25 +4,27 @@
 
 summary_score_WCE_analysis = function(data_WCE, exposure, outcome, covariates_list){
   
+
   
-data_WCE$diabetes_new_bin = as.numeric(data_WCE$diabetes_new_bin)
-data_WCE$start_new = as.numeric(data_WCE$start_new)
-data_WCE$stop_new = as.numeric(data_WCE$stop_new)
-
-data_WCE$discrim_harassed = as.numeric(data_WCE$summary_mean_score_discrim)
-
-data_WCE$discrim_harassed = as.numeric(data_WCE$discrim_harassed)
-data_WCE$discrim_lessrespect = as.numeric(data_WCE$discrim_lessrespect)
-data_WCE$discrim_medical = as.numeric(data_WCE$discrim_medical)
-data_WCE$discrim_notclever = as.numeric(data_WCE$discrim_notclever)
-data_WCE$discrim_poorerservice = as.numeric(data_WCE$discrim_poorerservice)
-data_WCE$discrim_afraidothers = as.numeric(data_WCE$discrim_afraidothers)
-
-data_WCE$wealth_noIRA = as.numeric(data_WCE$wealth_noIRA)
-data_WCE$assessed_BMI = as.numeric(data_WCE$assessed_BMI)
-data_WCE$continious_age = as.numeric(data_WCE$continious_age)
-
-data_WCE$timepoints_indiv = as.numeric(data_WCE$timepoints_indiv)
+  data_WCE$summary_mean_score_discrim = as.numeric(data_WCE$summary_mean_score_discrim)
+  
+  data_WCE$diabetes_new_bin = as.numeric(data_WCE$diabetes_new_bin)
+  data_WCE$start_new = as.numeric(data_WCE$start_new)
+  data_WCE$stop_new = as.numeric(data_WCE$stop_new)
+  
+  
+  data_WCE$discrim_harassed = as.numeric(data_WCE$discrim_harassed)
+  data_WCE$discrim_lessrespect = as.numeric(data_WCE$discrim_lessrespect)
+  data_WCE$discrim_medical = as.numeric(data_WCE$discrim_medical)
+  data_WCE$discrim_notclever = as.numeric(data_WCE$discrim_notclever)
+  data_WCE$discrim_poorerservice = as.numeric(data_WCE$discrim_poorerservice)
+  data_WCE$discrim_afraidothers = as.numeric(data_WCE$discrim_afraidothers)
+  
+  data_WCE$wealth_noIRA = as.numeric(data_WCE$wealth_noIRA)
+  data_WCE$assessed_BMI = as.numeric(data_WCE$assessed_BMI)
+  data_WCE$continious_age = as.numeric(data_WCE$continious_age)
+  
+  data_WCE$timepoints_indiv = as.numeric(data_WCE$timepoints_indiv)
 
 
 checkWCE(data_WCE,

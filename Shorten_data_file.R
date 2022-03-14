@@ -52,6 +52,7 @@ HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_data_discrimin
 
 
 
+
 colnames_all = c('HHIDPN',
                  "diabetes_new",
                  "diabetes_ever",
@@ -81,8 +82,16 @@ colnames_all = c('HHIDPN',
                  "discrim_poorerservice",
                  "discrim_afraidothers",
                  "continious_age",
+                "sex_1_2", 
                  "assessed_BMI", 
+                
+                "limiting_condition_bin", 
+                "national_origin_ousideUS_bin", 
+                "religion_bin", 
+                "race_white", 
+                
                  "year")
+
 
 
 nrow_2008 = nrow(HRS2008_data) 
@@ -138,7 +147,15 @@ HRS2008_data_short = cbind(HRS2008_data$HHIDPN,
                               HRS2008_data$discrim_afraidothers,
                               
                               HRS2008_data$continious_age,
+                           HRS2008_data$sex_1_2,
                               HRS2008_data$assessed_BMI, 
+                           HRS2008_data$limiting_condition_bin, 
+                           HRS2008_data$national_origin_ousideUS, 
+                           HRS2008_data$religion_bin, 
+                           HRS2008_data$race_white, 
+                        
+                           
+                           
                               HRS2008_data$year)
 
 
@@ -178,7 +195,16 @@ HRS2010_data_short = cbind(HRS2010_data$HHIDPN,
                               
                               HRS2010_data$discrim_afraidothers,
                               HRS2010_data$continious_age,
+                           
+                           HRS2010_data$sex_1_2, 
                               HRS2010_data$assessed_BMI, 
+                           
+                           HRS2010_data$limiting_condition_bin, 
+                           HRS2010_data$national_origin_ousideUS, 
+                           HRS2010_data$religion_bin, 
+                           HRS2010_data$race_white, 
+                           
+                          
                               HRS2010_data$year)
 
 
@@ -222,7 +248,16 @@ HRS2012_data_short = cbind(HRS2012_data$HHIDPN,
                               HRS2012_data$discrim_afraidothers,
                               
                               HRS2012_data$continious_age,
+                           HRS2012_data$sex_1_2, 
+                       
                               HRS2012_data$assessed_BMI, 
+                           
+                           HRS2012_data$limiting_condition_bin, 
+                           HRS2012_data$national_origin_ousideUS, 
+                           HRS2012_data$religion_bin, 
+                           HRS2012_data$race_white, 
+                           
+                           
                               HRS2012_data$year)
 
 
@@ -266,7 +301,15 @@ HRS2014_data_short = cbind(HRS2014_data$HHIDPN,
                               HRS2014_data$discrim_afraidothers,
                               
                               HRS2014_data$continious_age,
+                           HRS2014_data$sex_1_2,
+                         
                               HRS2014_data$assessed_BMI, 
+                           HRS2014_data$limiting_condition_bin, 
+                           HRS2014_data$national_origin_ousideUS, 
+                           HRS2014_data$religion_bin, 
+                           HRS2014_data$race_white, 
+                           
+                           
                               HRS2014_data$year)
 
 
@@ -311,7 +354,17 @@ HRS2016_data_short = cbind(HRS2016_data$HHIDPN,
                               HRS2016_data$discrim_afraidothers,
                               
                               HRS2016_data$continious_age,
+                           HRS2016_data$sex_1_2,
+                         
                               HRS2016_data$assessed_BMI, 
+                           
+                           HRS2016_data$limiting_condition_bin, 
+                           HRS2016_data$national_origin_ousideUS, 
+                           HRS2016_data$religion_bin,
+                           HRS2016_data$race_white, 
+                           
+                           
+                           
                               HRS2016_data$year)
 
 
@@ -358,7 +411,16 @@ HRS2018_data_short = cbind(HRS2018_data$HHIDPN,
                               HRS2018_data$discrim_afraidothers,
                               
                               HRS2018_data$continious_age, 
+                           HRS2018_data$sex_1_2, 
                               HRS2018_data$assessed_BMI, 
+                           
+                           HRS2018_data$limiting_condition_bin, 
+                           HRS2018_data$national_origin_ousideUS, 
+                           HRS2018_data$religion_bin, 
+                           HRS2018_data$race_white, 
+                           
+                           
+                           
                               HRS2018_data$year)
 
 

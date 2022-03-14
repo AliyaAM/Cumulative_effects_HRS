@@ -1,35 +1,39 @@
 
 
-summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covariates_list){
+summary_score_Bootstrapped_CI = function (data_WCE, outcome, exposure, covariates_list){
   
   
   #all values have to be numeric for this analysis 
   
   #all values have to be numeric for this analysis 
   
-  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
-  WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
-  WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
   
-  WCE_data_CI$discrim_harassed = as.numeric(WCE_data_CI$discrim_harassed)
-  WCE_data_CI$discrim_lessrespect = as.numeric(WCE_data_CI$discrim_lessrespect)
-  WCE_data_CI$discrim_medical = as.numeric(WCE_data_CI$discrim_medical)
-  WCE_data_CI$discrim_notclever = as.numeric(WCE_data_CI$discrim_notclever)
-  WCE_data_CI$discrim_poorerservice = as.numeric(WCE_data_CI$discrim_poorerservice)
-  WCE_data_CI$discrim_afraidothers = as.numeric(WCE_data_CI$discrim_afraidothers)
+  data_WCE$summary_mean_score_discrim = as.numeric(data_WCE$summary_mean_score_discrim)
   
-  WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
-  WCE_data_CI$assessed_BMI = as.numeric(WCE_data_CI$assessed_BMI)
-  WCE_data_CI$continious_age = as.numeric(WCE_data_CI$continious_age)
+  data_WCE$diabetes_new_bin = as.numeric(data_WCE$diabetes_new_bin)
+  data_WCE$start_new = as.numeric(data_WCE$start_new)
+  data_WCE$stop_new = as.numeric(data_WCE$stop_new)
   
-  WCE_data_CI$timepoints_indiv = as.numeric(WCE_data_CI$timepoints_indiv)
+  
+  data_WCE$discrim_harassed = as.numeric(data_WCE$discrim_harassed)
+  data_WCE$discrim_lessrespect = as.numeric(data_WCE$discrim_lessrespect)
+  data_WCE$discrim_medical = as.numeric(data_WCE$discrim_medical)
+  data_WCE$discrim_notclever = as.numeric(data_WCE$discrim_notclever)
+  data_WCE$discrim_poorerservice = as.numeric(data_WCE$discrim_poorerservice)
+  data_WCE$discrim_afraidothers = as.numeric(data_WCE$discrim_afraidothers)
+  
+  data_WCE$wealth_noIRA = as.numeric(data_WCE$wealth_noIRA)
+  data_WCE$assessed_BMI = as.numeric(data_WCE$assessed_BMI)
+  data_WCE$continious_age = as.numeric(data_WCE$continious_age)
+  
+  data_WCE$timepoints_indiv = as.numeric(data_WCE$timepoints_indiv)
   
   
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
   bootstraps_samples = 5
-  Num_time_points = max(WCE_data_CI$timepoints_indiv)
+  Num_time_points = max(data_WCE$timepoints_indiv)
   
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
   
@@ -41,11 +45,11 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   boot.HR_5vs6 <- rep(NA, bootstraps_samples)
   
   #Sample IDs with replacement:
-  ID <- unique(WCE_data_CI$HHIDPN) 
+  ID <- unique(data_WCE$HHIDPN) 
   
   for (i in 1:bootstraps_samples){ 
     ID.resamp <- sort(sample(ID, replace=TRUE))
-    datab <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+    datab <- data_WCE[data_WCE$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
     
     # deal with duplicated HHIDPN and assign them new HHIDPN 
     step <- 1 
@@ -54,10 +58,10 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
       ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
       if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
       # select obs. but remaining duplicated HHIDPN are ignored 
-      subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
+      subset.dup <- data_WCE[data_WCE$HHIDPN %in% ID.resamp,] 
       # assign new HHIDPN to duplicates 
-      subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
-      # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
+      subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(data_WCE$HHIDPN))) 
+      # 10^ceiling(log10(max(data_WCE$HHIDPN)) is the power of 10 
       #above the maximum HHIDPN from original data
       datab <- rbind(datab, subset.dup) 
       step <- step+1 
@@ -90,18 +94,18 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   estimated_weight_functions  = apply(boot.WCE, 1, quantile, p = c(0.05, 0.95))
   
   # estimated HR 
-  HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
-  HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
-  HR_CI3vs6_lower =  quantile(boot.HR_3vs6, p = 0.05) 
-  HR_CI4vs6_lower =  quantile(boot.HR_4vs6, p = 0.05) 
-  HR_CI5vs6_lower =  quantile(boot.HR_5vs6, p = 0.05) 
+  HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05, na.rm = TRUE) 
+  HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05, na.rm = TRUE) 
+  HR_CI3vs6_lower =  quantile(boot.HR_3vs6, p = 0.05, na.rm = TRUE) 
+  HR_CI4vs6_lower =  quantile(boot.HR_4vs6, p = 0.05, na.rm = TRUE) 
+  HR_CI5vs6_lower =  quantile(boot.HR_5vs6, p = 0.05, na.rm = TRUE) 
   
   
-  HR_CI1vs6_upper =  quantile(boot.HR_1vs6, p  = 0.95) 
-  HR_CI2vs6_upper =  quantile(boot.HR_2vs6, p  = 0.95)  
-  HR_CI3vs6_upper =  quantile(boot.HR_3vs6, p  = 0.95) 
-  HR_CI4vs6_upper =  quantile(boot.HR_4vs6, p  = 0.95) 
-  HR_CI5vs6_upper =  quantile(boot.HR_5vs6, p  = 0.95) 
+  HR_CI1vs6_upper =  quantile(boot.HR_1vs6, p  = 0.95, na.rm = TRUE) 
+  HR_CI2vs6_upper =  quantile(boot.HR_2vs6, p  = 0.95, na.rm = TRUE)  
+  HR_CI3vs6_upper =  quantile(boot.HR_3vs6, p  = 0.95, na.rm = TRUE) 
+  HR_CI4vs6_upper =  quantile(boot.HR_4vs6, p  = 0.95, na.rm = TRUE) 
+  HR_CI5vs6_upper =  quantile(boot.HR_5vs6, p  = 0.95, na.rm = TRUE) 
   
   
   unique(datab$HHIDPN)

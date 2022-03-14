@@ -88,12 +88,12 @@ HRS2018_data_female = subset(HRS2018_data, HRS2018_data$sex_1_2 == 2)
 
 
 
-HRS2018_data_female = na.omit(HRS2018_data_female)
-HRS2016_data_female = na.omit(HRS2016_data_female)
-HRS2014_data_female = na.omit(HRS2014_data_female)
-HRS2012_data_female = na.omit(HRS2012_data_female)
-HRS2010_data_female = na.omit(HRS2010_data_female)
-HRS2008_data_female = na.omit(HRS2008_data_female)
+#HRS2018_data_female = na.omit(HRS2018_data_female)
+#HRS2016_data_female = na.omit(HRS2016_data_female)
+#HRS2014_data_female = na.omit(HRS2014_data_female)
+#HRS2012_data_female = na.omit(HRS2012_data_female)
+#HRS2010_data_female = na.omit(HRS2010_data_female)
+#HRS2008_data_female = na.omit(HRS2008_data_female)
 
 
 WCE_dataset_female = rbind(HRS2008_data_female,

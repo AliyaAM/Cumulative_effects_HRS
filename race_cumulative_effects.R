@@ -87,12 +87,12 @@ HRS2018_data_race = subset(HRS2018_data, HRS2018_data$race_white == 0)
 
 
 
-HRS2018_data_race = na.omit(HRS2018_data_race)
-HRS2016_data_race = na.omit(HRS2016_data_race)
-HRS2014_data_race = na.omit(HRS2014_data_race)
-HRS2012_data_race = na.omit(HRS2012_data_race)
-HRS2010_data_race = na.omit(HRS2010_data_race)
-HRS2008_data_race = na.omit(HRS2008_data_race)
+#HRS2018_data_race = na.omit(HRS2018_data_race)
+#HRS2016_data_race = na.omit(HRS2016_data_race)
+#HRS2014_data_race = na.omit(HRS2014_data_race)
+#HRS2012_data_race = na.omit(HRS2012_data_race)
+#HRS2010_data_race = na.omit(HRS2010_data_race)
+#HRS2008_data_race = na.omit(HRS2008_data_race)
 
 
 

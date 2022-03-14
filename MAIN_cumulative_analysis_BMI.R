@@ -38,6 +38,7 @@ source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 
 
 WCE_dataset_BMI = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_BMI.csv", sep=""))
+
 WCE_dataset_female = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_female.csv", sep=""))
 WCE_dataset_lim_cond = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond.csv", sep=""))
 WCE_dataset_national_origin_ousideUS = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_national_origin_ousideUS.csv", sep=""))
@@ -99,11 +100,25 @@ BMI_overal_discrim_stats = BMI_overal_discrim_age[2]
 
 
 ######## bootstrapped CIs for the HRs from the above model 
-BMI_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
+BMI_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(data_WCE = data_wce_BMI,
                                                             exposure = "summary_mean_score_discrim", 
                                                             outcome = "diabetes_new_bin", 
                                                             #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                                             covariates_list = c("continious_age"))
+
+#Steps to obtain the P value from the CI for an estimate of effect (Est)
+#calculate the standard error: SE = (u − l)/(2×1.96)
+#calculate the test statistic: z = Est/SE.
+#calculate the P value2: P = exp(−0.717×z − 0.416×z2).
+
+
+#1.9333720 1.3344550 1.921868 
+#Est = 1.9333720
+#SE = (1.921868 - 1.3344550 )/(2*1.96)
+#z = 1.9333720/SE
+#p = exp(−0.717×z − 0.416×z2)
+#1.9333720 1.3344550 1.921868 
+
 
 write.csv(BMI_overal_discrim_stats, paste(SOURCE_ROOT, "BMI_overal_discrim_stats.csv", sep=""))
 write.csv(BMI_overal_discrim_age_HR, paste(SOURCE_ROOT, "BMI_overal_discrim_age_HR.csv", sep=""))
@@ -115,6 +130,7 @@ BMI_overal_discrim_age_results = cbind(BMI_overal_discrim_age_HR, BMI_overal_dis
 
 BMI_all_results = rbind(BMI_overal_discrim_age_results, BMI_all_results)
 colnames(BMI_all_results) = c("hazard ratio", "5% CI", "95% CI")
+
 
 
 ########## discrim_harassed #########
@@ -429,10 +445,55 @@ BMI_afraid_others_age_results = cbind(BMI_afraid_others_age_HR, BMI_afraid_other
 colnames(BMI_afraid_others_age_results) = c("hazard ratio", "5% CI", "95% CI")
 BMI_all_results = rbind(BMI_all_results, BMI_afraid_others_age_results)
 
+variable = c("summary mean score, 2",
+             "summary mean score, 3",
+             "summary mean score, 4",
+             "summary mean score, 5",
+             "summary mean score, 6",
+             
+             "harassed, almost everyday", 
+             "harassed, at least once a week", 
+             "harassed, a few times a month", 
+             "harassed, a few times a year", 
+             "harassed, less than once a year", 
+             
+             "less respect, almost everyday", 
+             "less respect, at least once a week", 
+             "less respect, a few times a month", 
+             "less respect, a few times a year", 
+             "less respect, less than once a year", 
+             
+             "medical, almost everyday", 
+             "medical, at least once a week",  
+             "medical, a few times a month", 
+             "medical, a few times a year", 
+             "medical, less than once a year", 
+             
+             "not clever, almost everyday", 
+             "not clever, at least once a week", 
+             "not clever, a few times a month", 
+             "not clever, a few times a year", 
+             "not clever, less than once a year", 
+             
+             "poorer service, almost everyday",
+             "poorer service, at least once a week", 
+             "poorer service, a few times a month",
+             "poorer service, a few times a year",
+             "poorer service, less than once a year", 
+             
+             "afraid others, almost everyday", 
+             "afraid others, at least once a week",
+             "afraid others, a few times a month",
+             "afraid others, a few times a year",
+             "afraid others, less than once a year")
+
+
+
+BMI_all_results  = cbind(variable, BMI_all_results)
+
 ########
 ########
 ########
 
 write.csv(BMI_all_results, paste(SOURCE_ROOT, "BMI_all_results.csv", sep=""))
-
 

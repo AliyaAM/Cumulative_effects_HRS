@@ -77,20 +77,20 @@ HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_shor
 
 
 
-HRS2008_data_national_origin_ousideUS = subset(HRS2008_data, HRS2008_data$national_origin_ousideUS == 1) 
-HRS2010_data_national_origin_ousideUS = subset(HRS2010_data, HRS2010_data$national_origin_ousideUS == 1)
-HRS2012_data_national_origin_ousideUS = subset(HRS2012_data, HRS2012_data$national_origin_ousideUS == 1)
-HRS2014_data_national_origin_ousideUS = subset(HRS2014_data, HRS2014_data$national_origin_ousideUS == 1)
-HRS2016_data_national_origin_ousideUS = subset(HRS2016_data, HRS2016_data$national_origin_ousideUS == 1)
-HRS2018_data_national_origin_ousideUS = subset(HRS2018_data, HRS2018_data$national_origin_ousideUS == 1)
+HRS2008_data_national_origin_ousideUS = subset(HRS2008_data, HRS2008_data$national_origin_ousideUS_bin == 1) 
+HRS2010_data_national_origin_ousideUS = subset(HRS2010_data, HRS2010_data$national_origin_ousideUS_bin == 1)
+HRS2012_data_national_origin_ousideUS = subset(HRS2012_data, HRS2012_data$national_origin_ousideUS_bin == 1)
+HRS2014_data_national_origin_ousideUS = subset(HRS2014_data, HRS2014_data$national_origin_ousideUS_bin == 1)
+HRS2016_data_national_origin_ousideUS = subset(HRS2016_data, HRS2016_data$national_origin_ousideUS_bin == 1)
+HRS2018_data_national_origin_ousideUS = subset(HRS2018_data, HRS2018_data$national_origin_ousideUS_bin == 1)
 
 
-HRS2018_data_national_origin_ousideUS = na.omit(HRS2018_data_national_origin_ousideUS)
-HRS2016_data_national_origin_ousideUS = na.omit(HRS2016_data_national_origin_ousideUS)
-HRS2014_data_national_origin_ousideUS = na.omit(HRS2014_data_national_origin_ousideUS)
-HRS2012_data_national_origin_ousideUS = na.omit(HRS2012_data_national_origin_ousideUS)
-HRS2010_data_national_origin_ousideUS = na.omit(HRS2010_data_national_origin_ousideUS)
-HRS2008_data_national_origin_ousideUS = na.omit(HRS2008_data_national_origin_ousideUS)
+#HRS2018_data_national_origin_ousideUS = na.omit(HRS2018_data_national_origin_ousideUS)
+#HRS2016_data_national_origin_ousideUS = na.omit(HRS2016_data_national_origin_ousideUS)
+#HRS2014_data_national_origin_ousideUS = na.omit(HRS2014_data_national_origin_ousideUS)
+#HRS2012_data_national_origin_ousideUS = na.omit(HRS2012_data_national_origin_ousideUS)
+#HRS2010_data_national_origin_ousideUS = na.omit(HRS2010_data_national_origin_ousideUS)
+#HRS2008_data_national_origin_ousideUS = na.omit(HRS2008_data_national_origin_ousideUS)
 
 
 WCE_dataset_national_origin_ousideUS = rbind(HRS2008_data_national_origin_ousideUS, 
