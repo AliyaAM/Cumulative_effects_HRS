@@ -9,7 +9,7 @@ data_WCE$diabetes_new_bin = as.numeric(data_WCE$diabetes_new_bin)
 data_WCE$start_new = as.numeric(data_WCE$start_new)
 data_WCE$stop_new = as.numeric(data_WCE$stop_new)
 
-data_WCE$discrim_harassed = as.numeric(data_WCE$summary_mean_score_discrim)
+data_WCE$summary_mean_score_discrim = as.numeric(data_WCE$summary_mean_score_discrim)
 
 data_WCE$discrim_harassed = as.numeric(data_WCE$discrim_harassed)
 data_WCE$discrim_lessrespect = as.numeric(data_WCE$discrim_lessrespect)
@@ -118,7 +118,7 @@ mat_t1_value = wce$WCEmat[1,1]
 mat_t2_value = wce$WCEmat[1,2]
 mat_t3_value = wce$WCEmat[1,3]
 
-loglik_value = wce$loglik[1]
+#loglik_value = wce$loglik[1]
 
 info_criterion_value = wce$info.criterion[1]
 
@@ -142,7 +142,7 @@ results_stats_WCE= cbind(mat_t1_value,
                          mat_t2_value,
                          mat_t3_value,
                          
-                         loglik_value,
+                        # loglik_value,
                          
                          info_criterion_value,
                          

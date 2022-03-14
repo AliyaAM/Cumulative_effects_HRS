@@ -4,6 +4,8 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
+library(tidyr)
+
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p-value from logistic model
@@ -35,7 +37,6 @@ source((paste(SOURCE_ROOT, "summary_score_WCE_analysis.R", sep="")))
 
 source((paste(SOURCE_ROOT, "Bootstrapped_CI.R", sep="")))
 source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
-
 
 WCE_dataset_BMI = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_BMI.csv", sep=""))
 WCE_dataset_female = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_female.csv", sep=""))

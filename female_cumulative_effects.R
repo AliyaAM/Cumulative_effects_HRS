@@ -6,6 +6,8 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
+library(tidyr)
+
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p-value from logistic model
@@ -87,15 +89,6 @@ HRS2018_data_female = subset(HRS2018_data, HRS2018_data$sex_1_2 == 2)
 
 
 
-
-HRS2018_data_female = na.omit(HRS2018_data_female)
-HRS2016_data_female = na.omit(HRS2016_data_female)
-HRS2014_data_female = na.omit(HRS2014_data_female)
-HRS2012_data_female = na.omit(HRS2012_data_female)
-HRS2010_data_female = na.omit(HRS2010_data_female)
-HRS2008_data_female = na.omit(HRS2008_data_female)
-
-
 WCE_dataset_female = rbind(HRS2008_data_female,
                            HRS2010_data_female, 
                            HRS2012_data_female,
@@ -108,6 +101,9 @@ WCE_dataset_female$diabetes_new_bin = case_when(WCE_dataset_female$diabetes_new 
                                                   WCE_dataset_female$diabetes_new ==1 ~ 1) 
 
 
+
+WCE_dataset_female= WCE_dataset_female %>% drop_na(diabetes_new_bin)
+unique(WCE_dataset_female$diabetes_new_bin)
 
 WCE_dataset_female = subset(WCE_dataset_female, HHIDPN != "3020")
 

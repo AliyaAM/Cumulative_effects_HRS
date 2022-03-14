@@ -9,6 +9,8 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
+library(tidyr)
+
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p-value from logistic model
@@ -91,16 +93,6 @@ HRS2018_data_lim_cond  = subset(HRS2018_data, HRS2018_data$limiting_condition_bi
 
 
 
-HRS2018_data_lim_cond = na.omit(HRS2018_data_lim_cond)
-HRS2016_data_lim_cond = na.omit(HRS2016_data_lim_cond)
-HRS2014_data_lim_cond = na.omit(HRS2014_data_lim_cond)
-HRS2012_data_lim_cond = na.omit(HRS2012_data_lim_cond)
-HRS2010_data_lim_cond = na.omit(HRS2010_data_lim_cond)
-HRS2008_data_lim_cond = na.omit(HRS2008_data_lim_cond)
-
-
-
-
 WCE_dataset_lim_cond = rbind(HRS2008_data_lim_cond,
                              HRS2010_data_lim_cond, 
                              HRS2012_data_lim_cond,
@@ -111,6 +103,12 @@ WCE_dataset_lim_cond = rbind(HRS2008_data_lim_cond,
 
 WCE_dataset_lim_cond$diabetes_new_bin = case_when(WCE_dataset_lim_cond$diabetes_new ==0 ~ 0, 
                                                 WCE_dataset_lim_cond$diabetes_new ==1 ~ 1) 
+
+
+
+WCE_dataset_lim_cond = WCE_dataset_lim_cond %>% drop_na(diabetes_new_bin)
+unique(WCE_dataset_lim_cond$diabetes_new_bin)
+
 
 WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond, HHIDPN != "3020")
 

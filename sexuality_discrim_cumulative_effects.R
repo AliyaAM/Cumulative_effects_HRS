@@ -6,6 +6,8 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
+library(tidyr)
+
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p-value from logistic model
@@ -87,15 +89,6 @@ HRS2018_data_sexuality_discrim = subset(HRS2018_data, HRS2018_data$reason_discir
 
 
 
-HRS2018_data_sexuality_discrim = na.omit(HRS2018_data_sexuality_discrim)
-HRS2016_data_sexuality_discrim = na.omit(HRS2016_data_sexuality_discrim)
-HRS2014_data_sexuality_discrim = na.omit(HRS2014_data_sexuality_discrim)
-HRS2012_data_sexuality_discrim = na.omit(HRS2012_data_sexuality_discrim)
-HRS2010_data_sexuality_discrim = na.omit(HRS2010_data_sexuality_discrim)
-HRS2008_data_sexuality_discrim = na.omit(HRS2008_data_sexuality_discrim)
-
-
-
 
 WCE_dataset_sexuality_discrim = rbind(HRS2008_data_sexuality_discrim,
                                       HRS2010_data_sexuality_discrim,
@@ -108,6 +101,9 @@ WCE_dataset_sexuality_discrim = rbind(HRS2008_data_sexuality_discrim,
 WCE_dataset_sexuality_discrim$diabetes_new_bin = case_when(WCE_dataset_sexuality_discrim$diabetes_new ==0 ~ 0, 
                                                            WCE_dataset_sexuality_discrim$diabetes_new ==1 ~ 1) 
 
+
+WCE_dataset_sexuality_discrim= WCE_dataset_sexuality_discrim %>% drop_na(diabetes_new_bin)
+unique(WCE_dataset_sexuality_discrim$diabetes_new_bin)
 
 
 WCE_dataset_sexuality_discrim = subset(WCE_dataset_sexuality_discrim, HHIDPN != "3020")

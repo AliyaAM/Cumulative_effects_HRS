@@ -6,6 +6,8 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
+library(tidyr)
+
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p-value from logistic model
@@ -87,12 +89,6 @@ HRS2016_data_age_discrim = subset(HRS2016_data, HRS2016_data$reason_discrim1_rea
 HRS2018_data_age_discrim = subset(HRS2018_data, HRS2018_data$reason_discrim1_reason_age == 1)
 
 
-HRS2018_data_age_discrim = na.omit(HRS2018_data_age_discrim)
-HRS2016_data_age_discrim = na.omit(HRS2016_data_age_discrim)
-HRS2014_data_age_discrim = na.omit(HRS2014_data_age_discrim)
-HRS2012_data_age_discrim = na.omit(HRS2012_data_age_discrim)
-HRS2010_data_age_discrim = na.omit(HRS2010_data_age_discrim)
-HRS2008_data_age_discrim = na.omit(HRS2008_data_age_discrim)
 
 
 
@@ -108,6 +104,8 @@ WCE_dataset_age_discrim$diabetes_new_bin = case_when(WCE_dataset_age_discrim$dia
                                                   WCE_dataset_age_discrim$diabetes_new ==1 ~ 1) 
 
 
+WCE_dataset_age_discrim= WCE_dataset_age_discrim %>% drop_na(diabetes_new_bin)
+unique(WCE_dataset_age_discrim$diabetes_new_bin)
 
 WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim, HHIDPN != "3020")
 

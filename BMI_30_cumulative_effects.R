@@ -6,6 +6,8 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
+library(tidyr)
+
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p-value from logistic model
@@ -78,21 +80,21 @@ HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_shor
 
 #assessed_BMI_2008
 HRS2008_data_BMI = subset(HRS2008_data, HRS2008_data$assessed_BMI > 30) 
+unique(HRS2008_data_BMI$diabetes_new)
 HRS2010_data_BMI = subset(HRS2010_data, HRS2010_data$assessed_BMI > 30)
+unique(HRS2010_data_BMI$diabetes_new)
+
 HRS2012_data_BMI = subset(HRS2012_data, HRS2012_data$assessed_BMI > 30)
+unique(HRS2012_data_BMI$diabetes_new)
+
 HRS2014_data_BMI = subset(HRS2014_data, HRS2014_data$assessed_BMI > 30)
+unique(HRS2014_data_BMI$diabetes_new)
+
 HRS2016_data_BMI = subset(HRS2016_data, HRS2016_data$assessed_BMI > 30)
+unique(HRS2016_data_BMI$diabetes_new)
+
 HRS2018_data_BMI = subset(HRS2018_data, HRS2018_data$assessed_BMI > 30)
-
-
-
-
-HRS2018_data_BMI = na.omit(HRS2018_data_BMI)
-HRS2016_data_BMI = na.omit(HRS2016_data_BMI)
-HRS2014_data_BMI = na.omit(HRS2014_data_BMI)
-HRS2012_data_BMI = na.omit(HRS2012_data_BMI)
-HRS2010_data_BMI = na.omit(HRS2010_data_BMI)
-HRS2008_data_BMI = na.omit(HRS2008_data_BMI)
+unique(HRS2018_data_BMI$diabetes_new)
 
 
 WCE_dataset_BMI = rbind(HRS2008_data_BMI, 
@@ -102,9 +104,11 @@ WCE_dataset_BMI = rbind(HRS2008_data_BMI,
                         HRS2016_data_BMI, 
                         HRS2018_data_BMI)
 
+unique(WCE_dataset_BMI$diabetes_new)
 
-WCE_dataset_BMI$diabetes_new_bin = case_when(WCE_dataset_BMI$diabetes_new ==0 ~ 0, 
-                                              WCE_dataset_BMI$diabetes_new ==1 ~ 1) 
+WCE_dataset_BMI$diabetes_new_bin = case_when(WCE_dataset_BMI$diabetes_new == 0 ~ 0, 
+                                              WCE_dataset_BMI$diabetes_new == 1 ~ 1) 
+
 
 
 
@@ -132,6 +136,39 @@ unique(WCE_dataset_BMI$discrim_poorerservice)
 
 WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_afraidothers != " NA")
 unique(WCE_dataset_BMI$discrim_afraidothers)
+
+WCE_dataset_BMI= WCE_dataset_BMI %>% drop_na(diabetes_new_bin)
+unique(WCE_dataset_BMI$diabetes_new_bin)
+
+
+#######
+
+
+unique(WCE_dataset_BMI$summary_mean_score_discrim)
+unique(WCE_dataset_BMI$discrim_harassed)
+unique(WCE_dataset_BMI$discrim_lessrespect)
+unique(WCE_dataset_BMI$discrim_medical)
+unique(WCE_dataset_BMI$discrim_notclever)
+unique(WCE_dataset_BMI$discrim_poorerservice)
+unique(WCE_dataset_BMI$discrim_afraidothers)
+unique(WCE_dataset_BMI$wealth_noIRA)
+unique(WCE_dataset_BMI$assessed_BMI)
+
+WCE_dataset_BMI$diabetes_new_bin = as.numeric(WCE_dataset_BMI$diabetes_new_bin)
+
+WCE_dataset_BMI$summary_mean_score_discrim = as.numeric(WCE_dataset_BMI$summary_mean_score_discrim)
+
+WCE_dataset_BMI$discrim_harassed = as.numeric(WCE_dataset_BMI$discrim_harassed)
+WCE_dataset_BMI$discrim_lessrespect = as.numeric(WCE_dataset_BMI$discrim_lessrespect)
+WCE_dataset_BMI$discrim_medical = as.numeric(WCE_dataset_BMI$discrim_medical)
+WCE_dataset_BMI$discrim_notclever = as.numeric(WCE_dataset_BMI$discrim_notclever)
+WCE_dataset_BMI$discrim_poorerservice = as.numeric(WCE_dataset_BMI$discrim_poorerservice)
+WCE_dataset_BMI$discrim_afraidothers = as.numeric(WCE_dataset_BMI$discrim_afraidothers)
+
+WCE_dataset_BMI$wealth_noIRA = as.numeric(WCE_dataset_BMI$wealth_noIRA)
+WCE_dataset_BMI$assessed_BMI = as.numeric(WCE_dataset_BMI$assessed_BMI)
+WCE_dataset_BMI$continious_age = as.numeric(WCE_dataset_BMI$continious_age)
+
 
 write.csv(WCE_dataset_BMI, paste(SOURCE_data_ROOT, "WCE_dataset_BMI.csv", sep=""))
 

@@ -6,6 +6,8 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
+library(tidyr)
+
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p-value from logistic model
@@ -85,13 +87,6 @@ HRS2016_data_national_origin_ousideUS = subset(HRS2016_data, HRS2016_data$nation
 HRS2018_data_national_origin_ousideUS = subset(HRS2018_data, HRS2018_data$national_origin_ousideUS == 1)
 
 
-HRS2018_data_national_origin_ousideUS = na.omit(HRS2018_data_national_origin_ousideUS)
-HRS2016_data_national_origin_ousideUS = na.omit(HRS2016_data_national_origin_ousideUS)
-HRS2014_data_national_origin_ousideUS = na.omit(HRS2014_data_national_origin_ousideUS)
-HRS2012_data_national_origin_ousideUS = na.omit(HRS2012_data_national_origin_ousideUS)
-HRS2010_data_national_origin_ousideUS = na.omit(HRS2010_data_national_origin_ousideUS)
-HRS2008_data_national_origin_ousideUS = na.omit(HRS2008_data_national_origin_ousideUS)
-
 
 WCE_dataset_national_origin_ousideUS = rbind(HRS2008_data_national_origin_ousideUS, 
                                              HRS2010_data_national_origin_ousideUS,
@@ -105,6 +100,8 @@ WCE_dataset_national_origin_ousideUS$diabetes_new_bin = case_when(WCE_dataset_na
                                                                   WCE_dataset_national_origin_ousideUS$diabetes_new ==1 ~ 1) 
 
 
+WCE_dataset_national_origin_ousideUS = WCE_dataset_national_origin_ousideUS %>% drop_na(diabetes_new_bin)
+unique(WCE_dataset_national_origin_ousideUS$diabetes_new_bin)
 
 WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS, HHIDPN != "3020")
 

@@ -1,16 +1,20 @@
 
+
 sort_timepoints = function (data){
   
 ID = unique(data$HHIDPN)
 
 #print(isTRUE(data$HHIDPN == ID[1]))
-data = data %>% drop_na()
+#data = data %>% drop_na()
 
 participant_wave_df = data.frame()
 
 n = 1
 for (id in ID){
 
+  print(n)
+  print(id)
+  
   participant_wave = subset(data, data$HHIDPN == id)
   
   if (nrow(participant_wave)== 1){
