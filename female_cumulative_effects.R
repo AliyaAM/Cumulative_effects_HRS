@@ -131,5 +131,33 @@ unique(WCE_dataset_female$discrim_poorerservice)
 WCE_dataset_female = subset(WCE_dataset_female , discrim_afraidothers != " NA")
 unique(WCE_dataset_female$discrim_afraidothers)
 
+
+
+unique(WCE_dataset_female$summary_mean_score_discrim)
+unique(WCE_dataset_female$discrim_harassed)
+unique(WCE_dataset_female$discrim_lessrespect)
+unique(WCE_dataset_female$discrim_medical)
+unique(WCE_dataset_female$discrim_notclever)
+unique(WCE_dataset_female$discrim_poorerservice)
+unique(WCE_dataset_female$discrim_afraidothers)
+unique(WCE_dataset_female$wealth_noIRA)
+unique(WCE_dataset_female$assessed_BMI)
+
+WCE_dataset_female$diabetes_new_bin = as.numeric(WCE_dataset_female$diabetes_new_bin)
+
+WCE_dataset_female$summary_mean_score_discrim = as.numeric(WCE_dataset_female$summary_mean_score_discrim)
+
+WCE_dataset_female$discrim_harassed = as.numeric(WCE_dataset_female$discrim_harassed)
+WCE_dataset_female$discrim_lessrespect = as.numeric(WCE_dataset_female$discrim_lessrespect)
+WCE_dataset_female$discrim_medical = as.numeric(WCE_dataset_female$discrim_medical)
+WCE_dataset_female$discrim_notclever = as.numeric(WCE_dataset_female$discrim_notclever)
+WCE_dataset_female$discrim_poorerservice = as.numeric(WCE_dataset_female$discrim_poorerservice)
+WCE_dataset_female$discrim_afraidothers = as.numeric(WCE_dataset_female$discrim_afraidothers)
+
+WCE_dataset_female$wealth_noIRA = as.numeric(WCE_dataset_female$wealth_noIRA)
+WCE_dataset_female$assessed_BMI = as.numeric(WCE_dataset_female$assessed_BMI)
+WCE_dataset_female$continious_age = as.numeric(WCE_dataset_female$continious_age)
+
+
 write.csv(WCE_dataset_female, paste(SOURCE_data_ROOT, "WCE_dataset_female.csv", sep=""))
 
