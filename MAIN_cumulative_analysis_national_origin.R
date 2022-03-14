@@ -39,8 +39,6 @@ source((paste(SOURCE_ROOT, "Bootstrapped_CI.R", sep="")))
 source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 
 WCE_dataset_national_origin_ousideUS = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_national_origin_ousideUS.csv", sep=""))
-WCE_dataset_race = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_race.csv", sep=""))
-WCE_dataset_religion = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_religion.csv", sep=""))
 
 #WCE_dataset_national_origin_ousideUS.csv 
 #WCE_dataset_lim_cond.csv

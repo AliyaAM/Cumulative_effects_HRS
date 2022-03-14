@@ -88,9 +88,6 @@ HRS2016_data_disability_discrim = subset(HRS2016_data, HRS2016_data$reason_discr
 HRS2018_data_disability_discrim = subset(HRS2018_data, HRS2018_data$reason_discrim1_reason_disability == 1)
 
 
-WCE_dataset_disability_discrim = WCE_dataset_disability_discrim %>% drop_na(diabetes_new_bin)
-unique(WCE_dataset_disability_discrim$diabetes_new_bin)
-
 
 
 WCE_dataset_disability_discrim = rbind(HRS2008_data_disability_discrim,
@@ -105,6 +102,9 @@ WCE_dataset_disability_discrim$diabetes_new_bin = case_when(WCE_dataset_disabili
                                               WCE_dataset_disability_discrim$diabetes_new ==1 ~ 1) 
 
 
+
+WCE_dataset_disability_discrim = WCE_dataset_disability_discrim %>% drop_na(diabetes_new_bin)
+unique(WCE_dataset_disability_discrim$diabetes_new_bin)
 
 WCE_dataset_disability_discrim = subset(WCE_dataset_disability_discrim, HHIDPN != "3020")
 
@@ -131,6 +131,35 @@ unique(WCE_dataset_disability_discrim$discrim_poorerservice)
 
 WCE_dataset_disability_discrim = subset(WCE_dataset_disability_discrim , discrim_afraidothers != " NA")
 unique(WCE_dataset_disability_discrim$discrim_afraidothers)
+
+
+
+
+unique(WCE_dataset_disability_discrim$summary_mean_score_discrim)
+unique(WCE_dataset_disability_discrim$discrim_harassed)
+unique(WCE_dataset_disability_discrim$discrim_lessrespect)
+unique(WCE_dataset_disability_discrim$discrim_medical)
+unique(WCE_dataset_disability_discrim$discrim_notclever)
+unique(WCE_dataset_disability_discrim$discrim_poorerservice)
+unique(WCE_dataset_disability_discrim$discrim_afraidothers)
+unique(WCE_dataset_disability_discrim$wealth_noIRA)
+unique(WCE_dataset_disability_discrim$assessed_BMI)
+
+WCE_dataset_disability_discrim$diabetes_new_bin = as.numeric(WCE_dataset_disability_discrim$diabetes_new_bin)
+
+WCE_dataset_disability_discrim$summary_mean_score_discrim = as.numeric(WCE_dataset_disability_discrim$summary_mean_score_discrim)
+
+WCE_dataset_disability_discrim$discrim_harassed = as.numeric(WCE_dataset_disability_discrim$discrim_harassed)
+WCE_dataset_disability_discrim$discrim_lessrespect = as.numeric(WCE_dataset_disability_discrim$discrim_lessrespect)
+WCE_dataset_disability_discrim$discrim_medical = as.numeric(WCE_dataset_disability_discrim$discrim_medical)
+WCE_dataset_disability_discrim$discrim_notclever = as.numeric(WCE_dataset_disability_discrim$discrim_notclever)
+WCE_dataset_disability_discrim$discrim_poorerservice = as.numeric(WCE_dataset_disability_discrim$discrim_poorerservice)
+WCE_dataset_disability_discrim$discrim_afraidothers = as.numeric(WCE_dataset_disability_discrim$discrim_afraidothers)
+
+WCE_dataset_disability_discrim$wealth_noIRA = as.numeric(WCE_dataset_disability_discrim$wealth_noIRA)
+WCE_dataset_disability_discrim$assessed_BMI = as.numeric(WCE_dataset_disability_discrim$assessed_BMI)
+WCE_dataset_disability_discrim$continious_age = as.numeric(WCE_dataset_disability_discrim$continious_age)
+
 
 
 write.csv(WCE_dataset_disability_discrim, paste(SOURCE_data_ROOT, "WCE_dataset_disability_discrim.csv", sep=""))

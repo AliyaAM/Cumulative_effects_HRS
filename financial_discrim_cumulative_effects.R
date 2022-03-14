@@ -131,5 +131,34 @@ unique(WCE_dataset_financial_discrim$discrim_poorerservice)
 WCE_dataset_financial_discrim = subset(WCE_dataset_financial_discrim , discrim_afraidothers != " NA")
 unique(WCE_dataset_financial_discrim$discrim_afraidothers)
 
+
+
+
+
+unique(WCE_dataset_financial_discrim$summary_mean_score_discrim)
+unique(WCE_dataset_financial_discrim$discrim_harassed)
+unique(WCE_dataset_financial_discrim$discrim_lessrespect)
+unique(WCE_dataset_financial_discrim$discrim_medical)
+unique(WCE_dataset_financial_discrim$discrim_notclever)
+unique(WCE_dataset_financial_discrim$discrim_poorerservice)
+unique(WCE_dataset_financial_discrim$discrim_afraidothers)
+unique(WCE_dataset_financial_discrim$wealth_noIRA)
+unique(WCE_dataset_financial_discrim$assessed_BMI)
+
+WCE_dataset_financial_discrim$diabetes_new_bin = as.numeric(WCE_dataset_financial_discrim$diabetes_new_bin)
+
+WCE_dataset_financial_discrim$summary_mean_score_discrim = as.numeric(WCE_dataset_financial_discrim$summary_mean_score_discrim)
+
+WCE_dataset_financial_discrim$discrim_harassed = as.numeric(WCE_dataset_financial_discrim$discrim_harassed)
+WCE_dataset_financial_discrim$discrim_lessrespect = as.numeric(WCE_dataset_financial_discrim$discrim_lessrespect)
+WCE_dataset_financial_discrim$discrim_medical = as.numeric(WCE_dataset_financial_discrim$discrim_medical)
+WCE_dataset_financial_discrim$discrim_notclever = as.numeric(WCE_dataset_financial_discrim$discrim_notclever)
+WCE_dataset_financial_discrim$discrim_poorerservice = as.numeric(WCE_dataset_financial_discrim$discrim_poorerservice)
+WCE_dataset_financial_discrim$discrim_afraidothers = as.numeric(WCE_dataset_financial_discrim$discrim_afraidothers)
+
+WCE_dataset_financial_discrim$wealth_noIRA = as.numeric(WCE_dataset_financial_discrim$wealth_noIRA)
+WCE_dataset_financial_discrim$assessed_BMI = as.numeric(WCE_dataset_financial_discrim$assessed_BMI)
+WCE_dataset_financial_discrim$continious_age = as.numeric(WCE_dataset_financial_discrim$continious_age)
+
 write.csv(WCE_dataset_financial_discrim, paste(SOURCE_data_ROOT, "WCE_dataset_financial_discrim.csv", sep=""))
 
