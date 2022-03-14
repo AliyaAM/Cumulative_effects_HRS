@@ -29,15 +29,14 @@ SOURCE_ROOT =  "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 
 source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
-
 source((paste(SOURCE_ROOT, "WCE_analysis.R", sep="")))
-source((paste(SOURCE_ROOT, "summary_score_WCE_analysis.R", sep="")))
-
 source((paste(SOURCE_ROOT, "Bootstrapped_CI.R", sep="")))
-source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
-
 
 WCE_dataset_female = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_female.csv", sep=""))
+WCE_dataset_lim_cond = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond.csv", sep=""))
+WCE_dataset_national_origin_ousideUS = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_national_origin_ousideUS.csv", sep=""))
+WCE_dataset_race = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_race.csv", sep=""))
+WCE_dataset_religion = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_religion.csv", sep=""))
 
 #WCE_dataset_female.csv 
 #WCE_dataset_lim_cond.csv
@@ -66,13 +65,15 @@ data_wce_female = sort_timepoints(data = WCE_dataset_female)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
 
+print("reverse summary score. check how it was calcualted keep the
+      same function for the summary score; and add a separate function as it is an integer: 
+      light <- rep(0.5, n_timepoints_max) heavy <- rep(2, n_timepoints_max) ") 
 
-female_all_results = data.frame()
-female_overal_discrim_age = summary_score_WCE_analysis(data_WCE = data_wce_female,
-                                                    exposure = "summary_mean_score_discrim", 
-                                                    outcome = "diabetes_new_bin", 
-                                                    #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
-                                                    covariates_list = c("continious_age"))
+female_overal_discrim_age = WCE_analysis(data_WCE = data_wce_female,
+                                      exposure = "summary_mean_score_discrim", 
+                                      outcome = "diabetes_new_bin", 
+                                      #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
+                                      covariates_list = c("continious_age"))
 
 female_overal_discrim_age_HR = female_overal_discrim_age[1]
 
@@ -94,36 +95,15 @@ female_overal_discrim_stats = female_overal_discrim_age[2]
 
 
 ######## bootstrapped CIs for the HRs from the above model 
-female_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_female,
-                                                           exposure = "summary_mean_score_discrim", 
-                                                           outcome = "diabetes_new_bin", 
-                                                           #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
-                                                           covariates_list = c("continious_age"))
-
-#Steps to obtain the P value from the CI for an estimate of effect (Est)
-#calculate the standard error: SE = (u − l)/(2×1.96)
-#calculate the test statistic: z = Est/SE.
-#calculate the P value2: P = exp(−0.717×z − 0.416×z2).
-
-
-#1.9333720 1.3344550 1.921868 
-#Est = 1.9333720
-#SE = (1.921868 - 1.3344550 )/(2*1.96)
-#z = 1.9333720/SE
-#p = exp(−0.717×z − 0.416×z2)
-#1.9333720 1.3344550 1.921868 
-
+female_overal_discrim_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_female,
+                                             exposure = "summary_mean_score_discrim", 
+                                             outcome = "diabetes_new_bin", 
+                                             #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
+                                             covariates_list = c("continious_age"))
 
 write.csv(female_overal_discrim_stats, paste(SOURCE_ROOT, "female_overal_discrim_stats.csv", sep=""))
 write.csv(female_overal_discrim_age_HR, paste(SOURCE_ROOT, "female_overal_discrim_age_HR.csv", sep=""))
 write.csv(female_overal_discrim_age_CI, paste(SOURCE_ROOT, "female_overal_discrim_age_CI.csv", sep=""))
-
-
-female_overal_discrim_age_HR = unlist(female_overal_discrim_age_HR)
-female_overal_discrim_age_results = cbind(female_overal_discrim_age_HR, female_overal_discrim_age_CI)
-
-female_all_results = rbind(female_overal_discrim_age_results, female_all_results)
-colnames(female_all_results) = c("hazard ratio", "5% CI", "95% CI")
 
 
 
@@ -170,13 +150,6 @@ write.csv(female_discrim_harassed_stats, paste(SOURCE_ROOT, "female_discrim_hara
 write.csv(female_discrim_harassed_age_HR, paste(SOURCE_ROOT, "female_discrim_harassed_age_HR.csv", sep=""))
 write.csv(female_discrim_harassed_age_CI, paste(SOURCE_ROOT, "female_discrim_harassed_age_CI.csv", sep=""))
 
-female_discrim_harassed_age_HR = unlist(female_discrim_harassed_age_HR)
-female_discrim_harassed_age_results = cbind(female_discrim_harassed_age_HR, female_discrim_harassed_age_CI)
-
-colnames(female_discrim_harassed_age_results) = c("hazard ratio", "5% CI", "95% CI")
-female_all_results = rbind(female_all_results, female_discrim_harassed_age_results)
-
-
 
 ##########
 
@@ -186,7 +159,6 @@ female_all_results = rbind(female_all_results, female_discrim_harassed_age_resul
 data_wce_female = sort_timepoints(data = WCE_dataset_female)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
-unique(data_wce_female$discrim_lessrespect)
 
 female_discrim_lessrespect_age = WCE_analysis(data_WCE = data_wce_female,
                                            exposure = "discrim_lessrespect", 
@@ -224,14 +196,6 @@ write.csv(female_discrim_lessrespect_stats, paste(SOURCE_ROOT, "female_discrim_l
 write.csv(female_discrim_lessrespect_age_HR, paste(SOURCE_ROOT, "female_discrim_lessrespect_age_HR.csv", sep=""))
 write.csv(female_discrim_lessrespect_age_CI, paste(SOURCE_ROOT, "female_discrim_lessrespect_age_CI.csv", sep=""))
 
-female_discrim_lessrespect_age_HR = unlist(female_discrim_lessrespect_age_HR)
-female_discrim_lessrespect_age_results = cbind(female_discrim_lessrespect_age_HR, female_discrim_lessrespect_age_CI)
-
-
-colnames(female_discrim_lessrespect_age_results) = c("hazard ratio", "5% CI", "95% CI")
-female_all_results = rbind(female_all_results, female_discrim_lessrespect_age_results)
-
-
 
 ########## discrim_medical   #########
 
@@ -239,7 +203,6 @@ female_all_results = rbind(female_all_results, female_discrim_lessrespect_age_re
 data_wce_female = sort_timepoints(data = WCE_dataset_female)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
-
 
 female_discrim_medical_age = WCE_analysis(data_WCE = data_wce_female,
                                        exposure = "discrim_medical", 
@@ -277,13 +240,6 @@ write.csv(female_discrim_medical_stats, paste(SOURCE_ROOT, "female_discrim_medic
 write.csv(female_discrim_medical_age_HR, paste(SOURCE_ROOT, "female_discrim_medical_age_HR.csv", sep=""))
 write.csv(female_discrim_medical_age_CI, paste(SOURCE_ROOT, "female_discrim_medical_age_CI.csv", sep=""))
 
-
-female_discrim_medical_age_HR = unlist(female_discrim_medical_age_HR)
-female_discrim_medical_age_results = cbind(female_discrim_medical_age_HR, female_discrim_medical_age_CI)
-
-
-colnames(female_discrim_medical_age_results) = c("hazard ratio", "5% CI", "95% CI")
-female_all_results = rbind(female_all_results, female_discrim_medical_age_results)
 
 ########## discrim_notclever #########
 
@@ -331,13 +287,6 @@ write.csv(female_discrim_notclever_age_CI, paste(SOURCE_ROOT, "female_discrim_no
 
 
 
-female_discrim_notclever_age_HR = unlist(female_discrim_notclever_age_HR)
-female_discrim_notclever_age_results = cbind(female_discrim_notclever_age_HR, female_discrim_notclever_age_CI)
-
-
-
-colnames(female_discrim_notclever_age_results) = c("hazard ratio", "5% CI", "95% CI")
-female_all_results = rbind(female_all_results, female_discrim_notclever_age_results)
 ########## discrim_poorerservice #########
 
 ######## sort data in teh right way where starting point of  wave 1 is 0 and stopping point is 1, for wave 2: 1 and 2, for wave 3: 3 and 4...
@@ -385,13 +334,7 @@ write.csv(female_discrim_poorerservice_age_CI, paste(SOURCE_ROOT, "female_discri
 
 
 
-female_discrim_poorerservice_age_HR = unlist(female_discrim_poorerservice_age_HR)
-female_discrim_poorerservice_age_results = cbind(female_discrim_poorerservice_age_HR, female_discrim_poorerservice_age_CI)
 
-
-
-colnames(female_discrim_poorerservice_age_results) = c("hazard ratio", "5% CI", "95% CI")
-female_all_results = rbind(female_all_results, female_discrim_poorerservice_age_results)
 ########## AFRAID OTHERS #########
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
@@ -432,62 +375,7 @@ write.csv(female_afraid_others_age_HR, paste(SOURCE_ROOT, "female_afraid_others_
 write.csv(female_afraid_others_age_CI, paste(SOURCE_ROOT, "female_afraid_others_age_CI.csv", sep=""))
 
 
-female_afraid_others_age_HR = unlist(female_afraid_others_age_HR)
-female_afraid_others_age_results = cbind(female_afraid_others_age_HR, female_afraid_others_age_CI)
+#################################### ######## ########################################################################
+####################################  ########################################################################
 
-
-colnames(female_afraid_others_age_results) = c("hazard ratio", "5% CI", "95% CI")
-female_all_results = rbind(female_all_results, female_afraid_others_age_results)
-
-variable = c("summary mean score, 2",
-             "summary mean score, 3",
-             "summary mean score, 4",
-             "summary mean score, 5",
-             "summary mean score, 6",
-             
-             "harassed, almost everyday", 
-             "harassed, at least once a week", 
-             "harassed, a few times a month", 
-             "harassed, a few times a year", 
-             "harassed, less than once a year", 
-             
-             "less respect, almost everyday", 
-             "less respect, at least once a week", 
-             "less respect, a few times a month", 
-             "less respect, a few times a year", 
-             "less respect, less than once a year", 
-             
-             "medical, almost everyday", 
-             "medical, at least once a week",  
-             "medical, a few times a month", 
-             "medical, a few times a year", 
-             "medical, less than once a year", 
-             
-             "not clever, almost everyday", 
-             "not clever, at least once a week", 
-             "not clever, a few times a month", 
-             "not clever, a few times a year", 
-             "not clever, less than once a year", 
-             
-             "poorer service, almost everyday",
-             "poorer service, at least once a week", 
-             "poorer service, a few times a month",
-             "poorer service, a few times a year",
-             "poorer service, less than once a year", 
-             
-             "afraid others, almost everyday", 
-             "afraid others, at least once a week",
-             "afraid others, a few times a month",
-             "afraid others, a few times a year",
-             "afraid others, less than once a year")
-
-
-
-female_all_results  = cbind(variable, female_all_results)
-
-########
-########
-########
-
-write.csv(female_all_results, paste(SOURCE_ROOT, "female_all_results.csv", sep=""))
 

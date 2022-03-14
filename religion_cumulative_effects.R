@@ -76,10 +76,9 @@ HRS2014_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2014_data/HRS2014_data_shor
 HRS2016_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2016_data/HRS2016_data_short.csv", sep=""))
 HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_short.csv", sep=""))
 
-HRS2018_data$religion_bin
-HRS2008_data$religion_bin
 
-unique(HRS2008_data$religion_bin)
+
+
 HRS2008_data_religion = subset(HRS2008_data, HRS2008_data$religion_bin == 1) 
 HRS2010_data_religion = subset(HRS2010_data, HRS2010_data$religion_bin == 1)
 HRS2012_data_religion = subset(HRS2012_data, HRS2012_data$religion_bin == 1)
@@ -88,12 +87,12 @@ HRS2016_data_religion = subset(HRS2016_data, HRS2016_data$religion_bin == 1)
 HRS2018_data_religion = subset(HRS2018_data, HRS2018_data$religion_bin == 1)
 
 
-#HRS2018_data_religion = na.omit(HRS2018_data_religion)
-#HRS2016_data_religion = na.omit(HRS2016_data_religion)
-#HRS2014_data_religion = na.omit(HRS2014_data_religion)
-#HRS2012_data_religion = na.omit(HRS2012_data_religion)
-#HRS2010_data_religion = na.omit(HRS2010_data_religion)
-#HRS2008_data_religion = na.omit(HRS2008_data_religion)
+HRS2018_data_religion = na.omit(HRS2018_data_religion)
+HRS2016_data_religion = na.omit(HRS2016_data_religion)
+HRS2014_data_religion = na.omit(HRS2014_data_religion)
+HRS2012_data_religion = na.omit(HRS2012_data_religion)
+HRS2010_data_religion = na.omit(HRS2010_data_religion)
+HRS2008_data_religion = na.omit(HRS2008_data_religion)
 
 
 

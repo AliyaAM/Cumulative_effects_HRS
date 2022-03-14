@@ -87,12 +87,12 @@ HRS2016_data_age_discrim = subset(HRS2016_data, HRS2016_data$reason_discrim1_rea
 HRS2018_data_age_discrim = subset(HRS2018_data, HRS2018_data$reason_discrim1_reason_age == 1)
 
 
-#HRS2018_data_age_discrim = na.omit(HRS2018_data_age_discrim)
-#HRS2016_data_age_discrim = na.omit(HRS2016_data_age_discrim)
-#HRS2014_data_age_discrim = na.omit(HRS2014_data_age_discrim)
-#HRS2012_data_age_discrim = na.omit(HRS2012_data_age_discrim)
-#HRS2010_data_age_discrim = na.omit(HRS2010_data_age_discrim)
-#HRS2008_data_age_discrim = na.omit(HRS2008_data_age_discrim)
+HRS2018_data_age_discrim = na.omit(HRS2018_data_age_discrim)
+HRS2016_data_age_discrim = na.omit(HRS2016_data_age_discrim)
+HRS2014_data_age_discrim = na.omit(HRS2014_data_age_discrim)
+HRS2012_data_age_discrim = na.omit(HRS2012_data_age_discrim)
+HRS2010_data_age_discrim = na.omit(HRS2010_data_age_discrim)
+HRS2008_data_age_discrim = na.omit(HRS2008_data_age_discrim)
 
 
 

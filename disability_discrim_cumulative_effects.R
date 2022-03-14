@@ -87,12 +87,12 @@ HRS2018_data_disability_discrim = subset(HRS2018_data, HRS2018_data$reason_discr
 
 
 
-#HRS2018_data_disability_discrim = na.omit(HRS2018_data_disability_discrim)
-#HRS2016_data_disability_discrim = na.omit(HRS2016_data_disability_discrim)
-#HRS2014_data_disability_discrim = na.omit(HRS2014_data_disability_discrim)
-#HRS2012_data_disability_discrim = na.omit(HRS2012_data_disability_discrim)
-#HRS2010_data_disability_discrim = na.omit(HRS2010_data_disability_discrim)
-#HRS2008_data_disability_discrim = na.omit(HRS2008_data_disability_discrim)
+HRS2018_data_disability_discrim = na.omit(HRS2018_data_disability_discrim)
+HRS2016_data_disability_discrim = na.omit(HRS2016_data_disability_discrim)
+HRS2014_data_disability_discrim = na.omit(HRS2014_data_disability_discrim)
+HRS2012_data_disability_discrim = na.omit(HRS2012_data_disability_discrim)
+HRS2010_data_disability_discrim = na.omit(HRS2010_data_disability_discrim)
+HRS2008_data_disability_discrim = na.omit(HRS2008_data_disability_discrim)
 
 
 

@@ -67,40 +67,6 @@ HRS2018_data$reason_discrim1_reason_disability = HRS2018_data$HRS2018_reason_dis
 
 
 
-#BMI categories: 
-HRS2008_data$BMI_cat = HRS2008_data$HRS2008_BMI_cat
-HRS2008_data$BMI  = HRS2008_data$HRS2008_BMI 
-
-
-#BMI: 2010, wave 10: 
-HRS2010_data$BMI_cat = HRS2010_data$HRS2010_BMI_cat
-HRS2010_data$BMI  = HRS2010_data$HRS2010_BMI 
-
-
-#BMI: 2012, wave 11: 
-
-HRS2012_data$BMI_cat = HRS2012_data$HRS2012_BMI_cat
-HRS2012_data$BMI  = HRS2012_data$HRS2012_BMI 
-
-#BMI: 2014, wave 12: 
-
-HRS2014_data$BMI_cat = HRS2014_data$HRS2014_BMI_cat
-HRS2014_data$BMI  = HRS2014_data$HRS2014_BMI 
-
-
-
-#BMI: 2016, wave 13:
-
-
-HRS2016_data$BMI_cat = HRS2016_data$HRS2016_BMI_cat
-HRS2016_data$BMI  = HRS2016_data$HRS2016_BMI 
-
-#BMI: 2018, wave 14: 
-
-
-HRS2018_data$BMI_cat = HRS2018_data$HRS2018_BMI_cat
-HRS2018_data$BMI  = HRS2018_data$HRS2018_BMI 
-
 #dose: the frequency of exposure, So a person who reports daily discrimination vs yearly discrimination at 1 time point
 #separately for each discriinatory situation 
 

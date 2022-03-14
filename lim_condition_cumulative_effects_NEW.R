@@ -79,6 +79,7 @@ HRS2014_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2014_data/HRS2014_data_shor
 HRS2016_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2016_data/HRS2016_data_short.csv", sep=""))
 HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_short.csv", sep=""))
 
+
 HRS2008_data_lim_cond = subset(HRS2008_data, HRS2008_data$limiting_condition_bin == 1) 
 HRS2010_data_lim_cond  = subset(HRS2010_data, HRS2010_data$limiting_condition_bin == 1)
 HRS2012_data_lim_cond  = subset(HRS2012_data, HRS2012_data$limiting_condition_bin == 1)
@@ -90,12 +91,12 @@ HRS2018_data_lim_cond  = subset(HRS2018_data, HRS2018_data$limiting_condition_bi
 
 
 
-#HRS2018_data_lim_cond = na.omit(HRS2018_data_lim_cond)
-#HRS2016_data_lim_cond = na.omit(HRS2016_data_lim_cond)
-#HRS2014_data_lim_cond = na.omit(HRS2014_data_lim_cond)
-#HRS2012_data_lim_cond = na.omit(HRS2012_data_lim_cond)
-#HRS2010_data_lim_cond = na.omit(HRS2010_data_lim_cond)
-#HRS2008_data_lim_cond = na.omit(HRS2008_data_lim_cond)
+HRS2018_data_lim_cond = na.omit(HRS2018_data_lim_cond)
+HRS2016_data_lim_cond = na.omit(HRS2016_data_lim_cond)
+HRS2014_data_lim_cond = na.omit(HRS2014_data_lim_cond)
+HRS2012_data_lim_cond = na.omit(HRS2012_data_lim_cond)
+HRS2010_data_lim_cond = na.omit(HRS2010_data_lim_cond)
+HRS2008_data_lim_cond = na.omit(HRS2008_data_lim_cond)
 
 
 

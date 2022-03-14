@@ -80,12 +80,12 @@ HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_shor
 
 
 
-#HRS2018_data  = na.omit(HRS2018_data)
-#HRS2016_data  = na.omit(HRS2016_data)
-#HRS2014_data  = na.omit(HRS2014_data)
-#HRS2012_data  = na.omit(HRS2012_data)
-#HRS2010_data  = na.omit(HRS2010_data)
-#HRS2008_data  = na.omit(HRS2008_data)
+HRS2018_data  = na.omit(HRS2018_data)
+HRS2016_data  = na.omit(HRS2016_data)
+HRS2014_data  = na.omit(HRS2014_data)
+HRS2012_data  = na.omit(HRS2012_data)
+HRS2010_data  = na.omit(HRS2010_data)
+HRS2008_data  = na.omit(HRS2008_data)
 
 
 

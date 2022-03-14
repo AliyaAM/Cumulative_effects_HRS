@@ -1,4 +1,3 @@
-library(tidyr)
 
 sort_timepoints = function (data){
   

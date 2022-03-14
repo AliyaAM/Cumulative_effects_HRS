@@ -87,12 +87,12 @@ HRS2018_data_weight_discrim = subset(HRS2018_data, HRS2018_data$reason_discrim1_
 
 
 
-#HRS2018_data_weight_discrim = na.omit(HRS2018_data_weight_discrim)
-#HRS2016_data_weight_discrim = na.omit(HRS2016_data_weight_discrim)
-#HRS2014_data_weight_discrim = na.omit(HRS2014_data_weight_discrim)
-#HRS2012_data_weight_discrim = na.omit(HRS2012_data_weight_discrim)
-#HRS2010_data_weight_discrim = na.omit(HRS2010_data_weight_discrim)
-#HRS2008_data_weight_discrim = na.omit(HRS2008_data_weight_discrim)
+HRS2018_data_weight_discrim = na.omit(HRS2018_data_weight_discrim)
+HRS2016_data_weight_discrim = na.omit(HRS2016_data_weight_discrim)
+HRS2014_data_weight_discrim = na.omit(HRS2014_data_weight_discrim)
+HRS2012_data_weight_discrim = na.omit(HRS2012_data_weight_discrim)
+HRS2010_data_weight_discrim = na.omit(HRS2010_data_weight_discrim)
+HRS2008_data_weight_discrim = na.omit(HRS2008_data_weight_discrim)
 
 
 
