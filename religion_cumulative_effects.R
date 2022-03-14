@@ -131,5 +131,35 @@ unique(WCE_dataset_religion$discrim_poorerservice)
 WCE_dataset_religion = subset(WCE_dataset_religion , discrim_afraidothers != " NA")
 unique(WCE_dataset_religion$discrim_afraidothers)
 
+
+
+
+
+unique(WCE_dataset_religion$summary_mean_score_discrim)
+unique(WCE_dataset_religion$discrim_harassed)
+unique(WCE_dataset_religion$discrim_lessrespect)
+unique(WCE_dataset_religion$discrim_medical)
+unique(WCE_dataset_religion$discrim_notclever)
+unique(WCE_dataset_religion$discrim_poorerservice)
+unique(WCE_dataset_religion$discrim_afraidothers)
+unique(WCE_dataset_religion$wealth_noIRA)
+unique(WCE_dataset_religion$assessed_BMI)
+
+WCE_dataset_religion$diabetes_new_bin = as.numeric(WCE_dataset_religion$diabetes_new_bin)
+
+WCE_dataset_religion$summary_mean_score_discrim = as.numeric(WCE_dataset_religion$summary_mean_score_discrim)
+
+WCE_dataset_religion$discrim_harassed = as.numeric(WCE_dataset_religion$discrim_harassed)
+WCE_dataset_religion$discrim_lessrespect = as.numeric(WCE_dataset_religion$discrim_lessrespect)
+WCE_dataset_religion$discrim_medical = as.numeric(WCE_dataset_religion$discrim_medical)
+WCE_dataset_religion$discrim_notclever = as.numeric(WCE_dataset_religion$discrim_notclever)
+WCE_dataset_religion$discrim_poorerservice = as.numeric(WCE_dataset_religion$discrim_poorerservice)
+WCE_dataset_religion$discrim_afraidothers = as.numeric(WCE_dataset_religion$discrim_afraidothers)
+
+WCE_dataset_religion$wealth_noIRA = as.numeric(WCE_dataset_religion$wealth_noIRA)
+WCE_dataset_religion$assessed_BMI = as.numeric(WCE_dataset_religion$assessed_BMI)
+WCE_dataset_religion$continious_age = as.numeric(WCE_dataset_religion$continious_age)
+
+
 write.csv(WCE_dataset_religion, paste(SOURCE_data_ROOT, "WCE_dataset_religion.csv", sep=""))
 
