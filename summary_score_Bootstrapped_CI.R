@@ -28,7 +28,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
-  bootstraps_samples = 5
+  bootstraps_samples = 100
   Num_time_points = max(WCE_data_CI$timepoints_indiv)
   
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
