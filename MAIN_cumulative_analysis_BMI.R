@@ -106,7 +106,7 @@ BMI_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wc
                                                             #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                                             covariates_list = c("continious_age"))
 
-write.csv(BMI_overal_discrim_stats, paste(OUTPUT_ROOT, "BMI_overal_discrim_stats.csv", sep=""))
+write.csv(BMI_overal_discrim_stats, paste(OUTPUT_ROOT, "stats/BMI_overal_discrim_stats.csv", sep=""))
 
 
 BMI_overal_discrim_age_HR = unlist(BMI_overal_discrim_age_HR)
@@ -155,7 +155,7 @@ BMI_discrim_harassed_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
                                              #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                              covariates_list = c("continious_age"))
 
-write.csv(BMI_discrim_harassed_stats, paste(OUTPUT_ROOT, "BMI_discrim_harassed_age_stats.csv", sep=""))
+write.csv(BMI_discrim_harassed_stats, paste(OUTPUT_ROOT, "stats/BMI_discrim_harassed_age_stats.csv", sep=""))
 
 
 BMI_discrim_harassed_age_HR = unlist(BMI_discrim_harassed_age_HR)
@@ -208,7 +208,7 @@ BMI_discrim_lessrespect_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
                                                #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                                covariates_list = c("continious_age"))
 
-write.csv(BMI_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "BMI_discrim_lessrespect_age_stats.csv", sep=""))
+write.csv(BMI_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "stats/BMI_discrim_lessrespect_age_stats.csv", sep=""))
 
 
 BMI_discrim_lessrespect_age_HR = unlist(BMI_discrim_lessrespect_age_HR)
@@ -260,7 +260,7 @@ BMI_discrim_medical_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
                                              #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                              covariates_list = c("continious_age"))
 
-write.csv(BMI_discrim_medical_stats, paste(OUTPUT_ROOT, "BMI_discrim_medical_stats.csv", sep=""))
+write.csv(BMI_discrim_medical_stats, paste(OUTPUT_ROOT, "stats/BMI_discrim_medical_stats.csv", sep=""))
 
 
 
@@ -311,7 +311,7 @@ BMI_discrim_notclever_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
                                              #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                              covariates_list = c("continious_age"))
 
-write.csv(BMI_discrim_notclever_stats, paste(OUTPUT_ROOT, "BMI_discrim_notclever_stats.csv", sep=""))
+write.csv(BMI_discrim_notclever_stats, paste(OUTPUT_ROOT, "stats/BMI_discrim_notclever_stats.csv", sep=""))
 
 
 
@@ -363,7 +363,7 @@ BMI_discrim_poorerservice_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
                                              #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                              covariates_list = c("continious_age"))
 
-write.csv(BMI_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "BMI_discrim_poorerservice_stats.csv", sep=""))
+write.csv(BMI_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "stats/MI_discrim_poorerservice_stats.csv", sep=""))
 
 
 
@@ -411,7 +411,7 @@ BMI_afraid_others_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
                                                #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
                                                covariates_list = c("continious_age"))
 
-write.csv(BMI_afraid_others_age_stats, paste(OUTPUT_ROOT, "BMI_afraid_others_age_stats.csv", sep=""))
+write.csv(BMI_afraid_others_age_stats, paste(OUTPUT_ROOT, "stats/BMI_afraid_others_age_stats.csv", sep=""))
 
 
 
