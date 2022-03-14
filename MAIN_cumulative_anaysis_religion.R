@@ -102,7 +102,7 @@ religion_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = da
                                                                 #covariates_list = c("assessed_religion", "continious_age", "wealth_noIRA"))
                                                                 covariates_list = c("continious_age"))
 
-write.csv(religion_overal_discrim_stats, paste(OUTPUT_ROOT, "religion_overal_discrim_stats.csv", sep=""))
+write.csv(religion_overal_discrim_stats, paste(OUTPUT_ROOT, "stats/religion_overal_discrim_stats.csv", sep=""))
 
 
 religion_overal_discrim_age_HR = unlist(religion_overal_discrim_age_HR)
@@ -151,7 +151,7 @@ religion_discrim_harassed_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_relig
                                                     #covariates_list = c("assessed_religion", "continious_age", "wealth_noIRA"))
                                                     covariates_list = c("continious_age"))
 
-write.csv(religion_discrim_harassed_stats, paste(OUTPUT_ROOT, "religion_discrim_harassed_age_stats.csv", sep=""))
+write.csv(religion_discrim_harassed_stats, paste(OUTPUT_ROOT, "stats/religion_discrim_harassed_age_stats.csv", sep=""))
 
 
 religion_discrim_harassed_age_HR = unlist(religion_discrim_harassed_age_HR)
@@ -204,7 +204,7 @@ religion_discrim_lessrespect_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_re
                                                        #covariates_list = c("assessed_religion", "continious_age", "wealth_noIRA"))
                                                        covariates_list = c("continious_age"))
 
-write.csv(religion_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "religion_discrim_lessrespect_age_stats.csv", sep=""))
+write.csv(religion_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "stats/religion_discrim_lessrespect_age_stats.csv", sep=""))
 
 
 religion_discrim_lessrespect_age_HR = unlist(religion_discrim_lessrespect_age_HR)
@@ -256,7 +256,7 @@ religion_discrim_medical_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_religi
                                                    #covariates_list = c("assessed_religion", "continious_age", "wealth_noIRA"))
                                                    covariates_list = c("continious_age"))
 
-write.csv(religion_discrim_medical_stats, paste(OUTPUT_ROOT, "religion_discrim_medical_stats.csv", sep=""))
+write.csv(religion_discrim_medical_stats, paste(OUTPUT_ROOT, "stats/religion_discrim_medical_stats.csv", sep=""))
 
 
 
@@ -307,7 +307,7 @@ religion_discrim_notclever_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_reli
                                                      #covariates_list = c("assessed_religion", "continious_age", "wealth_noIRA"))
                                                      covariates_list = c("continious_age"))
 
-write.csv(religion_discrim_notclever_stats, paste(OUTPUT_ROOT, "religion_discrim_notclever_stats.csv", sep=""))
+write.csv(religion_discrim_notclever_stats, paste(OUTPUT_ROOT, "stats/religion_discrim_notclever_stats.csv", sep=""))
 
 
 
@@ -359,7 +359,7 @@ religion_discrim_poorerservice_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_
                                                          #covariates_list = c("assessed_religion", "continious_age", "wealth_noIRA"))
                                                          covariates_list = c("continious_age"))
 
-write.csv(religion_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "religion_discrim_poorerservice_stats.csv", sep=""))
+write.csv(religion_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "stats/religion_discrim_poorerservice_stats.csv", sep=""))
 
 
 

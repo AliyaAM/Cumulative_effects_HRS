@@ -102,7 +102,7 @@ female_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data
                                                            #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
                                                            covariates_list = c("continious_age"))
 
-write.csv(female_overal_discrim_stats, paste(OUTPUT_ROOT, "female_overal_discrim_stats.csv", sep=""))
+write.csv(female_overal_discrim_stats, paste(OUTPUT_ROOT, "stats/female_overal_discrim_stats.csv", sep=""))
 
 
 female_overal_discrim_age_HR = unlist(female_overal_discrim_age_HR)
@@ -151,7 +151,7 @@ female_discrim_harassed_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_female,
                                                #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
                                                covariates_list = c("continious_age"))
 
-write.csv(female_discrim_harassed_stats, paste(OUTPUT_ROOT, "female_discrim_harassed_age_stats.csv", sep=""))
+write.csv(female_discrim_harassed_stats, paste(OUTPUT_ROOT, "stats/female_discrim_harassed_age_stats.csv", sep=""))
 
 
 female_discrim_harassed_age_HR = unlist(female_discrim_harassed_age_HR)
@@ -204,7 +204,7 @@ female_discrim_lessrespect_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_fema
                                                   #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
                                                   covariates_list = c("continious_age"))
 
-write.csv(female_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "female_discrim_lessrespect_age_stats.csv", sep=""))
+write.csv(female_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "stats/female_discrim_lessrespect_age_stats.csv", sep=""))
 
 
 female_discrim_lessrespect_age_HR = unlist(female_discrim_lessrespect_age_HR)
@@ -256,7 +256,7 @@ female_discrim_medical_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_female,
                                               #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
                                               covariates_list = c("continious_age"))
 
-write.csv(female_discrim_medical_stats, paste(OUTPUT_ROOT, "female_discrim_medical_stats.csv", sep=""))
+write.csv(female_discrim_medical_stats, paste(OUTPUT_ROOT, "stats/female_discrim_medical_stats.csv", sep=""))
 
 
 
@@ -307,7 +307,7 @@ female_discrim_notclever_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_female
                                                 #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
                                                 covariates_list = c("continious_age"))
 
-write.csv(female_discrim_notclever_stats, paste(OUTPUT_ROOT, "female_discrim_notclever_stats.csv", sep=""))
+write.csv(female_discrim_notclever_stats, paste(OUTPUT_ROOT, "stats/female_discrim_notclever_stats.csv", sep=""))
 
 
 
@@ -359,7 +359,7 @@ female_discrim_poorerservice_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_fe
                                                     #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
                                                     covariates_list = c("continious_age"))
 
-write.csv(female_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "female_discrim_poorerservice_stats.csv", sep=""))
+write.csv(female_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "stats/female_discrim_poorerservice_stats.csv", sep=""))
 
 
 
@@ -407,7 +407,7 @@ female_afraid_others_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_female,
                                             #covariates_list = c("assessed_female", "continious_age", "wealth_noIRA"))
                                             covariates_list = c("continious_age"))
 
-write.csv(female_afraid_others_age_stats, paste(OUTPUT_ROOT, "female_afraid_others_age_stats.csv", sep=""))
+write.csv(female_afraid_others_age_stats, paste(OUTPUT_ROOT, "stats/female_afraid_others_age_stats.csv", sep=""))
 
 
 

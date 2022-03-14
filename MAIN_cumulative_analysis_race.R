@@ -103,7 +103,7 @@ race_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_w
                                                            #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
                                                            covariates_list = c("continious_age"))
 
-write.csv(race_overal_discrim_stats, paste(OUTPUT_ROOT, "race_overal_discrim_stats.csv", sep=""))
+write.csv(race_overal_discrim_stats, paste(OUTPUT_ROOT, "stats/race_overal_discrim_stats.csv", sep=""))
 
 
 race_overal_discrim_age_HR = unlist(race_overal_discrim_age_HR)
@@ -152,7 +152,7 @@ race_discrim_harassed_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                                #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
                                                covariates_list = c("continious_age"))
 
-write.csv(race_discrim_harassed_stats, paste(OUTPUT_ROOT, "race_discrim_harassed_age_stats.csv", sep=""))
+write.csv(race_discrim_harassed_stats, paste(OUTPUT_ROOT, "stats/race_discrim_harassed_age_stats.csv", sep=""))
 
 
 race_discrim_harassed_age_HR = unlist(race_discrim_harassed_age_HR)
@@ -205,7 +205,7 @@ race_discrim_lessrespect_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                                   #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
                                                   covariates_list = c("continious_age"))
 
-write.csv(race_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "race_discrim_lessrespect_age_stats.csv", sep=""))
+write.csv(race_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "stats/race_discrim_lessrespect_age_stats.csv", sep=""))
 
 
 race_discrim_lessrespect_age_HR = unlist(race_discrim_lessrespect_age_HR)
@@ -257,7 +257,7 @@ race_discrim_medical_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                               #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
                                               covariates_list = c("continious_age"))
 
-write.csv(race_discrim_medical_stats, paste(OUTPUT_ROOT, "race_discrim_medical_stats.csv", sep=""))
+write.csv(race_discrim_medical_stats, paste(OUTPUT_ROOT, "stats/race_discrim_medical_stats.csv", sep=""))
 
 
 
@@ -308,7 +308,7 @@ race_discrim_notclever_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                                 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
                                                 covariates_list = c("continious_age"))
 
-write.csv(race_discrim_notclever_stats, paste(OUTPUT_ROOT, "race_discrim_notclever_stats.csv", sep=""))
+write.csv(race_discrim_notclever_stats, paste(OUTPUT_ROOT, "stats/race_discrim_notclever_stats.csv", sep=""))
 
 
 
@@ -360,7 +360,7 @@ race_discrim_poorerservice_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_race
                                                     #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
                                                     covariates_list = c("continious_age"))
 
-write.csv(race_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "race_discrim_poorerservice_stats.csv", sep=""))
+write.csv(race_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "stats/race_discrim_poorerservice_stats.csv", sep=""))
 
 
 
@@ -408,7 +408,7 @@ race_afraid_others_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                             #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
                                             covariates_list = c("continious_age"))
 
-write.csv(race_afraid_others_age_stats, paste(OUTPUT_ROOT, "race_afraid_others_age_stats.csv", sep=""))
+write.csv(race_afraid_others_age_stats, paste(OUTPUT_ROOT, "stats/race_afraid_others_age_stats.csv", sep=""))
 
 
 

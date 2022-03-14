@@ -101,7 +101,7 @@ national_origin_ousideUS_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(
                                                            #covariates_list = c("assessed_national_origin_ousideUS", "continious_age", "wealth_noIRA"))
                                                            covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_overal_discrim_stats, paste(OUTPUT_ROOT, "national_origin_ousideUS_overal_discrim_stats.csv", sep=""))
+write.csv(national_origin_ousideUS_overal_discrim_stats, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_overal_discrim_stats.csv", sep=""))
 
 
 national_origin_ousideUS_overal_discrim_age_HR = unlist(national_origin_ousideUS_overal_discrim_age_HR)
@@ -150,7 +150,7 @@ national_origin_ousideUS_discrim_harassed_age_CI  = Bootstrapped_CI(WCE_data_CI 
                                                #covariates_list = c("assessed_national_origin_ousideUS", "continious_age", "wealth_noIRA"))
                                                covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_discrim_harassed_stats, paste(OUTPUT_ROOT, "national_origin_ousideUS_discrim_harassed_age_stats.csv", sep=""))
+write.csv(national_origin_ousideUS_discrim_harassed_stats, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_discrim_harassed_age_stats.csv", sep=""))
 
 
 national_origin_ousideUS_discrim_harassed_age_HR = unlist(national_origin_ousideUS_discrim_harassed_age_HR)
@@ -203,7 +203,7 @@ national_origin_ousideUS_discrim_lessrespect_age_CI  = Bootstrapped_CI(WCE_data_
                                                   #covariates_list = c("assessed_national_origin_ousideUS", "continious_age", "wealth_noIRA"))
                                                   covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "national_origin_ousideUS_discrim_lessrespect_age_stats.csv", sep=""))
+write.csv(national_origin_ousideUS_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_discrim_lessrespect_age_stats.csv", sep=""))
 
 
 national_origin_ousideUS_discrim_lessrespect_age_HR = unlist(national_origin_ousideUS_discrim_lessrespect_age_HR)
@@ -255,7 +255,7 @@ national_origin_ousideUS_discrim_medical_age_CI  = Bootstrapped_CI(WCE_data_CI =
                                               #covariates_list = c("assessed_national_origin_ousideUS", "continious_age", "wealth_noIRA"))
                                               covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_discrim_medical_stats, paste(OUTPUT_ROOT, "national_origin_ousideUS_discrim_medical_stats.csv", sep=""))
+write.csv(national_origin_ousideUS_discrim_medical_stats, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_discrim_medical_stats.csv", sep=""))
 
 
 
@@ -306,7 +306,7 @@ national_origin_ousideUS_discrim_notclever_age_CI  = Bootstrapped_CI(WCE_data_CI
                                                 #covariates_list = c("assessed_national_origin_ousideUS", "continious_age", "wealth_noIRA"))
                                                 covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_discrim_notclever_stats, paste(OUTPUT_ROOT, "national_origin_ousideUS_discrim_notclever_stats.csv", sep=""))
+write.csv(national_origin_ousideUS_discrim_notclever_stats, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_discrim_notclever_stats.csv", sep=""))
 
 
 
@@ -358,7 +358,7 @@ national_origin_ousideUS_discrim_poorerservice_age_CI  = Bootstrapped_CI(WCE_dat
                                                     #covariates_list = c("assessed_national_origin_ousideUS", "continious_age", "wealth_noIRA"))
                                                     covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "national_origin_ousideUS_discrim_poorerservice_stats.csv", sep=""))
+write.csv(national_origin_ousideUS_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_discrim_poorerservice_stats.csv", sep=""))
 
 
 
@@ -406,7 +406,7 @@ national_origin_ousideUS_afraid_others_age_CI  = Bootstrapped_CI(WCE_data_CI = d
                                             #covariates_list = c("assessed_national_origin_ousideUS", "continious_age", "wealth_noIRA"))
                                             covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_afraid_others_age_stats, paste(OUTPUT_ROOT, "national_origin_ousideUS_afraid_others_age_stats.csv", sep=""))
+write.csv(national_origin_ousideUS_afraid_others_age_stats, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_afraid_others_age_stats.csv", sep=""))
 
 
 

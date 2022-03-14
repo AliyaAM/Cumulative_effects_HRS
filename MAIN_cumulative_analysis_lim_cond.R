@@ -102,7 +102,7 @@ lim_cond_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = da
                                                            #covariates_list = c("assessed_lim_cond", "continious_age", "wealth_noIRA"))
                                                            covariates_list = c("continious_age"))
 
-write.csv(lim_cond_overal_discrim_stats, paste(OUTPUT_ROOT, "lim_cond_overal_discrim_stats.csv", sep=""))
+write.csv(lim_cond_overal_discrim_stats, paste(OUTPUT_ROOT, "stats/lim_cond_overal_discrim_stats.csv", sep=""))
 
 
 lim_cond_overal_discrim_age_HR = unlist(lim_cond_overal_discrim_age_HR)
@@ -151,7 +151,7 @@ lim_cond_discrim_harassed_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_lim_c
                                                #covariates_list = c("assessed_lim_cond", "continious_age", "wealth_noIRA"))
                                                covariates_list = c("continious_age"))
 
-write.csv(lim_cond_discrim_harassed_stats, paste(OUTPUT_ROOT, "lim_cond_discrim_harassed_age_stats.csv", sep=""))
+write.csv(lim_cond_discrim_harassed_stats, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_harassed_age_stats.csv", sep=""))
 
 
 lim_cond_discrim_harassed_age_HR = unlist(lim_cond_discrim_harassed_age_HR)
@@ -204,7 +204,7 @@ lim_cond_discrim_lessrespect_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_li
                                                   #covariates_list = c("assessed_lim_cond", "continious_age", "wealth_noIRA"))
                                                   covariates_list = c("continious_age"))
 
-write.csv(lim_cond_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "lim_cond_discrim_lessrespect_age_stats.csv", sep=""))
+write.csv(lim_cond_discrim_lessrespect_stats, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_lessrespect_age_stats.csv", sep=""))
 
 
 lim_cond_discrim_lessrespect_age_HR = unlist(lim_cond_discrim_lessrespect_age_HR)
@@ -256,7 +256,7 @@ lim_cond_discrim_medical_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_lim_co
                                               #covariates_list = c("assessed_lim_cond", "continious_age", "wealth_noIRA"))
                                               covariates_list = c("continious_age"))
 
-write.csv(lim_cond_discrim_medical_stats, paste(OUTPUT_ROOT, "lim_cond_discrim_medical_stats.csv", sep=""))
+write.csv(lim_cond_discrim_medical_stats, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_medical_stats.csv", sep=""))
 
 
 
@@ -307,7 +307,7 @@ lim_cond_discrim_notclever_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_lim_
                                                 #covariates_list = c("assessed_lim_cond", "continious_age", "wealth_noIRA"))
                                                 covariates_list = c("continious_age"))
 
-write.csv(lim_cond_discrim_notclever_stats, paste(OUTPUT_ROOT, "lim_cond_discrim_notclever_stats.csv", sep=""))
+write.csv(lim_cond_discrim_notclever_stats, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_notclever_stats.csv", sep=""))
 
 
 
@@ -359,7 +359,7 @@ lim_cond_discrim_poorerservice_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_
                                                     #covariates_list = c("assessed_lim_cond", "continious_age", "wealth_noIRA"))
                                                     covariates_list = c("continious_age"))
 
-write.csv(lim_cond_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "lim_cond_discrim_poorerservice_stats.csv", sep=""))
+write.csv(lim_cond_discrim_poorerservice_stats, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_poorerservice_stats.csv", sep=""))
 
 
 
@@ -407,7 +407,7 @@ lim_cond_afraid_others_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_lim_cond
                                             #covariates_list = c("assessed_lim_cond", "continious_age", "wealth_noIRA"))
                                             covariates_list = c("continious_age"))
 
-write.csv(lim_cond_afraid_others_age_stats, paste(OUTPUT_ROOT, "lim_cond_afraid_others_age_stats.csv", sep=""))
+write.csv(lim_cond_afraid_others_age_stats, paste(OUTPUT_ROOT, "stats/lim_cond_afraid_others_age_stats.csv", sep=""))
 
 
 
