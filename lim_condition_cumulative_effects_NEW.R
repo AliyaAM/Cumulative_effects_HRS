@@ -114,8 +114,27 @@ WCE_dataset_lim_cond$diabetes_new_bin = case_when(WCE_dataset_lim_cond$diabetes_
 
 WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond, HHIDPN != "3020")
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond, discrim_afraidothers != " NA")
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , summary_mean_score_discrim != " NA")
+unique(WCE_dataset_lim_cond$summary_mean_score_discrim)
 
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_harassed != " NA")
+unique(WCE_dataset_lim_cond$discrim_harassed)
+
+
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_lessrespect != " NA")
+unique(WCE_dataset_lim_cond$discrim_lessrespect)
+
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_medical != " NA")
+unique(WCE_dataset_lim_cond$discrim_medical)
+
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_notclever != " NA")
+unique(WCE_dataset_lim_cond$discrim_notclever)
+
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_poorerservice != " NA")
+unique(WCE_dataset_lim_cond$discrim_poorerservice)
+
+
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_afraidothers != " NA")
 unique(WCE_dataset_lim_cond$discrim_afraidothers)
 
 write.csv(WCE_dataset_lim_cond, paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond.csv", sep=""))

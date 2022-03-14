@@ -36,7 +36,7 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 
 #think how we are going to restrict to a particular type of discrimination, 
 #which wave shall we use? 
-#shall we state that every wave they listed disability (ie subset HRS2004_discrim_disability == 1 & HRS2008_discrim_disability ==1 etc every wave up to 2018) 
+#shall we state that every wave they listed age (ie subset HRS2004_discrim_age == 1 & HRS2008_discrim_age ==1 etc every wave up to 2018) 
 
 #add 2004, 2006, 2008 
 
@@ -78,62 +78,61 @@ HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_shor
 
 
 
-HRS2008_data_race = subset(HRS2008_data, HRS2008_data$race_white == 0) 
-HRS2010_data_race = subset(HRS2010_data, HRS2010_data$race_white == 0)
-HRS2012_data_race = subset(HRS2012_data, HRS2012_data$race_white == 0)
-HRS2014_data_race = subset(HRS2014_data, HRS2014_data$race_white == 0)
-HRS2016_data_race = subset(HRS2016_data, HRS2016_data$race_white == 0)
-HRS2018_data_race = subset(HRS2018_data, HRS2018_data$race_white == 0)
+
+HRS2008_data_age_discrim = subset(HRS2008_data, HRS2008_data$reason_discrim1_reason_age == 1) 
+HRS2010_data_age_discrim = subset(HRS2010_data, HRS2010_data$reason_discrim1_reason_age == 1)
+HRS2012_data_age_discrim = subset(HRS2012_data, HRS2012_data$reason_discrim1_reason_age == 1)
+HRS2014_data_age_discrim = subset(HRS2014_data, HRS2014_data$reason_discrim1_reason_age == 1)
+HRS2016_data_age_discrim = subset(HRS2016_data, HRS2016_data$reason_discrim1_reason_age == 1)
+HRS2018_data_age_discrim = subset(HRS2018_data, HRS2018_data$reason_discrim1_reason_age == 1)
+
+
+HRS2018_data_age_discrim = na.omit(HRS2018_data_age_discrim)
+HRS2016_data_age_discrim = na.omit(HRS2016_data_age_discrim)
+HRS2014_data_age_discrim = na.omit(HRS2014_data_age_discrim)
+HRS2012_data_age_discrim = na.omit(HRS2012_data_age_discrim)
+HRS2010_data_age_discrim = na.omit(HRS2010_data_age_discrim)
+HRS2008_data_age_discrim = na.omit(HRS2008_data_age_discrim)
 
 
 
-HRS2018_data_race = na.omit(HRS2018_data_race)
-HRS2016_data_race = na.omit(HRS2016_data_race)
-HRS2014_data_race = na.omit(HRS2014_data_race)
-HRS2012_data_race = na.omit(HRS2012_data_race)
-HRS2010_data_race = na.omit(HRS2010_data_race)
-HRS2008_data_race = na.omit(HRS2008_data_race)
+WCE_dataset_age_discrim = rbind(HRS2008_data_age_discrim,
+                             HRS2010_data_age_discrim,
+                             HRS2012_data_age_discrim,
+                             HRS2014_data_age_discrim, 
+                             HRS2016_data_age_discrim, 
+                             HRS2018_data_age_discrim)
+
+
+WCE_dataset_age_discrim$diabetes_new_bin = case_when(WCE_dataset_age_discrim$diabetes_new ==0 ~ 0, 
+                                                  WCE_dataset_age_discrim$diabetes_new ==1 ~ 1) 
 
 
 
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim, HHIDPN != "3020")
 
-WCE_dataset_race = rbind(HRS2008_data_race,
-                         HRS2010_data_race,
-                         HRS2012_data_race,
-                         HRS2014_data_race,
-                         HRS2016_data_race, 
-                         HRS2018_data_race)
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim , summary_mean_score_discrim != " NA")
+unique(WCE_dataset_age_discrim$summary_mean_score_discrim)
 
-
-WCE_dataset_race$diabetes_new_bin = case_when(WCE_dataset_race$diabetes_new ==0 ~ 0, 
-                                                                  WCE_dataset_race$diabetes_new ==1 ~ 1) 
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim , discrim_harassed != " NA")
+unique(WCE_dataset_age_discrim$discrim_harassed)
 
 
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim , discrim_lessrespect != " NA")
+unique(WCE_dataset_age_discrim$discrim_lessrespect)
 
-WCE_dataset_race = subset(WCE_dataset_race, HHIDPN != "3020")
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim , discrim_medical != " NA")
+unique(WCE_dataset_age_discrim$discrim_medical)
 
-WCE_dataset_race = subset(WCE_dataset_race , summary_mean_score_discrim != " NA")
-unique(WCE_dataset_race$summary_mean_score_discrim)
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim , discrim_notclever != " NA")
+unique(WCE_dataset_age_discrim$discrim_notclever)
 
-WCE_dataset_race = subset(WCE_dataset_race , discrim_harassed != " NA")
-unique(WCE_dataset_race$discrim_harassed)
-
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_lessrespect != " NA")
-unique(WCE_dataset_race$discrim_lessrespect)
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_medical != " NA")
-unique(WCE_dataset_race$discrim_medical)
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_notclever != " NA")
-unique(WCE_dataset_race$discrim_notclever)
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_poorerservice != " NA")
-unique(WCE_dataset_race$discrim_poorerservice)
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim , discrim_poorerservice != " NA")
+unique(WCE_dataset_age_discrim$discrim_poorerservice)
 
 
-WCE_dataset_race = subset(WCE_dataset_race , discrim_afraidothers != " NA")
-unique(WCE_dataset_race$discrim_afraidothers)
+WCE_dataset_age_discrim = subset(WCE_dataset_age_discrim , discrim_afraidothers != " NA")
+unique(WCE_dataset_age_discrim$discrim_afraidothers)
 
-write.csv(WCE_dataset_race, paste(SOURCE_data_ROOT, "WCE_dataset_race.csv", sep=""))
+write.csv(WCE_dataset_age_discrim, paste(SOURCE_data_ROOT, "WCE_dataset_age_discrim.csv", sep=""))
 

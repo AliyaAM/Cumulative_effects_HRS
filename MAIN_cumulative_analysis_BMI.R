@@ -29,8 +29,13 @@ SOURCE_ROOT =  "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 
 source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
+
 source((paste(SOURCE_ROOT, "WCE_analysis.R", sep="")))
+source((paste(SOURCE_ROOT, "summary_score_WCE_analysis.R", sep="")))
+
 source((paste(SOURCE_ROOT, "Bootstrapped_CI.R", sep="")))
+source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
+
 
 WCE_dataset_BMI = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_BMI.csv", sep=""))
 WCE_dataset_female = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_female.csv", sep=""))
@@ -66,13 +71,13 @@ data_wce_BMI = sort_timepoints(data = WCE_dataset_BMI)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
 
-print("reverse summary score. check how it was calcualted keep the same function for the summary score; and add a separate function as it is an integer: light <- rep(0.5, n_timepoints_max) heavy <- rep(2, n_timepoints_max) ") 
 
-BMI_overal_discrim_age = WCE_analysis(data_WCE = data_wce_BMI,
-                                     exposure = "summary_mean_score_discrim", 
-                                     outcome = "diabetes_new_bin", 
-                                     #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
-                                     covariates_list = c("continious_age"))
+BMI_all_results = data.frame()
+BMI_overal_discrim_age = summary_score_WCE_analysis(data_WCE = data_wce_BMI,
+                                                   exposure = "summary_mean_score_discrim", 
+                                                   outcome = "diabetes_new_bin", 
+                                                   #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
+                                                   covariates_list = c("continious_age"))
 
 BMI_overal_discrim_age_HR = BMI_overal_discrim_age[1]
 
@@ -94,16 +99,22 @@ BMI_overal_discrim_stats = BMI_overal_discrim_age[2]
 
 
 ######## bootstrapped CIs for the HRs from the above model 
-BMI_overal_discrim_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
-                                            exposure = "summary_mean_score_discrim", 
-                                            outcome = "diabetes_new_bin", 
-                                            #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
-                                            covariates_list = c("continious_age"))
+BMI_overal_discrim_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_BMI,
+                                                            exposure = "summary_mean_score_discrim", 
+                                                            outcome = "diabetes_new_bin", 
+                                                            #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
+                                                            covariates_list = c("continious_age"))
 
 write.csv(BMI_overal_discrim_stats, paste(SOURCE_ROOT, "BMI_overal_discrim_stats.csv", sep=""))
 write.csv(BMI_overal_discrim_age_HR, paste(SOURCE_ROOT, "BMI_overal_discrim_age_HR.csv", sep=""))
 write.csv(BMI_overal_discrim_age_CI, paste(SOURCE_ROOT, "BMI_overal_discrim_age_CI.csv", sep=""))
 
+
+BMI_overal_discrim_age_HR = unlist(BMI_overal_discrim_age_HR)
+BMI_overal_discrim_age_results = cbind(BMI_overal_discrim_age_HR, BMI_overal_discrim_age_CI)
+
+BMI_all_results = rbind(BMI_overal_discrim_age_results, BMI_all_results)
+colnames(BMI_all_results) = c("hazard ratio", "5% CI", "95% CI")
 
 
 ########## discrim_harassed #########
@@ -149,6 +160,13 @@ write.csv(BMI_discrim_harassed_stats, paste(SOURCE_ROOT, "BMI_discrim_harassed_a
 write.csv(BMI_discrim_harassed_age_HR, paste(SOURCE_ROOT, "BMI_discrim_harassed_age_HR.csv", sep=""))
 write.csv(BMI_discrim_harassed_age_CI, paste(SOURCE_ROOT, "BMI_discrim_harassed_age_CI.csv", sep=""))
 
+BMI_discrim_harassed_age_HR = unlist(BMI_discrim_harassed_age_HR)
+BMI_discrim_harassed_age_results = cbind(BMI_discrim_harassed_age_HR, BMI_discrim_harassed_age_CI)
+
+colnames(BMI_discrim_harassed_age_results) = c("hazard ratio", "5% CI", "95% CI")
+BMI_all_results = rbind(BMI_all_results, BMI_discrim_harassed_age_results)
+
+
 
 ##########
 
@@ -158,6 +176,7 @@ write.csv(BMI_discrim_harassed_age_CI, paste(SOURCE_ROOT, "BMI_discrim_harassed_
 data_wce_BMI = sort_timepoints(data = WCE_dataset_BMI)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
+unique(data_wce_BMI$discrim_lessrespect)
 
 BMI_discrim_lessrespect_age = WCE_analysis(data_WCE = data_wce_BMI,
                                         exposure = "discrim_lessrespect", 
@@ -195,6 +214,14 @@ write.csv(BMI_discrim_lessrespect_stats, paste(SOURCE_ROOT, "BMI_discrim_lessres
 write.csv(BMI_discrim_lessrespect_age_HR, paste(SOURCE_ROOT, "BMI_discrim_lessrespect_age_HR.csv", sep=""))
 write.csv(BMI_discrim_lessrespect_age_CI, paste(SOURCE_ROOT, "BMI_discrim_lessrespect_age_CI.csv", sep=""))
 
+BMI_discrim_lessrespect_age_HR = unlist(BMI_discrim_lessrespect_age_HR)
+BMI_discrim_lessrespect_age_results = cbind(BMI_discrim_lessrespect_age_HR, BMI_discrim_lessrespect_age_CI)
+
+
+colnames(BMI_discrim_lessrespect_age_results) = c("hazard ratio", "5% CI", "95% CI")
+BMI_all_results = rbind(BMI_all_results, BMI_discrim_lessrespect_age_results)
+
+
 
 ########## discrim_medical   #########
 
@@ -203,7 +230,6 @@ data_wce_BMI = sort_timepoints(data = WCE_dataset_BMI)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
 
-print("reverse summary score. check how it was calcualted keep the same function for the summary score; and add a separate function as it is an integer: light <- rep(0.5, n_timepoints_max) heavy <- rep(2, n_timepoints_max) ") 
 
 BMI_discrim_medical_age = WCE_analysis(data_WCE = data_wce_BMI,
                                       exposure = "discrim_medical", 
@@ -242,6 +268,13 @@ write.csv(BMI_discrim_medical_age_HR, paste(SOURCE_ROOT, "BMI_discrim_medical_ag
 write.csv(BMI_discrim_medical_age_CI, paste(SOURCE_ROOT, "BMI_discrim_medical_age_CI.csv", sep=""))
 
 
+BMI_discrim_medical_age_HR = unlist(BMI_discrim_medical_age_HR)
+BMI_discrim_medical_age_results = cbind(BMI_discrim_medical_age_HR, BMI_discrim_medical_age_CI)
+
+
+colnames(BMI_discrim_medical_age_results) = c("hazard ratio", "5% CI", "95% CI")
+BMI_all_results = rbind(BMI_all_results, BMI_discrim_medical_age_results)
+
 ########## discrim_notclever #########
 
 ######## sort data in teh right way where starting point of  wave 1 is 0 and stopping point is 1, for wave 2: 1 and 2, for wave 3: 3 and 4...
@@ -249,7 +282,6 @@ data_wce_BMI = sort_timepoints(data = WCE_dataset_BMI)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
 
-print("reverse summary score. check how it was calculated keep the same function for the summary score; and add a separate function as it is an integer: light <- rep(0.5, n_timepoints_max) heavy <- rep(2, n_timepoints_max) ") 
 
 BMI_discrim_notclever_age = WCE_analysis(data_WCE = data_wce_BMI,
                                       exposure = "discrim_notclever", 
@@ -289,6 +321,13 @@ write.csv(BMI_discrim_notclever_age_CI, paste(SOURCE_ROOT, "BMI_discrim_notcleve
 
 
 
+BMI_discrim_notclever_age_HR = unlist(BMI_discrim_notclever_age_HR)
+BMI_discrim_notclever_age_results = cbind(BMI_discrim_notclever_age_HR, BMI_discrim_notclever_age_CI)
+
+
+
+colnames(BMI_discrim_notclever_age_results) = c("hazard ratio", "5% CI", "95% CI")
+BMI_all_results = rbind(BMI_all_results, BMI_discrim_notclever_age_results)
 ########## discrim_poorerservice #########
 
 ######## sort data in teh right way where starting point of  wave 1 is 0 and stopping point is 1, for wave 2: 1 and 2, for wave 3: 3 and 4...
@@ -296,7 +335,6 @@ data_wce_BMI = sort_timepoints(data = WCE_dataset_BMI)
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
 
-print("reverse summary score. check how it was calcualted keep the same function for the summary score; and add a separate function as it is an integer: light <- rep(0.5, n_timepoints_max) heavy <- rep(2, n_timepoints_max) ") 
 
 BMI_discrim_poorerservice_age = WCE_analysis(data_WCE = data_wce_BMI,
                                       exposure = "discrim_poorerservice", 
@@ -337,7 +375,13 @@ write.csv(BMI_discrim_poorerservice_age_CI, paste(SOURCE_ROOT, "BMI_discrim_poor
 
 
 
+BMI_discrim_poorerservice_age_HR = unlist(BMI_discrim_poorerservice_age_HR)
+BMI_discrim_poorerservice_age_results = cbind(BMI_discrim_poorerservice_age_HR, BMI_discrim_poorerservice_age_CI)
 
+
+
+colnames(BMI_discrim_poorerservice_age_results) = c("hazard ratio", "5% CI", "95% CI")
+BMI_all_results = rbind(BMI_all_results, BMI_discrim_poorerservice_age_results)
 ########## AFRAID OTHERS #########
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
@@ -378,56 +422,17 @@ write.csv(BMI_afraid_others_age_HR, paste(SOURCE_ROOT, "BMI_afraid_others_age_HR
 write.csv(BMI_afraid_others_age_CI, paste(SOURCE_ROOT, "BMI_afraid_others_age_CI.csv", sep=""))
 
 
-#################################### ######## ########################################################################
-####################################  ########################################################################
+BMI_afraid_others_age_HR = unlist(BMI_afraid_others_age_HR)
+BMI_afraid_others_age_results = cbind(BMI_afraid_others_age_HR, BMI_afraid_others_age_CI)
 
 
+colnames(BMI_afraid_others_age_results) = c("hazard ratio", "5% CI", "95% CI")
+BMI_all_results = rbind(BMI_all_results, BMI_afraid_others_age_results)
 
-#################################### ######## ########################################################################
-#################################### FEMALE ########################################################################
+########
+########
+########
 
-######## sort data in teh right way where starting point of  wave 1 is 0 and stopping point is 1, for wave 2: 1 and 2, for wave 3: 3 and 4...
-data_wce_female = sort_timepoints(data = WCE_dataset_female)
-
-######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
-female_afraid_others_age = WCE_analysis(data_WCE = data_wce_female,
-                                                   exposure = "discrim_afraidothers", 
-                                                   outcome = "diabetes_new_bin", 
-                                                   #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
-                                                   covariates_list = c("continious_age"))
-
-female_afraid_others_age_HR = female_afraid_others_age[1]
-
-female_afraid_others_age_stats = female_afraid_others_age[2]
-
-####### exposure is coded as: 
-####### 1 Almost everyday
-####### 2 At least once a week
-####### 3 A few times a month
-####### 4 A few times a year
-####### 5 Less than once a year
-####### 6 Never
-
-####### HR 1vs6 is Almost everyday vs Never
-####### HR 2vs6 is At least once a week vs Never
-####### HR 3vs6 is A few times a month vs Never
-####### HR 4vs6 is A few times a year vs Never
-####### HR 5vs6 is Less than once a year vs Never
-
-
-######## bootstrapped CIs for the HRs from the above model 
-female_afraid_others_age_CI  = Bootstrapped_CI(WCE_data_CI = data_wce_female,
-                                               exposure = "discrim_afraidothers", 
-                                               outcome = "diabetes_new_bin", 
-                                               #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
-                                               covariates_list = c("continious_age"))
-
-write.csv(female_afraid_others_age_stats, paste(SOURCE_ROOT, "female_afraid_others_age_stats.csv", sep=""))
-write.csv(female_afraid_others_age_HR, paste(SOURCE_ROOT, "female_afraid_others_age_HR.csv", sep=""))
-write.csv(female_afraid_others_age_CI, paste(SOURCE_ROOT, "female_afraid_others_age_CI.csv", sep=""))
-
-
-#################################### ######## ########################################################################
-####################################  ########################################################################
+write.csv(BMI_all_results, paste(SOURCE_ROOT, "BMI_all_results.csv", sep=""))
 
 

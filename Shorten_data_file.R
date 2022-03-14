@@ -59,6 +59,7 @@ colnames_all = c('HHIDPN',
                  "wealth_noIRA",
                  "start",
                  "stop",
+                 "reason_discrim1_reason_age",
                  "reason_discrim1_reason_disability",
                  
                  "summary_mean_score_discrim", 
@@ -114,6 +115,7 @@ HRS2008_data_short = cbind(HRS2008_data$HHIDPN,
                               HRS2008_data$start,
                               HRS2008_data$stop,
                               
+                              HRS2008_data$reason_discrim1_reason_age, 
                               HRS2008_data$reason_discrim1_reason_disability,
                               
                               HRS2008_data$summary_mean_score_discrim, 
@@ -152,7 +154,9 @@ HRS2010_data_short = cbind(HRS2010_data$HHIDPN,
                               HRS2010_data$wealth_noIRA,
                               HRS2010_data$start,
                               HRS2010_data$stop,
-                              HRS2010_data$reason_discrim1_reason_disability,
+                           
+                           HRS2010_data$reason_discrim1_reason_age, 
+                           HRS2010_data$reason_discrim1_reason_disability,
                               
                               HRS2010_data$summary_mean_score_discrim, 
                               HRS2010_data$checklist_depression_bin, 
@@ -191,6 +195,9 @@ HRS2012_data_short = cbind(HRS2012_data$HHIDPN,
                               HRS2012_data$wealth_noIRA,
                               HRS2012_data$start,
                               HRS2012_data$stop,
+                           
+                           HRS2012_data$reason_discrim1_reason_age, 
+                           
                               HRS2012_data$reason_discrim1_reason_disability,
                               
                               
@@ -234,7 +241,9 @@ HRS2014_data_short = cbind(HRS2014_data$HHIDPN,
                               HRS2014_data$wealth_noIRA,
                               HRS2014_data$start,
                               HRS2014_data$stop,
-                              HRS2014_data$reason_discrim1_reason_disability,
+                           
+                           HRS2014_data$reason_discrim1_reason_age, 
+                           HRS2014_data$reason_discrim1_reason_disability,
                               
                               HRS2014_data$summary_mean_score_discrim, 
                               HRS2014_data$checklist_depression_bin, 
@@ -278,6 +287,8 @@ HRS2016_data_short = cbind(HRS2016_data$HHIDPN,
                               HRS2016_data$start,
                               HRS2016_data$stop,
                               
+                           HRS2016_data$reason_discrim1_reason_age, 
+                           
                               HRS2016_data$reason_discrim1_reason_disability,
                               
                               HRS2016_data$summary_mean_score_discrim, 
@@ -319,10 +330,13 @@ HRS2018_data_short = cbind(HRS2018_data$HHIDPN,
                               HRS2018_data$start,
                               HRS2018_data$stop,
                               
+                           HRS2018_data$reason_discrim1_reason_age, 
+                           
                               HRS2018_data$reason_discrim1_reason_disability,
                               
                               HRS2018_data$summary_mean_score_discrim, 
                               HRS2018_data$checklist_depression_bin, 
+                           
                               HRS2018_data$reason_discirim_financial, 
                               HRS2018_data$reason_discirim_sexuality, 
                               HRS2018_data$number_reasons_discrimination, 

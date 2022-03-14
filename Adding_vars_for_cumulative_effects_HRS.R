@@ -109,22 +109,45 @@ HRS2018_data$summary_mean_score_discrim_2018 = harmonised_data_all_waves_2018$r1
 #financial status discrim
 
 HRS2008_data$reason_discirim_financial_2008 = harmonised_data_all_waves_2008$r9dcfinan
+HRS2008_data$reason_discirim_financial_2008 = case_when(HRS2008_data$reason_discirim_financial_2008 == 1 ~ 1,
+                                                        HRS2008_data$reason_discirim_financial_2008 == 0 ~ 0)
 HRS2010_data$reason_discirim_financial_2010 = harmonised_data_all_waves_2010$r10dcfinan
+HRS2010_data$reason_discirim_financial_2010 = case_when(HRS2010_data$reason_discirim_financial_2010 == 1 ~ 1,
+                                                        HRS2010_data$reason_discirim_financial_2010 == 0 ~ 0)
 HRS2012_data$reason_discirim_financial_2012 = harmonised_data_all_waves_2012$r11dcfinan
+HRS2012_data$reason_discirim_financial_2012 = case_when(HRS2012_data$reason_discirim_financial_2012 == 1 ~ 1,
+                                                        HRS2012_data$reason_discirim_financial_2012 == 0 ~ 0)
 HRS2014_data$reason_discirim_financial_2014 = harmonised_data_all_waves_2014$r12dcfinan
+HRS2014_data$reason_discirim_financial_2014 = case_when(HRS2014_data$reason_discirim_financial_2014 == 1 ~ 1,
+                                                        HRS2014_data$reason_discirim_financial_2014 == 0 ~ 0)
 HRS2016_data$reason_discirim_financial_2016 = harmonised_data_all_waves_2016$r13dcfinan
+HRS2016_data$reason_discirim_financial_2016 = case_when(HRS2016_data$reason_discirim_financial_2016 == 1 ~ 1,
+                                                        HRS2016_data$reason_discirim_financial_2016 == 0 ~ 0)
 HRS2018_data$reason_discirim_financial_2018 = harmonised_data_all_waves_2018$r14dcfinan
+HRS2018_data$reason_discirim_financial_2018 = case_when(HRS2018_data$reason_discirim_financial_2018 == 1 ~ 1,
+                                                        HRS2018_data$reason_discirim_financial_2018 == 0 ~ 0)
 
 
 # sexual orientation discrim 
 #HRS2008_data$reason_discirim_sexuality_2006 = harmonised_data_all_waves$r8dcsxori
 HRS2008_data$reason_discirim_sexuality_2008 = harmonised_data_all_waves_2008$r9dcsxori
+HRS2008_data$reason_discirim_sexuality_2008 = case_when(HRS2008_data$reason_discirim_sexuality_2008 == 1 ~ 1,
+                                                        HRS2008_data$reason_discirim_sexuality_2008 == 0 ~ 0)
 HRS2010_data$reason_discirim_sexuality_2010 = harmonised_data_all_waves_2010$r10dcsxori
+HRS2010_data$reason_discirim_sexuality_2010 = case_when(HRS2010_data$reason_discirim_sexuality_2010 == 1 ~ 1,
+                                                        HRS2010_data$reason_discirim_sexuality_2010 == 0 ~ 0)
 HRS2012_data$reason_discirim_sexuality_2012 = harmonised_data_all_waves_2012$r11dcsxori
+HRS2012_data$reason_discirim_sexuality_2012 = case_when(HRS2012_data$reason_discirim_sexuality_2012 == 1 ~ 1,
+                                                        HRS2012_data$reason_discirim_sexuality_2012 == 0 ~ 0)
 HRS2014_data$reason_discirim_sexuality_2014 = harmonised_data_all_waves_2014$r12dcsxori
+HRS2014_data$reason_discirim_sexuality_2014 = case_when(HRS2014_data$reason_discirim_sexuality_2014 == 1 ~ 1,
+                                                        HRS2014_data$reason_discirim_sexuality_2014 == 0 ~ 0)
 HRS2016_data$reason_discirim_sexuality_2016 = harmonised_data_all_waves_2016$r13dcsxori
+HRS2016_data$reason_discirim_sexuality_2016 = case_when(HRS2016_data$reason_discirim_sexuality_2016 == 1 ~ 1,
+                                                        HRS2016_data$reason_discirim_sexuality_2016 == 0 ~ 0)
 HRS2018_data$reason_discirim_sexuality_2018 = harmonised_data_all_waves_2018$r14dcsxori
-
+HRS2018_data$reason_discirim_sexuality_2018 = case_when(HRS2018_data$reason_discirim_sexuality_2018 == 1 ~ 1,
+                                                        HRS2018_data$reason_discirim_sexuality_2018 == 0 ~ 0)
 
 # number of reasons for discrim 
 

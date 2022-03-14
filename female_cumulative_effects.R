@@ -111,8 +111,28 @@ WCE_dataset_female$diabetes_new_bin = case_when(WCE_dataset_female$diabetes_new 
 
 WCE_dataset_female = subset(WCE_dataset_female, HHIDPN != "3020")
 
-WCE_dataset_female = subset(WCE_dataset_female, discrim_afraidothers != " NA")
 
+WCE_dataset_female = subset(WCE_dataset_female , summary_mean_score_discrim != " NA")
+unique(WCE_dataset_female$summary_mean_score_discrim)
+
+WCE_dataset_female = subset(WCE_dataset_female , discrim_harassed != " NA")
+unique(WCE_dataset_female$discrim_harassed)
+
+
+WCE_dataset_female = subset(WCE_dataset_female , discrim_lessrespect != " NA")
+unique(WCE_dataset_female$discrim_lessrespect)
+
+WCE_dataset_female = subset(WCE_dataset_female , discrim_medical != " NA")
+unique(WCE_dataset_female$discrim_medical)
+
+WCE_dataset_female = subset(WCE_dataset_female , discrim_notclever != " NA")
+unique(WCE_dataset_female$discrim_notclever)
+
+WCE_dataset_female = subset(WCE_dataset_female , discrim_poorerservice != " NA")
+unique(WCE_dataset_female$discrim_poorerservice)
+
+
+WCE_dataset_female = subset(WCE_dataset_female , discrim_afraidothers != " NA")
 unique(WCE_dataset_female$discrim_afraidothers)
 
 write.csv(WCE_dataset_female, paste(SOURCE_data_ROOT, "WCE_dataset_female.csv", sep=""))

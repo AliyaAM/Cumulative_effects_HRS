@@ -78,62 +78,56 @@ HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_shor
 
 
 
-HRS2008_data_race = subset(HRS2008_data, HRS2008_data$race_white == 0) 
-HRS2010_data_race = subset(HRS2010_data, HRS2010_data$race_white == 0)
-HRS2012_data_race = subset(HRS2012_data, HRS2012_data$race_white == 0)
-HRS2014_data_race = subset(HRS2014_data, HRS2014_data$race_white == 0)
-HRS2016_data_race = subset(HRS2016_data, HRS2016_data$race_white == 0)
-HRS2018_data_race = subset(HRS2018_data, HRS2018_data$race_white == 0)
+
+
+HRS2018_data  = na.omit(HRS2018_data)
+HRS2016_data  = na.omit(HRS2016_data)
+HRS2014_data  = na.omit(HRS2014_data)
+HRS2012_data  = na.omit(HRS2012_data)
+HRS2010_data  = na.omit(HRS2010_data)
+HRS2008_data  = na.omit(HRS2008_data)
 
 
 
-HRS2018_data_race = na.omit(HRS2018_data_race)
-HRS2016_data_race = na.omit(HRS2016_data_race)
-HRS2014_data_race = na.omit(HRS2014_data_race)
-HRS2012_data_race = na.omit(HRS2012_data_race)
-HRS2010_data_race = na.omit(HRS2010_data_race)
-HRS2008_data_race = na.omit(HRS2008_data_race)
+WCE_dataset  = rbind(HRS2008_data,
+                             HRS2010_data,
+                             HRS2012_data,
+                             HRS2014_data, 
+                             HRS2016_data, 
+                             HRS2018_data)
+
+
+WCE_dataset$diabetes_new_bin = case_when(WCE_dataset$diabetes_new ==0 ~ 0, 
+                                                  WCE_dataset$diabetes_new ==1 ~ 1) 
 
 
 
-
-WCE_dataset_race = rbind(HRS2008_data_race,
-                         HRS2010_data_race,
-                         HRS2012_data_race,
-                         HRS2014_data_race,
-                         HRS2016_data_race, 
-                         HRS2018_data_race)
+WCE_dataset = subset(WCE_dataset , HHIDPN != "3020")
 
 
-WCE_dataset_race$diabetes_new_bin = case_when(WCE_dataset_race$diabetes_new ==0 ~ 0, 
-                                                                  WCE_dataset_race$diabetes_new ==1 ~ 1) 
+WCE_dataset = subset(WCE_dataset , summary_mean_score_discrim != " NA")
+unique(WCE_dataset$summary_mean_score_discrim)
+
+WCE_dataset = subset(WCE_dataset , discrim_harassed != " NA")
+unique(WCE_dataset$discrim_harassed)
+
+
+WCE_dataset = subset(WCE_dataset , discrim_lessrespect != " NA")
+unique(WCE_dataset$discrim_lessrespect)
+
+WCE_dataset = subset(WCE_dataset , discrim_medical != " NA")
+unique(WCE_dataset$discrim_medical)
+
+WCE_dataset = subset(WCE_dataset , discrim_notclever != " NA")
+unique(WCE_dataset$discrim_notclever)
+
+WCE_dataset = subset(WCE_dataset , discrim_poorerservice != " NA")
+unique(WCE_dataset$discrim_poorerservice)
+
+
+WCE_dataset = subset(WCE_dataset , discrim_afraidothers != " NA")
+unique(WCE_dataset$discrim_afraidothers)
 
 
 
-WCE_dataset_race = subset(WCE_dataset_race, HHIDPN != "3020")
-
-WCE_dataset_race = subset(WCE_dataset_race , summary_mean_score_discrim != " NA")
-unique(WCE_dataset_race$summary_mean_score_discrim)
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_harassed != " NA")
-unique(WCE_dataset_race$discrim_harassed)
-
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_lessrespect != " NA")
-unique(WCE_dataset_race$discrim_lessrespect)
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_medical != " NA")
-unique(WCE_dataset_race$discrim_medical)
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_notclever != " NA")
-unique(WCE_dataset_race$discrim_notclever)
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_poorerservice != " NA")
-unique(WCE_dataset_race$discrim_poorerservice)
-
-
-WCE_dataset_race = subset(WCE_dataset_race , discrim_afraidothers != " NA")
-unique(WCE_dataset_race$discrim_afraidothers)
-
-write.csv(WCE_dataset_race, paste(SOURCE_data_ROOT, "WCE_dataset_race.csv", sep=""))
-
+write.csv(WCE_dataset, paste(SOURCE_data_ROOT, "WCE_dataset.csv", sep=""))

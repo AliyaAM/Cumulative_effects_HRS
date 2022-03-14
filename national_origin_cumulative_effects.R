@@ -108,9 +108,28 @@ WCE_dataset_national_origin_ousideUS$diabetes_new_bin = case_when(WCE_dataset_na
 
 WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS, HHIDPN != "3020")
 
-WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS, discrim_poorerservice != " NA")
+WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS , summary_mean_score_discrim != " NA")
+unique(WCE_dataset_national_origin_ousideUS$summary_mean_score_discrim)
 
+WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS , discrim_harassed != " NA")
+unique(WCE_dataset_national_origin_ousideUS$discrim_harassed)
+
+
+WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS , discrim_lessrespect != " NA")
+unique(WCE_dataset_national_origin_ousideUS$discrim_lessrespect)
+
+WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS , discrim_medical != " NA")
+unique(WCE_dataset_national_origin_ousideUS$discrim_medical)
+
+WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS , discrim_notclever != " NA")
+unique(WCE_dataset_national_origin_ousideUS$discrim_notclever)
+
+WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS , discrim_poorerservice != " NA")
 unique(WCE_dataset_national_origin_ousideUS$discrim_poorerservice)
+
+
+WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS , discrim_afraidothers != " NA")
+unique(WCE_dataset_national_origin_ousideUS$discrim_afraidothers)
 
 write.csv(WCE_dataset_national_origin_ousideUS, paste(SOURCE_data_ROOT, "WCE_dataset_national_origin_ousideUS.csv", sep=""))
 

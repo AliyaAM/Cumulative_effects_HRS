@@ -110,8 +110,27 @@ WCE_dataset_BMI$diabetes_new_bin = case_when(WCE_dataset_BMI$diabetes_new ==0 ~ 
 
 WCE_dataset_BMI = subset(WCE_dataset_BMI, HHIDPN != "3020")
 
-WCE_dataset_BMI = subset(WCE_dataset_BMI, discrim_afraidothers != " NA")
+WCE_dataset_BMI = subset(WCE_dataset_BMI , summary_mean_score_discrim != " NA")
+unique(WCE_dataset_BMI$summary_mean_score_discrim)
 
+WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_harassed != " NA")
+unique(WCE_dataset_BMI$discrim_harassed)
+
+
+WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_lessrespect != " NA")
+unique(WCE_dataset_BMI$discrim_lessrespect)
+
+WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_medical != " NA")
+unique(WCE_dataset_BMI$discrim_medical)
+
+WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_notclever != " NA")
+unique(WCE_dataset_BMI$discrim_notclever)
+
+WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_poorerservice != " NA")
+unique(WCE_dataset_BMI$discrim_poorerservice)
+
+
+WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_afraidothers != " NA")
 unique(WCE_dataset_BMI$discrim_afraidothers)
 
 write.csv(WCE_dataset_BMI, paste(SOURCE_data_ROOT, "WCE_dataset_BMI.csv", sep=""))
