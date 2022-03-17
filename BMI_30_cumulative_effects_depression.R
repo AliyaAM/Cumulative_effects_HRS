@@ -107,7 +107,7 @@ WCE_dataset_BMI = rbind(HRS2008_data_BMI,
 unique(WCE_dataset_BMI$diabetes_new)
 
 WCE_dataset_BMI$diabetes_new_bin = case_when(WCE_dataset_BMI$diabetes_new == 0 ~ 0, 
-                                              WCE_dataset_BMI$diabetes_new == 1 ~ 1) 
+                                             WCE_dataset_BMI$diabetes_new == 1 ~ 1) 
 
 
 
@@ -137,10 +137,10 @@ unique(WCE_dataset_BMI$discrim_poorerservice)
 WCE_dataset_BMI = subset(WCE_dataset_BMI , discrim_afraidothers != " NA")
 unique(WCE_dataset_BMI$discrim_afraidothers)
 
-WCE_dataset_BMI= WCE_dataset_BMI %>% drop_na(diabetes_new_bin)
-unique(WCE_dataset_BMI$diabetes_new_bin)
+WCE_dataset_BMI= WCE_dataset_BMI %>% drop_na(checklist_depression_bin)
+unique(WCE_dataset_BMI$checklist_depression_bin)
 
-#checklist_depression_bin
+
 #######
 
 
@@ -154,7 +154,7 @@ unique(WCE_dataset_BMI$discrim_afraidothers)
 unique(WCE_dataset_BMI$wealth_noIRA)
 unique(WCE_dataset_BMI$assessed_BMI)
 
-WCE_dataset_BMI$diabetes_new_bin = as.numeric(WCE_dataset_BMI$diabetes_new_bin)
+WCE_dataset_BMI$checklist_depression_bin = as.numeric(WCE_dataset_BMI$checklist_depression_bin)
 
 WCE_dataset_BMI$summary_mean_score_discrim = as.numeric(WCE_dataset_BMI$summary_mean_score_discrim)
 
@@ -170,5 +170,5 @@ WCE_dataset_BMI$assessed_BMI = as.numeric(WCE_dataset_BMI$assessed_BMI)
 WCE_dataset_BMI$continious_age = as.numeric(WCE_dataset_BMI$continious_age)
 
 
-write.csv(WCE_dataset_BMI, paste(SOURCE_data_ROOT, "WCE_dataset_BMI.csv", sep=""))
+write.csv(WCE_dataset_BMI, paste(SOURCE_data_ROOT, "WCE_dataset_BMI_depression.csv", sep=""))
 

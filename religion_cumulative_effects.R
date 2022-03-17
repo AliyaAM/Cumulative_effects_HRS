@@ -103,8 +103,8 @@ WCE_dataset_religion$diabetes_new_bin = case_when(WCE_dataset_religion$diabetes_
 
 
 
-WCE_dataset_religion= WCE_dataset_religion %>% drop_na(diabetes_new_bin)
-unique(WCE_dataset_religion$diabetes_new_bin)
+WCE_dataset_religion= WCE_dataset_religion %>% drop_na(checklist_depression_bin)
+unique(WCE_dataset_religion$checklist_depression_bin)
 
 WCE_dataset_religion = subset(WCE_dataset_religion, HHIDPN != "3020")
 
@@ -146,6 +146,8 @@ unique(WCE_dataset_religion$wealth_noIRA)
 unique(WCE_dataset_religion$assessed_BMI)
 
 WCE_dataset_religion$diabetes_new_bin = as.numeric(WCE_dataset_religion$diabetes_new_bin)
+WCE_dataset_religion$checklist_depression_bin = as.numeric(WCE_dataset_religion$checklist_depression_bin)
+
 
 WCE_dataset_religion$summary_mean_score_discrim = as.numeric(WCE_dataset_religion$summary_mean_score_discrim)
 
@@ -161,5 +163,5 @@ WCE_dataset_religion$assessed_BMI = as.numeric(WCE_dataset_religion$assessed_BMI
 WCE_dataset_religion$continious_age = as.numeric(WCE_dataset_religion$continious_age)
 
 
-write.csv(WCE_dataset_religion, paste(SOURCE_data_ROOT, "WCE_dataset_religion.csv", sep=""))
+write.csv(WCE_dataset_religion, paste(SOURCE_data_ROOT, "WCE_dataset_religion_depression_bin.csv", sep=""))
 

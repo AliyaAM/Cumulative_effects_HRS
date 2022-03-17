@@ -106,8 +106,8 @@ WCE_dataset_lim_cond$diabetes_new_bin = case_when(WCE_dataset_lim_cond$diabetes_
 
 
 
-WCE_dataset_lim_cond = WCE_dataset_lim_cond %>% drop_na(diabetes_new_bin)
-unique(WCE_dataset_lim_cond$diabetes_new_bin)
+WCE_dataset_lim_cond = WCE_dataset_lim_cond %>% drop_na(checklist_depression_bin)
+unique(WCE_dataset_lim_cond$checklist_depression_bin)
 
 
 WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond, HHIDPN != "3020")
@@ -149,6 +149,8 @@ unique(WCE_dataset_lim_cond$wealth_noIRA)
 unique(WCE_dataset_lim_cond$assessed_BMI)
 
 WCE_dataset_lim_cond$diabetes_new_bin = as.numeric(WCE_dataset_lim_cond$diabetes_new_bin)
+WCE_dataset_lim_cond$checklist_depression_bin = as.numeric(WCE_dataset_lim_cond$checklist_depression_bin)
+
 
 WCE_dataset_lim_cond$summary_mean_score_discrim = as.numeric(WCE_dataset_lim_cond$summary_mean_score_discrim)
 
@@ -165,4 +167,4 @@ WCE_dataset_lim_cond$continious_age = as.numeric(WCE_dataset_lim_cond$continious
 
 
 
-write.csv(WCE_dataset_lim_cond, paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond.csv", sep=""))
+write.csv(WCE_dataset_lim_cond, paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond_depression_bin.csv", sep=""))

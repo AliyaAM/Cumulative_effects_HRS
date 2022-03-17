@@ -100,8 +100,8 @@ WCE_dataset_national_origin_ousideUS$diabetes_new_bin = case_when(WCE_dataset_na
                                                                   WCE_dataset_national_origin_ousideUS$diabetes_new ==1 ~ 1) 
 
 
-WCE_dataset_national_origin_ousideUS = WCE_dataset_national_origin_ousideUS %>% drop_na(diabetes_new_bin)
-unique(WCE_dataset_national_origin_ousideUS$diabetes_new_bin)
+WCE_dataset_national_origin_ousideUS = WCE_dataset_national_origin_ousideUS %>% drop_na(checklist_depression_bin)
+unique(WCE_dataset_national_origin_ousideUS$checklist_depression_bin)
 
 WCE_dataset_national_origin_ousideUS = subset(WCE_dataset_national_origin_ousideUS, HHIDPN != "3020")
 
@@ -143,6 +143,7 @@ unique(WCE_dataset_national_origin_ousideUS$wealth_noIRA)
 unique(WCE_dataset_national_origin_ousideUS$assessed_BMI)
 
 WCE_dataset_national_origin_ousideUS$diabetes_new_bin = as.numeric(WCE_dataset_national_origin_ousideUS$diabetes_new_bin)
+WCE_dataset_national_origin_ousideUS$checklist_depression_bin = as.numeric(WCE_dataset_national_origin_ousideUS$checklist_depression_bin)
 
 WCE_dataset_national_origin_ousideUS$summary_mean_score_discrim = as.numeric(WCE_dataset_national_origin_ousideUS$summary_mean_score_discrim)
 
@@ -158,5 +159,5 @@ WCE_dataset_national_origin_ousideUS$assessed_BMI = as.numeric(WCE_dataset_natio
 WCE_dataset_national_origin_ousideUS$continious_age = as.numeric(WCE_dataset_national_origin_ousideUS$continious_age)
 
 
-write.csv(WCE_dataset_national_origin_ousideUS, paste(SOURCE_data_ROOT, "WCE_dataset_national_origin_ousideUS.csv", sep=""))
+write.csv(WCE_dataset_national_origin_ousideUS, paste(SOURCE_data_ROOT, "WCE_dataset_national_origin_outsideUS_depression_bin.csv", sep=""))
 

@@ -78,14 +78,16 @@ HRS2014_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2014_data/HRS2014_data_shor
 HRS2016_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2016_data/HRS2016_data_short.csv", sep=""))
 HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_short.csv", sep=""))
 
+#national_origin_ousideUS
+#assessed_BMI
+HRS2008_data_race$race_white
 
-
-HRS2008_data_race = subset(HRS2008_data, HRS2008_data$race_white == 0) 
-HRS2010_data_race = subset(HRS2010_data, HRS2010_data$race_white == 0)
-HRS2012_data_race = subset(HRS2012_data, HRS2012_data$race_white == 0)
-HRS2014_data_race = subset(HRS2014_data, HRS2014_data$race_white == 0)
-HRS2016_data_race = subset(HRS2016_data, HRS2016_data$race_white == 0)
-HRS2018_data_race = subset(HRS2018_data, HRS2018_data$race_white == 0)
+HRS2008_data_race = subset(HRS2008_data, HRS2008_data$race_white == 0 & HRS2008_data$assessed_BMI > 30) 
+HRS2010_data_race = subset(HRS2010_data, HRS2010_data$race_white == 0 & HRS2010_data$assessed_BMI > 30)
+HRS2012_data_race = subset(HRS2012_data, HRS2012_data$race_white == 0 & HRS2012_data$assessed_BMI > 30)
+HRS2014_data_race = subset(HRS2014_data, HRS2014_data$race_white == 0 & HRS2014_data$assessed_BMI > 30)
+HRS2016_data_race = subset(HRS2016_data, HRS2016_data$race_white == 0 & HRS2016_data$assessed_BMI > 30)
+HRS2018_data_race = subset(HRS2018_data, HRS2018_data$race_white == 0 & HRS2018_data$assessed_BMI > 30)
 
 
 
@@ -145,6 +147,9 @@ unique(WCE_dataset_race$wealth_noIRA)
 unique(WCE_dataset_race$assessed_BMI)
 
 WCE_dataset_race$diabetes_new_bin = as.numeric(WCE_dataset_race$diabetes_new_bin)
+WCE_dataset_race$checklist_depression_bin = as.numeric(WCE_dataset_race$checklist_depression_bin)
+WCE_dataset_race$diabetes_new_bin = as.numeric(WCE_dataset_race$diabetes_new_bin)
+
 
 WCE_dataset_race$summary_mean_score_discrim = as.numeric(WCE_dataset_race$summary_mean_score_discrim)
 
@@ -160,5 +165,5 @@ WCE_dataset_race$assessed_BMI = as.numeric(WCE_dataset_race$assessed_BMI)
 WCE_dataset_race$continious_age = as.numeric(WCE_dataset_race$continious_age)
 
 
-write.csv(WCE_dataset_race, paste(SOURCE_data_ROOT, "WCE_dataset_race.csv", sep=""))
+write.csv(WCE_dataset_race, paste(SOURCE_data_ROOT, "WCE_race_BMI_diabetes_bin.csv", sep=""))
 

@@ -7,7 +7,7 @@ Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covariates_list){
   
   #all values have to be numeric for this analysis 
   
-  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
+  WCE_data_CI$checklist_depression_bin = as.numeric(WCE_data_CI$checklist_depression_bin)
   WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
   WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
   

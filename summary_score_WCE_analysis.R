@@ -5,7 +5,7 @@
 summary_score_WCE_analysis = function(data_WCE, exposure, outcome, covariates_list){
   
   
-data_WCE$diabetes_new_bin = as.numeric(data_WCE$diabetes_new_bin)
+data_WCE$checklist_depression_bin = as.numeric(data_WCE$checklist_depression_bin)
 data_WCE$start_new = as.numeric(data_WCE$start_new)
 data_WCE$stop_new = as.numeric(data_WCE$stop_new)
 
