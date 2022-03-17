@@ -65,52 +65,57 @@ summary(wce)
 
 coef.WCE(wce)
 
-mean = mean(data_WCE$summary_mean_score_discrim)
-max = max(data_WCE$summary_mean_score_discrim)
-min = min(data_WCE$summary_mean_score_discrim)
+#mean = mean(data_WCE$summary_mean_score_discrim)
+#max = max(data_WCE$summary_mean_score_discrim)
+#min = min(data_WCE$summary_mean_score_discrim)
 
-lower_quantile = quantile(data_WCE$summary_mean_score_discrim, p = 0.25)
+#lower_quantile = quantile(data_WCE$summary_mean_score_discrim, p = 0.25)
 
-upper_quantile = quantile(data_WCE$summary_mean_score_discrim, p = 0.75)
+#upper_quantile = quantile(data_WCE$summary_mean_score_discrim, p = 0.75)
 
-median = quantile(data_WCE$summary_mean_score_discrim, p = 0.5)
-
-
-scenario_lower_quantile <- rep(lower_quantile, n_timepoints_max)
-scenario_upper_quantile <- rep(upper_quantile, n_timepoints_max) # for all models 
-HR_value_quantiles = HR.WCE(wce, vecnum = scenario_upper_quantile, vecdenom = scenario_lower_quantile, allres = TRUE)
-hazard_ratio_quantiles  = HR_value_quantiles[1]
+#median = quantile(data_WCE$summary_mean_score_discrim, p = 0.5)
 
 
-scenario1 <- rep(2, n_timepoints_max)
-scenario2 <- rep(1, n_timepoints_max) # for all models 
-HR_value_1vs2 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
-hazard_ratio_1 = HR_value_1vs2[1]
+scenario1 <- rep(1, n_timepoints_max)
+scenario2 <- rep(0, n_timepoints_max) # for all models 
+HR_value_1vs0 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
+hazard_ratio_1vs0 = HR_value_1vs0[1]
 
-scenario1 <- rep(3, n_timepoints_max)
-scenario3 <- rep(1, n_timepoints_max) # for all models 
-HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
-hazard_ratio_2  = HR_value_1vs3[1]
-
-
-scenario1 <- rep(4, n_timepoints_max)
-scenario3 <- rep(1, n_timepoints_max) # for all models 
-HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
-hazard_ratio_3  = HR_value_1vs3[1]
+#scenario_lower_quantile <- rep(lower_quantile, n_timepoints_max)
+#scenario_upper_quantile <- rep(upper_quantile, n_timepoints_max) # for all models 
+#HR_value_quantiles = HR.WCE(wce, vecnum = scenario_upper_quantile, vecdenom = scenario_lower_quantile, allres = TRUE)
+#hazard_ratio_quantiles  = HR_value_quantiles[1]
 
 
+#scenario1 <- rep(2, n_timepoints_max)
+#scenario2 <- rep(1, n_timepoints_max) # for all models 
+#HR_value_1vs2 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
+#hazard_ratio_1 = HR_value_1vs2[1]
+
+#scenario1 <- rep(3, n_timepoints_max)
+#scenario3 <- rep(1, n_timepoints_max) # for all models 
+#HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
+#hazard_ratio_2  = HR_value_1vs3[1]
 
 
-scenario1 <- rep(5, n_timepoints_max)
-scenario3 <- rep(1, n_timepoints_max) # for all models 
-HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
-hazard_ratio_4 = HR_value_1vs3[1]
+#scenario1 <- rep(4, n_timepoints_max)
+#scenario3 <- rep(1, n_timepoints_max) # for all models 
+#HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
+#hazard_ratio_3  = HR_value_1vs3[1]
 
 
-scenario1 <- rep(6, n_timepoints_max)
-scenario3 <- rep(1, n_timepoints_max) # for all models 
-HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
-hazard_ratio_5  = HR_value_1vs3[1]
+
+
+#scenario1 <- rep(5, n_timepoints_max)
+#scenario3 <- rep(1, n_timepoints_max) # for all models 
+#HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
+#hazard_ratio_4 = HR_value_1vs3[1]
+
+
+#scenario1 <- rep(6, n_timepoints_max)
+#scenario3 <- rep(1, n_timepoints_max) # for all models 
+#HR_value_1vs3 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario3, allres = TRUE)
+#hazard_ratio_5  = HR_value_1vs3[1]
 
 
 
@@ -132,11 +137,7 @@ est_value_D5 = est_value_all$`3 knot(s)`[5]
 
 
 
-results_HR_WCE = rbind(hazard_ratio_1,
-                       hazard_ratio_2,
-                       hazard_ratio_3, 
-                       hazard_ratio_4, 
-                       hazard_ratio_5) 
+results_HR_WCE = rbind(hazard_ratio_1vs0) 
 
 results_stats_WCE= cbind(mat_t1_value, 
                          mat_t2_value,

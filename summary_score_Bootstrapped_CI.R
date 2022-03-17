@@ -7,16 +7,18 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   #all values have to be numeric for this analysis 
   
+  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
   WCE_data_CI$checklist_depression_bin = as.numeric(WCE_data_CI$checklist_depression_bin)
+  
   WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
   WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
   
-  WCE_data_CI$discrim_harassed = as.numeric(WCE_data_CI$discrim_harassed)
-  WCE_data_CI$discrim_lessrespect = as.numeric(WCE_data_CI$discrim_lessrespect)
-  WCE_data_CI$discrim_medical = as.numeric(WCE_data_CI$discrim_medical)
-  WCE_data_CI$discrim_notclever = as.numeric(WCE_data_CI$discrim_notclever)
-  WCE_data_CI$discrim_poorerservice = as.numeric(WCE_data_CI$discrim_poorerservice)
-  WCE_data_CI$discrim_afraidothers = as.numeric(WCE_data_CI$discrim_afraidothers)
+  WCE_data_CI$discrim_harassed_bin = as.numeric(WCE_data_CI$discrim_harassed_bin)
+  WCE_data_CI$discrim_lessrespect_bin = as.numeric(WCE_data_CI$discrim_lessrespect_bin)
+  WCE_data_CI$discrim_medical_bin = as.numeric(WCE_data_CI$discrim_medical_bin)
+  WCE_data_CI$discrim_notclever_bin = as.numeric(WCE_data_CI$discrim_notclever_bin)
+  WCE_data_CI$discrim_poorerservice_bin = as.numeric(WCE_data_CI$discrim_poorerservice_bin)
+  WCE_data_CI$discrim_afraidothers_bin = as.numeric(WCE_data_CI$discrim_afraidothers_bin)
   
   WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
   WCE_data_CI$assessed_BMI = as.numeric(WCE_data_CI$assessed_BMI)
@@ -28,17 +30,17 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
-  bootstraps_samples = 100
+  bootstraps_samples = 5
   Num_time_points = max(WCE_data_CI$timepoints_indiv)
   
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
   
   boot.WCE <- matrix(NA, ncol = Num_time_points, nrow = bootstraps_samples) # to store estimated weight functions 
-  boot.HR_1vs6 <- rep(NA, bootstraps_samples)
-  boot.HR_2vs6 <- rep(NA, bootstraps_samples)
-  boot.HR_3vs6 <- rep(NA, bootstraps_samples)
-  boot.HR_4vs6 <- rep(NA, bootstraps_samples)
-  boot.HR_5vs6 <- rep(NA, bootstraps_samples)
+  boot.HR_1vs0 <- rep(NA, bootstraps_samples)
+  #boot.HR_2vs6 <- rep(NA, bootstraps_samples)
+  #boot.HR_3vs6 <- rep(NA, bootstraps_samples)
+  #boot.HR_4vs6 <- rep(NA, bootstraps_samples)
+  #boot.HR_5vs6 <- rep(NA, bootstraps_samples)
   
   #Sample IDs with replacement:
   ID <- unique(WCE_data_CI$HHIDPN) 
@@ -77,11 +79,12 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     # return best WCE estimates and corresponding HR 
     best <- which.min(mod$info.criterion) 
     boot.WCE[i,] <- mod$WCEmat[best,] 
-    boot.HR_1vs6[i] <- HR.WCE(mod, rep(2, Num_time_points), rep(1, Num_time_points)) 
-    boot.HR_2vs6[i] <- HR.WCE(mod, rep(3, Num_time_points), rep(1, Num_time_points)) 
-    boot.HR_3vs6[i] <- HR.WCE(mod, rep(4, Num_time_points), rep(1, Num_time_points)) 
-    boot.HR_4vs6[i] <- HR.WCE(mod, rep(5, Num_time_points), rep(1, Num_time_points)) 
-    boot.HR_5vs6[i] <- HR.WCE(mod, rep(6, Num_time_points), rep(1, Num_time_points)) 
+    #boot.HR_1vs6[i] <- HR.WCE(mod, rep(2, Num_time_points), rep(1, Num_time_points)) 
+   # boot.HR_2vs6[i] <- HR.WCE(mod, rep(3, Num_time_points), rep(1, Num_time_points)) 
+   # boot.HR_3vs6[i] <- HR.WCE(mod, rep(4, Num_time_points), rep(1, Num_time_points)) 
+    #boot.HR_4vs6[i] <- HR.WCE(mod, rep(5, Num_time_points), rep(1, Num_time_points)) 
+    #boot.HR_5vs6[i] <- HR.WCE(mod, rep(6, Num_time_points), rep(1, Num_time_points)) 
+    boot.HR_1vs0[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
     
   } 
   
@@ -90,18 +93,23 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   estimated_weight_functions  = apply(boot.WCE, 1, quantile, p = c(0.05, 0.95))
   
   # estimated HR 
-  HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
-  HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
-  HR_CI3vs6_lower =  quantile(boot.HR_3vs6, p = 0.05) 
-  HR_CI4vs6_lower =  quantile(boot.HR_4vs6, p = 0.05) 
-  HR_CI5vs6_lower =  quantile(boot.HR_5vs6, p = 0.05) 
+  HR_CI1vs0_lower =  quantile(boot.HR_1vs0, p = 0.05) 
+  
+  #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
+  #HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
+  #HR_CI3vs6_lower =  quantile(boot.HR_3vs6, p = 0.05) 
+  #HR_CI4vs6_lower =  quantile(boot.HR_4vs6, p = 0.05) 
+  #HR_CI5vs6_lower =  quantile(boot.HR_5vs6, p = 0.05) 
   
   
-  HR_CI1vs6_upper =  quantile(boot.HR_1vs6, p  = 0.95) 
-  HR_CI2vs6_upper =  quantile(boot.HR_2vs6, p  = 0.95)  
-  HR_CI3vs6_upper =  quantile(boot.HR_3vs6, p  = 0.95) 
-  HR_CI4vs6_upper =  quantile(boot.HR_4vs6, p  = 0.95) 
-  HR_CI5vs6_upper =  quantile(boot.HR_5vs6, p  = 0.95) 
+  HR_CI1vs0_upper =  quantile(boot.HR_1vs0, p  = 0.95) 
+  
+  
+  #HR_CI1vs6_upper =  quantile(boot.HR_1vs6, p  = 0.95) 
+  #HR_CI2vs6_upper =  quantile(boot.HR_2vs6, p  = 0.95)  
+  #HR_CI3vs6_upper =  quantile(boot.HR_3vs6, p  = 0.95) 
+  #HR_CI4vs6_upper =  quantile(boot.HR_4vs6, p  = 0.95) 
+  #HR_CI5vs6_upper =  quantile(boot.HR_5vs6, p  = 0.95) 
   
   
   unique(datab$HHIDPN)
@@ -109,18 +117,10 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   tail(datab$HHIDPN)
   datab$HHIDPN
   
-  HR_CIs_lower = rbind(HR_CI1vs6_lower, 
-                       HR_CI2vs6_lower,
-                       HR_CI3vs6_lower,
-                       HR_CI4vs6_lower,
-                       HR_CI5vs6_lower)
+  HR_CIs_lower = rbind(HR_CI1vs0_lower)
   
   
-  HR_CIs_upper = rbind(HR_CI1vs6_upper, 
-                       HR_CI2vs6_upper,
-                       HR_CI3vs6_upper,
-                       HR_CI4vs6_upper,
-                       HR_CI5vs6_upper)
+  HR_CIs_upper = rbind(HR_CI1vs0_upper)
   
   HR_CIs_all = cbind(HR_CIs_lower, 
                      HR_CIs_upper)

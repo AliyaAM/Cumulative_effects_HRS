@@ -80,6 +80,15 @@ colnames_all = c('HHIDPN',
                  "discrim_notclever",
                  "discrim_poorerservice",
                  "discrim_afraidothers",
+              
+                
+                "discrim_harassed_bin",
+                "discrim_lessrespect_bin",
+                "discrim_medical_bin",
+                "discrim_notclever_bin",
+                "discrim_poorerservice_bin",
+                "discrim_afraidothers_bin",
+                "summary_mean_score_discrim_bin",
                 
                 "continious_age",
                 "sex_1_2", 
@@ -144,6 +153,15 @@ HRS2008_data_short = cbind(HRS2008_data$HHIDPN,
                               HRS2008_data$discrim_notclever,
                               HRS2008_data$discrim_poorerservice,
                               HRS2008_data$discrim_afraidothers,
+                           
+                           HRS2008_data$discrim_harassed_bin,
+                           HRS2008_data$discrim_lessrespect_bin,
+                           HRS2008_data$discrim_medical_bin,
+                           HRS2008_data$discrim_notclever_bin,
+                           HRS2008_data$discrim_poorerservice_bin,
+                           HRS2008_data$discrim_afraidothers_bin,
+                           HRS2008_data$summary_mean_score_discrim_bin, 
+                           
                               
                            HRS2008_data$continious_age,
                            HRS2008_data$sex_1_2,
@@ -193,6 +211,15 @@ HRS2010_data_short = cbind(HRS2010_data$HHIDPN,
                               HRS2010_data$discrim_poorerservice,
                               
                               HRS2010_data$discrim_afraidothers,
+                           
+                           HRS2010_data$discrim_harassed_bin,
+                           HRS2010_data$discrim_lessrespect_bin,
+                           HRS2010_data$discrim_medical_bin,
+                           HRS2010_data$discrim_notclever_bin,
+                           HRS2010_data$discrim_poorerservice_bin,
+                           HRS2010_data$discrim_afraidothers_bin,
+                           HRS2010_data$summary_mean_score_discrim_bin, 
+                           
                            
                            HRS2010_data$continious_age,
                            HRS2010_data$sex_1_2,
@@ -246,6 +273,15 @@ HRS2012_data_short = cbind(HRS2012_data$HHIDPN,
                               HRS2012_data$discrim_poorerservice,
                               HRS2012_data$discrim_afraidothers,
                               
+                           
+                           HRS2012_data$discrim_harassed_bin,
+                           HRS2012_data$discrim_lessrespect_bin,
+                           HRS2012_data$discrim_medical_bin,
+                           HRS2012_data$discrim_notclever_bin,
+                           HRS2012_data$discrim_poorerservice_bin,
+                           HRS2012_data$discrim_afraidothers_bin,
+                           HRS2012_data$summary_mean_score_discrim_bin, 
+                           
                            HRS2012_data$continious_age,
                            HRS2012_data$sex_1_2,
                            HRS2012_data$assessed_BMI, 
@@ -296,6 +332,15 @@ HRS2014_data_short = cbind(HRS2014_data$HHIDPN,
                               HRS2014_data$discrim_notclever,
                               HRS2014_data$discrim_poorerservice,
                               HRS2014_data$discrim_afraidothers,
+                           
+                           
+                           HRS2014_data$discrim_harassed_bin,
+                           HRS2014_data$discrim_lessrespect_bin,
+                           HRS2014_data$discrim_medical_bin,
+                           HRS2014_data$discrim_notclever_bin,
+                           HRS2014_data$discrim_poorerservice_bin,
+                           HRS2014_data$discrim_afraidothers_bin,
+                           HRS2014_data$summary_mean_score_discrim_bin, 
                               
                            HRS2014_data$continious_age,
                            HRS2014_data$sex_1_2,
@@ -348,6 +393,17 @@ HRS2016_data_short = cbind(HRS2016_data$HHIDPN,
                               HRS2016_data$discrim_notclever,
                               HRS2016_data$discrim_poorerservice,
                               HRS2016_data$discrim_afraidothers,
+                           
+                           
+                           
+                           
+                           HRS2016_data$discrim_harassed_bin,
+                           HRS2016_data$discrim_lessrespect_bin,
+                           HRS2016_data$discrim_medical_bin,
+                           HRS2016_data$discrim_notclever_bin,
+                           HRS2016_data$discrim_poorerservice_bin,
+                           HRS2016_data$discrim_afraidothers_bin,
+                           HRS2016_data$summary_mean_score_discrim_bin, 
                               
                            HRS2016_data$continious_age,
                            HRS2016_data$sex_1_2,
@@ -404,6 +460,15 @@ HRS2018_data_short = cbind(HRS2018_data$HHIDPN,
                               HRS2018_data$discrim_notclever,
                               HRS2018_data$discrim_poorerservice,
                               HRS2018_data$discrim_afraidothers,
+                           
+                           
+                           HRS2018_data$discrim_harassed_bin,
+                           HRS2018_data$discrim_lessrespect_bin,
+                           HRS2018_data$discrim_medical_bin,
+                           HRS2018_data$discrim_notclever_bin,
+                           HRS2018_data$discrim_poorerservice_bin,
+                           HRS2018_data$discrim_afraidothers_bin,
+                           HRS2018_data$summary_mean_score_discrim_bin, 
                               
                            HRS2018_data$continious_age,
                            HRS2018_data$sex_1_2,

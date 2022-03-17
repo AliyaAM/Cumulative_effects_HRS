@@ -102,39 +102,13 @@ est_value_D5 = est_value_all$`3 knot(s)`[5]
 ######## scenario2 <- rep(0, 90)
 ######## HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2)
 
-#producing hazard ratios of experiencing discrimination Almost everyday (=1) to never (=6) on the onset of diabetes type 2. 
+#producing hazard ratios of experiencing discrimination A few times a year or more (=1) to less than once a year and never (=0) on the onset of diabetes type 2. 
 
 scenario1 <- rep(1, n_timepoints_max)
-scenario2 <- rep(6, n_timepoints_max) # for all models 
-HR_value_1vs6 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
-hazard_ratio_1vs6 = HR_value_1vs6[1]
+scenario2 <- rep(0, n_timepoints_max) # for all models 
+HR_value_1vs0 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
+hazard_ratio_1vs0 = HR_value_1vs0[1]
 
-
-#producing hazard ratios of experiencing discrimination At least once a week (=2) to never (=6) on the onset of diabetes type 2. 
-scenario3 <- rep(2, n_timepoints_max)
-scenario2 <- rep(6, n_timepoints_max) # for all models 
-HR_value_2vs6 = HR.WCE(wce, vecnum = scenario3, vecdenom = scenario2, allres = TRUE)
-hazard_ratio_2vs6 = HR_value_2vs6[1]
-
-
-#producing hazard ratios of experiencing discrimination A few times a month (=3) to never (=6) on the onset of diabetes type 2. 
-scenario4 <- rep(3, n_timepoints_max)
-scenario2 <- rep(6, n_timepoints_max) # for all models 
-HR_value_3vs6 = HR.WCE(wce, vecnum = scenario4, vecdenom = scenario2, allres = TRUE)
-hazard_ratio_3vs6 = HR_value_3vs6[1]
-
-
-#producing hazard ratios of experiencing discrimination A few times a year (=4) to never (=6) on the onset of diabetes type 2. 
-scenario5 <- rep(4, n_timepoints_max)
-scenario2 <- rep(6, n_timepoints_max) # for all models 
-HR_value_4vs6 = HR.WCE(wce, vecnum = scenario5, vecdenom = scenario2, allres = TRUE)
-hazard_ratio_4vs6 = HR_value_4vs6[1]
-
-#producing hazard ratios of experiencing discrimination less than once a year  (=5) to never (=6) on the onset of diabetes type 2. 
-scenario6 <- rep(5, n_timepoints_max)
-scenario2 <- rep(6, n_timepoints_max) # for all models 
-HR_value_5vs6 = HR.WCE(wce, vecnum = scenario6, vecdenom = scenario2, allres = TRUE)
-hazard_ratio_5vs6 = HR_value_5vs6[1]
 
 
 ID <- unique(data_WCE$HHIDPN)
@@ -144,11 +118,7 @@ coef.WCE(wce)
 
 
 
-results_HR_WCE = rbind(hazard_ratio_1vs6,
-                    hazard_ratio_2vs6,
-                    hazard_ratio_3vs6, 
-                    hazard_ratio_4vs6, 
-                    hazard_ratio_5vs6) 
+results_HR_WCE = rbind(hazard_ratio_1vs0) 
                     
 results_stats_WCE= cbind(mat_t1_value, 
                         mat_t2_value,
