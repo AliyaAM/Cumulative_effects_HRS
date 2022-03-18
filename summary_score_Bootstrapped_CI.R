@@ -7,22 +7,22 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   #all values have to be numeric for this analysis 
   
-  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
-  WCE_data_CI$checklist_depression_bin = as.numeric(WCE_data_CI$checklist_depression_bin)
+ #WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
+#WCE_data_CI$checklist_depression_bin = as.numeric(WCE_data_CI$checklist_depression_bin)
   
-  WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
-  WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
+  #WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
+ # WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
   
-  WCE_data_CI$discrim_harassed_bin = as.numeric(WCE_data_CI$discrim_harassed_bin)
-  WCE_data_CI$discrim_lessrespect_bin = as.numeric(WCE_data_CI$discrim_lessrespect_bin)
-  WCE_data_CI$discrim_medical_bin = as.numeric(WCE_data_CI$discrim_medical_bin)
-  WCE_data_CI$discrim_notclever_bin = as.numeric(WCE_data_CI$discrim_notclever_bin)
-  WCE_data_CI$discrim_poorerservice_bin = as.numeric(WCE_data_CI$discrim_poorerservice_bin)
-  WCE_data_CI$discrim_afraidothers_bin = as.numeric(WCE_data_CI$discrim_afraidothers_bin)
+ # WCE_data_CI$discrim_harassed_bin = as.numeric(WCE_data_CI$discrim_harassed_bin)
+  #WCE_data_CI$discrim_lessrespect_bin = as.numeric(WCE_data_CI$discrim_lessrespect_bin)
+ # WCE_data_CI$discrim_medical_bin = as.numeric(WCE_data_CI$discrim_medical_bin)
+ # WCE_data_CI$discrim_notclever_bin = as.numeric(WCE_data_CI$discrim_notclever_bin)
+#  WCE_data_CI$discrim_poorerservice_bin = as.numeric(WCE_data_CI$discrim_poorerservice_bin)
+ # WCE_data_CI$discrim_afraidothers_bin = as.numeric(WCE_data_CI$discrim_afraidothers_bin)
   
-  WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
-  WCE_data_CI$assessed_BMI = as.numeric(WCE_data_CI$assessed_BMI)
-  WCE_data_CI$continious_age = as.numeric(WCE_data_CI$continious_age)
+#  WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
+ # WCE_data_CI$assessed_BMI = as.numeric(WCE_data_CI$assessed_BMI)
+ # WCE_data_CI$continious_age = as.numeric(WCE_data_CI$continious_age)
   
   WCE_data_CI$timepoints_indiv = as.numeric(WCE_data_CI$timepoints_indiv)
   
@@ -30,9 +30,9 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
-  bootstraps_samples = 5
+  bootstraps_samples = 100
   Num_time_points = max(WCE_data_CI$timepoints_indiv)
-  
+
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
   
   boot.WCE <- matrix(NA, ncol = Num_time_points, nrow = bootstraps_samples) # to store estimated weight functions 
@@ -65,8 +65,10 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
       step <- step+1 
     }
     
+
+        
     mod <- WCE(data = datab, 
-               analysis = "Cox", nknots = 1:3, cutoff = Num_time_points,
+               analysis = "Cox", nknots = 1, cutoff = Num_time_points,
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
                id = "HHIDPN", 
                event = outcome, 
@@ -77,23 +79,29 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     
     # return best WCE estimates and corresponding HR 
+    
     best <- which.min(mod$info.criterion) 
     boot.WCE[i,] <- mod$WCEmat[best,] 
+   
     #boot.HR_1vs6[i] <- HR.WCE(mod, rep(2, Num_time_points), rep(1, Num_time_points)) 
    # boot.HR_2vs6[i] <- HR.WCE(mod, rep(3, Num_time_points), rep(1, Num_time_points)) 
    # boot.HR_3vs6[i] <- HR.WCE(mod, rep(4, Num_time_points), rep(1, Num_time_points)) 
     #boot.HR_4vs6[i] <- HR.WCE(mod, rep(5, Num_time_points), rep(1, Num_time_points)) 
     #boot.HR_5vs6[i] <- HR.WCE(mod, rep(6, Num_time_points), rep(1, Num_time_points)) 
-    boot.HR_1vs0[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
     
-  } 
-  
+    scenario1 <- c(rep(1, Num_time_points))
+    scenario2 <- c(rep(0, Num_time_points))
+    
+    boot.HR_1vs0[i] <- HR.WCE(mod, scenario1, scenario2) 
+    } 
   
   # estimated weight functions 
-  estimated_weight_functions  = apply(boot.WCE, 1, quantile, p = c(0.05, 0.95))
+  estimated_weight_functions  = apply(boot.WCE, 2, quantile, p = c(0.05, 0.95))
   
+
   # estimated HR 
-  HR_CI1vs0_lower =  quantile(boot.HR_1vs0, p = 0.05) 
+  #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
+  HR_CI1vs0_lower =  quantile(as.numeric(boot.HR_1vs0), probs=0.05) 
   
   #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
   #HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
@@ -112,10 +120,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   #HR_CI5vs6_upper =  quantile(boot.HR_5vs6, p  = 0.95) 
   
   
-  unique(datab$HHIDPN)
-  head(datab$HHIDPN)
-  tail(datab$HHIDPN)
-  datab$HHIDPN
   
   HR_CIs_lower = rbind(HR_CI1vs0_lower)
   

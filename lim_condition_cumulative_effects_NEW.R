@@ -112,44 +112,42 @@ unique(WCE_dataset_lim_cond$diabetes_new_bin)
 
 WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond, HHIDPN != "3020")
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , summary_mean_score_discrim_bin != " NA")
-unique(WCE_dataset_lim_cond$summary_mean_score_discrim_bin)
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , diabetes_new_bin != " NA")
+unique(WCE_dataset_lim_cond$diabetes_new)
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_harassed_bin != " NA")
-unique(WCE_dataset_lim_cond$discrim_harassed_bin)
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , summary_mean_score_discrim != " NA")
+unique(WCE_dataset_lim_cond$summary_mean_score_discrim)
+
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_harassed != " NA")
+unique(WCE_dataset_lim_cond$discrim_harassed)
 
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_lessrespect_bin != " NA")
-unique(WCE_dataset_lim_cond$discrim_lessrespect_bin)
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_lessrespect != " NA")
+unique(WCE_dataset_lim_cond$discrim_lessrespect)
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_medical_bin != " NA")
-unique(WCE_dataset_lim_cond$discrim_medical_bin)
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_medical != " NA")
+unique(WCE_dataset_lim_cond$discrim_medical)
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_notclever_bin != " NA")
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_notclever != " NA")
 unique(WCE_dataset_lim_cond$discrim_notclever_bin)
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_poorerservice_bin != " NA")
-unique(WCE_dataset_lim_cond$discrim_poorerservice_bin)
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_poorerservice != " NA")
+unique(WCE_dataset_lim_cond$discrim_poorerservice)
 
 
-WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_afraidothers_bin != " NA")
-unique(WCE_dataset_lim_cond$discrim_afraidothers_bin)
+WCE_dataset_lim_cond = subset(WCE_dataset_lim_cond , discrim_afraidothers != " NA")
+unique(WCE_dataset_lim_cond$discrim_afraidothers)
 
 
 
 
-unique(WCE_dataset_lim_cond$summary_mean_score_discrim_bin)
-unique(WCE_dataset_lim_cond$discrim_harassed_bin)
-unique(WCE_dataset_lim_cond$discrim_lessrespect_bin)
-unique(WCE_dataset_lim_cond$discrim_medical_bin)
-unique(WCE_dataset_lim_cond$discrim_notclever_bin)
-unique(WCE_dataset_lim_cond$discrim_poorerservice_bin)
-unique(WCE_dataset_lim_cond$discrim_afraidothers_bin)
+
 unique(WCE_dataset_lim_cond$wealth_noIRA)
 unique(WCE_dataset_lim_cond$assessed_BMI)
 
 WCE_dataset_lim_cond$diabetes_new_bin = as.numeric(WCE_dataset_lim_cond$diabetes_new_bin)
 WCE_dataset_lim_cond$checklist_depression_bin = as.numeric(WCE_dataset_lim_cond$checklist_depression_bin)
+
 
 
 WCE_dataset_lim_cond$summary_mean_score_discrim_bin = as.numeric(WCE_dataset_lim_cond$summary_mean_score_discrim_bin)
@@ -166,5 +164,21 @@ WCE_dataset_lim_cond$assessed_BMI = as.numeric(WCE_dataset_lim_cond$assessed_BMI
 WCE_dataset_lim_cond$continious_age = as.numeric(WCE_dataset_lim_cond$continious_age)
 
 
+WCE_dataset_lim_cond$checklist_depression_bin = as.numeric(WCE_dataset_lim_cond$checklist_depression_bin)
 
-write.csv(WCE_dataset_lim_cond, paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond_recoded_diabetes.csv", sep=""))
+WCE_dataset_lim_cond$summary_mean_score_discrim = as.numeric(WCE_dataset_lim_cond$summary_mean_score_discrim)
+
+WCE_dataset_lim_cond$discrim_harassed = as.numeric(WCE_dataset_lim_cond$discrim_harassed)
+WCE_dataset_lim_cond$discrim_lessrespect = as.numeric(WCE_dataset_lim_cond$discrim_lessrespect)
+WCE_dataset_lim_cond$discrim_medical = as.numeric(WCE_dataset_lim_cond$discrim_medical)
+WCE_dataset_lim_cond$discrim_notclever = as.numeric(WCE_dataset_lim_cond$discrim_notclever)
+WCE_dataset_lim_cond$discrim_poorerservice = as.numeric(WCE_dataset_lim_cond$discrim_poorerservice)
+WCE_dataset_lim_cond$discrim_afraidothers = as.numeric(WCE_dataset_lim_cond$discrim_afraidothers)
+
+WCE_dataset_lim_cond$wealth_noIRA = as.numeric(WCE_dataset_lim_cond$wealth_noIRA)
+WCE_dataset_lim_cond$assessed_BMI = as.numeric(WCE_dataset_lim_cond$assessed_BMI)
+WCE_dataset_lim_cond$continious_age = as.numeric(WCE_dataset_lim_cond$continious_age)
+
+
+
+write.csv(WCE_dataset_lim_cond, paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond_diabetes.csv", sep=""))

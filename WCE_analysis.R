@@ -5,28 +5,7 @@ WCE_analysis = function(data_WCE, exposure, outcome, covariates_list){
 #covariates_list = c("covariate name", "covariate name")
 #outcome = "outcome name"
   
-  
-  #all values have to be numeric for this analysis 
-  
-  data_WCE$checklist_depression_bin = as.numeric(data_WCE$checklist_depression_bin)
-  data_WCE$start_new = as.numeric(data_WCE$start_new)
-  data_WCE$stop_new = as.numeric(data_WCE$stop_new)
-  
-  data_WCE$discrim_harassed = as.numeric(data_WCE$summary_mean_score_discrim)
 
-  data_WCE$discrim_harassed = as.numeric(data_WCE$discrim_harassed)
-  data_WCE$discrim_lessrespect = as.numeric(data_WCE$discrim_lessrespect)
-  data_WCE$discrim_medical = as.numeric(data_WCE$discrim_medical)
-  data_WCE$discrim_notclever = as.numeric(data_WCE$discrim_notclever)
-  data_WCE$discrim_poorerservice = as.numeric(data_WCE$discrim_poorerservice)
-  data_WCE$discrim_afraidothers = as.numeric(data_WCE$discrim_afraidothers)
-  
-  data_WCE$wealth_noIRA = as.numeric(data_WCE$wealth_noIRA)
-  data_WCE$assessed_BMI = as.numeric(data_WCE$assessed_BMI)
-  data_WCE$continious_age = as.numeric(data_WCE$continious_age)
-  
-  data_WCE$timepoints_indiv = as.numeric(data_WCE$timepoints_indiv)
-  
 
 checkWCE(data_WCE,
          id = "HHIDPN", 
@@ -109,7 +88,7 @@ scenario2 <- rep(0, n_timepoints_max) # for all models
 HR_value_1vs0 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
 hazard_ratio_1vs0 = HR_value_1vs0[1]
 
-
+print(hazard_ratio_1vs0)
 
 ID <- unique(data_WCE$HHIDPN)
 
@@ -135,7 +114,7 @@ results_stats_WCE= cbind(mat_t1_value,
                         est_value_D5)
 
 
-return(params = list(results_HR_WCE, results_stats_WCE))
+return(results_HR_WCE)
 }
 
 

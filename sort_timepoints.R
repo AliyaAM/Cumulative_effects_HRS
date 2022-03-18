@@ -12,9 +12,7 @@ participant_wave_df = data.frame()
 n = 1
 for (id in ID){
 
-  print(n)
-  print(id)
-  
+ 
   participant_wave = subset(data, data$HHIDPN == id)
   
   if (nrow(participant_wave)== 1){
