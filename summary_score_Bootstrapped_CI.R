@@ -89,19 +89,19 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #boot.HR_4vs6[i] <- HR.WCE(mod, rep(5, Num_time_points), rep(1, Num_time_points)) 
     #boot.HR_5vs6[i] <- HR.WCE(mod, rep(6, Num_time_points), rep(1, Num_time_points)) 
     
-    scenario1 <- c(rep(1, Num_time_points))
-    scenario2 <- c(rep(0, Num_time_points))
+    #scenario1 <- c(rep(1, Num_time_points))
+    #scenario2 <- c(rep(0, Num_time_points))
     
-    boot.HR_1vs0[i] <- HR.WCE(mod, scenario1, scenario2) 
+    boot.HR_1vs0[i] <- HR.WCE(mod, rep(0, Num_time_points), rep(1, Num_time_points)) 
     } 
   
   # estimated weight functions 
-  estimated_weight_functions  = apply(boot.WCE, 2, quantile, p = c(0.05, 0.95))
+  estimated_weight_functions  = apply(boot.WCE, 1, quantile, p = c(0.05, 0.95))
   
 
   # estimated HR 
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
-  HR_CI1vs0_lower =  quantile(as.numeric(boot.HR_1vs0), probs=0.05) 
+  HR_CI1vs0_lower =  quantile(boot.HR_1vs0, probs=0.05) 
   
   #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
   #HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
