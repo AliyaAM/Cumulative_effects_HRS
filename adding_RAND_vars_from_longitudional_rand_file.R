@@ -299,6 +299,98 @@ cross_waves$heartattack_new_2016 = RAND_HRS_longitudional_file$R13HEARTS
 cross_waves$heartattack_new_2018 = RAND_HRS_longitudional_file$R14HEARTS
 
 
+#RAND 2008 (w9) R is respondant 
+
+#vigarious physical activity
+cross_waves$vigarious_physical_activity_1992 = RAND_HRS_longitudional_file$R1VGACTX 
+cross_waves$vigarious_physical_activity_1994 = RAND_HRS_longitudional_file$R2VGACTX 
+cross_waves$vigarious_physical_activity_1996 = RAND_HRS_longitudional_file$R3VGACTX 
+cross_waves$vigarious_physical_activity_1998 = RAND_HRS_longitudional_file$R4VGACTX 
+cross_waves$vigarious_physical_activity_2000 = RAND_HRS_longitudional_file$R5VGACTX 
+cross_waves$vigarious_physical_activity_2002 = RAND_HRS_longitudional_file$R6VGACTX 
+cross_waves$vigarious_physical_activity_2004 = RAND_HRS_longitudional_file$R7VGACTX 
+cross_waves$vigarious_physical_activity_2006 = RAND_HRS_longitudional_file$R8VGACTX 
+cross_waves$vigarious_physical_activity_2008 = RAND_HRS_longitudional_file$R9VGACTX 
+cross_waves$vigarious_physical_activity_2010 = RAND_HRS_longitudional_file$R10VGACTX 
+cross_waves$vigarious_physical_activity_2012 = RAND_HRS_longitudional_file$R11VGACTX 
+cross_waves$vigarious_physical_activity_2014 = RAND_HRS_longitudional_file$R12VGACTX 
+cross_waves$vigarious_physical_activity_2016 = RAND_HRS_longitudional_file$R13VGACTX 
+cross_waves$vigarious_physical_activity_2018 = RAND_HRS_longitudional_file$R14VGACTX 
+
+
+
+#R9MDACTX - moderate physical activity 
+cross_waves$moderate_physical_activity_1992 = RAND_HRS_longitudional_file$R1MGACTX 
+cross_waves$moderate_physical_activity_1994 = RAND_HRS_longitudional_file$R2MGACTX 
+cross_waves$moderate_physical_activity_1996 = RAND_HRS_longitudional_file$R3MGACTX 
+cross_waves$moderate_physical_activity_1998 = RAND_HRS_longitudional_file$R4MGACTX 
+cross_waves$moderate_physical_activity_2000 = RAND_HRS_longitudional_file$R5MGACTX 
+cross_waves$moderate_physical_activity_2002 = RAND_HRS_longitudional_file$R6MGACTX 
+cross_waves$moderate_physical_activity_2004 = RAND_HRS_longitudional_file$R7MGACTX 
+cross_waves$moderate_physical_activity_2006 = RAND_HRS_longitudional_file$R8MGACTX 
+cross_waves$moderate_physical_activity_2008 = RAND_HRS_longitudional_file$R9MGACTX 
+cross_waves$moderate_physical_activity_2010 = RAND_HRS_longitudional_file$R10MGACTX 
+cross_waves$moderate_physical_activity_2012 = RAND_HRS_longitudional_file$R11MGACTX 
+cross_waves$moderate_physical_activity_2014 = RAND_HRS_longitudional_file$R12MGACTX 
+cross_waves$moderate_physical_activity_2016 = RAND_HRS_longitudional_file$R13MGACTX 
+cross_waves$moderate_physical_activity_2018 = RAND_HRS_longitudional_file$R14MGACTX 
+
+#R9LTACTX - light physical activity 
+cross_waves$light_physical_activity_1992 = RAND_HRS_longitudional_file$R1LGACTX 
+cross_waves$light_physical_activity_1994 = RAND_HRS_longitudional_file$R2LGACTX 
+cross_waves$light_physical_activity_1996 = RAND_HRS_longitudional_file$R3LGACTX 
+cross_waves$light_physical_activity_1998 = RAND_HRS_longitudional_file$R4LGACTX 
+cross_waves$light_physical_activity_2000 = RAND_HRS_longitudional_file$R5LGACTX 
+cross_waves$light_physical_activity_2002 = RAND_HRS_longitudional_file$R6LGACTX 
+cross_waves$light_physical_activity_2004 = RAND_HRS_longitudional_file$R7LGACTX 
+cross_waves$light_physical_activity_2006 = RAND_HRS_longitudional_file$R8LGACTX 
+cross_waves$light_physical_activity_2008 = RAND_HRS_longitudional_file$R9LGACTX 
+cross_waves$light_physical_activity_2010 = RAND_HRS_longitudional_file$R10LGACTX 
+cross_waves$light_physical_activity_2012 = RAND_HRS_longitudional_file$R11LGACTX 
+cross_waves$light_physical_activity_2014 = RAND_HRS_longitudional_file$R12LGACTX 
+cross_waves$light_physical_activity_2016 = RAND_HRS_longitudional_file$R13LGACTX 
+cross_waves$light_physical_activity_2018 = RAND_HRS_longitudional_file$R14LGACTX 
+
+# R9SMOKEV smokes ever 
+cross_waves$smokes_ever_1992 = RAND_HRS_longitudional_file$R1SMOKEV 
+cross_waves$smokes_ever_1994 = RAND_HRS_longitudional_file$R2SMOKEV 
+cross_waves$smokes_ever_1996 = RAND_HRS_longitudional_file$R3SMOKEV 
+cross_waves$smokes_ever_1998 = RAND_HRS_longitudional_file$R4SMOKEV 
+cross_waves$smokes_ever_2000 = RAND_HRS_longitudional_file$R5SMOKEV 
+cross_waves$smokes_ever_2002 = RAND_HRS_longitudional_file$R6SMOKEV 
+cross_waves$smokes_ever_2004 = RAND_HRS_longitudional_file$R7SMOKEV 
+cross_waves$smokes_ever_2006 = RAND_HRS_longitudional_file$R8SMOKEV 
+cross_waves$smokes_ever_2008 = RAND_HRS_longitudional_file$R9SMOKEV 
+cross_waves$smokes_ever_2010 = RAND_HRS_longitudional_file$R10SMOKEV 
+cross_waves$smokes_ever_2012 = RAND_HRS_longitudional_file$R11SMOKEV 
+cross_waves$smokes_ever_2014 = RAND_HRS_longitudional_file$R12SMOKEV 
+cross_waves$smokes_ever_2016 = RAND_HRS_longitudional_file$R13SMOKEV 
+cross_waves$smokes_ever_2018 = RAND_HRS_longitudional_file$R14SMOKEV 
+
+# R9SMOKEN Smokes now 
+
+cross_waves$smokes_now_1992 = RAND_HRS_longitudional_file$R1SMOKEN 
+cross_waves$smokes_now_1994 = RAND_HRS_longitudional_file$R2SMOKEN 
+cross_waves$smokes_now_1996 = RAND_HRS_longitudional_file$R3SMOKEN 
+cross_waves$smokes_now_1998 = RAND_HRS_longitudional_file$R4SMOKEN 
+cross_waves$smokes_now_2000 = RAND_HRS_longitudional_file$R5SMOKEN 
+cross_waves$smokes_now_2002 = RAND_HRS_longitudional_file$R6SMOKEN 
+cross_waves$smokes_now_2004 = RAND_HRS_longitudional_file$R7SMOKEN 
+cross_waves$smokes_now_2006 = RAND_HRS_longitudional_file$R8SMOKEN
+cross_waves$smokes_now_2008 = RAND_HRS_longitudional_file$R9SMOKEN 
+cross_waves$smokes_now_2010 = RAND_HRS_longitudional_file$R10SMOKEN 
+cross_waves$smokes_now_2012 = RAND_HRS_longitudional_file$R11SMOKEN 
+cross_waves$smokes_now_2014 = RAND_HRS_longitudional_file$R12SMOKEN 
+cross_waves$smokes_now_2016 = RAND_HRS_longitudional_file$R13SMOKEN 
+cross_waves$smokes_now_2018 = RAND_HRS_longitudional_file$R14SMOKEN 
+
+#Other HRS files: 
+# LC129	HRS 2008: Number days per week- drink alcohol, Text: In the last three months, on average, how many days per week have you had any alcohol to drink? (For example, beer, wine, or any drink containing liquor.)<br><br>USE 0 for none or less than once a week<br><br>1 - 6 7 every day<br><br>Days:
+# MC129 HRS 2010 
+# NC129 HRS 2012 
+# OC129 HRS 2014 
+# PC129 HRS 2016 
+# C129 HRS 2018
 
 
 
