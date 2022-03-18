@@ -291,14 +291,15 @@ lim_cond_all_results = rbind(lim_cond_all_results, lim_cond_discrim_notclever_bi
 
 ######## sort data in teh right way where starting point of  wave 1 is 0 and stopping point is 1, for wave 2: 1 and 2, for wave 3: 3 and 4...
 
+unique(data_wce_lim_cond$discrim_poorerservice)
+data_wce_lim_cond$discrim_poorerservice = as.numeric(data_wce_lim_cond$discrim_poorerservice) 
 
 data_wce_lim_cond$discrim_poorerservice_bin = case_when(data_wce_lim_cond$discrim_poorerservice == 1 ~ 1, 
                                                     data_wce_lim_cond$discrim_poorerservice == 2 ~ 1, 
                                                     data_wce_lim_cond$discrim_poorerservice == 3 ~ 1, 
-                                                    data_wce_lim_cond$vdiscrim_poorerservice == 4 ~ 1, 
+                                                    data_wce_lim_cond$discrim_poorerservice == 4 ~ 1, 
                                                     data_wce_lim_cond$discrim_poorerservice == 5 ~ 0, 
-                                                    data_wce_lim_cond$discrim_poorerservice == 6 ~ 0,
-                                                    data_wce_lim_cond$discrim_poorerservice == 0 ~ 0) 
+                                                    data_wce_lim_cond$discrim_poorerservice == 6 ~ 0) 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
 
 
@@ -375,26 +376,8 @@ lim_cond_afraid_others_age_results = cbind(lim_cond_afraid_others_age_HR, lim_co
 colnames(lim_cond_afraid_others_age_results) = c("hazard ratio", "5% CI", "95% CI")
 lim_cond_all_results = rbind(lim_cond_all_results, lim_cond_afraid_others_age_results)
 
-variable = c("summary mean score",
-             
-             
-          
-             "harassed", 
-       
-             
-             "less respect", 
-        
-             
-             "medical", 
-     
-             
-             "not clever", 
- 
-             
-             "poorer service",
-
-             
-             "afraid others")
+variable = #c("summary mean score",
+  c("harassed",  "less respect",   "medical", "not clever",  "poorer service", "afraid others")
 
 
 
