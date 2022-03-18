@@ -97,9 +97,13 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     } 
   
   boot.HR_1vs0 = as.numeric(boot.HR_1vs0) 
+  print("boot.HR_1vs0:")
+  print(boot.HR_1vs0)
   boot.WCE = as.numeric(boot.WCE)
+  print("boot.WCE")
+  print(boot.WCE)
   # estimated weight functions 
-  estimated_weight_functions  = apply(boot.WCE, 1, quantile, p = c(0.05, 0.95))
+  estimated_weight_functions  = apply(boot.WCE, 2, quantile, p = c(0.05, 0.95))
   
 
   # estimated HR 
