@@ -108,6 +108,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
 
   # estimated HR 
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
+  boot.HR_1vs0 = na.omit(boot.HR_1vs0)
   HR_CI1vs0_lower =  quantile(boot.HR_1vs0, probs=0.05) 
   
   #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
