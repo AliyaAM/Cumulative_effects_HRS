@@ -81,6 +81,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     # return best WCE estimates and corresponding HR 
     
     best <- which.min(mod$info.criterion) 
+    best = as.numeric(best)
     boot.WCE[i,] <- mod$WCEmat[best,] 
    
     #boot.HR_1vs6[i] <- HR.WCE(mod, rep(2, Num_time_points), rep(1, Num_time_points)) 
@@ -92,9 +93,11 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #scenario1 <- c(rep(1, Num_time_points))
     #scenario2 <- c(rep(0, Num_time_points))
     
-    boot.HR_1vs0[i] <- HR.WCE(mod, rep(0, Num_time_points), rep(1, Num_time_points)) 
+    boot.HR_1vs0[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
     } 
   
+  boot.HR_1vs0 = as.numeric(boot.HR_1vs0) 
+  boot.WCE = as.numeric(boot.WCE)
   # estimated weight functions 
   estimated_weight_functions  = apply(boot.WCE, 1, quantile, p = c(0.05, 0.95))
   

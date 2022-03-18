@@ -27,6 +27,8 @@ library(Hmisc)
 # plots: 
 # https://adibender.github.io/pammtools/articles/cumulative-effects.html
 
+#https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
+
 ####### exposure is coded as: 
 ####### 1 Almost everyday
 ####### 2 At least once a week
