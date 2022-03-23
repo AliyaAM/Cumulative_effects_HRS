@@ -695,13 +695,22 @@ HRS2018_data$checklist_depression_bin = HRS2018_data$HRS2018_checklist_depressio
 #HRS2008_data$vigarious_physical_activity_2006 = RAND_HRS_longitudional_file$R8VGACTX 
 
 HRS2008_data$vigarious_physical_activity_2008 = harmonised_data_all_waves_2008$r9vgactx 
+HRS2008_data$vigarious_physical_activity = HRS2008_data$vigarious_physical_activity_2008
+
 HRS2010_data$vigarious_physical_activity_2010 = harmonised_data_all_waves_2010$r10vgactx 
+HRS2010_data$vigarious_physical_activity = HRS2010_data$vigarious_physical_activity_2010
+
 HRS2012_data$vigarious_physical_activity_2012 = harmonised_data_all_waves_2012$r11vgactx 
+HRS2012_data$vigarious_physical_activity = HRS2012_data$vigarious_physical_activity_2012
+
 HRS2014_data$vigarious_physical_activity_2014 = harmonised_data_all_waves_2014$r12vgactx 
+HRS2014_data$vigarious_physical_activity = HRS2014_data$vigarious_physical_activity_2014
+
 HRS2016_data$vigarious_physical_activity_2016 = harmonised_data_all_waves_2016$r13vgactx 
+HRS2016_data$vigarious_physical_activity = HRS2016_data$vigarious_physical_activity_2016
+
 HRS2018_data$vigarious_physical_activity_2018 = harmonised_data_all_waves_2018$r14vgactx 
-
-
+HRS2018_data$vigarious_physical_activity = HRS2018_data$vigarious_physical_activity_2018
 #R9MDACTX - moderate physical activity 
 #HRS2008_data$moderate_physical_activity_1992 = harmonised_data_all_waves_2008$r1mgactx 
 #HRS2008_data$moderate_physical_activity_1994 = harmonised_data_all_waves_2008$r1mgactx 
