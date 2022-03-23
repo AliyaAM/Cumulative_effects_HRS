@@ -83,6 +83,72 @@ cross_waves_2016 = subset(cross_waves, HHIDPN %in% HRS2016_data$HHIDPN)
 cross_waves_2018 = subset(cross_waves, HHIDPN %in% HRS2018_data$HHIDPN)
 
 
+#HRS2008_data_RAND = subset(HRS2008_data_RAND, HHIDPN %in% HRS2008_data$HHIDPN)
+HRS2010_data_RAND  = subset(HRS2010_data_RAND, HHIDPN %in% HRS2010_data$HHIDPN)
+HRS2012_data_RAND  = subset(HRS2012_data_RAND, HHIDPN %in% HRS2012_data$HHIDPN)
+HRS2014_data_RAND  = subset(HRS2014_data_RAND, HHIDPN %in% HRS2014_data$HHIDPN)
+HRS2016_data_RAND  = subset(HRS2016_data_RAND, HHIDPN %in% HRS2016_data$HHIDPN)
+HRS2018_data_RAND  = subset(HRS2018_data_RAND, HHIDPN %in% HRS2018_data$HHIDPN)
+
+
+################
+
+#Other HRS files: 
+# LC129	HRS 2008: Number days per week- drink alcohol, Text: In the last three months, on average, how many days per week have you had any alcohol to drink? (For example, beer, wine, or any drink containing liquor.)<br><br>USE 0 for none or less than once a week<br><br>1 - 6 7 every day<br><br>Days:
+#HRS2008_data$alcohol_days_week = HRS2008_data_RAND$LC129
+
+# MC129 HRS 2010 
+HRS2010_data$alcohol_days_week = HRS2010_data_RAND$MC129
+
+# NC129 HRS 2012 
+HRS2012_data$alcohol_days_week = HRS2012_data_RAND$NC129
+
+# OC129 HRS 2014 
+HRS2014_data$alcohol_days_week = HRS2014_data_RAND$OC129
+
+# PC129 HRS 2016 
+HRS2016_data$alcohol_days_week = HRS2016_data_RAND$PC129
+
+# C129 HRS 2018
+HRS2018_data$alcohol_days_week = HRS2018_data_RAND$C129
+
+################
+
+# R9SMOKEV smokes ever 
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_1992
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_1994 
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_1996 
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_1998
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_2000
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_2002
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_2004 
+#HRS2008_data$smokes_ever = cross_waves$smokes_ever_2006 
+HRS2008_data$smokes_ever = cross_waves_2008$smokes_ever_2008
+HRS2010_data$smokes_ever = cross_waves_2010$smokes_ever_2010
+HRS2012_data$smokes_ever = cross_waves_2012$smokes_ever_2012
+HRS2014_data$smokes_ever = cross_waves_2014$smokes_ever_2014
+HRS2016_data$smokes_ever = cross_waves_2016$smokes_ever_2016
+HRS2018_data$smokes_ever = cross_waves_2018$smokes_ever_2018 
+
+# R9SMOKEN Smokes now 
+
+#cross_waves$smokes_now_1992 = RAND_HRS_longitudional_file$R1SMOKEN 
+#cross_waves$smokes_now_1994 = RAND_HRS_longitudional_file$R2SMOKEN 
+#cross_waves$smokes_now_1996 = RAND_HRS_longitudional_file$R3SMOKEN 
+#cross_waves$smokes_now_1998 = RAND_HRS_longitudional_file$R4SMOKEN 
+#cross_waves$smokes_now_2000 = RAND_HRS_longitudional_file$R5SMOKEN 
+#cross_waves$smokes_now_2002 = RAND_HRS_longitudional_file$R6SMOKEN 
+#cross_waves$smokes_now_2004 = RAND_HRS_longitudional_file$R7SMOKEN 
+#cross_waves$smokes_now_2006 = RAND_HRS_longitudional_file$R8SMOKEN
+
+HRS2008_data$smokes_now = cross_waves_2008$smokes_now_2008
+HRS2010_data$smokes_now = cross_waves_2010$smokes_now_2010
+HRS2012_data$smokes_now = cross_waves_2012$smokes_now_2012
+HRS2014_data$smokes_now = cross_waves_2014$smokes_now_2014
+HRS2016_data$smokes_now = cross_waves_2016$smokes_now_2016
+HRS2018_data$smokes_now = cross_waves_2018$smokes_now_2018 
+
+
 
 ###########
 ###########
@@ -616,6 +682,82 @@ HRS2018_data$checklist_depression_bin = HRS2018_data$HRS2018_checklist_depressio
 
 ##### ##### ##### physical activity 
 
+#RAND 2008 (w9) R is respondant 
+
+#vigarious physical activity
+#HRS2008_data$vigarious_physical_activity_1992 = harmonised_data_all_waves_2008$R1VGACTX 
+#HRS2008_data$vigarious_physical_activity_1994 = RAND_HRS_longitudional_file$R2VGACTX 
+#HRS2008_data$vigarious_physical_activity_1996 = RAND_HRS_longitudional_file$R3VGACTX 
+#HRS2008_data$vigarious_physical_activity_1998 = RAND_HRS_longitudional_file$R4VGACTX 
+#HRS2008_data$vigarious_physical_activity_2000 = RAND_HRS_longitudional_file$R5VGACTX 
+#HRS2008_data$vigarious_physical_activity_2002 = RAND_HRS_longitudional_file$R6VGACTX 
+#HRS2008_data$vigarious_physical_activity_2004 = RAND_HRS_longitudional_file$R7VGACTX 
+#HRS2008_data$vigarious_physical_activity_2006 = RAND_HRS_longitudional_file$R8VGACTX 
+
+HRS2008_data$vigarious_physical_activity_2008 = harmonised_data_all_waves_2008$r9vgactx 
+HRS2010_data$vigarious_physical_activity_2010 = harmonised_data_all_waves_2010$r10vgactx 
+HRS2012_data$vigarious_physical_activity_2012 = harmonised_data_all_waves_2012$r11vgactx 
+HRS2014_data$vigarious_physical_activity_2014 = harmonised_data_all_waves_2014$r12vgactx 
+HRS2016_data$vigarious_physical_activity_2016 = harmonised_data_all_waves_2016$r13vgactx 
+HRS2018_data$vigarious_physical_activity_2018 = harmonised_data_all_waves_2018$r14vgactx 
+
+
+#R9MDACTX - moderate physical activity 
+#HRS2008_data$moderate_physical_activity_1992 = harmonised_data_all_waves_2008$r1mgactx 
+#HRS2008_data$moderate_physical_activity_1994 = harmonised_data_all_waves_2008$r1mgactx 
+#HRS2008_data$moderate_physical_activity_1996 = harmonised_data_all_waves_2008$r1mgactx 
+#HRS2008_data$moderate_physical_activity_1998 = harmonised_data_all_waves_2008$r1mgactx 
+#HRS2008_data$moderate_physical_activity_2000 = harmonised_data_all_waves_2008$r1mgactx 
+#HRS2008_data$moderate_physical_activity_2002 = harmonised_data_all_waves_2008$r1mgactx 
+#HRS2008_data$moderate_physical_activity_2004 = harmonised_data_all_waves_2008$r1mgactx 
+#HRS2008_data$moderate_physical_activity_2006 = harmonised_data_all_waves_2008$r1mgactx 
+HRS2008_data$moderate_physical_activity_2008 = harmonised_data_all_waves_2008$r9mgactx 
+HRS2008_data$moderate_physical_activity = harmonised_data_all_waves_2008$r9mgactx 
+
+HRS2010_data$moderate_physical_activity_2010 = harmonised_data_all_waves_2010$r10mgactx 
+HRS2010_data$moderate_physical_activity = harmonised_data_all_waves_2010$r10mgactx 
+
+HRS2012_data$moderate_physical_activity_2012 = harmonised_data_all_waves_2012$r11mgactx 
+HRS2012_data$moderate_physical_activity = harmonised_data_all_waves_2012$r11mgactx 
+
+HRS2014_data$moderate_physical_activity_2014 = harmonised_data_all_waves_2014$r12mgactx 
+HRS2014_data$moderate_physical_activity = harmonised_data_all_waves_2014$r12mgactx 
+
+HRS2016_data$moderate_physical_activity_2016 = harmonised_data_all_waves_2016$r13mgactx 
+HRS2016_data$moderate_physical_activity = harmonised_data_all_waves_2016$r13mgactx 
+
+HRS2018_data$moderate_physical_activity_2018 = harmonised_data_all_waves_2018$r14mgactx 
+HRS2018_data$moderate_physical_activity = harmonised_data_all_waves_2018$r14mgactx 
+
+
+#R9LTACTX - light physical activity 
+#HRS2008_data$light_physical_activity_1992 = harmonised_data_all_waves_2008$R1LGACTX 
+#HRS2008_data$light_physical_activity_1994 = harmonised_data_all_waves_2008$R2LGACTX 
+#HRS2008_data$light_physical_activity_1996 = harmonised_data_all_waves_2008$R3LGACTX 
+#HRS2008_data$light_physical_activity_1998 = harmonised_data_all_waves_2008$R4LGACTX 
+#HRS2008_data$light_physical_activity_2000 = harmonised_data_all_waves_2008$R5LGACTX 
+#HRS2008_data$light_physical_activity_2002 = harmonised_data_all_waves_2008$R6LGACTX 
+#HRS2008_data$light_physical_activity_2004 = harmonised_data_all_waves_2008$R7LGACTX 
+#HRS2008_data$light_physical_activity_2006 = harmonised_data_all_waves_2008$R8LGACTX 
+HRS2008_data$light_physical_activity_2008 = harmonised_data_all_waves_2008$r9lgactx 
+HRS2008_data$light_physical_activity = harmonised_data_all_waves_2008$r9lgactx 
+
+HRS2010_data$light_physical_activity_2010 = harmonised_data_all_waves_2010$r10lgactx 
+HRS2010_data$light_physical_activity = harmonised_data_all_waves_2010$r10lgactx 
+
+HRS2012_data$light_physical_activity_2012 = harmonised_data_all_waves_2012$r11lgactx 
+HRS2012_data$light_physical_activity = harmonised_data_all_waves_2012$r11lgactx 
+
+HRS2014_data$light_physical_activity_2014 = harmonised_data_all_waves_2014$r12lgactx 
+HRS2014_data$light_physical_activity = harmonised_data_all_waves_2014$r12lgactx 
+
+HRS2016_data$light_physical_activity_2016 = harmonised_data_all_waves_2016$r13lgactx 
+HRS2016_data$light_physical_activity = harmonised_data_all_waves_2016$r13lgactx 
+
+HRS2018_data$light_physical_activity_2018 = harmonised_data_all_waves_2018$r14lgactx 
+HRS2018_data$light_physical_activity = harmonised_data_all_waves_2018$r14lgactx 
+
+
 ##### ##### ##### health mobile app 
 
 ##### ##### ##### polygenetic scores 
@@ -625,8 +767,7 @@ HRS2018_data$checklist_depression_bin = HRS2018_data$HRS2018_checklist_depressio
 ##### ##### ##### saliva cortisol 
 ##### ##### ##### hair cortisol 
 
-################
-################
+
 ################ ADD COVARIATES BELOW 
 
 
@@ -944,6 +1085,7 @@ HRS2018_data$assessed_BMI = HRS2018_data$assessed_BMI_2018
 # add continious age variable to 2008 dataset 
 #HRS2008_data$HRS2008
 # drop variables that we are not using in 2010 dataset 
+
 
 
 write.csv(HRS2008_data, paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_march2022.csv", sep=""))

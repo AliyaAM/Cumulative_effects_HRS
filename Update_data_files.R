@@ -4,6 +4,8 @@
 #"/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 
+library(dplyr)
+
 SOURCE_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 
@@ -54,6 +56,9 @@ HRS2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination
 HRS2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_march2022.csv", sep=""))
 HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_march2022.csv", sep=""))
 HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_march2022.csv", sep=""))
+
+
+
 
 
 #exposure: binary whether did experience discrimination or not (five different types, age, disability, etc)
@@ -608,6 +613,7 @@ HRS2012_data$stop = rep(3, times = HRS2012_data_n)
 HRS2014_data$stop = rep(4, times = HRS2014_data_n)
 HRS2016_data$stop = rep(5, times = HRS2016_data_n)
 HRS2018_data$stop = rep(6, times = HRS2018_data_n)
+
 
 
 #bind rows with bind_rows in dplyr 
