@@ -584,11 +584,192 @@ HRS2018_data$number_reasons_discrimination = HRS2018_data$number_reasons_discrim
 
 
 
+####hypertension 
+
+HRS2008_data$hypertension_new_bin =  case_when(HRS2008_data$hypertension_new == 1 ~ 1, 
+                                               HRS2008_data$hypertension_new == 5 ~ 0,
+                                               HRS2008_data$hypertension_new == 3 ~ 1)
+
+HRS2010_data$hypertension_new_bin =  case_when(HRS2010_data$hypertension_new == 1 ~ 1, 
+                                               HRS2010_data$hypertension_new == 5 ~ 0,
+                                               HRS2010_data$hypertension_new == 3 ~ 1)
+
+HRS2012_data$hypertension_new_bin =  case_when(HRS2012_data$hypertension_new == 1 ~ 1, 
+                                               HRS2012_data$hypertension_new == 5 ~ 0,
+                                               HRS2012_data$hypertension_new == 3 ~ 1)
 
 
+
+HRS2014_data$hypertension_new_bin =  case_when(HRS2014_data$hypertension_new == 1 ~ 1, 
+                                               HRS2014_data$hypertension_new == 5 ~ 0,
+                                               HRS2014_data$hypertension_new == 3 ~ 1)
+
+
+
+HRS2016_data$hypertension_new_bin =  case_when(HRS2016_data$hypertension_new == 1 ~ 1, 
+                                               HRS2016_data$hypertension_new == 5 ~ 0,
+                                               HRS2016_data$hypertension_new == 3 ~ 1)
+
+
+
 #####
 #####
 #####
+
+
+
+
+HRS2014_data$angina_new_bin = case_when(HRS2014_data$angina_new == 1 ~ 1, 
+                                        HRS2014_data$angina_new == 5 ~ 0,
+                                        HRS2014_data$angina_new == 3 ~ 1)
+
+
+
+HRS2018_data$angina_new_bin = case_when(HRS2018_data$angina_new == 1 ~ 1, 
+                                        HRS2018_data$angina_new == 5 ~ 0,
+                                        HRS2018_data$angina_new == 3 ~ 1)
+
+
+
+
+
+
+HRS2008_data$stroke_new_bin = case_when(HRS2008_data$stroke_new == 1 ~ 1, 
+                                        HRS2008_data$stroke_new == 5 ~ 0,
+                                        HRS2008_data$stroke_new == 3 ~ 1)
+
+
+HRS2010_data$stroke_new_bin = case_when(HRS2010_data$stroke_new == 1 ~ 1, 
+                                        HRS2010_data$stroke_new == 5 ~ 0,
+                                        HRS2010_data$stroke_new == 3 ~ 1)
+
+
+HRS2012_data$stroke_new_bin = case_when(HRS2012_data$stroke_new == 1 ~ 1, 
+                                        HRS2012_data$stroke_new == 5 ~ 0,
+                                        HRS2012_data$stroke_new == 3 ~ 1)
+
+
+HRS2014_data$stroke_new_bin = case_when(HRS2014_data$stroke_new == 1 ~ 1, 
+                                        HRS2014_data$stroke_new == 5 ~ 0,
+                                        HRS2014_data$stroke_new == 3 ~ 1)
+
+HRS2016_data$stroke_new_bin = case_when(HRS2016_data$stroke_new == 1 ~ 1, 
+                                        HRS2016_data$stroke_new == 5 ~ 0,
+                                        HRS2016_data$stroke_new == 3 ~ 1)
+
+
+
+
+HRS2008_data$heartcondition_new_bin = case_when(HRS2008_data$heartcondition_new == 1 ~ 1, 
+                                        HRS2008_data$heartcondition_new == 5 ~ 0,
+                                        HRS2008_data$heartcondition_new == 3 ~ 1)
+
+
+HRS2010_data$heartcondition_new_bin = case_when(HRS2010_data$heartcondition_new == 1 ~ 1, 
+                                        HRS2010_data$heartcondition_new == 5 ~ 0,
+                                        HRS2010_data$heartcondition_new == 3 ~ 1)
+
+
+
+
+
+
+
+
+
+HRS2008_data$heartcondition_ever_bin = case_when(HRS2008_data$heartcondition_ever == 1 ~ 1, 
+                                                HRS2008_data$heartcondition_ever == 5 ~ 0,
+                                                HRS2008_data$heartcondition_ever == 3 ~ 1)
+
+
+HRS2010_data$heartcondition_ever_bin = case_when(HRS2010_data$heartcondition_ever == 1 ~ 1, 
+                                                HRS2010_data$heartcondition_ever == 5 ~ 0,
+                                                HRS2010_data$heartcondition_ever == 3 ~ 1)
+
+
+
+
+
+
+
+
+
+HRS2012_data$heartattack_ever_bin = case_when(HRS2012_data$heartattack_ever == 1 ~ 1, 
+                                                 HRS2012_data$heartattack_ever == 5 ~ 0,
+                                                 HRS2012_data$heartattack_ever == 3 ~ 1)
+
+
+HRS2014_data$heartattack_ever_bin = case_when(HRS2014_data$heartattack_ever == 1 ~ 1, 
+                                                 HRS2014_data$heartattack_ever == 5 ~ 0,
+                                                 HRS2014_data$heartattack_ever == 3 ~ 1)
+
+HRS2016_data$heartattack_ever_bin = case_when(HRS2016_data$heartattack_ever == 1 ~ 1, 
+                                                 HRS2016_data$heartattack_ever == 5 ~ 0,
+                                                 HRS2016_data$heartattack_ever == 3 ~ 1)
+
+
+
+
+
+
+
+HRS2008_data$smokes_ever_bin = case_when(HRS2008_data$smokes_ever == 1 ~ 1, 
+                                             HRS2008_data$smokes_ever == 5 ~ 0,
+                                             HRS2008_data$smokes_ever == 3 ~ 1)
+
+
+HRS2010_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
+                                             HRS2010_data$smokes_ever == 5 ~ 0,
+                                             HRS2010_data$smokes_ever == 3 ~ 1)
+
+
+HRS2012_data$smokes_ever_bin = case_when(HRS2012_data$smokes_ever == 1 ~ 1, 
+                                             HRS2012_data$smokes_ever == 5 ~ 0,
+                                             HRS2012_data$smokes_ever == 3 ~ 1)
+
+
+HRS2014_data$smokes_ever_bin = case_when(HRS2014_data$smokes_ever == 1 ~ 1, 
+                                             HRS2014_data$smokes_ever == 5 ~ 0,
+                                             HRS2014_data$smokes_ever == 3 ~ 1)
+
+HRS2016_data$smokes_ever_bin = case_when(HRS2016_data$smokes_ever == 1 ~ 1, 
+                                             HRS2016_data$smokes_ever == 5 ~ 0,
+                                             HRS2016_data$smokes_ever == 3 ~ 1)
+
+HRS2018_data$smokes_ever_bin = case_when(HRS2018_data$smokes_ever == 1 ~ 1, 
+                                             HRS2018_data$smokes_ever == 5 ~ 0,
+                                             HRS2018_data$smokes_ever == 3 ~ 1)
+
+
+
+HRS2008_data$smokes_now_bin = case_when(HRS2008_data$smokes_now == 1 ~ 1, 
+                                         HRS2008_data$smokes_now == 5 ~ 0,
+                                         HRS2008_data$smokes_now == 3 ~ 1)
+
+
+HRS2010_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
+                                         HRS2010_data$smokes_now == 5 ~ 0,
+                                         HRS2010_data$smokes_now == 3 ~ 1)
+
+
+HRS2012_data$smokes_now_bin = case_when(HRS2012_data$smokes_now == 1 ~ 1, 
+                                         HRS2012_data$smokes_now == 5 ~ 0,
+                                         HRS2012_data$smokes_now == 3 ~ 1)
+
+
+HRS2014_data$smokes_now_bin = case_when(HRS2014_data$smokes_now == 1 ~ 1, 
+                                         HRS2014_data$smokes_now == 5 ~ 0,
+                                         HRS2014_data$smokes_now == 3 ~ 1)
+
+HRS2016_data$smokes_now_bin = case_when(HRS2016_data$smokes_now == 1 ~ 1, 
+                                         HRS2016_data$smokes_now == 5 ~ 0,
+                                         HRS2016_data$smokes_now == 3 ~ 1)
+
+HRS2018_data$smokes_now_bin = case_when(HRS2018_data$smokes_now == 1 ~ 1, 
+                                         HRS2018_data$smokes_now == 5 ~ 0,
+                                         HRS2018_data$smokes_now == 3 ~ 1)
+
+
 
 #create a dummy variable for the follow-up period 
 

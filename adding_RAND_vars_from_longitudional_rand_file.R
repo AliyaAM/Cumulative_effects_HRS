@@ -1,4 +1,7 @@
 
+library(dplyr)
+
+
 SOURCE_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 
@@ -332,6 +335,95 @@ cross_waves$smokes_now_2012 = RAND_HRS_longitudional_file$R11SMOKEN
 cross_waves$smokes_now_2014 = RAND_HRS_longitudional_file$R12SMOKEN 
 cross_waves$smokes_now_2016 = RAND_HRS_longitudional_file$R13SMOKEN 
 cross_waves$smokes_now_2018 = RAND_HRS_longitudional_file$R14SMOKEN 
+
+
+
+
+##### ##### ##### physical activity 
+
+#RAND 2008 (w9) R is respondant 
+
+#vigarious physical activity
+#cross_waves$vigarious_physical_activity_1992 = RAND_HRS_longitudional_file$R1VGACTX 
+#cross_waves$vigarious_physical_activity_1994 = RAND_HRS_longitudional_file$R2VGACTX 
+#cross_waves$vigarious_physical_activity_1996 = RAND_HRS_longitudional_file$R3VGACTX 
+#cross_waves$vigarious_physical_activity_1998 = RAND_HRS_longitudional_file$R4VGACTX 
+#cross_waves$vigarious_physical_activity_2000 = RAND_HRS_longitudional_file$R5VGACTX 
+#cross_waves$vigarious_physical_activity_2002 = RAND_HRS_longitudional_file$R6VGACTX 
+#cross_waves$vigarious_physical_activity_2004 = RAND_HRS_longitudional_file$R7VGACTX 
+#cross_waves$vigarious_physical_activity_2006 = RAND_HRS_longitudional_file$R8VGACTX 
+cross_waves$vigarious_physical_activity_2008 = RAND_HRS_longitudional_file$R9VGACTX 
+#cross_waves$vigarious_physical_activity = HRS2008_data$vigarious_physical_activity_2008
+
+cross_waves$vigarious_physical_activity_2010 = RAND_HRS_longitudional_file$R10VGACTX 
+#HRS2010_data$vigarious_physical_activity = HRS2010_data$vigarious_physical_activity_2010
+
+cross_waves$vigarious_physical_activity_2012 = RAND_HRS_longitudional_file$R11VGACTX 
+#HRS2012_data$vigarious_physical_activity = HRS2012_data$vigarious_physical_activity_2012
+
+cross_waves$vigarious_physical_activity_2014 = RAND_HRS_longitudional_file$R12VGACTX 
+#HRS2014_data$vigarious_physical_activity = HRS2014_data$vigarious_physical_activity_2014
+
+cross_waves$vigarious_physical_activity_2016 = RAND_HRS_longitudional_file$R13VGACTX 
+#HRS2016_data$vigarious_physical_activity = HRS2016_data$vigarious_physical_activity_2016
+
+cross_waves$vigarious_physical_activity_2018 = RAND_HRS_longitudional_file$R14VGACTX 
+#HRS2018_data$vigarious_physical_activity = HRS2018_data$vigarious_physical_activity_2018
+#R9MDACTX - moderate physical activity 
+#cross_waves$moderate_physical_activity_1992 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_1994 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_1996 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_1998 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2000 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2002 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2004 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2006 = harmonised_data_all_waves_2008$r1mgactx 
+
+#cross_waves$moderate_physical_activity_2008 = RAND_HRS_longitudional_file$R9MGACTX 
+#cross_waves$moderate_physical_activity = HRS2008_data_RAND$r9mgactx 
+
+#cross_waves$moderate_physical_activity_2010 = RAND_HRS_longitudional_file$R10MGACTX 
+#cross_waves$moderate_physical_activity = HRS2010_data_RAND$r10mgactx 
+
+#cross_waves$moderate_physical_activity_2012 = RAND_HRS_longitudional_file$R11MGACTX 
+#cross_waves$moderate_physical_activity = HRS2012_data_RAND$r11mgactx 
+
+#cross_waves$moderate_physical_activity_2014 = RAND_HRS_longitudional_file$R12MGACTX 
+#cross_waves$moderate_physical_activity = HRS2014_data_RAND$r12mgactx 
+
+#cross_waves$moderate_physical_activity_2016 = RAND_HRS_longitudional_file$R13MGACTX 
+#cross_waves$moderate_physical_activity = HRS2016_data_RAND$r13mgactx 
+
+#cross_waves$moderate_physical_activity_2018 = RAND_HRS_longitudional_file$R14MGACTX 
+#cross_waves$moderate_physical_activity = HRS2018_data_RAND$r14mgactx 
+
+
+#R9LTACTX - light physical activity 
+#cross_waves$light_physical_activity_1992 = harmonised_data_all_waves_2008$R1LGACTX 
+#cross_waves$light_physical_activity_1994 = harmonised_data_all_waves_2008$R2LGACTX 
+#cross_waves$light_physical_activity_1996 = harmonised_data_all_waves_2008$R3LGACTX 
+#cross_waves$light_physical_activity_1998 = harmonised_data_all_waves_2008$R4LGACTX 
+#cross_waves$light_physical_activity_2000 = harmonised_data_all_waves_2008$R5LGACTX 
+#cross_waves$light_physical_activity_2002 = harmonised_data_all_waves_2008$R6LGACTX 
+#cross_waves$light_physical_activity_2004 = harmonised_data_all_waves_2008$R7LGACTX 
+#cross_waves$light_physical_activity_2006 = harmonised_data_all_waves_2008$R8LGACTX 
+#cross_waves$light_physical_activity_2008 = RAND_HRS_longitudional_file$R9LGACTX 
+#cross_waves$light_physical_activity = HRS2008_data_RAND$r9lgactx 
+
+#cross_waves$light_physical_activity_2010 = RAND_HRS_longitudional_file$R10LGACTX 
+#cross_waves$light_physical_activity = HRS2010_data_RAND$r10lgactx 
+
+#cross_waves$light_physical_activity_2012 = RAND_HRS_longitudional_file$R11LGACTX 
+#HRS2012_data$light_physical_activity = HRS2012_data_RAND$r11lgactx 
+
+#cross_waves$light_physical_activity_2014 = RAND_HRS_longitudional_file$R12LGACTX 
+#HRS2014_data$light_physical_activity = HRS2014_data_RAND$r12lgactx 
+
+#cross_waves$light_physical_activity_2016 = RAND_HRS_longitudional_file$R13LGACTX 
+#HRS2016_data$light_physical_activity = HRS2016_data_RAND$r13lgactx 
+
+#cross_waves$light_physical_activity_2018 = RAND_HRS_longitudional_file$R14LGACTX 
+#HRS2018_data$light_physical_activity = HRS2018_data_RAND$r14lgactx 
 
 
 

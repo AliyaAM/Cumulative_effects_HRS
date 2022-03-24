@@ -145,40 +145,53 @@ unique(WCE_dataset_lim_cond$discrim_afraidothers)
 unique(WCE_dataset_lim_cond$wealth_noIRA)
 unique(WCE_dataset_lim_cond$assessed_BMI)
 
-WCE_dataset_lim_cond$diabetes_new_bin = as.numeric(WCE_dataset_lim_cond$diabetes_new_bin)
-WCE_dataset_lim_cond$checklist_depression_bin = as.numeric(WCE_dataset_lim_cond$checklist_depression_bin)
+#WCE_dataset_lim_cond$diabetes_new_bin = as.numeric(WCE_dataset_lim_cond$diabetes_new_bin)
+#WCE_dataset_lim_cond$checklist_depression_bin = as.numeric(WCE_dataset_lim_cond$checklist_depression_bin)
 
 
 
-WCE_dataset_lim_cond$summary_mean_score_discrim_bin = as.numeric(WCE_dataset_lim_cond$summary_mean_score_discrim_bin)
+#WCE_dataset_lim_cond$summary_mean_score_discrim_bin = as.numeric(WCE_dataset_lim_cond$summary_mean_score_discrim_bin)
 
-WCE_dataset_lim_cond$discrim_harassed_bin = as.numeric(WCE_dataset_lim_cond$discrim_harassed_bin)
-WCE_dataset_lim_cond$discrim_lessrespect_bin = as.numeric(WCE_dataset_lim_cond$discrim_lessrespect_bin)
-WCE_dataset_lim_cond$discrim_medical_bin = as.numeric(WCE_dataset_lim_cond$discrim_medical_bin)
-WCE_dataset_lim_cond$discrim_notclever_bin = as.numeric(WCE_dataset_lim_cond$discrim_notclever_bin)
-WCE_dataset_lim_cond$discrim_poorerservice_bin = as.numeric(WCE_dataset_lim_cond$discrim_poorerservice_bin)
-WCE_dataset_lim_cond$discrim_afraidothers_bin = as.numeric(WCE_dataset_lim_cond$discrim_afraidothers_bin)
+#WCE_dataset_lim_cond$discrim_harassed_bin = as.numeric(WCE_dataset_lim_cond$discrim_harassed_bin)
+#WCE_dataset_lim_cond$discrim_lessrespect_bin = as.numeric(WCE_dataset_lim_cond$discrim_lessrespect_bin)
+#WCE_dataset_lim_cond$discrim_medical_bin = as.numeric(WCE_dataset_lim_cond$discrim_medical_bin)
+#WCE_dataset_lim_cond$discrim_notclever_bin = as.numeric(WCE_dataset_lim_cond$discrim_notclever_bin)
+#WCE_dataset_lim_cond$discrim_poorerservice_bin = as.numeric(WCE_dataset_lim_cond$discrim_poorerservice_bin)
+#WCE_dataset_lim_cond$discrim_afraidothers_bin = as.numeric(WCE_dataset_lim_cond$discrim_afraidothers_bin)
 
-WCE_dataset_lim_cond$wealth_noIRA = as.numeric(WCE_dataset_lim_cond$wealth_noIRA)
-WCE_dataset_lim_cond$assessed_BMI = as.numeric(WCE_dataset_lim_cond$assessed_BMI)
-WCE_dataset_lim_cond$continious_age = as.numeric(WCE_dataset_lim_cond$continious_age)
+#WCE_dataset_lim_cond$wealth_noIRA = as.numeric(WCE_dataset_lim_cond$wealth_noIRA)
+#WCE_dataset_lim_cond$assessed_BMI = as.numeric(WCE_dataset_lim_cond$assessed_BMI)
+#WCE_dataset_lim_cond$continious_age = as.numeric(WCE_dataset_lim_cond$continious_age)
 
 
-WCE_dataset_lim_cond$checklist_depression_bin = as.numeric(WCE_dataset_lim_cond$checklist_depression_bin)
+#WCE_dataset_lim_cond$checklist_depression_bin = as.numeric(WCE_dataset_lim_cond$checklist_depression_bin)
 
-WCE_dataset_lim_cond$summary_mean_score_discrim = as.numeric(WCE_dataset_lim_cond$summary_mean_score_discrim)
+#WCE_dataset_lim_cond$summary_mean_score_discrim = as.numeric(WCE_dataset_lim_cond$summary_mean_score_discrim)
 
-WCE_dataset_lim_cond$discrim_harassed = as.numeric(WCE_dataset_lim_cond$discrim_harassed)
-WCE_dataset_lim_cond$discrim_lessrespect = as.numeric(WCE_dataset_lim_cond$discrim_lessrespect)
-WCE_dataset_lim_cond$discrim_medical = as.numeric(WCE_dataset_lim_cond$discrim_medical)
-WCE_dataset_lim_cond$discrim_notclever = as.numeric(WCE_dataset_lim_cond$discrim_notclever)
-WCE_dataset_lim_cond$discrim_poorerservice = as.numeric(WCE_dataset_lim_cond$discrim_poorerservice)
-WCE_dataset_lim_cond$discrim_afraidothers = as.numeric(WCE_dataset_lim_cond$discrim_afraidothers)
+#WCE_dataset_lim_cond$discrim_harassed = as.numeric(WCE_dataset_lim_cond$discrim_harassed)
+#WCE_dataset_lim_cond$discrim_lessrespect = as.numeric(WCE_dataset_lim_cond$discrim_lessrespect)
+#WCE_dataset_lim_cond$discrim_medical = as.numeric(WCE_dataset_lim_cond$discrim_medical)
+#WCE_dataset_lim_cond$discrim_notclever = as.numeric(WCE_dataset_lim_cond$discrim_notclever)
+#WCE_dataset_lim_cond$discrim_poorerservice = as.numeric(WCE_dataset_lim_cond$discrim_poorerservice)
+#WCE_dataset_lim_cond$discrim_afraidothers = as.numeric(WCE_dataset_lim_cond$discrim_afraidothers)
 
-WCE_dataset_lim_cond$wealth_noIRA = as.numeric(WCE_dataset_lim_cond$wealth_noIRA)
-WCE_dataset_lim_cond$assessed_BMI = as.numeric(WCE_dataset_lim_cond$assessed_BMI)
-WCE_dataset_lim_cond$continious_age = as.numeric(WCE_dataset_lim_cond$continious_age)
+#WCE_dataset_lim_cond$wealth_noIRA = as.numeric(WCE_dataset_lim_cond$wealth_noIRA)
+#WCE_dataset_lim_cond$assessed_BMI = as.numeric(WCE_dataset_lim_cond$assessed_BMI)
+#WCE_dataset_lim_cond$continious_age = as.numeric(WCE_dataset_lim_cond$continious_age)
 
+#WCE_dataset_lim_cond$angina_new_bin = as.numeric(WCE_dataset_lim_cond$angina_new_bin)
+#WCE_dataset_lim_cond$hypertension_new_bin = as.numeric(WCE_dataset_lim_cond$hypertension_new_bin)
+#WCE_dataset_lim_cond$stroke_new_bin = as.numeric(WCE_dataset_lim_cond$stroke_new_bin)
+#WCE_dataset_lim_cond$heartcondition_new_bin = as.numeric(WCE_dataset_lim_cond$heartcondition_new_bin)
+#WCE_dataset_lim_cond$heartcondition_ever_bin = as.numeric(WCE_dataset_lim_cond$heartcondition_ever_bin)
+#WCE_dataset_lim_cond$heartfailure2yrs_bin = as.numeric(WCE_dataset_lim_cond$heartfailure2yrs_bin)
+#WCE_dataset_lim_cond$heartattack_ever_bin = as.numeric(WCE_dataset_lim_cond$heartattack_ever_bin)
+#WCE_dataset_lim_cond$heartattack_new_bin = as.numeric(WCE_dataset_lim_cond$heartattack_new_bin)
+
+#WCE_dataset_lim_cond$alcohol_days_week = as.numeric(WCE_dataset_lim_cond$alcohol_days_week)
+#WCE_dataset_lim_cond$vigarious_physical_activity = as.numeric(WCE_dataset_lim_cond$vigarious_physical_activity)
+#WCE_dataset_lim_cond$smokes_ever = as.numeric(WCE_dataset_lim_cond$smokes_ever)
+#WCE_dataset_lim_cond$smokes_now = as.numeric(WCE_dataset_lim_cond$smokes_now)
 
 
 write.csv(WCE_dataset_lim_cond, paste(SOURCE_data_ROOT, "WCE_dataset_lim_cond_diabetes.csv", sep=""))

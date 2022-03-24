@@ -51,6 +51,51 @@ HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_data_discrimin
 HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_data_discrimination_dataset_april_2022.csv", sep=""))
 
 
+HRS2008_data$alcohol_days_week = rep(NA, times = nrow(HRS2008_data))
+HRS2010_data$alcohol_days_week
+HRS2014_data$alcohol_days_week
+HRS2016_data$alcohol_days_week
+
+HRS2018_data$vigarious_physical_activity
+
+
+HRS2008_data$hypertension_new_bin
+HRS2010_data$hypertension_new_bin
+HRS2012_data$hypertension_new_bin
+HRS2014_data$hypertension_new_bin
+HRS2016_data$hypertension_new_bin
+#hyperetension was not measured in 2018 
+HRS2018_data$hypertension_new_bin = rep(NA, times = nrow(HRS2018_data))
+
+
+
+HRS2008_data$smokes_ever_bin
+HRS2010_data$smokes_ever_bin
+HRS2014_data$smokes_ever_bin
+HRS2016_data$smokes_ever_bin
+HRS2018_data$smokes_ever_bin
+
+
+HRS2018_data$smokes_now_bin
+HRS2018_data$angina_new_bin
+
+
+
+#CVD 
+HRS2008_data$angina_new_bin
+HRS2008_data$hypertension_new_bin
+HRS2008_data$stroke_new_bin
+HRS2008_data$heartcondition_new_bin
+HRS2008_data$heartcondition_ever_bin
+HRS2008_data$heartfailure2yrs_bin
+HRS2008_data$heartattack_ever_bin
+HRS2008_data$heartattack_new_bin 
+
+HRS2008_data$alcohol_days_week
+HRS2008_data$vigarious_physical_activity
+HRS2008_data$smokes_ever_bin
+HRS2008_data$smokes_now_bin
+
 
 colnames_all = c('HHIDPN',
                  "diabetes_new",
@@ -98,6 +143,20 @@ colnames_all = c('HHIDPN',
                 "national_origin_ousideUS_bin", 
                 "religion_bin", 
                 "race_white", 
+                
+            "angina_new_bin",
+              "hypertension_new_bin",
+               "stroke_new_bin", 
+                "heartcondition_new_bin",
+                "heartcondition_ever_bin",
+                "heartfailure2yrs_bin",
+                "heartattack_ever_bin",
+               "heartattack_new_bin", 
+                
+               "alcohol_days_week",
+                "vigarious_physical_activity",
+                "smokes_ever_bin",
+                "smokes_now_bin", 
                 
                 "year")
 
@@ -171,10 +230,22 @@ HRS2008_data_short = cbind(HRS2008_data$HHIDPN,
                            HRS2008_data$religion_bin, 
                            HRS2008_data$race_white, 
                            
+                           HRS2008_data$angina2yrs_bin,
+                           HRS2008_data$hypertension_new_bin,
+                           HRS2008_data$stroke_new_bin,
+                           HRS2008_data$heartcondition_new_bin,
+                           HRS2008_data$heartcondition_ever_bin,
+                           HRS2008_data$heartfailure2yrs_bin,
+                           HRS2008_data$HRS2008_heartattack2yrs_bin,
+                           HRS2008_data$HRS2008_heartattack2yrs_bin,
+                           
+                           HRS2008_data$alcohol_days_week,
+                           HRS2008_data$vigarious_physical_activity,
+                           HRS2008_data$smokes_ever_bin,
+                           HRS2008_data$smokes_now_bin,
                            
                            
                            HRS2008_data$year)
-
 
 HRS2008_data_short = as.data.frame(HRS2008_data_short)
 
@@ -230,6 +301,20 @@ HRS2010_data_short = cbind(HRS2010_data$HHIDPN,
                            HRS2010_data$race_white, 
                            
                            
+                           HRS2010_data$angina2yrs_bin,
+                           HRS2010_data$hypertension_new_bin,
+                           HRS2010_data$stroke_new_bin,
+                           HRS2010_data$heartcondition_new_bin,
+                           HRS2010_data$heartcondition_ever_bin,
+                           HRS2010_data$heartfailure2yrs_bin,
+                           HRS2010_data$HRS2010_heartattack_bin,
+                           HRS2010_data$HRS2010_heartattack2yrs_bin,
+                           
+                           HRS2010_data$alcohol_days_week,
+                           HRS2010_data$vigarious_physical_activity,
+                           HRS2010_data$smokes_ever_bin,
+                           HRS2010_data$smokes_now_bin,
+                           
                            
                            HRS2010_data$year)
 
@@ -238,6 +323,11 @@ HRS2010_data_short = as.data.frame(HRS2010_data_short)
 
 colnames(HRS2010_data_short) = colnames_all
 
+ HRS2012_data$angina_new_bin   = rep(NA, times = nrow(HRS2012_data))
+HRS2012_data$heartcondition_new_bin = rep(NA, times = nrow(HRS2012_data))
+HRS2012_data$heartcondition_ever_bin = rep(NA, times = nrow(HRS2012_data))
+HRS2012_data$heartfailure2yrs_bin = rep(NA, times = nrow(HRS2012_data))
+HRS2012_data$heartattack_new_bin = rep(NA, times = nrow(HRS2012_data))
 
 
 HRS2012_data_short = cbind(HRS2012_data$HHIDPN,
@@ -291,7 +381,22 @@ HRS2012_data_short = cbind(HRS2012_data$HHIDPN,
                            HRS2012_data$race_white, 
                            
                            
-                          
+                           
+                           HRS2012_data$angina_new_bin,
+                           HRS2012_data$hypertension_new_bin,
+                           HRS2012_data$stroke_new_bin,
+                           HRS2012_data$heartcondition_new_bin,
+                           HRS2012_data$heartcondition_ever_bin,
+                           HRS2012_data$heartfailure2yrs_bin,
+                           HRS2012_data$heartattack_ever_bin,
+                      
+                           HRS2012_data$heartattack_new_bin,
+                           
+                           HRS2012_data$alcohol_days_week,
+                           HRS2012_data$vigarious_physical_activity,
+                           HRS2012_data$smokes_ever_bin,
+                           HRS2012_data$smokes_now_bin,
+                           
                            HRS2012_data$year)
 
 
@@ -300,6 +405,9 @@ HRS2012_data_short = as.data.frame(HRS2012_data_short)
 
 colnames(HRS2012_data_short) = colnames_all
 
+HRS2014_data$heartcondition_new_bin = rep(NA, times = nrow(HRS2014_data))
+HRS2014_data$heartcondition_ever_bin = rep(NA, times = nrow(HRS2014_data))
+HRS2014_data$heartattack_new_bin = rep(NA, times = nrow(HRS2014_data))
 
 
 HRS2014_data_short = cbind(HRS2014_data$HHIDPN,
@@ -350,7 +458,19 @@ HRS2014_data_short = cbind(HRS2014_data$HHIDPN,
                            HRS2014_data$religion_bin, 
                            HRS2014_data$race_white, 
                            
+                           HRS2014_data$angina_new_bin,
+                           HRS2014_data$hypertension_new_bin,
+                           HRS2014_data$stroke_new_bin,
+                           HRS2014_data$heartcondition_new_bin,
+                           HRS2014_data$heartcondition_ever_bin,
+                           HRS2014_data$heartfailure2yrs_bin,
+                           HRS2014_data$heartattack_ever_bin,
+                       HRS2014_data$heartattack_new_bin ,
                            
+                           HRS2014_data$alcohol_days_week,
+                           HRS2014_data$vigarious_physical_activity,
+                           HRS2014_data$smokes_ever_bin,
+                           HRS2014_data$smokes_now_bin,
                            
                            HRS2014_data$year)
 
@@ -361,6 +481,12 @@ colnames(HRS2014_data_short) = colnames_all
 
 
 #HRS2016_data$HHIDPN = HRS2016_data$HHIDPN_HRS2016
+
+
+HRS2016_data$angina_new_bin = rep(NA, times = nrow(HRS2016_data))
+HRS2016_data$heartcondition_new_bin = rep(NA, times = nrow(HRS2016_data))
+HRS2016_data$heartcondition_ever_bin = rep(NA, times = nrow(HRS2016_data))
+HRS2016_data$heartattack_new_bin = rep(NA, times = nrow(HRS2016_data))
 
 HRS2016_data_short = cbind(HRS2016_data$HHIDPN,
                               HRS2016_data$diabetes_new,
@@ -413,7 +539,19 @@ HRS2016_data_short = cbind(HRS2016_data$HHIDPN,
                            HRS2016_data$religion_bin, 
                            HRS2016_data$race_white, 
                            
+                           HRS2016_data$angina_new_bin,
+                           HRS2016_data$hypertension_new_bin,
+                           HRS2016_data$stroke_new_bin,
+                           HRS2016_data$heartcondition_new_bin,
+                           HRS2016_data$heartcondition_ever_bin,
+                           HRS2016_data$heartfailure2yrs_bin,
+                           HRS2016_data$heartattack_ever_bin,
+                           HRS2016_data$heartattack_new_bin ,
                            
+                           HRS2016_data$alcohol_days_week,
+                           HRS2016_data$vigarious_physical_activity,
+                           HRS2016_data$smokes_ever_bin,
+                           HRS2016_data$smokes_now_bin,
                            
                            HRS2016_data$year)
 
@@ -424,6 +562,12 @@ HRS2016_data_short = as.data.frame(HRS2016_data_short)
 
 colnames(HRS2016_data_short) = colnames_all
 
+HRS2018_data$stroke_new_bin  = rep(NA, times = nrow(HRS2018_data))
+HRS2018_data$heartcondition_new_bin = rep(NA, times = nrow(HRS2018_data))
+HRS2018_data$heartcondition_ever_bin = rep(NA, times = nrow(HRS2018_data))
+HRS2018_data$heartfailure2yrs_bin = rep(NA, times = nrow(HRS2018_data))
+HRS2018_data$heartattack_ever_bin = rep(NA, times = nrow(HRS2018_data))
+HRS2018_data$heartattack_new_bin = rep(NA, times = nrow(HRS2018_data))
 
 HRS2018_data_short = cbind(HRS2018_data$HHIDPN,
                               HRS2018_data$diabetes_new,
@@ -478,7 +622,19 @@ HRS2018_data_short = cbind(HRS2018_data$HHIDPN,
                            HRS2018_data$religion_bin, 
                            HRS2018_data$race_white, 
                            
+                           HRS2018_data$angina_new_bin,
+                           HRS2018_data$hypertension_new_bin,
+                           HRS2018_data$stroke_new_bin,
+                           HRS2018_data$heartcondition_new_bin,
+                           HRS2018_data$heartcondition_ever_bin,
+                           HRS2018_data$heartfailure2yrs_bin,
+                           HRS2018_data$heartattack_ever_bin,
+                           HRS2018_data$heartattack_new_bin ,
                            
+                           HRS2018_data$alcohol_days_week,
+                           HRS2018_data$vigarious_physical_activity,
+                           HRS2018_data$smokes_ever_bin,
+                           HRS2018_data$smokes_now_bin,
                            
                            HRS2018_data$year)
 

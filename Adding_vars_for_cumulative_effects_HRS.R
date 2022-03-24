@@ -2,6 +2,7 @@
 #/Users/aliya/my_docs/KCL_postDoc/Data_analysis/HRS_2010_data/HRS_ALLData_originalVARNames.csv
 
 
+library(dplyr)
 
 
 
@@ -90,9 +91,128 @@ HRS2014_data_RAND  = subset(HRS2014_data_RAND, HHIDPN %in% HRS2014_data$HHIDPN)
 HRS2016_data_RAND  = subset(HRS2016_data_RAND, HHIDPN %in% HRS2016_data$HHIDPN)
 HRS2018_data_RAND  = subset(HRS2018_data_RAND, HHIDPN %in% HRS2018_data$HHIDPN)
 
+##### ##### ##### health mobile app 
+
+##### ##### ##### polygenetic scores 
+
+##### ##### ##### life event stress 
+##### ##### ##### job strain 
+##### ##### ##### saliva cortisol 
+##### ##### ##### hair cortisol 
 
 ################
 
+
+##### and psychiatric disorders.
+#HRS2008_data$HRS2008_emo_psychiat_prob_new
+
+#HRS2008_data$emo_psychiat_prob_new = HRS2008_data$HRS2008_emo_psychiat_prob_new 
+#HRS2008_data$emo_psychiat_prob_bin = HRS2008_data$HRS2008_emo_psychiat_prob_bin 
+
+#HRS2008_data$HRS2008_emo_psychiat_prob_bin
+
+#HRS2012_data$HRS2012_
+#HRS2014_data$HRS2014_
+#HRS2016_data$HRS2016_
+#HRS2018_data$HRS2018_
+
+
+##### ##### #####  ##### #####continious outcomes 
+##### self-rated health,
+#HRS2008_srh
+
+#HRS2012_data$HRS2012_
+#HRS2014_data$HRS2014_
+#HRS2016_data$HRS2016_
+#HRS2018_data$HRS2018_
+
+##### weight,
+#HRS2018_weight_kg
+
+#HRS2018obese_bin
+#HRS2018_underweight_bin
+#HRS2018_normalweight_bin
+#HRS2018_BMI
+
+##### blood pressure, 
+## ## ## ## ADD
+
+##### depressive symptoms (CES-D), 
+## ## ## ## ADD
+
+##### life satisfaction (SWLS), 
+## ## ## ## ADD
+
+########################################################################
+########################################################################
+
+
+
+##### ##### ##### physical activity 
+
+#RAND 2008 (w9) R is respondant 
+
+HRS2008_data$vigarious_physical_activity = cross_waves_2008$vigarious_physical_activity_2008 
+HRS2010_data$vigarious_physical_activity = cross_waves_2010$vigarious_physical_activity_2010 
+HRS2012_data$vigarious_physical_activity = cross_waves_2012$vigarious_physical_activity_2012 
+HRS2014_data$vigarious_physical_activity = cross_waves_2014$vigarious_physical_activity_2014 
+HRS2016_data$vigarious_physical_activity = cross_waves_2016$vigarious_physical_activity_2016 
+HRS2018_data$vigarious_physical_activity = cross_waves_2018$vigarious_physical_activity_2018 
+#R9MDACTX - moderate physical activity 
+#cross_waves$moderate_physical_activity_1992 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_1994 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_1996 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_1998 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2000 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2002 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2004 = harmonised_data_all_waves_2008$r1mgactx 
+#cross_waves$moderate_physical_activity_2006 = harmonised_data_all_waves_2008$r1mgactx 
+
+#HRS2008_data$moderate_physical_activity = cross_waves$moderate_physical_activity_2008 
+#cross_waves$moderate_physical_activity = HRS2008_data_RAND$r9mgactx 
+
+#HRS2010_data$moderate_physical_activity = cross_waves$moderate_physical_activity_2010 
+#cross_waves$moderate_physical_activity = HRS2010_data_RAND$r10mgactx 
+
+#HRS2012_data$moderate_physical_activity = cross_waves$moderate_physical_activity_2012 
+#cross_waves$moderate_physical_activity = HRS2012_data_RAND$r11mgactx 
+
+#HRS2014_data$moderate_physical_activity = cross_waves$moderate_physical_activity_2014 
+#cross_waves$moderate_physical_activity = HRS2014_data_RAND$r12mgactx 
+
+#HRS2016_data$moderate_physical_activity = cross_waves$moderate_physical_activity_2016 
+#cross_waves$moderate_physical_activity = HRS2016_data_RAND$r13mgactx 
+
+#HRS2018_data$moderate_physical_activity = cross_waves$moderate_physical_activity_2018 
+#cross_waves$moderate_physical_activity = HRS2018_data_RAND$r14mgactx 
+
+
+#R9LTACTX - light physical activity 
+#cross_waves$light_physical_activity_1992 = harmonised_data_all_waves_2008$R1LGACTX 
+#cross_waves$light_physical_activity_1994 = harmonised_data_all_waves_2008$R2LGACTX 
+#cross_waves$light_physical_activity_1996 = harmonised_data_all_waves_2008$R3LGACTX 
+#cross_waves$light_physical_activity_1998 = harmonised_data_all_waves_2008$R4LGACTX 
+#cross_waves$light_physical_activity_2000 = harmonised_data_all_waves_2008$R5LGACTX 
+#cross_waves$light_physical_activity_2002 = harmonised_data_all_waves_2008$R6LGACTX 
+#cross_waves$light_physical_activity_2004 = harmonised_data_all_waves_2008$R7LGACTX 
+#cross_waves$light_physical_activity_2006 = harmonised_data_all_waves_2008$R8LGACTX 
+#HRS2008_data$light_physical_activity = cross_waves$light_physical_activity_2008 
+#cross_waves$light_physical_activity = HRS2008_data_RAND$r9lgactx 
+
+#HRS2010_data$light_physical_activity = cross_waves$light_physical_activity_2010 
+#cross_waves$light_physical_activity = HRS2010_data_RAND$r10lgactx 
+
+#HRS2012_data$light_physical_activity = cross_waves$light_physical_activity_2012 
+#HRS2012_data$light_physical_activity = HRS2012_data_RAND$r11lgactx 
+
+#HRS2014_data$light_physical_activity = cross_waves$light_physical_activity_2014 
+#HRS2014_data$light_physical_activity = HRS2014_data_RAND$r12lgactx 
+
+#HRS2016_data$light_physical_activity = cross_waves$light_physical_activity_2016 
+#HRS2016_data$light_physical_activity = HRS2016_data_RAND$r13lgactx 
+
+#HRS2018_data$light_physical_activity = cross_waves$light_physical_activity_2018 
+#HRS2018_data$light_physical_activity = HRS2018_data_RAND$r14lgactx 
 #Other HRS files: 
 # LC129	HRS 2008: Number days per week- drink alcohol, Text: In the last three months, on average, how many days per week have you had any alcohol to drink? (For example, beer, wine, or any drink containing liquor.)<br><br>USE 0 for none or less than once a week<br><br>1 - 6 7 every day<br><br>Days:
 #HRS2008_data$alcohol_days_week = HRS2008_data_RAND$LC129
@@ -110,7 +230,8 @@ HRS2014_data$alcohol_days_week = HRS2014_data_RAND$OC129
 HRS2016_data$alcohol_days_week = HRS2016_data_RAND$PC129
 
 # C129 HRS 2018
-HRS2018_data$alcohol_days_week = HRS2018_data_RAND$C129
+
+HRS2018_data$alcohol_days_week = HRS2018_data_RAND$QC129
 
 ################
 
@@ -298,6 +419,9 @@ HRS2018_data$angina2yrs_bin = HRS2018_data$HRS2018_angina2yrs_bin
 
 ##### Angina new: 
 #2014: since last wave: R12ANGIN 
+HRS2012_data$HRS2012_angina_new = harmonised_data_all_waves_2012$r11angin
+HRS2012_data$angina_new = HRS2012_data$HRS2012_angina_new
+
 HRS2014_data$HRS2014_angina_new = harmonised_data_all_waves_2014$r12angin
 HRS2014_data$angina_new = HRS2014_data$HRS2014_angina_new
 
@@ -636,145 +760,6 @@ HRS2018_data$HRS2018_checklist_depression_bin = cross_waves_2018$depression_bin_
 HRS2018_data$checklist_depression_bin = HRS2018_data$HRS2018_checklist_depression_bin
 
 
-
-##### and psychiatric disorders.
-#HRS2008_data$HRS2008_emo_psychiat_prob_new
-
-#HRS2008_data$emo_psychiat_prob_new = HRS2008_data$HRS2008_emo_psychiat_prob_new 
-#HRS2008_data$emo_psychiat_prob_bin = HRS2008_data$HRS2008_emo_psychiat_prob_bin 
-
-#HRS2008_data$HRS2008_emo_psychiat_prob_bin
-
-#HRS2012_data$HRS2012_
-#HRS2014_data$HRS2014_
-#HRS2016_data$HRS2016_
-#HRS2018_data$HRS2018_
-
-
-##### ##### #####  ##### #####continious outcomes 
-##### self-rated health,
-#HRS2008_srh
-
-#HRS2012_data$HRS2012_
-#HRS2014_data$HRS2014_
-#HRS2016_data$HRS2016_
-#HRS2018_data$HRS2018_
-
-##### weight,
-#HRS2018_weight_kg
-
-#HRS2018obese_bin
-#HRS2018_underweight_bin
-#HRS2018_normalweight_bin
-#HRS2018_BMI
-
-##### blood pressure, 
-## ## ## ## ADD
-
-##### depressive symptoms (CES-D), 
-## ## ## ## ADD
-
-##### life satisfaction (SWLS), 
-## ## ## ## ADD
-
-########################################################################
-########################################################################
-
-##### ##### ##### physical activity 
-
-#RAND 2008 (w9) R is respondant 
-
-#vigarious physical activity
-#HRS2008_data$vigarious_physical_activity_1992 = harmonised_data_all_waves_2008$R1VGACTX 
-#HRS2008_data$vigarious_physical_activity_1994 = RAND_HRS_longitudional_file$R2VGACTX 
-#HRS2008_data$vigarious_physical_activity_1996 = RAND_HRS_longitudional_file$R3VGACTX 
-#HRS2008_data$vigarious_physical_activity_1998 = RAND_HRS_longitudional_file$R4VGACTX 
-#HRS2008_data$vigarious_physical_activity_2000 = RAND_HRS_longitudional_file$R5VGACTX 
-#HRS2008_data$vigarious_physical_activity_2002 = RAND_HRS_longitudional_file$R6VGACTX 
-#HRS2008_data$vigarious_physical_activity_2004 = RAND_HRS_longitudional_file$R7VGACTX 
-#HRS2008_data$vigarious_physical_activity_2006 = RAND_HRS_longitudional_file$R8VGACTX 
-
-HRS2008_data$vigarious_physical_activity_2008 = harmonised_data_all_waves_2008$r9vgactx 
-HRS2008_data$vigarious_physical_activity = HRS2008_data$vigarious_physical_activity_2008
-
-HRS2010_data$vigarious_physical_activity_2010 = harmonised_data_all_waves_2010$r10vgactx 
-HRS2010_data$vigarious_physical_activity = HRS2010_data$vigarious_physical_activity_2010
-
-HRS2012_data$vigarious_physical_activity_2012 = harmonised_data_all_waves_2012$r11vgactx 
-HRS2012_data$vigarious_physical_activity = HRS2012_data$vigarious_physical_activity_2012
-
-HRS2014_data$vigarious_physical_activity_2014 = harmonised_data_all_waves_2014$r12vgactx 
-HRS2014_data$vigarious_physical_activity = HRS2014_data$vigarious_physical_activity_2014
-
-HRS2016_data$vigarious_physical_activity_2016 = harmonised_data_all_waves_2016$r13vgactx 
-HRS2016_data$vigarious_physical_activity = HRS2016_data$vigarious_physical_activity_2016
-
-HRS2018_data$vigarious_physical_activity_2018 = harmonised_data_all_waves_2018$r14vgactx 
-HRS2018_data$vigarious_physical_activity = HRS2018_data$vigarious_physical_activity_2018
-#R9MDACTX - moderate physical activity 
-#HRS2008_data$moderate_physical_activity_1992 = harmonised_data_all_waves_2008$r1mgactx 
-#HRS2008_data$moderate_physical_activity_1994 = harmonised_data_all_waves_2008$r1mgactx 
-#HRS2008_data$moderate_physical_activity_1996 = harmonised_data_all_waves_2008$r1mgactx 
-#HRS2008_data$moderate_physical_activity_1998 = harmonised_data_all_waves_2008$r1mgactx 
-#HRS2008_data$moderate_physical_activity_2000 = harmonised_data_all_waves_2008$r1mgactx 
-#HRS2008_data$moderate_physical_activity_2002 = harmonised_data_all_waves_2008$r1mgactx 
-#HRS2008_data$moderate_physical_activity_2004 = harmonised_data_all_waves_2008$r1mgactx 
-#HRS2008_data$moderate_physical_activity_2006 = harmonised_data_all_waves_2008$r1mgactx 
-HRS2008_data$moderate_physical_activity_2008 = harmonised_data_all_waves_2008$r9mgactx 
-HRS2008_data$moderate_physical_activity = harmonised_data_all_waves_2008$r9mgactx 
-
-HRS2010_data$moderate_physical_activity_2010 = harmonised_data_all_waves_2010$r10mgactx 
-HRS2010_data$moderate_physical_activity = harmonised_data_all_waves_2010$r10mgactx 
-
-HRS2012_data$moderate_physical_activity_2012 = harmonised_data_all_waves_2012$r11mgactx 
-HRS2012_data$moderate_physical_activity = harmonised_data_all_waves_2012$r11mgactx 
-
-HRS2014_data$moderate_physical_activity_2014 = harmonised_data_all_waves_2014$r12mgactx 
-HRS2014_data$moderate_physical_activity = harmonised_data_all_waves_2014$r12mgactx 
-
-HRS2016_data$moderate_physical_activity_2016 = harmonised_data_all_waves_2016$r13mgactx 
-HRS2016_data$moderate_physical_activity = harmonised_data_all_waves_2016$r13mgactx 
-
-HRS2018_data$moderate_physical_activity_2018 = harmonised_data_all_waves_2018$r14mgactx 
-HRS2018_data$moderate_physical_activity = harmonised_data_all_waves_2018$r14mgactx 
-
-
-#R9LTACTX - light physical activity 
-#HRS2008_data$light_physical_activity_1992 = harmonised_data_all_waves_2008$R1LGACTX 
-#HRS2008_data$light_physical_activity_1994 = harmonised_data_all_waves_2008$R2LGACTX 
-#HRS2008_data$light_physical_activity_1996 = harmonised_data_all_waves_2008$R3LGACTX 
-#HRS2008_data$light_physical_activity_1998 = harmonised_data_all_waves_2008$R4LGACTX 
-#HRS2008_data$light_physical_activity_2000 = harmonised_data_all_waves_2008$R5LGACTX 
-#HRS2008_data$light_physical_activity_2002 = harmonised_data_all_waves_2008$R6LGACTX 
-#HRS2008_data$light_physical_activity_2004 = harmonised_data_all_waves_2008$R7LGACTX 
-#HRS2008_data$light_physical_activity_2006 = harmonised_data_all_waves_2008$R8LGACTX 
-HRS2008_data$light_physical_activity_2008 = harmonised_data_all_waves_2008$r9lgactx 
-HRS2008_data$light_physical_activity = harmonised_data_all_waves_2008$r9lgactx 
-
-HRS2010_data$light_physical_activity_2010 = harmonised_data_all_waves_2010$r10lgactx 
-HRS2010_data$light_physical_activity = harmonised_data_all_waves_2010$r10lgactx 
-
-HRS2012_data$light_physical_activity_2012 = harmonised_data_all_waves_2012$r11lgactx 
-HRS2012_data$light_physical_activity = harmonised_data_all_waves_2012$r11lgactx 
-
-HRS2014_data$light_physical_activity_2014 = harmonised_data_all_waves_2014$r12lgactx 
-HRS2014_data$light_physical_activity = harmonised_data_all_waves_2014$r12lgactx 
-
-HRS2016_data$light_physical_activity_2016 = harmonised_data_all_waves_2016$r13lgactx 
-HRS2016_data$light_physical_activity = harmonised_data_all_waves_2016$r13lgactx 
-
-HRS2018_data$light_physical_activity_2018 = harmonised_data_all_waves_2018$r14lgactx 
-HRS2018_data$light_physical_activity = harmonised_data_all_waves_2018$r14lgactx 
-
-
-##### ##### ##### health mobile app 
-
-##### ##### ##### polygenetic scores 
-
-##### ##### ##### life event stress 
-##### ##### ##### job strain 
-##### ##### ##### saliva cortisol 
-##### ##### ##### hair cortisol 
 
 
 ################ ADD COVARIATES BELOW 

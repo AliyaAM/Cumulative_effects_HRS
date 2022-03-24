@@ -80,7 +80,6 @@ HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_shor
 
 #national_origin_ousideUS
 #assessed_BMI
-HRS2008_data_race$race_white
 
 HRS2008_data_race = subset(HRS2008_data, HRS2008_data$race_white == 0 & HRS2008_data$assessed_BMI > 30) 
 HRS2010_data_race = subset(HRS2010_data, HRS2010_data$race_white == 0 & HRS2010_data$assessed_BMI > 30)
@@ -163,6 +162,23 @@ WCE_dataset_race$discrim_afraidothers = as.numeric(WCE_dataset_race$discrim_afra
 WCE_dataset_race$wealth_noIRA = as.numeric(WCE_dataset_race$wealth_noIRA)
 WCE_dataset_race$assessed_BMI = as.numeric(WCE_dataset_race$assessed_BMI)
 WCE_dataset_race$continious_age = as.numeric(WCE_dataset_race$continious_age)
+
+
+WCE_dataset_race$angina_new_bin = as.numeric(WCE_dataset_race$angina_new_bin)
+WCE_dataset_race$hypertension_new_bin = as.numeric(WCE_dataset_race$hypertension_new_bin)
+WCE_dataset_race$stroke_new_bin = as.numeric(WCE_dataset_race$stroke_new_bin)
+WCE_dataset_race$heartcondition_new_bin = as.numeric(WCE_dataset_race$heartcondition_new_bin)
+WCE_dataset_race$heartcondition_ever_bin = as.numeric(WCE_dataset_race$heartcondition_ever_bin)
+WCE_dataset_race$heartfailure2yrs_bin = as.numeric(WCE_dataset_race$heartfailure2yrs_bin)
+WCE_dataset_race$heartattack_ever_bin = as.numeric(WCE_dataset_race$heartattack_ever_bin)
+WCE_dataset_race$heartattack_new_bin = as.numeric(WCE_dataset_race$heartattack_new_bin)
+
+WCE_dataset_race$alcohol_days_week = as.numeric(WCE_dataset_race$alcohol_days_week)
+WCE_dataset_race$vigarious_physical_activity = as.numeric(WCE_dataset_race$vigarious_physical_activity)
+WCE_dataset_race$smokes_ever = as.numeric(WCE_dataset_race$smokes_ever)
+WCE_dataset_race$smokes_now = as.numeric(WCE_dataset_race$smokes_now)
+
+
 
 
 write.csv(WCE_dataset_race, paste(SOURCE_data_ROOT, "WCE_race_BMI_diabetes_bin.csv", sep=""))
