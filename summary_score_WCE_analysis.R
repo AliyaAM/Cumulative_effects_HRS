@@ -4,7 +4,8 @@
 
 summary_score_WCE_analysis = function(data_WCE, exposure, outcome, covariates_list){
   
-
+#exposure = as.numeric(exposure)
+#outcome = as.numeric(outcome)
 
 checkWCE(data_WCE,
          id = "HHIDPN", 
@@ -35,11 +36,11 @@ n_timepoints_max = max(data_WCE$n_timepoints_max)
 print("maximu number of points")
 print(n_timepoints_max)
 
-
+n_timepoints_max = as.numeric(n_timepoints_max)
 
 wce =  WCE(data = data_WCE,
            analysis = "Cox", 
-           nknots = 3, cutoff = n_timepoints_max, 
+           nknots = 1, cutoff = n_timepoints_max, 
            constrained = "R", aic = FALSE, MatchedSet = NULL, 
            id = "HHIDPN", 
            event = outcome, 
@@ -78,8 +79,8 @@ coef.WCE(wce)
 #6 = never 
 
 
-scenario1 <- c(rep(0, n_timepoints_max))
-scenario2 <- c(rep(1, n_timepoints_max))
+scenario1 <- c(rep(1, n_timepoints_max))
+scenario2 <- c(rep(0, n_timepoints_max))
 
 HR_value_1vs0 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
 

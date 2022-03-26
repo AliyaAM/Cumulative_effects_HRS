@@ -116,15 +116,6 @@ WCE_dataset_lim_cond = rbind(HRS2008_data_lim_cond,
 
 ###### add binary esposure and binary outcome 
 
-WCE_dataset_lim_cond$discrim_harassed_bin = case_when(WCE_dataset_lim_cond$discrim_harassed == 1 ~ 1, 
-                                                      WCE_dataset_lim_cond$discrim_harassed == 2 ~ 1, 
-                                                   WCE_dataset_lim_cond$discrim_harassed == 3 ~ 1, 
-                                                   WCE_dataset_lim_cond$discrim_harassed == 4 ~ 1, 
-                                                   WCE_dataset_lim_cond$discrim_harassed == 5 ~ 0, 
-                                                   WCE_dataset_lim_cond$discrim_harassed == 6 ~ 0,
-                                                   WCE_dataset_lim_cond$discrim_harassed == 0 ~ 0) 
-
-
 
 WCE_dataset_lim_cond$diabetes_new_bin = case_when(WCE_dataset_lim_cond$diabetes_new == 1 ~ 1, 
                                                   WCE_dataset_lim_cond$diabetes_new == 0 ~ 0, 
@@ -204,6 +195,17 @@ unique(data_wce_lim_cond$hypertension_new_bin)
 
                                             
 lim_cond_all_results = data.frame()
+
+
+data_wce_lim_cond$discrim_harassed_bin = case_when(data_wce_lim_cond$discrim_harassed == 1 ~ 1, 
+                                                   data_wce_lim_cond$discrim_harassed == 2 ~ 1, 
+                                                   data_wce_lim_cond$discrim_harassed == 3 ~ 1, 
+                                                   data_wce_lim_cond$discrim_harassed == 4 ~ 1, 
+                                                   data_wce_lim_cond$discrim_harassed == 5 ~ 0, 
+                                                   data_wce_lim_cond$discrim_harassed == 6 ~ 0,
+                                                   data_wce_lim_cond$discrim_harassed == 0 ~ 0) 
+
+
 lim_cond_discrim_harassed_bin_age = summary_score_WCE_analysis(data_WCE = data_wce_lim_cond,
                                                                exposure = "discrim_harassed_bin", 
                                                                outcome = "diabetes_new_bin", 
@@ -282,7 +284,7 @@ lim_cond_discrim_lessrespect_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_dat
                                                                          exposure = "discrim_lessrespect_bin", 
                                                                          outcome = "diabetes_new_bin", 
                                                                          #covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
-                                                                         covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
+                                                                         covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin"))
                                                                          
 #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
@@ -332,8 +334,8 @@ lim_cond_discrim_medical_bin_model_4_stats_recoded = lim_cond_discrim_medical_bi
 lim_cond_discrim_medical_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_lim_cond,
                                                                      exposure = "discrim_medical_bin", 
                                                                      outcome = "diabetes_new_bin", 
-                                                                     covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
-                                                                     #covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
+                                                                     #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
+                                                                     covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin"))
 #covariates_list = c("continious_age"))
 
 write.csv(lim_cond_discrim_medical_bin_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_medical_bin_model_4_stats_recoded.csv", sep=""))
@@ -380,7 +382,9 @@ lim_cond_discrim_notclever_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_data_
                                                                        exposure = "discrim_notclever_bin", 
                                                                        outcome = "diabetes_new_bin", 
                                                                        #covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
-covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
+
+                                                                       covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin"))
+#covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
 write.csv(lim_cond_discrim_notclever_bin_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_notclever_bin_model_4_stats_recoded.csv", sep=""))
@@ -415,7 +419,9 @@ lim_cond_discrim_poorerservice_bin_age = summary_score_WCE_analysis(data_WCE = d
                                                                     exposure = "discrim_poorerservice_bin", 
                                                                     outcome = "diabetes_new_bin", 
                                                                     #covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
-covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
+                                                                    covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin"))
+
+#covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
 lim_cond_discrim_poorerservice_bin_age_HR = lim_cond_discrim_poorerservice_bin_age[1]
@@ -429,7 +435,9 @@ lim_cond_discrim_poorerservice_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_d
                                                                            exposure = "discrim_poorerservice_bin", 
                                                                            outcome = "diabetes_new_bin", 
                                                                            #covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
-covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
+                                                                           covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin"))
+
+#covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
 write.csv(lim_cond_discrim_poorerservice_bin_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/lim_cond_discrim_poorerservice_bin_model_4_stats_recoded.csv", sep=""))
@@ -474,7 +482,9 @@ lim_cond_afraid_others_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = dat
                                                                exposure = "discrim_afraidothers_bin", 
                                                                outcome = "diabetes_new_bin", 
                                                                #covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
-covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
+                                                               covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin"))
+
+#covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
 write.csv(lim_cond_afraid_others_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/lim_cond_afraid_others_model_4_stats_recoded.csv", sep=""))
@@ -495,7 +505,7 @@ variable = #c("summary mean score",
 
 lim_cond_all_results  = cbind(variable, lim_cond_all_results)
 
-write.csv(lim_cond_all_results, paste(OUTPUT_ROOT, "lim_cond_all_results_bin_model_4.csv", sep=""))
+write.csv(lim_cond_all_results, paste(OUTPUT_ROOT, "lim_cond_all_results_bin_model_4_test.csv", sep=""))
 
 ########
 ########
