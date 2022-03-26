@@ -78,8 +78,8 @@ coef.WCE(wce)
 #6 = never 
 
 
-scenario1 <- c(rep(1, n_timepoints_max))
-scenario2 <- c(rep(0, n_timepoints_max))
+scenario1 <- c(rep(0, n_timepoints_max))
+scenario2 <- c(rep(1, n_timepoints_max))
 
 HR_value_1vs0 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
 
