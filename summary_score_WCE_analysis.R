@@ -14,11 +14,13 @@ checkWCE(data_WCE,
          expos = exposure) 
 
 # check that the minumum start of time point 0 and min for stop is 1
-table(by(data_WCE$start_new,  data_WCE$HHIDPN, min)) 
-table(by(data_WCE$start,  data_WCE$HHIDPN, min)) 
-table(by(data_WCE$stop,  data_WCE$HHIDPN, min)) 
-table(by(data_WCE$stop_new,  data_WCE$HHIDPN, min)) 
+  start_new_check = table(by(data_WCE$start_new,  data_WCE$HHIDPN, min)) 
+  print(start_new_check) 
+  
 
+  stop_new_check = table(by(data_WCE$stop_new,  data_WCE$HHIDPN, min)) 
+  print(stop_new_check) 
+  
 #check how may people were in each wave 
 table(data_WCE$start_new)
 
@@ -26,14 +28,18 @@ table(data_WCE$start_new)
 n_timepoints_list = unique(data_WCE$timepoints_indiv)
 data_WCE$n_timepoints_max = max(n_timepoints_list)
 
+print(n_timepoints_list)
+
 #take the maximum number of time points value to be specified for the cut off point in WCE analysis below
 n_timepoints_max = max(data_WCE$n_timepoints_max)
+print("maximu number of points")
+print(n_timepoints_max)
 
 
 
 wce =  WCE(data = data_WCE,
            analysis = "Cox", 
-           nknots = 1, cutoff = n_timepoints_max, 
+           nknots = 3, cutoff = n_timepoints_max, 
            constrained = "R", aic = FALSE, MatchedSet = NULL, 
            id = "HHIDPN", 
            event = outcome, 
@@ -76,7 +82,13 @@ scenario1 <- c(rep(1, n_timepoints_max))
 scenario2 <- c(rep(0, n_timepoints_max))
 
 HR_value_1vs0 = HR.WCE(wce, vecnum = scenario1, vecdenom = scenario2, allres = TRUE)
+
+print("hazard ratio within summary WCE analysis:")
+print(HR_value_1vs0)
+
 hazard_ratio_1vs0 = HR_value_1vs0[1]
+print("hazard ratio within summary WCE analysis, first value:")
+print(hazard_ratio_1vs0)
 
 #scenario_lower_quantile <- rep(lower_quantile, n_timepoints_max)
 #scenario_upper_quantile <- rep(upper_quantile, n_timepoints_max) # for all models 
