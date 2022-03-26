@@ -124,10 +124,10 @@ race_all_results = data.frame()
 race_discrim_harassed_bin_age = summary_score_WCE_analysis(data_WCE = data_wce_race,
                                                                exposure = "discrim_harassed_bin", 
                                                                outcome = "diabetes_new_bin", 
-                                                               covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
+                                                               #covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
 
 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+covariates_list = c("continious_age"))
 
 race_discrim_harassed_bin_age_HR = race_discrim_harassed_bin_age[1]
 
@@ -142,10 +142,10 @@ unique(data_wce_race$summary_mean_score_discrim_bin)
 race_discrim_harassed_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                                                       exposure = "discrim_harassed_bin", 
                                                                       outcome = "diabetes_new_bin", 
-                                                                      covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
+                                                                      #covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
 
 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+covariates_list = c("continious_age"))
 
 write.csv(race_discrim_harassed_bin_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/race_overal_discrim_model_4_stats_recoded.csv", sep=""))
 
@@ -180,9 +180,9 @@ unique(data_wce_race$discrim_lessrespect_bin)
 race_discrim_lessrespect_bin_age = summary_score_WCE_analysis(data_WCE = data_wce_race,
                                                                   exposure = "discrim_lessrespect_bin", 
                                                                   outcome = "diabetes_new_bin", 
-                                                                  covariates_list = c("assessed_BMI", "continious_age"))
+                                                                  #covariates_list = c("assessed_BMI", "continious_age"))
 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+covariates_list = c("continious_age"))
 
 race_discrim_lessrespect_bin_age_HR = race_discrim_lessrespect_bin_age[1]
 
@@ -193,9 +193,9 @@ race_discrim_lessrespect_bin_model_4_stats_recoded = race_discrim_lessrespect_bi
 race_discrim_lessrespect_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                                                          exposure = "discrim_lessrespect_bin", 
                                                                          outcome = "diabetes_new_bin", 
-                                                                         covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
+                                                                         #covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+covariates_list = c("continious_age"))
 
 write.csv(race_discrim_lessrespect_bin_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/race_discrim_lessrespect_bin_model_4_stats_recoded.csv", sep=""))
 
@@ -228,9 +228,9 @@ data_wce_race$discrim_medical_bin = case_when(data_wce_race$discrim_medical == 1
 race_discrim_medical_bin_age = summary_score_WCE_analysis(data_WCE = data_wce_race,
                                                               exposure = "discrim_medical_bin", 
                                                               outcome = "diabetes_new_bin", 
-                                                              covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
+                                                              #covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+covariates_list = c("continious_age"))
 
 race_discrim_medical_bin_age_HR = race_discrim_medical_bin_age[1]
 
@@ -243,8 +243,8 @@ race_discrim_medical_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = d
                                                                      exposure = "discrim_medical_bin", 
                                                                      outcome = "diabetes_new_bin", 
                                                                      #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-                                                                     covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+                                                                     #covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
+covariates_list = c("continious_age"))
 
 write.csv(race_discrim_medical_bin_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/race_discrim_medical_bin_model_4_stats_recoded.csv", sep=""))
 
@@ -275,9 +275,9 @@ data_wce_race$discrim_notclever_bin = case_when(data_wce_race$discrim_notclever 
 race_discrim_notclever_bin_age = summary_score_WCE_analysis(data_WCE = data_wce_race,
                                                                 exposure = "discrim_notclever_bin", 
                                                                 outcome = "diabetes_new_bin", 
-                                                                covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
+                                                                #covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+covariates_list = c("continious_age"))
 
 race_discrim_notclever_bin_age_HR = race_discrim_notclever_bin_age[1]
 
@@ -289,9 +289,9 @@ race_discrim_notclever_bin_model_4_stats_recoded = race_discrim_notclever_bin_ag
 race_discrim_notclever_bin_age_CI  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_race,
                                                                        exposure = "discrim_notclever_bin", 
                                                                        outcome = "diabetes_new_bin", 
-                                                                       covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
+                                                                       #covariates_list = c("assessed_BMI", "continious_age",  "wealth_noIRA"))
 #covariates_list = c("assessed_race", "continious_age", "wealth_noIRA"))
-#covariates_list = c("continious_age"))
+covariates_list = c("continious_age"))
 
 write.csv(race_discrim_notclever_bin_model_4_stats_recoded, paste(OUTPUT_ROOT, "stats/race_discrim_notclever_bin_model_4_stats_recoded.csv", sep=""))
 
