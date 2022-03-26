@@ -56,7 +56,8 @@ source((paste(SOURCE_ROOT, "summary_score_WCE_analysis.R", sep="")))
 source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 
-WCE_dataset_race = read.csv(paste(SOURCE_data_ROOT, "WCE_race_BMI_diabetes_bin.csv", sep=""))
+# WCE_dataset_race = read.csv(paste(SOURCE_data_ROOT, "WCE_race_BMI_diabetes_bin.csv", sep=""))
+WCE_dataset_race = read.csv(paste(SOURCE_data_ROOT, "WCE_dataset_race.csv", sep=""))
 unique(WCE_dataset_race$diabetes_new_bin)
 WCE_dataset_race$discrim_harassed_bin
 
@@ -66,13 +67,15 @@ WCE_dataset_race$discrim_harassed_bin
 #WCE_dataset_race.csv
 #WCE_dataset_religion.csv
 
-unique(WCE_dataset_race$summary_mean_score_discrim_bin)
-unique(WCE_dataset_race$discrim_harassed_bin)
-unique(WCE_dataset_race$discrim_lessrespect_bin)
-unique(WCE_dataset_race$discrim_medical_bin)
-unique(WCE_dataset_race$discrim_notclever_bin)
-unique(WCE_dataset_race$discrim_poorerservice_bin)
-unique(WCE_dataset_race$discrim_afraidothers_bin)
+unique(WCE_dataset_race$summary_mean_score_discrim)
+unique(WCE_dataset_race$discrim_harassed)
+unique(WCE_dataset_race$discrim_lessrespect)
+unique(WCE_dataset_race$discrim_medical)
+unique(WCE_dataset_race$discrim_notclever)
+unique(WCE_dataset_race$discrim_poorerservice)
+unique(WCE_dataset_race$discrim_afraidothers)
+
+unique(WCE_dataset_race$diabetes_new_bin)
 
 unique(WCE_dataset_race$hypertension_new_bin)
 ## number_reasons_discrimination
@@ -83,14 +86,18 @@ unique(WCE_dataset_race$hypertension_new_bin)
 ########## SUMMARY MEAN SCORE #########
 
 ######## sort data in teh right way where starting point of  wave 1 is 0 and stopping point is 1, for wave 2: 1 and 2, for wave 3: 3 and 4...
-data_wce_race = sort_timepoints(data = WCE_dataset_race)
+data_wce_race_before = sort_timepoints(data = WCE_dataset_race)
 
 
 ######## main analysis producing HR for developing diabetes as aresult of cumulative effects of discriminaiton over years 2008 - 2018
-#myvars <- c("HHIDPN", "timepoints_indiv", "start_new", "stop_new", "diabetes_new_bin", "continious_age",
-#            "summary_mean_score_discrim_bin", "discrim_harassed_bin", "discrim_lessrespect_bin", "discrim_medical_bin", "discrim_notclever_bin", "discrim_poorerservice_bin", "discrim_afraidothers_bin")
+myvars <- c("HHIDPN", 
+            "timepoints_indiv", 
+            "start_new", "stop_new", 
+            "diabetes_new_bin",
+            "continious_age", "assessed_BMI", "wealth_noIRA", 
+            "summary_mean_score_discrim", "discrim_harassed", "discrim_lessrespect", "discrim_medical", "discrim_notclever", "discrim_poorerservice", "discrim_afraidothers")
 
-#data_wce_race <- data_wce_race_before[myvars]
+data_wce_race <- data_wce_race_before[myvars]
 
 
 data_wce_race$discrim_harassed_bin = case_when(data_wce_race$discrim_harassed == 1 ~ 1, 
@@ -108,7 +115,6 @@ unique(data_wce_race$start_new)
 unique(data_wce_race$stop_new)
 unique(data_wce_race$HHIDPN)
 unique(data_wce_race$diabetes_new_bin)
-unique(data_wce_race$discrim_harassed)
 unique(data_wce_race$continious_age)
 
 
