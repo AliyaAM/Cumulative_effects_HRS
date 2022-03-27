@@ -79,7 +79,6 @@ source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 
 #################################### ######## ########################################################################
 
-
 HRS2008_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2008_data/HRS2008_data_short.csv", sep=""))
 HRS2010_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2010_data/HRS2010_data_short.csv", sep=""))
 HRS2012_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2012_data/HRS2012_data_short.csv", sep=""))
