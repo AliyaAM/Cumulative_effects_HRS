@@ -105,19 +105,19 @@ source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 # Model 2: age and BMI 
 # Model 3: age, BMI, wealth,  (1)
 # Model 4: age, BMI, hypertension  (2)
-# Model 5: age, BMI, hypertension, wealth 
+# Model 5: age, BMI, hypertension, wealth NAs 
 # Model 6: smoking, physical activity, alcohol consumption
 # Model 7: age, BMI,  smoking, physical activity, alcohol consumption  (3)
 # Model 8:age, BMI, smoking, physical activity, alcohol consumption, hypertension
 # Model 9: age, BMI, CVD  (4)
 # Model 10: age, BMI,CVD, hypertension 
-# Model 11: age, BMI, smoking, physical activity, alcohol consumption, CVD  
-# Model 12: age, BMI, smoking, physical activity, alcohol consumption, CVD, hypertension  (5)
+# Model 11: age, BMI, smoking, physical activity, alcohol consumption, CVD  NAs 
+# Model 12: age, BMI, smoking, physical activity, alcohol consumption, CVD, hypertension  (5)  NAs 
 # Model 13: age, BMI, depression  (6)
 # Model 14: age, BMI, smoking, physical activity, alcohol consumption, depression (7)
 # Model 15: age, BMI, hypertension, depression 
 # Model 16: age, BMI,CVD, hypertension, depression 
-# Model 17: age, BMI, smoking, physical activity, alcohol consumption, CVD, hypertension, depression  (8)
+# Model 17: age, BMI, smoking, physical activity, alcohol consumption, CVD, hypertension, depression  (8) NAs 
 #######
 #age, sex, wealth, ethnicity, smoking, physical activity, alcohol consumption, race, hypertension, CVD
 
@@ -229,7 +229,7 @@ unique(WCE_dataset_race$diabetes_new_bin)
 
 WCE_dataset_race = WCE_dataset_race %>% drop_na(discrim_harassed_bin)
 
-
+WCE_dataset_race = WCE_dataset_race %>% drop_na(wealth_noIRA)
 
 
 WCE_dataset_race = subset(WCE_dataset_race, HHIDPN != "3020")
