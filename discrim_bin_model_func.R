@@ -1,4 +1,5 @@
 
+discrim_bin_model_func = function (data_wce_subset, Model_n, Model_name){
   
   
   results = data.frame()

@@ -37,6 +37,10 @@ SOURCE_data_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 SOURCE_ROOT =  "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/"
 
+# function that subsets and srts dataset for a particular var (eg., female == 1)
+source((paste(SOURCE_ROOT, "subset_sort.R", sep="")))
+
+source((paste(SOURCE_ROOT, "subset_sort_BMI.R", sep="")))
 
 #function that sorts out the data into a dataframe where each participant x wave pair is one row. Here I also add starting and stopping points to identify each wave
 source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
@@ -74,92 +78,727 @@ Model_15 = c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklis
 Model_16 = c("assessed_BMI", "continious_age", "hypertension_new_bin", "CVD", "checklist_depression_bin")
 Model_17 = c("assessed_BMI", "continious_age", "hypertension_new_bin", "CVD", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin")
 
+########
+
+Model_noBMIcov_2 = c( "continious_age")
+Model_noBMIcov_3 = c("continious_age", "wealth_noIRA")
+Model_noBMIcov_4 = c("continious_age", "hypertension_new_bin")
+Model_noBMIcov_5 = c( "continious_age", "hypertension_new_bin", "wealth_noIRA")
+Model_noBMIcov_6 = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
+Model_noBMIcov_7 = c( "continious_age", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
+Model_noBMIcov_8 = c( "continious_age", "alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin", "hypertension_new_bin")
+Model_noBMIcov_9 = c("continious_age", "CVD")
+Model_noBMIcov_10 = c( "continious_age", "CVD", "hypertension_new_bin")
+Model_noBMIcov_11 = c( "continious_age", "CVD","alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin")
+Model_noBMIcov_12 = c( "continious_age", "CVD","alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin", "hypertension_new_bin")
+Model_noBMIcov_13 = c( "continious_age", "checklist_depression_bin")
+Model_noBMIcov_14 = c( "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin")
+Model_noBMIcov_15 = c( "continious_age", "hypertension_new_bin", "checklist_depression_bin")
+Model_noBMIcov_16 = c( "continious_age", "hypertension_new_bin", "CVD", "checklist_depression_bin")
+Model_noBMIcov_17 = c("continious_age", "hypertension_new_bin", "CVD", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin")
+
+#self-reported
+female_dataset = subset_sort(subset_var = "sex_1_2", 
+                                      subset_value = 2) 
+
+#self-reported
+national_origin_dataset = subset_sort(subset_var = "national_origin_ousideUS_bin", 
+                                      subset_value = 1) 
+
+#self-reported
+race_dataset = subset_sort(subset_var = "race_white", 
+                           subset_value = 0) 
+
+#self-reported
+religion_datset = subset_sort(subset_var = "religion_bin", 
+                              subset_value = 1) 
+
+#objectively measured weight and height from which the BMi was calculated
+BMI_dataset = subset_sort_BMI(subset_var = "assessed_BMI", 
+                                 subset_value = 30) 
+
+###### run all models for female 
+female_Model_1_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_1, 
+                                                             Model_name = "Model_1")
 
 
-###### run all models for religion other than protestant or catholic 
-religion_Model_1_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+female_Model_2_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_2, 
+                                                             Model_name = "Model_2")
+
+
+female_Model_3_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_3)
+
+
+
+female_Model_4_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_4)
+
+
+
+female_Model_5_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_5)
+
+
+female_Model_6_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_6)
+
+
+female_Model_7_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_7)
+
+
+
+female_Model_8_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_8)
+
+
+female_Model_9_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                             Model_n = Model_9)
+
+
+female_Model_10_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_10)
+
+
+female_Model_11_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_11)
+
+
+female_Model_12_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_12)
+
+
+female_Model_13_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_13)
+
+
+female_Model_14_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_14)
+
+female_Model_15_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_15)
+
+female_Model_16_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_16)
+
+
+female_Model_17_discrim_bin = discrim_bin_model_func(data_wce_subset = female_datset, 
+                                                              Model_n = Model_17)
+
+female_results_discrim_bin = rbind(female_Model_1_discrim_bin,
+                                            female_Model_2_discrim_bin,
+                                            female_Model_3_discrim_bin,
+                                            female_Model_4_discrim_bin,
+                                            female_Model_5_discrim_bin,
+                                            female_Model_6_discrim_bin,
+                                            female_Model_7_discrim_bin,
+                                            female_Model_8_discrim_bin,
+                                            female_Model_9_discrim_bin,
+                                            female_Model_10_discrim_bin,
+                                            female_Model_11_discrim_bin,
+                                            female_Model_12_discrim_bin,
+                                            female_Model_13_discrim_bin,
+                                            female_Model_14_discrim_bin,
+                                            female_Model_15_discrim_bin,
+                                            female_Model_16_discrim_bin,
+                                            female_Model_17_discrim_bin)
+
+write.csv(female_results_discrim_bin, paste(OUTPUT_ROOT, "female_results_discrim_bin.csv", sep=""))
+
+
+
+female_results_discrim_bin_table_col= cbind(female_Model_1_discrim_bin,
+                                   female_Model_2_discrim_bin,
+                                   female_Model_3_discrim_bin,
+                                   female_Model_4_discrim_bin,
+                                   female_Model_5_discrim_bin,
+                                   female_Model_6_discrim_bin,
+                                   female_Model_7_discrim_bin,
+                                   female_Model_8_discrim_bin,
+                                   female_Model_9_discrim_bin,
+                                   female_Model_10_discrim_bin,
+                                   female_Model_11_discrim_bin,
+                                   female_Model_12_discrim_bin,
+                                   female_Model_13_discrim_bin,
+                                   female_Model_14_discrim_bin,
+                                   female_Model_15_discrim_bin,
+                                   female_Model_16_discrim_bin,
+                                   female_Model_17_discrim_bin)
+
+write.csv(female_results_discrim_bin_table_col, paste(OUTPUT_ROOT, "female_results_discrim_bin_table_col.csv", sep=""))
+
+
+#############
+
+###### run all models for national_origin 
+national_origin_Model_1_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_1, 
                                                       Model_name = "Model_1")
 
 
-religion_Model_2_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_2_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_2, 
                                                       Model_name = "Model_2")
 
 
-religion_Model_3_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_3_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_3)
 
 
 
-religion_Model_4_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_4_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_4)
 
 
 
-religion_Model_5_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_5_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_5)
 
 
-religion_Model_6_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_6_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_6)
 
 
-religion_Model_7_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_7_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_7)
 
 
 
-religion_Model_8_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_8_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_8)
 
 
-religion_Model_9_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
+national_origin_Model_9_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                       Model_n = Model_9)
 
 
-religion_Model_10_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                      subset_value = 1, 
-                                                      Model_n = Model_10)
+national_origin_Model_10_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
+                                                       Model_n = Model_10)
 
 
-religion_Model_11_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                       subset_value = 1, 
+national_origin_Model_11_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                        Model_n = Model_11)
 
 
-religion_Model_12_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                       subset_value = 1, 
+national_origin_Model_12_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                        Model_n = Model_12)
 
 
-religion_Model_13_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                       subset_value = 1, 
+national_origin_Model_13_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                        Model_n = Model_13)
 
 
-religion_Model_14_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                       subset_value = 1, 
+national_origin_Model_14_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                        Model_n = Model_14)
 
-religion_Model_15_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                       subset_value = 1, 
+national_origin_Model_15_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                        Model_n = Model_15)
 
-religion_Model_16_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                       subset_value = 1, 
+national_origin_Model_16_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                        Model_n = Model_16)
 
 
-religion_Model_17_discrim_bin = discrim_bin_model_func(subset_var = "religion_bin", 
-                                                       subset_value = 1, 
+national_origin_Model_17_discrim_bin = discrim_bin_model_func(data_wce_subset = national_origin_datset, 
                                                        Model_n = Model_17)
+
+national_origin_results_discrim_bin = rbind(national_origin_Model_1_discrim_bin,
+                                 national_origin_Model_2_discrim_bin,
+                                 national_origin_Model_3_discrim_bin,
+                                 national_origin_Model_4_discrim_bin,
+                                 national_origin_Model_5_discrim_bin,
+                                 national_origin_Model_6_discrim_bin,
+                                 national_origin_Model_7_discrim_bin,
+                                 national_origin_Model_8_discrim_bin,
+                                 national_origin_Model_9_discrim_bin,
+                                 national_origin_Model_10_discrim_bin,
+                                 national_origin_Model_11_discrim_bin,
+                                 national_origin_Model_12_discrim_bin,
+                                 national_origin_Model_13_discrim_bin,
+                                 national_origin_Model_14_discrim_bin,
+                                 national_origin_Model_15_discrim_bin,
+                                 national_origin_Model_16_discrim_bin,
+                                 national_origin_Model_17_discrim_bin)
+
+write.csv(national_origin_results_discrim_bin, paste(OUTPUT_ROOT, "national_origin_results_discrim_bin.csv", sep=""))
+
+
+national_origin_results_discrim_bin_table_col = cbind(national_origin_Model_1_discrim_bin,
+                                            national_origin_Model_2_discrim_bin,
+                                            national_origin_Model_3_discrim_bin,
+                                            national_origin_Model_4_discrim_bin,
+                                            national_origin_Model_5_discrim_bin,
+                                            national_origin_Model_6_discrim_bin,
+                                            national_origin_Model_7_discrim_bin,
+                                            national_origin_Model_8_discrim_bin,
+                                            national_origin_Model_9_discrim_bin,
+                                            national_origin_Model_10_discrim_bin,
+                                            national_origin_Model_11_discrim_bin,
+                                            national_origin_Model_12_discrim_bin,
+                                            national_origin_Model_13_discrim_bin,
+                                            national_origin_Model_14_discrim_bin,
+                                            national_origin_Model_15_discrim_bin,
+                                            national_origin_Model_16_discrim_bin,
+                                            national_origin_Model_17_discrim_bin)
+
+write.csv(national_origin_results_discrim_bin_table_col, paste(OUTPUT_ROOT, "national_origin_results_discrim_bin_table_col.csv", sep=""))
+
+
+#############
+
+
+###### run all models for race other than white
+race_Model_1_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_1, 
+                                                      Model_name = "Model_1")
+
+
+race_Model_2_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_2, 
+                                                      Model_name = "Model_2")
+
+
+race_Model_3_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_3)
+
+
+
+race_Model_4_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_4)
+
+
+
+race_Model_5_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_5)
+
+
+race_Model_6_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_6)
+
+
+race_Model_7_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_7)
+
+
+
+race_Model_8_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_8)
+
+
+race_Model_9_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                      Model_n = Model_9)
+
+
+race_Model_10_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_10)
+
+
+race_Model_11_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_11)
+
+
+race_Model_12_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_12)
+
+
+race_Model_13_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_13)
+
+
+race_Model_14_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_14)
+
+race_Model_15_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_15)
+
+race_Model_16_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_16)
+
+
+race_Model_17_discrim_bin = discrim_bin_model_func(data_wce_subset = race_datset, 
+                                                       Model_n = Model_17)
+
+race_results_discrim_bin = rbind(race_Model_1_discrim_bin,
+                                     race_Model_2_discrim_bin,
+                                     race_Model_3_discrim_bin,
+                                     race_Model_4_discrim_bin,
+                                     race_Model_5_discrim_bin,
+                                     race_Model_6_discrim_bin,
+                                     race_Model_7_discrim_bin,
+                                     race_Model_8_discrim_bin,
+                                     race_Model_9_discrim_bin,
+                                     race_Model_10_discrim_bin,
+                                     race_Model_11_discrim_bin,
+                                     race_Model_12_discrim_bin,
+                                     race_Model_13_discrim_bin,
+                                     race_Model_14_discrim_bin,
+                                     race_Model_15_discrim_bin,
+                                     race_Model_16_discrim_bin,
+                                     race_Model_17_discrim_bin)
+
+write.csv(race_results_discrim_bin, paste(OUTPUT_ROOT, "race_results_discrim_bin.csv", sep=""))
+
+
+race_results_discrim_bin_table_col = cbind(race_Model_1_discrim_bin,
+                                 race_Model_2_discrim_bin,
+                                 race_Model_3_discrim_bin,
+                                 race_Model_4_discrim_bin,
+                                 race_Model_5_discrim_bin,
+                                 race_Model_6_discrim_bin,
+                                 race_Model_7_discrim_bin,
+                                 race_Model_8_discrim_bin,
+                                 race_Model_9_discrim_bin,
+                                 race_Model_10_discrim_bin,
+                                 race_Model_11_discrim_bin,
+                                 race_Model_12_discrim_bin,
+                                 race_Model_13_discrim_bin,
+                                 race_Model_14_discrim_bin,
+                                 race_Model_15_discrim_bin,
+                                 race_Model_16_discrim_bin,
+                                 race_Model_17_discrim_bin)
+
+write.csv(race_results_discrim_bin_table_col, paste(OUTPUT_ROOT, "race_results_discrim_bin_table_col.csv", sep=""))
+
+###### run all models for religion other than protestant or catholic 
+religion_Model_1_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_1, 
+                                                      Model_name = "Model_1")
+
+
+religion_Model_2_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_2, 
+                                                      Model_name = "Model_2")
+
+
+religion_Model_3_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_3)
+
+
+
+religion_Model_4_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_4)
+
+
+
+religion_Model_5_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_5)
+
+
+religion_Model_6_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_6)
+
+
+religion_Model_7_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_7)
+
+
+
+religion_Model_8_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_8)
+
+
+religion_Model_9_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                      Model_n = Model_9)
+
+
+religion_Model_10_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_10)
+
+
+religion_Model_11_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_11)
+
+
+religion_Model_12_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_12)
+
+
+religion_Model_13_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_13)
+
+
+religion_Model_14_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_14)
+
+religion_Model_15_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_15)
+
+religion_Model_16_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_16)
+
+
+religion_Model_17_discrim_bin = discrim_bin_model_func(data_wce_subset = religion_datset, 
+                                                       Model_n = Model_17)
+
+religion_results_discrim_bin = rbind(religion_Model_1_discrim_bin,
+                                     religion_Model_2_discrim_bin,
+                                     religion_Model_3_discrim_bin,
+                                     religion_Model_4_discrim_bin,
+                                     religion_Model_5_discrim_bin,
+                                     religion_Model_6_discrim_bin,
+                                     religion_Model_7_discrim_bin,
+                                     religion_Model_8_discrim_bin,
+                                     religion_Model_9_discrim_bin,
+                                     religion_Model_10_discrim_bin,
+                                     religion_Model_11_discrim_bin,
+                                     religion_Model_12_discrim_bin,
+                                     religion_Model_13_discrim_bin,
+                                     religion_Model_14_discrim_bin,
+                                     religion_Model_15_discrim_bin,
+                                     religion_Model_16_discrim_bin,
+                                     religion_Model_17_discrim_bin)
+
+write.csv(religion_results_discrim_bin, paste(OUTPUT_ROOT, "religion_results_discrim_bin.csv", sep=""))
+
+
+religion_results_discrim_bin_table_col = cbind(religion_Model_1_discrim_bin,
+                                     religion_Model_2_discrim_bin,
+                                     religion_Model_3_discrim_bin,
+                                     religion_Model_4_discrim_bin,
+                                     religion_Model_5_discrim_bin,
+                                     religion_Model_6_discrim_bin,
+                                     religion_Model_7_discrim_bin,
+                                     religion_Model_8_discrim_bin,
+                                     religion_Model_9_discrim_bin,
+                                     religion_Model_10_discrim_bin,
+                                     religion_Model_11_discrim_bin,
+                                     religion_Model_12_discrim_bin,
+                                     religion_Model_13_discrim_bin,
+                                     religion_Model_14_discrim_bin,
+                                     religion_Model_15_discrim_bin,
+                                     religion_Model_16_discrim_bin,
+                                     religion_Model_17_discrim_bin)
+
+write.csv(religion_results_discrim_bin_table_col, paste(OUTPUT_ROOT, "religion_results_discrim_bin_table_col.csv", sep=""))
+
+#############
+
+
+###### run all models for BMI_datset 
+BMI_Model_1_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_1, 
+                                                    Model_name = "Model_1")
+
+
+BMI_Model_2_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_2, 
+                                                    Model_name = "Model_2")
+
+
+BMI_Model_3_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_3)
+
+
+
+BMI_Model_4_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_4)
+
+
+
+BMI_Model_5_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_5)
+
+
+BMI_Model_6_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_6)
+
+
+BMI_Model_7_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_7)
+
+
+
+BMI_Model_8_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_8)
+
+
+BMI_Model_9_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_9)
+
+
+BMI_Model_10_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_10)
+
+
+BMI_Model_11_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_11)
+
+
+BMI_Model_12_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_12)
+
+
+BMI_Model_13_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_13)
+
+
+BMI_Model_14_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_14)
+
+BMI_Model_15_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_15)
+
+BMI_Model_16_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_16)
+
+
+BMI_Model_17_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                     Model_n = Model_17)
+
+BMI_results_discrim_bin = rbind(BMI_Model_1_discrim_bin,
+                                   BMI_Model_2_discrim_bin,
+                                   BMI_Model_3_discrim_bin,
+                                   BMI_Model_4_discrim_bin,
+                                   BMI_Model_5_discrim_bin,
+                                   BMI_Model_6_discrim_bin,
+                                   BMI_Model_7_discrim_bin,
+                                   BMI_Model_8_discrim_bin,
+                                   BMI_Model_9_discrim_bin,
+                                   BMI_Model_10_discrim_bin,
+                                   BMI_Model_11_discrim_bin,
+                                   BMI_Model_12_discrim_bin,
+                                   BMI_Model_13_discrim_bin,
+                                   BMI_Model_14_discrim_bin,
+                                   BMI_Model_15_discrim_bin,
+                                   BMI_Model_16_discrim_bin,
+                                   BMI_Model_17_discrim_bin)
+
+write.csv(BMI_results_discrim_bin, paste(OUTPUT_ROOT, "BMI_results_discrim_bin.csv", sep=""))
+
+BMI_results_discrim_bin_table_col = cbind(BMI_Model_1_discrim_bin,
+                                BMI_Model_2_discrim_bin,
+                                BMI_Model_3_discrim_bin,
+                                BMI_Model_4_discrim_bin,
+                                BMI_Model_5_discrim_bin,
+                                BMI_Model_6_discrim_bin,
+                                BMI_Model_7_discrim_bin,
+                                BMI_Model_8_discrim_bin,
+                                BMI_Model_9_discrim_bin,
+                                BMI_Model_10_discrim_bin,
+                                BMI_Model_11_discrim_bin,
+                                BMI_Model_12_discrim_bin,
+                                BMI_Model_13_discrim_bin,
+                                BMI_Model_14_discrim_bin,
+                                BMI_Model_15_discrim_bin,
+                                BMI_Model_16_discrim_bin,
+                                BMI_Model_17_discrim_bin)
+
+write.csv(BMI_results_discrim_bin_table_col, paste(OUTPUT_ROOT, "BMI_results_discrim_bin_table_col.csv", sep=""))
+#############
+
+
+
+###### run all models for BMI_datset 
+BMI_Model_noBMIcov_1_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                    Model_n = Model_noBMIcov_1, 
+                                                    Model_name = "Model_noBMIcov_1")
+
+
+BMI_Model_noBMIcov_2_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_2, 
+                                                 Model_name = "Model_noBMIcov_2")
+
+
+BMI_Model_noBMIcov_3_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_3)
+
+
+
+BMI_Model_noBMIcov_4_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_4)
+
+
+
+BMI_Model_noBMIcov_5_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_5)
+
+
+BMI_Model_noBMIcov_6_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_6)
+
+
+BMI_Model_noBMIcov_7_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_7)
+
+
+
+BMI_Model_noBMIcov_8_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_8)
+
+
+BMI_Model_noBMIcov_9_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                 Model_n = Model_noBMIcov_9)
+
+
+BMI_Model_noBMIcov_10_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_10)
+
+
+BMI_Model_noBMIcov_11_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_11)
+
+
+BMI_Model_noBMIcov_12_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_12)
+
+
+BMI_Model_noBMIcov_13_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_13)
+
+
+BMI_Model_noBMIcov_14_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_14)
+
+BMI_Model_noBMIcov_15_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_15)
+
+BMI_Model_noBMIcov_16_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_noBMIcov_16)
+
+
+BMI_Model_noBMIcov_17_discrim_bin = discrim_bin_model_func(data_wce_subset = BMI_datset, 
+                                                  Model_n = Model_noBMIcov_17)
+
+BMI_results_discrim_bin_noBMIcov = rbind(BMI_Model_noBMIcov_1_discrim_bin,
+                                BMI_Model_noBMIcov_2_discrim_bin,
+                                BMI_Model_noBMIcov_3_discrim_bin,
+                                BMI_Model_noBMIcov_4_discrim_bin,
+                                BMI_Model_noBMIcov_5_discrim_bin,
+                                BMI_Model_noBMIcov_6_discrim_bin,
+                                BMI_Model_noBMIcov_7_discrim_bin,
+                                BMI_Model_noBMIcov_8_discrim_bin,
+                                BMI_Model_noBMIcov_9_discrim_bin,
+                                BMI_Model_noBMIcov_10_discrim_bin,
+                                BMI_Model_noBMIcov_11_discrim_bin,
+                                BMI_Model_noBMIcov_12_discrim_bin,
+                                BMI_Model_noBMIcov_13_discrim_bin,
+                                BMI_Model_noBMIcov_14_discrim_bin,
+                                BMI_Model_noBMIcov_15_discrim_bin,
+                                BMI_Model_noBMIcov_16_discrim_bin,
+                                BMI_Model_noBMIcov_17_discrim_bin)
+
+write.csv(BMI_results_discrim_bin_noBMIcov, paste(OUTPUT_ROOT, "BMI_results_discrim_bin_noBMIcov.csv", sep=""))
+
+
+
+BMI_results_discrim_bin_noBMIcov_table_col = cbind(BMI_Model_noBMIcov_1_discrim_bin,
+                                         BMI_Model_noBMIcov_2_discrim_bin,
+                                         BMI_Model_noBMIcov_3_discrim_bin,
+                                         BMI_Model_noBMIcov_4_discrim_bin,
+                                         BMI_Model_noBMIcov_5_discrim_bin,
+                                         BMI_Model_noBMIcov_6_discrim_bin,
+                                         BMI_Model_noBMIcov_7_discrim_bin,
+                                         BMI_Model_noBMIcov_8_discrim_bin,
+                                         BMI_Model_noBMIcov_9_discrim_bin,
+                                         BMI_Model_noBMIcov_10_discrim_bin,
+                                         BMI_Model_noBMIcov_11_discrim_bin,
+                                         BMI_Model_noBMIcov_12_discrim_bin,
+                                         BMI_Model_noBMIcov_13_discrim_bin,
+                                         BMI_Model_noBMIcov_14_discrim_bin,
+                                         BMI_Model_noBMIcov_15_discrim_bin,
+                                         BMI_Model_noBMIcov_16_discrim_bin,
+                                         BMI_Model_noBMIcov_17_discrim_bin)
+
+write.csv(BMI_results_discrim_bin_noBMIcov_table_col, paste(OUTPUT_ROOT, "BMI_results_discrim_bin_noBMIcov_table_col.csv", sep=""))
