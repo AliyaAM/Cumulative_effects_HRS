@@ -130,7 +130,7 @@ WCE_dataset_BMI$diabetes_new_bin = case_when(WCE_dataset_BMI$diabetes_new == 1 ~
 
 WCE_dataset_BMI = WCE_dataset_BMI %>% drop_na(diabetes_new_bin)
 unique(WCE_dataset_BMI$diabetes_new_bin)
-
+nrow(WCE_dataset_BMI)
 
 WCE_dataset_BMI = WCE_dataset_BMI %>% drop_na(discrim_harassed_bin)
 

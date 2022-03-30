@@ -714,60 +714,48 @@ HRS2016_data$heartattack_ever_bin = case_when(HRS2016_data$heartattack_ever == 1
 
 
 HRS2008_data$smokes_ever_bin = case_when(HRS2008_data$smokes_ever == 1 ~ 1, 
-                                             HRS2008_data$smokes_ever == 5 ~ 0,
-                                             HRS2008_data$smokes_ever == 3 ~ 1)
+                                             HRS2008_data$smokes_ever == 0 ~ 0)
 
 
 HRS2010_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
-                                             HRS2010_data$smokes_ever == 5 ~ 0,
-                                             HRS2010_data$smokes_ever == 3 ~ 1)
+                                         HRS2010_data$smokes_ever == 0 ~ 0)
 
 
-HRS2012_data$smokes_ever_bin = case_when(HRS2012_data$smokes_ever == 1 ~ 1, 
-                                             HRS2012_data$smokes_ever == 5 ~ 0,
-                                             HRS2012_data$smokes_ever == 3 ~ 1)
+HRS2012_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
+                                         HRS2010_data$smokes_ever == 0 ~ 0)
 
 
-HRS2014_data$smokes_ever_bin = case_when(HRS2014_data$smokes_ever == 1 ~ 1, 
-                                             HRS2014_data$smokes_ever == 5 ~ 0,
-                                             HRS2014_data$smokes_ever == 3 ~ 1)
+HRS2014_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
+                                         HRS2010_data$smokes_ever == 0 ~ 0)
 
-HRS2016_data$smokes_ever_bin = case_when(HRS2016_data$smokes_ever == 1 ~ 1, 
-                                             HRS2016_data$smokes_ever == 5 ~ 0,
-                                             HRS2016_data$smokes_ever == 3 ~ 1)
+HRS2016_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
+                                         HRS2010_data$smokes_ever == 0 ~ 0)
 
-HRS2018_data$smokes_ever_bin = case_when(HRS2018_data$smokes_ever == 1 ~ 1, 
-                                             HRS2018_data$smokes_ever == 5 ~ 0,
-                                             HRS2018_data$smokes_ever == 3 ~ 1)
+HRS2018_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
+                                         HRS2010_data$smokes_ever == 0 ~ 0)
 
 
 
-HRS2008_data$smokes_now_bin = case_when(HRS2008_data$smokes_now == 1 ~ 1, 
-                                         HRS2008_data$smokes_now == 5 ~ 0,
-                                         HRS2008_data$smokes_now == 3 ~ 1)
+HRS2008_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
+                                        HRS2010_data$smokes_now == 0 ~ 0)
 
 
 HRS2010_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
-                                         HRS2010_data$smokes_now == 5 ~ 0,
-                                         HRS2010_data$smokes_now == 3 ~ 1)
+                                        HRS2010_data$smokes_now == 0 ~ 0)
 
 
-HRS2012_data$smokes_now_bin = case_when(HRS2012_data$smokes_now == 1 ~ 1, 
-                                         HRS2012_data$smokes_now == 5 ~ 0,
-                                         HRS2012_data$smokes_now == 3 ~ 1)
+HRS2012_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
+                                        HRS2010_data$smokes_now == 0 ~ 0)
 
 
-HRS2014_data$smokes_now_bin = case_when(HRS2014_data$smokes_now == 1 ~ 1, 
-                                         HRS2014_data$smokes_now == 5 ~ 0,
-                                         HRS2014_data$smokes_now == 3 ~ 1)
+HRS2014_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
+                                        HRS2010_data$smokes_now == 0 ~ 0)
 
-HRS2016_data$smokes_now_bin = case_when(HRS2016_data$smokes_now == 1 ~ 1, 
-                                         HRS2016_data$smokes_now == 5 ~ 0,
-                                         HRS2016_data$smokes_now == 3 ~ 1)
+HRS2016_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
+                                        HRS2010_data$smokes_now == 0 ~ 0)
 
-HRS2018_data$smokes_now_bin = case_when(HRS2018_data$smokes_now == 1 ~ 1, 
-                                         HRS2018_data$smokes_now == 5 ~ 0,
-                                         HRS2018_data$smokes_now == 3 ~ 1)
+HRS2018_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
+                                        HRS2010_data$smokes_now == 0 ~ 0)
 
 
 
