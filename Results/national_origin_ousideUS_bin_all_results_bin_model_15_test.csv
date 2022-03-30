@@ -1,0 +1,7 @@
+"","variable","hazard ratio","5% CI","95% CI"
+"HR_CI1vs0_lower","harassed",NA,NA,NA
+"HR_CI1vs0_lower1","less respect",2.87755973740897,5.22656365271405e-07,5849165.77339404
+"HR_CI1vs0_lower2","medical",NA,NA,NA
+"HR_CI1vs0_lower3","not clever",2.52942004397066,4.38905616751445e-07,18180991.6761652
+"HR_CI1vs0_lower4","poorer service",2.86938469599999,3.16870375518998e-09,11198032.523233
+"HR_CI1vs0_lower5","afraid others",1.0661067700927,1.88898448384505e-06,21.7024712990924

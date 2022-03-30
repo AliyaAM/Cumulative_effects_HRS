@@ -296,7 +296,7 @@ national_origin_ousideUS_bin_discrim_harassed_bin_age = summary_score_WCE_analys
                                                                                    #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                    #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                                    #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                   c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                  c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 #covariates_list = c("assessed_BMI", "continious_age", "alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin", "hypertension_new_bin"))
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
@@ -308,7 +308,7 @@ national_origin_ousideUS_bin_discrim_harassed_bin_age = summary_score_WCE_analys
 
 national_origin_ousideUS_bin_discrim_harassed_bin_age_HR = national_origin_ousideUS_bin_discrim_harassed_bin_age[1]
 
-national_origin_ousideUS_bin_discrim_harassed_bin_model_10_stats_recoded = national_origin_ousideUS_bin_discrim_harassed_bin_age[2]
+national_origin_ousideUS_bin_discrim_harassed_bin_model_15_stats_recoded = national_origin_ousideUS_bin_discrim_harassed_bin_age[2]
 
 
 unique(data_wce_national_origin_ousideUS_bin$continious_age)
@@ -325,7 +325,7 @@ national_origin_ousideUS_bin_discrim_harassed_bin_age_CI  = summary_score_Bootst
                                                                                           #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                           #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                                           #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                          c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                         c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 #covariates_list = c("assessed_BMI", "continious_age", "alcohol_days_week_new",  "vigarious_physical_activity_new", "smokes_now_bin", "hypertension_new_bin"))
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
@@ -336,7 +336,7 @@ national_origin_ousideUS_bin_discrim_harassed_bin_age_CI  = summary_score_Bootst
 #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_bin_discrim_harassed_bin_model_10_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_overal_discrim_model_10_stats_recoded.csv", sep=""))
+write.csv(national_origin_ousideUS_bin_discrim_harassed_bin_model_15_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_overal_discrim_model_15_stats_recoded.csv", sep=""))
 
 
 national_origin_ousideUS_bin_discrim_harassed_bin_age_HR = unlist(national_origin_ousideUS_bin_discrim_harassed_bin_age_HR)
@@ -375,7 +375,7 @@ national_origin_ousideUS_bin_discrim_lessrespect_bin_age = summary_score_WCE_ana
                                                                                       #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin"))
                                                                                       #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                       #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                      c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                     c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')) 
 
@@ -388,7 +388,7 @@ national_origin_ousideUS_bin_discrim_lessrespect_bin_age = summary_score_WCE_ana
 
 national_origin_ousideUS_bin_discrim_lessrespect_bin_age_HR = national_origin_ousideUS_bin_discrim_lessrespect_bin_age[1]
 
-national_origin_ousideUS_bin_discrim_lessrespect_bin_model_10_stats_recoded = national_origin_ousideUS_bin_discrim_lessrespect_bin_age[2]
+national_origin_ousideUS_bin_discrim_lessrespect_bin_model_15_stats_recoded = national_origin_ousideUS_bin_discrim_lessrespect_bin_age[2]
 
 
 ######## bootstrapped CIs for the HRs from the above model 
@@ -401,7 +401,7 @@ national_origin_ousideUS_bin_discrim_lessrespect_bin_age_CI  = summary_score_Boo
                                                                                              #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin"))
                                                                                              #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                              #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                             c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                            c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')) 
 
@@ -411,7 +411,7 @@ national_origin_ousideUS_bin_discrim_lessrespect_bin_age_CI  = summary_score_Boo
 #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_bin_discrim_lessrespect_bin_model_10_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_lessrespect_bin_model_10_stats_recoded.csv", sep=""))
+write.csv(national_origin_ousideUS_bin_discrim_lessrespect_bin_model_15_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_lessrespect_bin_model_15_stats_recoded.csv", sep=""))
 
 
 national_origin_ousideUS_bin_discrim_lessrespect_bin_age_HR = unlist(national_origin_ousideUS_bin_discrim_lessrespect_bin_age_HR)
@@ -448,7 +448,7 @@ national_origin_ousideUS_bin_discrim_medical_bin_age = summary_score_WCE_analysi
                                                                                   #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin"))
                                                                                   #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                   #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                  c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                 c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')) 
 
@@ -458,7 +458,7 @@ national_origin_ousideUS_bin_discrim_medical_bin_age = summary_score_WCE_analysi
 
 national_origin_ousideUS_bin_discrim_medical_bin_age_HR = national_origin_ousideUS_bin_discrim_medical_bin_age[1]
 
-national_origin_ousideUS_bin_discrim_medical_bin_model_10_stats_recoded = national_origin_ousideUS_bin_discrim_medical_bin_age[2]
+national_origin_ousideUS_bin_discrim_medical_bin_model_15_stats_recoded = national_origin_ousideUS_bin_discrim_medical_bin_age[2]
 
 
 
@@ -472,7 +472,7 @@ national_origin_ousideUS_bin_discrim_medical_bin_age_CI  = summary_score_Bootstr
                                                                                          #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin"))
                                                                                          #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                          #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                         c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                        c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
 
@@ -482,7 +482,7 @@ national_origin_ousideUS_bin_discrim_medical_bin_age_CI  = summary_score_Bootstr
 
 #covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_bin_discrim_medical_bin_model_10_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_medical_bin_model_10_stats_recoded.csv", sep=""))
+write.csv(national_origin_ousideUS_bin_discrim_medical_bin_model_15_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_medical_bin_model_15_stats_recoded.csv", sep=""))
 
 
 
@@ -518,7 +518,7 @@ national_origin_ousideUS_bin_discrim_notclever_bin_age = summary_score_WCE_analy
                                                                                     #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                     #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                                     #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                    c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                   c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
 
@@ -528,7 +528,7 @@ national_origin_ousideUS_bin_discrim_notclever_bin_age = summary_score_WCE_analy
 
 national_origin_ousideUS_bin_discrim_notclever_bin_age_HR = national_origin_ousideUS_bin_discrim_notclever_bin_age[1]
 
-national_origin_ousideUS_bin_discrim_notclever_bin_model_10_stats_recoded = national_origin_ousideUS_bin_discrim_notclever_bin_age[2]
+national_origin_ousideUS_bin_discrim_notclever_bin_model_15_stats_recoded = national_origin_ousideUS_bin_discrim_notclever_bin_age[2]
 
 
 
@@ -543,7 +543,7 @@ national_origin_ousideUS_bin_discrim_notclever_bin_age_CI  = summary_score_Boots
                                                                                            #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                            #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                                            #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                           c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                          c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
 
@@ -553,7 +553,7 @@ national_origin_ousideUS_bin_discrim_notclever_bin_age_CI  = summary_score_Boots
 #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_bin_discrim_notclever_bin_model_10_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_notclever_bin_model_10_stats_recoded.csv", sep=""))
+write.csv(national_origin_ousideUS_bin_discrim_notclever_bin_model_15_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_notclever_bin_model_15_stats_recoded.csv", sep=""))
 
 
 
@@ -591,7 +591,7 @@ national_origin_ousideUS_bin_discrim_poorerservice_bin_age = summary_score_WCE_a
                                                                                         #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                         #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                                         #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                        c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                       c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
 
@@ -603,7 +603,7 @@ national_origin_ousideUS_bin_discrim_poorerservice_bin_age = summary_score_WCE_a
 
 national_origin_ousideUS_bin_discrim_poorerservice_bin_age_HR = national_origin_ousideUS_bin_discrim_poorerservice_bin_age[1]
 
-national_origin_ousideUS_bin_discrim_poorerservice_bin_model_10_stats_recoded = national_origin_ousideUS_bin_discrim_poorerservice_bin_age[2]
+national_origin_ousideUS_bin_discrim_poorerservice_bin_model_15_stats_recoded = national_origin_ousideUS_bin_discrim_poorerservice_bin_age[2]
 
 
 
@@ -618,7 +618,7 @@ national_origin_ousideUS_bin_discrim_poorerservice_bin_age_CI  = summary_score_B
                                                                                                #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                                #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                                                #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                               c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                              c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
 
 #covariates_list = c("assessed_BMI", "continious_age", "hypertension_new_bin", "wealth_noIRA"))
@@ -627,7 +627,7 @@ national_origin_ousideUS_bin_discrim_poorerservice_bin_age_CI  = summary_score_B
 #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_bin_discrim_poorerservice_bin_model_10_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_poorerservice_bin_model_10_stats_recoded.csv", sep=""))
+write.csv(national_origin_ousideUS_bin_discrim_poorerservice_bin_model_15_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_discrim_poorerservice_bin_model_15_stats_recoded.csv", sep=""))
 
 
 
@@ -661,7 +661,7 @@ national_origin_ousideUS_bin_afraid_others_age = summary_score_WCE_analysis(data
                                                                             #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                             #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                             #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                            c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                           c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
 
@@ -671,7 +671,7 @@ national_origin_ousideUS_bin_afraid_others_age = summary_score_WCE_analysis(data
 
 national_origin_ousideUS_bin_afraid_others_age_HR = national_origin_ousideUS_bin_afraid_others_age[1]
 
-national_origin_ousideUS_bin_afraid_others_model_10_stats_recoded = national_origin_ousideUS_bin_afraid_others_age[2]
+national_origin_ousideUS_bin_afraid_others_model_15_stats_recoded = national_origin_ousideUS_bin_afraid_others_age[2]
 
 
 
@@ -686,7 +686,7 @@ national_origin_ousideUS_bin_afraid_others_age_CI  = summary_score_Bootstrapped_
                                                                                    #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
                                                                                    #covariates_list = c("assessed_BMI", "continious_age", "checklist_depression_bin", "hypertension_new_bin"))
                                                                                    #covariates_list = c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin", "checklist_depression_bin"))
-                                                                                   c("assessed_BMI", "continious_age", "CVD", "hypertension_new_bin")) 
+                                                                                  c("assessed_BMI", "continious_age", "hypertension_new_bin", "checklist_depression_bin")) 
 
 #covariates_list = c("alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin'))
 
@@ -696,7 +696,7 @@ national_origin_ousideUS_bin_afraid_others_age_CI  = summary_score_Bootstrapped_
 #covariates_list = c("assessed_BMI", "continious_age", "wealth_noIRA"))
 #covariates_list = c("continious_age"))
 
-write.csv(national_origin_ousideUS_bin_afraid_others_model_10_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_afraid_others_model_10_stats_recoded.csv", sep=""))
+write.csv(national_origin_ousideUS_bin_afraid_others_model_15_stats_recoded, paste(OUTPUT_ROOT, "stats/national_origin_ousideUS_bin_afraid_others_model_15_stats_recoded.csv", sep=""))
 
 
 
@@ -714,7 +714,7 @@ variable = #c("summary mean score",
 
 national_origin_ousideUS_bin_all_results  = cbind(variable, national_origin_ousideUS_bin_all_results)
 
-write.csv(national_origin_ousideUS_bin_all_results, paste(OUTPUT_ROOT, "national_origin_ousideUS_bin_all_results_bin_model_10_test.csv", sep=""))
+write.csv(national_origin_ousideUS_bin_all_results, paste(OUTPUT_ROOT, "national_origin_ousideUS_bin_all_results_bin_model_15_test.csv", sep=""))
 
 ########
 ########
