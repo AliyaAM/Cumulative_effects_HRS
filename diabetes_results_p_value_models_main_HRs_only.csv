@@ -1,0 +1,181 @@
+,subset,variable,hazard.ratio,X5..CI,X95..CI,SE,z_value,p_value
+1,Female model 4,harassed,1.06,0.42,1.95,0.39,2.73,0.0065
+2,Female model 4,less respect,1.28,1.00,1.69,0.18,7.30,0.0000
+3,Female model 4,medical,NA,0.51,2.43,0.49,NA,NA
+4,Female model 4,not clever,NA,1.13,1.86,0.19,NA,NA
+5,Female model 4,poorer service,1.69,1.11,2.57,0.37,4.53,0.0000
+6,Female model 4,afraid others,NA,0.20,0.95,0.19,NA,NA
+7,Female model 7,harassed,1.90,0.30,6.46,1.57,1.21,0.2281
+8,Female model 7,less respect,2.20,0.80,5.17,1.12,1.97,0.0490
+9,Female model 7,medical,3.89,0.96,21.72,5.30,0.73,0.4717
+10,Female model 7,not clever,2.76,1.38,7.04,1.44,1.91,0.0560
+11,Female model 7,poorer service,2.59,1.13,5.36,1.08,2.40,0.0164
+12,Female model 7,afraid others,2.68,1.09,7.59,1.66,1.62,0.1058
+13,Female model 9,harassed,NA,0.00,12.03,3.07,NA,NA
+14,Female model 9,less respect,2.27,1.09,5.02,1.00,2.27,0.0230
+15,Female model 9,medical,4.05,1.64,15.57,3.55,1.14,0.2572
+16,Female model 9,not clever,1.20,0.54,2.83,0.58,2.06,0.0394
+17,Female model 9,poorer service,1.26,0.37,3.80,0.88,1.44,0.1500
+18,Female model 9,afraid others,0.69,0.00,3.23,0.82,0.84,0.4072
+19,Female model 13,harassed,1.10,0.76,1.77,0.26,4.31,0.0000
+20,Female model 13,less respect,1.30,1.04,1.58,0.14,9.42,0.0000
+21,Female model 13,medical,1.66,1.11,2.58,0.38,4.41,0.0000
+22,Female model 13,not clever,1.50,1.20,1.75,0.14,10.65,0.0000
+23,Female model 13,poorer service,1.50,1.19,1.88,0.18,8.52,0.0000
+24,Female model 13,afraid others,1.28,0.92,1.78,0.22,5.82,0.0000
+25,Female model 14,harassed,1.80,0.28,5.55,1.34,1.34,0.1820
+26,Female model 14,less respect,1.95,0.86,4.73,0.99,1.97,0.0480
+27,Female model 14,medical,3.63,0.98,14.57,3.47,1.05,0.2984
+28,Female model 14,not clever,2.65,1.24,5.32,1.04,2.55,0.0106
+29,Female model 14,poorer service,2.29,0.72,5.22,1.15,1.99,0.0461
+30,Female model 14,afraid others,2.79,0.99,5.69,1.20,2.33,0.0195
+31,Female model 16,harassed,NA,NA,NA,NA,NA,NA
+32,Female model 16,less respect,1.83,0.49,5.29,1.22,1.49,0.1355
+33,Female model 16,medical,7.71,0.00,17.93,4.57,1.69,0.0917
+34,Female model 16,not clever,1.09,0.41,3.06,0.67,1.62,0.1049
+35,Female model 16,poorer service,1.58,0.34,4.64,1.09,1.44,0.1496
+36,Female model 16,afraid others,0.00,0.00,0.00,0.00,2.44,0.0146
+37,race model 4,harassed,NA,0.90,2.07,0.30,NA,NA
+38,race model 4,less respect,NA,0.82,1.29,0.12,NA,NA
+39,race model 4,medical,NA,1.01,2.13,0.29,NA,NA
+40,race model 4,not clever,NA,0.91,1.49,0.15,NA,NA
+41,race model 4,poorer service,NA,0.81,1.49,0.17,NA,NA
+42,race model 4,afraid others,NA,0.89,1.70,0.21,NA,NA
+43,race model 7,harassed,0.94,0.00,4.21,1.07,0.88,0.3857
+44,race model 7,less respect,1.06,0.41,2.97,0.65,1.63,0.1034
+45,race model 7,medical,6.75,0.57,32.13,8.05,0.84,0.4091
+46,race model 7,not clever,1.59,0.53,3.53,0.76,2.08,0.0376
+47,race model 7,poorer service,1.46,0.39,4.28,0.99,1.48,0.1404
+48,race model 7,afraid others,1.63,0.45,5.91,1.39,1.17,0.2442
+49,race model 9,harassed,0.00,0.00,0.00,0.00,2.33,0.0199
+50,race model 9,less respect,0.56,0.17,1.52,0.34,1.61,0.1064
+51,race model 9,medical,1.28,0.00,31.03,7.92,0.16,0.8805
+52,race model 9,not clever,0.55,0.20,1.35,0.29,1.86,0.0623
+53,race model 9,poorer service,0.83,0.00,3.11,0.79,1.05,0.2987
+54,race model 9,afraid others,0.44,0.00,1.87,0.48,0.93,0.3588
+55,race model 13,harassed,1.07,0.58,1.74,0.30,3.59,0.0004
+56,race model 13,less respect,0.96,0.68,1.25,0.14,6.63,0.0000
+57,race model 13,medical,1.15,0.69,1.93,0.32,3.63,0.0003
+58,race model 13,not clever,1.10,0.85,1.40,0.14,7.88,0.0000
+59,race model 13,poorer service,1.03,0.71,1.31,0.15,6.76,0.0000
+60,race model 13,afraid others,1.14,0.80,1.66,0.22,5.17,0.0000
+61,race model 14,harassed,0.92,0.00,4.30,1.10,0.84,0.4072
+62,race model 14,less respect,1.04,0.30,2.84,0.65,1.59,0.1109
+63,race model 14,medical,6.15,1.27,27.21,6.62,0.93,0.3586
+64,race model 14,not clever,1.53,0.58,3.14,0.66,2.33,0.0197
+65,race model 14,poorer service,1.34,0.35,3.14,0.71,1.88,0.0603
+66,race model 14,afraid others,1.65,0.34,4.62,1.09,1.51,0.1308
+67,race model 16,harassed,NA,NA,NA,NA,NA,NA
+68,race model 16,less respect,1.01,0.16,10.63,2.67,0.38,0.7187
+69,race model 16,medical,NA,NA,NA,NA,NA,NA
+70,race model 16,not clever,0.69,0.00,3.26,0.83,0.83,0.4153
+71,race model 16,poorer service,0.99,0.00,11.78,3.00,0.33,0.7557
+72,race model 16,afraid others,NA,0.00,0.00,0.00,NA,NA
+73,national origin 4,harassed,NA,NA,NA,NA,NA,NA
+74,national origin 4,less respect,2.80,0.00,15063211.11,3842655.90,0.00,1.0000
+75,national origin 4,medical,NA,NA,NA,NA,NA,NA
+76,national origin 4,not clever,NA,0.00,24499874.65,6249968.02,NA,NA
+77,national origin 4,poorer service,3.11,0.00,405.61,103.47,0.03,0.9783
+78,national origin 4,afraid others,NA,0.00,292366.68,74583.34,NA,NA
+79,national origin 7,harassed,NA,1.00,1.00,0.00,NA,NA
+80,national origin 7,less respect,NA,1.00,1.00,0.00,NA,NA
+81,national origin 7,medical,NA,1.00,1.00,0.00,NA,NA
+82,national origin 7,not clever,NA,1.00,1.00,0.00,NA,NA
+83,national origin 7,poorer service,NA,1.00,1.00,0.00,NA,NA
+84,national origin 7,afraid others,NA,1.00,1.00,0.00,NA,NA
+85,national origin 9,harassed,NA,NA,NA,NA,NA,NA
+86,national origin 9,less respect,NA,NA,NA,NA,NA,NA
+87,national origin 9,medical,NA,NA,NA,NA,NA,NA
+88,national origin 9,not clever,NA,NA,NA,NA,NA,NA
+89,national origin 9,poorer service,NA,NA,NA,NA,NA,NA
+90,national origin 9,afraid others,NA,NA,NA,NA,NA,NA
+91,national origin 13,harassed,0.00,0.00,0.00,0.00,0.32,0.7604
+92,national origin 13,less respect,1.45,0.00,10.43,2.66,0.55,0.5973
+93,national origin 13,medical,NA,NA,NA,NA,NA,NA
+94,national origin 13,not clever,1.88,0.00,19.59,5.00,0.38,0.7192
+95,national origin 13,poorer service,0.76,0.00,12.88,3.29,0.23,0.8278
+96,national origin 13,afraid others,0.64,0.00,17.54,4.47,0.14,0.8941
+97,national origin 14,harassed,NA,1.00,1.00,0.00,NA,NA
+98,national origin 14,less respect,NA,1.00,1.00,0.00,NA,NA
+99,national origin 14,medical,NA,1.00,1.00,0.00,NA,NA
+100,national origin 14,not clever,NA,1.00,1.00,0.00,NA,NA
+101,national origin 14,poorer service,NA,1.00,1.00,0.00,NA,NA
+102,national origin 14,afraid others,NA,1.00,1.00,0.00,NA,NA
+103,national origin 16,harassed,NA,1.00,1.00,0.00,NA,NA
+104,national origin 16,less respect,NA,1.00,1.00,0.00,NA,NA
+105,national origin 16,medical,NA,1.00,1.00,0.00,NA,NA
+106,national origin 16,not clever,NA,1.00,1.00,0.00,NA,NA
+107,national origin 16,poorer service,NA,1.00,1.00,0.00,NA,NA
+108,national origin 16,afraid others,NA,1.00,1.00,0.00,NA,NA
+109,religion model 4,harassed,0.00,0.00,0.00,0.00,1.05,0.2977
+110,religion model 4,less respect,4.86,0.34,27.73,6.99,0.70,0.4963
+111,religion model 4,medical,NA,0.00,0.00,0.00,NA,NA
+112,religion model 4,not clever,NA,0.00,18.53,4.73,NA,NA
+113,religion model 4,poorer service,1.91,0.00,8.81,2.25,0.85,0.4037
+114,religion model 4,afraid others,NA,0.00,0.00,0.00,NA,NA
+115,religion model 7,harassed,1038197480780.80,22023403676.62,186062363102013.00,47459270331208.30,0.02,0.9842
+116,religion model 7,less respect,0.00,0.00,0.00,0.00,0.00,0.9999
+117,religion model 7,medical,NA,NA,NA,NA,NA,NA
+118,religion model 7,not clever,4582112725.41,20.14,61498707012.62,15688445661.35,0.29,0.7828
+119,religion model 7,poorer service,NA,NA,NA,NA,NA,NA
+120,religion model 7,afraid others,5150342685.76,259424510.89,40179213308563.20,10249733133686.80,0.00,0.9996
+121,religion model 9,harassed,NA,NA,NA,NA,NA,NA
+122,religion model 9,less respect,161429505.52,456923.84,8955366928.66,2284415817.56,0.07,0.9486
+123,religion model 9,medical,NA,NA,NA,NA,NA,NA
+124,religion model 9,not clever,137983870.06,153978639.77,2961084224.07,716098363.34,0.19,0.8576
+125,religion model 9,poorer service,125285719.60,61575138.85,1590144429.37,389941145.54,0.32,0.7609
+126,religion model 9,afraid others,NA,NA,NA,NA,NA,NA
+127,religion model 13,harassed,1.31,0.12,4.42,1.10,1.20,0.2341
+128,religion model 13,less respect,1.25,0.50,2.36,0.48,2.63,0.0085
+129,religion model 13,medical,1.55,0.00,10.36,2.64,0.59,0.5681
+130,religion model 13,not clever,1.94,0.73,4.44,0.95,2.05,0.0398
+131,religion model 13,poorer service,0.86,0.17,2.06,0.48,1.78,0.0739
+132,religion model 13,afraid others,1.89,0.63,5.11,1.14,1.66,0.0966
+133,religion model 14,harassed,979553450876.19,152996462535.44,79137808408742.00,20149186720971.10,0.05,0.9648
+134,religion model 14,less respect,0.00,0.00,0.00,0.00,0.03,0.9759
+135,religion model 14,medical,NA,NA,NA,NA,NA,NA
+136,religion model 14,not clever,4418970049.10,0.00,40383086980.87,10301807903.28,0.43,0.6811
+137,religion model 14,poorer service,NA,NA,NA,NA,NA,NA
+138,religion model 14,afraid others,4743562561.76,1189615685.57,5355989516037.49,1366020382742.84,0.00,0.9975
+139,religion model 16,harassed,NA,NA,NA,NA,NA,NA
+140,religion model 16,less respect,NA,NA,NA,NA,NA,NA
+141,religion model 16,medical,NA,NA,NA,NA,NA,NA
+142,religion model 16,not clever,NA,NA,NA,NA,NA,NA
+143,religion model 16,poorer service,NA,NA,NA,NA,NA,NA
+144,religion model 16,afraid others,NA,NA,NA,NA,NA,NA
+145,BMI model 4,harassed,1.65,0.88,3.07,0.56,2.95,0.0032
+146,BMI model 4,less respect,1.53,1.14,2.02,0.22,6.80,0.0000
+147,BMI model 4,medical,NA,0.56,2.35,0.46,NA,NA
+148,BMI model 4,not clever,NA,1.07,1.89,0.21,NA,NA
+149,BMI model 4,poorer service,1.47,1.01,2.00,0.25,5.81,0.0000
+150,BMI model 4,afraid others,NA,0.37,1.18,0.21,NA,NA
+151,BMI model 7,harassed,0.62,0.00,1.92,0.49,1.27,0.2069
+152,BMI model 7,less respect,0.95,0.34,2.18,0.47,2.03,0.0425
+153,BMI model 7,medical,1.87,0.29,7.22,1.77,1.05,0.2956
+154,BMI model 7,not clever,1.49,0.40,2.96,0.65,2.28,0.0223
+155,BMI model 7,poorer service,1.01,0.29,2.90,0.66,1.52,0.1281
+156,BMI model 7,afraid others,1.65,0.47,4.98,1.15,1.44,0.1508
+157,BMI model 9,harassed,NA,0.00,0.00,0.00,NA,NA
+158,BMI model 9,less respect,0.45,0.00,4.54,1.16,0.39,0.7082
+159,BMI model 9,medical,NA,0.00,0.00,0.00,NA,NA
+160,BMI model 9,not clever,0.55,0.00,12.80,3.27,0.17,0.8748
+161,BMI model 9,poorer service,7.90,2.18,18.83,4.25,1.86,0.0624
+162,BMI model 9,afraid others,0.49,0.00,9.55,2.44,0.20,0.8514
+163,BMI model 13,harassed,1.15,0.81,1.64,0.21,5.47,0.0000
+164,BMI model 13,less respect,1.42,1.21,1.74,0.14,10.49,0.0000
+165,BMI model 13,medical,1.61,1.06,2.14,0.28,5.81,0.0000
+166,BMI model 13,not clever,1.38,1.11,1.58,0.12,11.40,0.0000
+167,BMI model 13,poorer service,1.27,0.95,1.53,0.15,8.60,0.0000
+168,BMI model 13,afraid others,1.24,0.93,1.55,0.16,7.90,0.0000
+169,BMI model 14,harassed,0.61,0.00,3.38,0.86,0.71,0.4866
+170,BMI model 14,less respect,0.89,0.24,2.26,0.52,1.72,0.0846
+171,BMI model 14,medical,1.73,0.40,7.21,1.74,1.00,0.3233
+172,BMI model 14,not clever,1.49,0.58,3.90,0.85,1.76,0.0788
+173,BMI model 14,poorer service,0.97,0.27,3.20,0.75,1.30,0.1943
+174,BMI model 14,afraid others,1.62,0.50,5.58,1.30,1.25,0.2135
+175,BMI model 16,harassed,NA,NA,NA,NA,NA,NA
+176,BMI model 16,less respect,1.55,0.64,4.69,1.03,1.50,0.1345
+177,BMI model 16,medical,5.85,2.81,10.71,2.02,2.90,0.0037
+178,BMI model 16,not clever,2.87,1.07,6.07,1.27,2.25,0.0239
+179,BMI model 16,poorer service,1.95,0.48,5.56,1.30,1.51,0.1319
+180,BMI model 16,afraid others,3.20,1.57,6.71,1.31,2.44,0.0145
