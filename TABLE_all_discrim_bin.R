@@ -1,3 +1,4 @@
+SOURCE_ROOT =  "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/"
 OUTPUT_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/"
 
 female_results_discrim_bin = read.csv(paste(OUTPUT_ROOT, "female_results_discrim_bin.csv", sep=""))
@@ -59,3 +60,42 @@ colnames(diabetes_results_discrim_bin) = c("subset",
                                           "p_value")
 
 write.csv(diabetes_results_discrim_bin, paste(OUTPUT_ROOT, "diabetes_results_p_value_discrim_bin.csv", sep=""))
+
+
+TABLE_1 = read.csv(paste(SOURCE_ROOT, "diabetes_results_p_value_discrim_bin_HRs_only.csv", sep=""))
+
+model_1_result = subset(TABLE_1, TABLE_1$Model == 1)
+model_2_result = subset(TABLE_1, TABLE_1$Model == 2)
+model_3_result = subset(TABLE_1, TABLE_1$Model == 3)
+model_4_result = subset(TABLE_1, TABLE_1$Model == 4)
+model_5_result = subset(TABLE_1, TABLE_1$Model == 5)
+model_6_result = subset(TABLE_1, TABLE_1$Model == 6)
+model_7_result = subset(TABLE_1, TABLE_1$Model == 7)
+model_8_result = subset(TABLE_1, TABLE_1$Model == 8)
+model_9_result = subset(TABLE_1, TABLE_1$Model == 9)
+model_10_result = subset(TABLE_1, TABLE_1$Model == 10)
+model_11_result = subset(TABLE_1, TABLE_1$Model == 11)
+model_12_result = subset(TABLE_1, TABLE_1$Model == 12)
+model_13_result = subset(TABLE_1, TABLE_1$Model == 13)
+model_14_result = subset(TABLE_1, TABLE_1$Model == 14)
+model_15_result = subset(TABLE_1, TABLE_1$Model == 15)
+model_16_result = subset(TABLE_1, TABLE_1$Model == 16)
+model_17_result = subset(TABLE_1, TABLE_1$Model == 17)
+
+TABLE_1_main_models = cbind(model_1_result,
+                            model_2_result,
+                            model_3_result, 
+                            model_4_result,
+               
+                            model_7_result,
+                            model_9_result,
+                      
+                            model_12_result,
+                            model_13_result,
+                            model_14_result,
+                            model_15_result,
+                            model_16_result,
+                            model_17_result)
+
+
+write.csv(TABLE_1_main_models, paste(OUTPUT_ROOT, "TABLE_1_main_models.csv", sep=""))
