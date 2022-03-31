@@ -49,7 +49,7 @@
 #################################### ######## ########################################################################
 
 
-subset_sort = function (subset_var, subset_value){
+subset_sort_BMI = function (subset_var, subset_value){
   
   
   
