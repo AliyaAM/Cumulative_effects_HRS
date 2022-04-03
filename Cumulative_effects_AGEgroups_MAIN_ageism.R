@@ -106,7 +106,6 @@ Model_noBMIcov_17 = c("continious_age", "hypertension_new_bin", "CVD", "checklis
 
 #self-reported
 #HRS2008_data_subset = subset(HRS2008_data, HRS2008_data[ , subset_var1] >= subset_value1 | HRS2008_data[ , subset_var2] <= subset_value2)
-
 # 1 group 
 age50_60yrs_dataset = subset_sort_AGEgroups(subset_var1 = "continious_age", 
                                     subset_value1 = 50, 
