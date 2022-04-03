@@ -121,7 +121,7 @@ age60_70yrs_dataset = subset_sort_AGEgroups(subset_var1 = "continious_age",
 
 
 # 3 group 
-age70_80_dataset = subset_sort_AGEgroups(subset_var1 = "continious_age", 
+age70_80yrs_dataset = subset_sort_AGEgroups(subset_var1 = "continious_age", 
                                             subset_value1 = 71, 
                                             subset_var2 = "continious_age", 
                                             subset_value2 = 80) 

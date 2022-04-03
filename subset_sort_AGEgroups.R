@@ -109,17 +109,17 @@ subset_sort_AGEgroups = function (subset_var1, subset_value1, subset_var2, subse
   # # # # subset the data set to those with subset
   # # # # subset the data set to those with subset
   
-  HRS2008_data_subset = subset(HRS2008_data, HRS2008_data[ , subset_var1] >= subset_value1 | HRS2008_data[ , subset_var2] <= subset_value2)
+  HRS2008_data_subset = subset(HRS2008_data, HRS2008_data[ , subset_var1] >= subset_value1 & HRS2008_data[ , subset_var2] <= subset_value2)
   
-  HRS2010_data_subset  = subset(HRS2010_data, HRS2010_data[ , subset_var1] >= subset_value1 | HRS2010_data[ , subset_var2] <= subset_value2)
+  HRS2010_data_subset  = subset(HRS2010_data, HRS2010_data[ , subset_var1] >= subset_value1 & HRS2010_data[ , subset_var2] <= subset_value2)
   
-  HRS2012_data_subset  = subset(HRS2012_data, HRS2012_data[ , subset_var1] >= subset_value1 | HRS2012_data[ , subset_var2] <= subset_value2)
+  HRS2012_data_subset  = subset(HRS2012_data, HRS2012_data[ , subset_var1] >= subset_value1 & HRS2012_data[ , subset_var2] <= subset_value2)
   
-  HRS2014_data_subset  = subset(HRS2014_data, HRS2014_data[ , subset_var1] >= subset_value1 | HRS2014_data[ , subset_var2] <= subset_value2)
+  HRS2014_data_subset  = subset(HRS2014_data, HRS2014_data[ , subset_var1] >= subset_value1 & HRS2014_data[ , subset_var2] <= subset_value2)
   
-  HRS2016_data_subset  = subset(HRS2016_data, HRS2016_data[ , subset_var1] >= subset_value1 | HRS2016_data[ , subset_var2] <= subset_value2)
+  HRS2016_data_subset  = subset(HRS2016_data, HRS2016_data[ , subset_var1] >= subset_value1 & HRS2016_data[ , subset_var2] <= subset_value2)
   
-  HRS2018_data_subset  = subset(HRS2018_data, HRS2018_data[ , subset_var1] >= subset_value1 | HRS2018_data[ , subset_var2] <= subset_value2)
+  HRS2018_data_subset  = subset(HRS2018_data, HRS2018_data[ , subset_var1] >= subset_value1 & HRS2018_data[ , subset_var2] <= subset_value2)
   
   
   WCE_dataset_subset = rbind(HRS2008_data_subset,
