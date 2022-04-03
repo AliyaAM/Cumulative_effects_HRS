@@ -109,6 +109,8 @@ age50_60yrs_dataset$reason_discrim1_reason_race
 age50_60yrs_dataset$reason_discrim1_reason_religion
 age50_60yrs_dataset$reason_discrim1_reason_weight
 
+unique(age50_60yrs_dataset$diabetes_new_bin)
+
 #age50_60yrs_dataset$reason_discrim1_reason_age is in a separate file
 
 female_dataset = subset_sort_version_2(subset_var1 = "sex_1_2", 
