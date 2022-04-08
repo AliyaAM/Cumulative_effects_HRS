@@ -65,7 +65,7 @@ head(HRS2014_data$HHIDPN)
 
 #ead HRS all waves harmonised data:
 harmonised_data_all_waves = read.csv(paste(SOURCE_ROOT, "H_HRS_c.csv", sep=""))
-cross_waves = read.csv(paste(SOURCE_ROOT, "cross_waves_march2022.csv", sep=""))
+cross_waves = read.csv(paste(SOURCE_ROOT, "cross_waves_correct_april2022.csv", sep=""))
 
 #### subset harmonised data to the IDs in other files: 
 
@@ -147,6 +147,47 @@ HRS2018_data_RAND  = subset(HRS2018_data_RAND, HHIDPN %in% HRS2018_data$HHIDPN)
 ########################################################################
 
 
+
+
+##### ##### diabetes new 
+HRS2008_data$diabetes_new = cross_waves_2008$diabetes_new_2008
+HRS2010_data$diabetes_new = cross_waves_2010$diabetes_new_2010
+
+
+#HRS2012_data$HRS2012_diabetes_new: R11DIABS, R11DIAB, R11DIABQ, r11diabs
+cross_waves$diabetes_new_1992
+
+HRS2012_data$diabetes_new = cross_waves_2012$diabetes_new_2012
+#HRS2012_data$diabetes_new = HRS2012_data$HRS2012_diabetes_new
+
+#HRS2014_data$HRS2014_diabetes_new: R12DIABS, RAXDIAB
+HRS2014_data$diabetes_new = cross_waves_2014$diabetes_new_2014
+#HRS2014_data$diabetes_new = HRS2014_data$HRS2014_diabetes_new 
+
+#HRS2016_data$HRS2016_diabetes_new R13DIABS
+HRS2016_data$diabetes_new = cross_waves_2016$diabetes_new_2016
+#HRS2016_data$diabetes_new = HRS2016_data$HRS2016_diabetes_new
+
+#HRS 2018 diabetes sine last wave, new diabetes: R14DIABS
+HRS2018_data$diabetes_new = cross_waves_2018$diabetes_new_2018
+#HRS2018_data$diabetes_new = HRS2018_data$HRS2018_diabetes_new 
+
+##########
+##########
+#diabetes_thisWave
+HRS2008_data$diabetes_thisWave = cross_waves_2008$diabetes_thisWave_2008
+
+HRS2010_data$diabetes_thisWave = cross_waves_2010$diabetes_thisWave_2010
+
+HRS2012_data$diabetes_thisWave = cross_waves_2012$diabetes_thisWave_2012
+
+HRS2014_data$diabetes_thisWave = cross_waves_2014$diabetes_thisWave_2014
+
+HRS2016_data$diabetes_thisWave = cross_waves_2016$diabetes_thisWave_2016
+
+HRS2018_data$diabetes_thisWave = cross_waves_2018$diabetes_thisWave_2018
+
+########
 
 ##### ##### ##### physical activity 
 
@@ -471,28 +512,7 @@ HRS2016_data$hypertension_new = HRS2016_data$HRS2016_hypertension_new
 HRS2018_data$HRS2018_hypertension_ever = HRS2018_data_RAND$C005
 HRS2018_data$hypertension_ever = HRS2018_data$HRS2018_hypertension_ever 
 
-##### ##### diabetes new 
-HRS2008_data$diabetes_new = cross_waves_2008$diabetes_new_2008
-HRS2010_data$diabetes_new = cross_waves_2010$diabetes_new_2010
 
-
-#HRS2012_data$HRS2012_diabetes_new: R11DIABS, R11DIAB, R11DIABQ, r11diabs
-cross_waves$diabetes_new_1992
-
-HRS2012_data$diabetes_new = cross_waves_2012$diabetes_new_2012
-#HRS2012_data$diabetes_new = HRS2012_data$HRS2012_diabetes_new
-
-#HRS2014_data$HRS2014_diabetes_new: R12DIABS, RAXDIAB
-HRS2014_data$diabetes_new = cross_waves_2014$diabetes_new_2014
-#HRS2014_data$diabetes_new = HRS2014_data$HRS2014_diabetes_new 
-
-#HRS2016_data$HRS2016_diabetes_new R13DIABS
-HRS2016_data$diabetes_new = cross_waves_2016$diabetes_new_2016
-#HRS2016_data$diabetes_new = HRS2016_data$HRS2016_diabetes_new
-
-#HRS 2018 diabetes sine last wave, new diabetes: R14DIABS
-HRS2018_data$diabetes_new = cross_waves_2018$diabetes_new_2018
-#HRS2018_data$diabetes_new = HRS2018_data$HRS2018_diabetes_new 
 
 
 #######
@@ -1082,12 +1102,12 @@ HRS2018_data$assessed_BMI = HRS2018_data$assessed_BMI_2018
 
 
 
-write.csv(HRS2008_data, paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_march2022.csv", sep=""))
-write.csv(HRS2010_data, paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_march2022.csv", sep=""))
-write.csv(HRS2012_data, paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_march2022.csv", sep=""))
-write.csv(HRS2014_data, paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_march2022.csv", sep=""))
-write.csv(HRS2016_data, paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_march2022.csv", sep=""))
-write.csv(HRS2018_data, paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_march2022.csv", sep=""))
+write.csv(HRS2008_data, paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_correct_april2022.csv", sep=""))
+write.csv(HRS2010_data, paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_correct_april2022.csv", sep=""))
+write.csv(HRS2012_data, paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_correct_april2022.csv", sep=""))
+write.csv(HRS2014_data, paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_correct_april2022.csv", sep=""))
+write.csv(HRS2016_data, paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_correct_april2022.csv", sep=""))
+write.csv(HRS2018_data, paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_correct_april2022.csv", sep=""))
 
 
 print("add HRs_year to all var names, and also save the name without the HRS_year in the var name for the cumulative effects data analysis")

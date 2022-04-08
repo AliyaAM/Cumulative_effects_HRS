@@ -50,12 +50,12 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 #HRS2008_data$HRS2008
 
 
-HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_march2022.csv", sep=""))
-HRS2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_march2022.csv", sep=""))
-HRS2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_march2022.csv", sep=""))
-HRS2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_march2022.csv", sep=""))
-HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_march2022.csv", sep=""))
-HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_march2022.csv", sep=""))
+HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_discrimination_dataset_correct_april2022.csv", sep=""))
+HRS2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_discrimination_dataset_correct_april2022.csv", sep=""))
+HRS2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_discrimination_dataset_correct_april2022.csv", sep=""))
+HRS2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_discrimination_dataset_correct_april2022.csv", sep=""))
+HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_discrimination_dataset_correct_april2022.csv", sep=""))
+HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_discrimination_dataset_correct_april2022.csv", sep=""))
 
  
 
@@ -721,41 +721,41 @@ HRS2010_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1,
                                          HRS2010_data$smokes_ever == 0 ~ 0)
 
 
-HRS2012_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
-                                         HRS2010_data$smokes_ever == 0 ~ 0)
+HRS2012_data$smokes_ever_bin = case_when(HRS2012_data$smokes_ever == 1 ~ 1, 
+                                         HRS2012_data$smokes_ever == 0 ~ 0)
 
 
-HRS2014_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
-                                         HRS2010_data$smokes_ever == 0 ~ 0)
+HRS2014_data$smokes_ever_bin = case_when(HRS2014_data$smokes_ever == 1 ~ 1, 
+                                         HRS2014_data$smokes_ever == 0 ~ 0)
 
-HRS2016_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
-                                         HRS2010_data$smokes_ever == 0 ~ 0)
+HRS2016_data$smokes_ever_bin = case_when(HRS2016_data$smokes_ever == 1 ~ 1, 
+                                         HRS2016_data$smokes_ever == 0 ~ 0)
 
-HRS2018_data$smokes_ever_bin = case_when(HRS2010_data$smokes_ever == 1 ~ 1, 
-                                         HRS2010_data$smokes_ever == 0 ~ 0)
+HRS2018_data$smokes_ever_bin = case_when(HRS2018_data$smokes_ever == 1 ~ 1, 
+                                         HRS2018_data$smokes_ever == 0 ~ 0)
 
 
 
-HRS2008_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
-                                        HRS2010_data$smokes_now == 0 ~ 0)
+HRS2008_data$smokes_now_bin = case_when(HRS2008_data$smokes_now == 1 ~ 1, 
+                                        HRS2008_data$smokes_now == 0 ~ 0)
 
 
 HRS2010_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
                                         HRS2010_data$smokes_now == 0 ~ 0)
 
 
-HRS2012_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
-                                        HRS2010_data$smokes_now == 0 ~ 0)
+HRS2012_data$smokes_now_bin = case_when(HRS2012_data$smokes_now == 1 ~ 1, 
+                                        HRS2012_data$smokes_now == 0 ~ 0)
 
 
-HRS2014_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
-                                        HRS2010_data$smokes_now == 0 ~ 0)
+HRS2014_data$smokes_now_bin = case_when(HRS2014_data$smokes_now == 1 ~ 1, 
+                                        HRS2014_data$smokes_now == 0 ~ 0)
 
-HRS2016_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
-                                        HRS2010_data$smokes_now == 0 ~ 0)
+HRS2016_data$smokes_now_bin = case_when(HRS2016_data$smokes_now == 1 ~ 1, 
+                                        HRS2016_data$smokes_now == 0 ~ 0)
 
-HRS2018_data$smokes_now_bin = case_when(HRS2010_data$smokes_now == 1 ~ 1, 
-                                        HRS2010_data$smokes_now == 0 ~ 0)
+HRS2018_data$smokes_now_bin = case_when(HRS2018_data$smokes_now == 1 ~ 1, 
+                                        HRS2018_data$smokes_now == 0 ~ 0)
 
 
 
@@ -798,9 +798,9 @@ HRS2018_data = subset(HRS2018_data, HRS2018_data$continious_age >=50)
 
 
 
-write.csv(HRS2008_data, paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_data_discrimination_dataset_april_2022.csv", sep=""))
-write.csv(HRS2010_data, paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_data_discrimination_dataset_april_2022.csv", sep=""))
-write.csv(HRS2012_data, paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_data_discrimination_dataset_april_2022.csv", sep=""))
-write.csv(HRS2014_data, paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_data_discrimination_dataset_april_2022.csv", sep=""))
-write.csv(HRS2016_data, paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_data_discrimination_dataset_april_2022.csv", sep=""))
-write.csv(HRS2018_data, paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_data_discrimination_dataset_april_2022.csv", sep=""))
+write.csv(HRS2008_data, paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_data_discrimination_dataset_updated_2022.csv", sep=""))
+write.csv(HRS2010_data, paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_data_discrimination_dataset_updated_2022.csv", sep=""))
+write.csv(HRS2012_data, paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_data_discrimination_dataset_updated_2022.csv", sep=""))
+write.csv(HRS2014_data, paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_data_discrimination_dataset_updated_2022.csv", sep=""))
+write.csv(HRS2016_data, paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_data_discrimination_dataset_updated_2022.csv", sep=""))
+write.csv(HRS2018_data, paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_data_discrimination_dataset_updated_2022.csv", sep=""))

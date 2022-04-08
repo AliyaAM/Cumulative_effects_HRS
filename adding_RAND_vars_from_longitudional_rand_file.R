@@ -197,20 +197,36 @@ cross_waves$stroke_ever_2018 = RAND_HRS_longitudional_file$R14STROKE
 
 
 # diabetes this wave: 
-cross_waves$diabetes_new_1992 = RAND_HRS_longitudional_file$R1DIAB
-cross_waves$diabetes_new_1994 = RAND_HRS_longitudional_file$R2DIAB
-cross_waves$diabetes_new_1996 = RAND_HRS_longitudional_file$R3DIAB
-cross_waves$diabetes_new_1998 = RAND_HRS_longitudional_file$R4DIAB
-cross_waves$diabetes_new_2000 = RAND_HRS_longitudional_file$R5DIAB
-cross_waves$diabetes_new_2002 = RAND_HRS_longitudional_file$R6DIAB
-cross_waves$diabetes_new_2004 = RAND_HRS_longitudional_file$R7DIAB
-cross_waves$diabetes_new_2006 = RAND_HRS_longitudional_file$R8DIAB
-cross_waves$diabetes_new_2008 = RAND_HRS_longitudional_file$R9DIAB
-cross_waves$diabetes_new_2010 = RAND_HRS_longitudional_file$R10DIAB
-cross_waves$diabetes_new_2012 = RAND_HRS_longitudional_file$R11DIAB
-cross_waves$diabetes_new_2014 = RAND_HRS_longitudional_file$R12DIAB
-cross_waves$diabetes_new_2016 = RAND_HRS_longitudional_file$R13DIAB
-cross_waves$diabetes_new_2018 = RAND_HRS_longitudional_file$R14DIAB
+cross_waves$diabetes_thisWave_1992 = RAND_HRS_longitudional_file$R1DIAB
+cross_waves$diabetes_thisWave_1994 = RAND_HRS_longitudional_file$R2DIAB
+cross_waves$diabetes_thisWave_1996 = RAND_HRS_longitudional_file$R3DIAB
+cross_waves$diabetes_thisWave_1998 = RAND_HRS_longitudional_file$R4DIAB
+cross_waves$diabetes_thisWave_2000 = RAND_HRS_longitudional_file$R5DIAB
+cross_waves$diabetes_thisWave_2002 = RAND_HRS_longitudional_file$R6DIAB
+cross_waves$diabetes_thisWave_2004 = RAND_HRS_longitudional_file$R7DIAB
+cross_waves$diabetes_thisWave_2006 = RAND_HRS_longitudional_file$R8DIAB
+cross_waves$diabetes_thisWave_2008 = RAND_HRS_longitudional_file$R9DIAB
+cross_waves$diabetes_thisWave_2010 = RAND_HRS_longitudional_file$R10DIAB
+cross_waves$diabetes_thisWave_2012 = RAND_HRS_longitudional_file$R11DIAB
+cross_waves$diabetes_thisWave_2014 = RAND_HRS_longitudional_file$R12DIAB
+cross_waves$diabetes_thisWave_2016 = RAND_HRS_longitudional_file$R13DIAB
+cross_waves$diabetes_thisWave_2018 = RAND_HRS_longitudional_file$R14DIAB
+
+# diabetes this wave: 
+cross_waves$diabetes_new_1992 = RAND_HRS_longitudional_file$R1DIABS
+cross_waves$diabetes_new_1994 = RAND_HRS_longitudional_file$R2DIABS
+cross_waves$diabetes_new_1996 = RAND_HRS_longitudional_file$R3DIABS
+cross_waves$diabetes_new_1998 = RAND_HRS_longitudional_file$R4DIABS
+cross_waves$diabetes_new_2000 = RAND_HRS_longitudional_file$R5DIABS
+cross_waves$diabetes_new_2002 = RAND_HRS_longitudional_file$R6DIABS
+cross_waves$diabetes_new_2004 = RAND_HRS_longitudional_file$R7DIABS
+cross_waves$diabetes_new_2006 = RAND_HRS_longitudional_file$R8DIABS
+cross_waves$diabetes_new_2008 = RAND_HRS_longitudional_file$R9DIABS
+cross_waves$diabetes_new_2010 = RAND_HRS_longitudional_file$R10DIABS
+cross_waves$diabetes_new_2012 = RAND_HRS_longitudional_file$R11DIABS
+cross_waves$diabetes_new_2014 = RAND_HRS_longitudional_file$R12DIABS
+cross_waves$diabetes_new_2016 = RAND_HRS_longitudional_file$R13DIABS
+cross_waves$diabetes_new_2018 = RAND_HRS_longitudional_file$R14DIABS
 
 
 # diabetes ever
@@ -429,7 +445,7 @@ cross_waves$vigarious_physical_activity_2018 = RAND_HRS_longitudional_file$R14VG
 
 
 
-write.csv(cross_waves, paste(SOURCE_ROOT, "cross_waves_march2022.csv", sep=""))
+write.csv(cross_waves, paste(SOURCE_ROOT, "cross_waves_correct_april2022.csv", sep=""))
 
 head(cross_waves)
 

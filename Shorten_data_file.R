@@ -43,12 +43,12 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 #HRS2008_data$HRS2008
 
 
-HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_data_discrimination_dataset_april_2022.csv", sep=""))
-HRS2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_data_discrimination_dataset_april_2022.csv", sep=""))
-HRS2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_data_discrimination_dataset_april_2022.csv", sep=""))
-HRS2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_data_discrimination_dataset_april_2022.csv", sep=""))
-HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_data_discrimination_dataset_april_2022.csv", sep=""))
-HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_data_discrimination_dataset_april_2022.csv", sep=""))
+HRS2008_data = read.csv(paste(SOURCE_ROOT, "HRS_2008_data/HRS2008_data_discrimination_dataset_updated_2022.csv", sep=""))
+HRS2010_data = read.csv(paste(SOURCE_ROOT, "HRS_2010_data/HRS2010_data_discrimination_dataset_updated_2022.csv", sep=""))
+HRS2012_data = read.csv(paste(SOURCE_ROOT, "HRS_2012_data/HRS2012_data_discrimination_dataset_updated_2022.csv", sep=""))
+HRS2014_data = read.csv(paste(SOURCE_ROOT, "HRS_2014_data/HRS2014_data_discrimination_dataset_updated_2022.csv", sep=""))
+HRS2016_data = read.csv(paste(SOURCE_ROOT, "HRS_2016_data/HRS2016_data_discrimination_dataset_updated_2022.csv", sep=""))
+HRS2018_data = read.csv(paste(SOURCE_ROOT, "HRS_2018_data/HRS2018_data_discrimination_dataset_updated_2022.csv", sep=""))
 
 
 HRS2008_data$alcohol_days_week = rep(NA, times = nrow(HRS2008_data))
