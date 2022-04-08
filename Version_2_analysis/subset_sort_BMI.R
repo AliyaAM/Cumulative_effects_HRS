@@ -82,20 +82,7 @@ subset_sort_BMI = function (subset_var, subset_value){
   # subset 17: age, BMI, smoking, physical activity, alcohol consumption, CVD, hypertension, depression  (8)
   
   #"heartcondition_ever_bin", "heartcondition_new_bin", "angina_new_bin", "stroke_new_bin", "heartfailure2yrs_bin", "heartattack_ever_bin", "heartattack_new_bin"
-  HRS2008_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2008_data/HRS2008_data_short.csv", sep=""))
-  HRS2010_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2010_data/HRS2010_data_short.csv", sep=""))
-  HRS2012_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2012_data/HRS2012_data_short.csv", sep=""))
-  HRS2014_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2014_data/HRS2014_data_short.csv", sep=""))
-  HRS2016_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2016_data/HRS2016_data_short.csv", sep=""))
-  HRS2018_data = read.csv(paste(SOURCE_data_ROOT, "HRS_2018_data/HRS2018_data_short.csv", sep=""))
-  
-  
-  HRS2008_data = subset(HRS2008_data, HRS2008_data$diabetes_ever == 0)
-  HRS2010_data = subset(HRS2010_data, HRS2010_data$diabetes_ever == 0)
-  HRS2012_data = subset(HRS2012_data, HRS2012_data$diabetes_ever == 0)
-  HRS2014_data = subset(HRS2014_data, HRS2014_data$diabetes_ever == 0)
-  HRS2016_data = subset(HRS2016_data, HRS2016_data$diabetes_ever == 0)
-  HRS2018_data = subset(HRS2018_data, HRS2018_data$diabetes_ever == 0)
+
   
   
   unique(HRS2008_data$smokes_now_bin)
