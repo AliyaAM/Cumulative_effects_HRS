@@ -34,6 +34,7 @@ library(Hmisc)
 
 library("here")
 
+
 current_directory = here()
 
 
@@ -54,18 +55,19 @@ DATAIN_ROOT = (paste(current_directory, "/data_files/", sep=""))
 
 #/Users/aliyaamirova/proj/Cumulative_effects_HRS/Version_2_analysis
 source((paste(SOURCE_ROOT, "subset_func.R", sep="")))
+source((paste(SOURCE_ROOT, "clean_key_vars.R", sep="")))
   
-source((paste(SOURCE_ROOT, "subset_sort_BMI.R", sep="")))
+#source((paste(SOURCE_ROOT, "subset_sort_BMI.R", sep="")))
 #function that sorts out the data into a dataframe where each participant x wave pair is one row. Here I also add starting and stopping points to identify each wave
-source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
+#source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
 #function that runs WCE analysis
 #source((paste(SOURCE_ROOT, "WCE_analysis.R", sep="")))
 #function that runs WCE analysis
-source((paste(SOURCE_ROOT, "summary_score_WCE_analysis.R", sep="")))
+#source((paste(SOURCE_ROOT, "summary_score_WCE_analysis.R", sep="")))
 # function that samples bootstrapped CIs
-source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
+#source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 # function that runs WCE analysis and CIs sampling for a specified subset and with a specified model 
-source((paste(SOURCE_ROOT, "discrim_bin_model_func.R", sep="")))
+#source((paste(SOURCE_ROOT, "discrim_bin_model_func.R", sep="")))
 
 
 #Model 1: age and sex, wealth  [basis adjustment]
@@ -144,13 +146,25 @@ HRS2018_data_intermediate = subset(HRS2018_data_initial, HRS2018_data_initial$di
 race_dataset = subset_func(subset_var = "race_white", 
                                          subset_value = 0, 
                            
-                           
+                    
                            HRS2008_data = HRS2008_data_intermediate, 
                            HRS2010_data = HRS2010_data_intermediate, 
                            HRS2012_data = HRS2012_data_intermediate, 
                            HRS2014_data = HRS2014_data_intermediate, 
                            HRS2016_data = HRS2016_data_intermediate, 
                            HRS2018_data = HRS2018_data_intermediate) 
+
+
+race_dataset_clean = clean_key_vars(data = race_dataset)
+
+
+###### drop NAs and weird strings like " NA", THE WCE ANALYSIS DOES NOT RUN WITH NAs
+data = data %>% drop_na(discrim_bin)
+
+data = data %>% drop_na(diabetes_new_bin)
+unique(data$diabetes_new_bin)
+
+
 
 
 #######
