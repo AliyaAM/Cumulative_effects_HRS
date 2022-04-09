@@ -1,7 +1,16 @@
 
-Seven_models = function (subset_var,
-                         subset_value,
+Seven_models = function (subset_var1, 
+                         subset_value1, 
                          
+                         subset_BMI, 
+                         subset_BMI_value, 
+                         
+                         subset_var2, 
+                         subset_value2,
+                         
+                         
+                         subset_var3, 
+                         subset_value3,
                          exposure, 
                          
                          outcome, 
@@ -65,8 +74,19 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 
 
 
-dataset = clean_recode_sort(subset_var = subset_var, 
-                                 subset_value = subset_value, 
+dataset = clean_recode_sort(subset_var1, 
+                            subset_value1, 
+                            
+                            subset_BMI, 
+                            subset_BMI_value, 
+                            
+                            subset_var2, 
+                            subset_value2,
+                            
+                            
+                            subset_var3, 
+                            subset_value3,
+                            
                                  HRS2008_data = HRS2008_data,
                                  HRS2010_data = HRS2010_data, 
                                  HRS2012_data = HRS2012_data,
@@ -191,5 +211,7 @@ results_exposure_table_col = cbind(Model_1_exposure,
                                            Model_6_exposure,
                                            Model_7_exposure)
 
-return(results_exposure)
+
+
+return(params = c(results_exposure, results_exposure_table_col))
 }

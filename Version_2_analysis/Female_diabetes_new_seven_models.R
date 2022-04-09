@@ -93,20 +93,20 @@ HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
 
 
-HRS2008_data_intermediate$race_white = as.factor(HRS2008_data_intermediate$race_white)
-HRS2010_data_intermediate$race_white = as.factor(HRS2010_data_intermediate$race_white)
-HRS2012_data_intermediate$race_white = as.factor(HRS2012_data_intermediate$race_white)
-HRS2014_data_intermediate$race_white = as.factor(HRS2014_data_intermediate$race_white)
-HRS2016_data_intermediate$race_white = as.factor(HRS2016_data_intermediate$race_white)
-HRS2018_data_intermediate$race_white = as.factor(HRS2018_data_intermediate$race_white)
+HRS2008_data_intermediate$female_white = as.factor(HRS2008_data_intermediate$sex_1_2)
+HRS2010_data_intermediate$female_white = as.factor(HRS2010_data_intermediate$sex_1_2)
+HRS2012_data_intermediate$female_white = as.factor(HRS2012_data_intermediate$sex_1_2)
+HRS2014_data_intermediate$female_white = as.factor(HRS2014_data_intermediate$sex_1_2)
+HRS2016_data_intermediate$female_white = as.factor(HRS2016_data_intermediate$sex_1_2)
+HRS2018_data_intermediate$female_white = as.factor(HRS2018_data_intermediate$sex_1_2)
 
 
 
 #exposure = "discrim_bin", 
 #outcome = "diabetes_new_bin"
 
-race_discrim_bin_diabetes_new_7models = Seven_models(subset_var = "race_white", 
-                                                     subset_value = 0, 
+female_discrim_bin_diabetes_new_7models = Seven_models(subset_var = "sex_1_2", 
+                                                     subset_value = 2, 
                                                      HRS2008_data = HRS2008_data, 
                                                      HRS2010_data = HRS2010_data, 
                                                      HRS2012_data = HRS2012_data, 
@@ -119,7 +119,7 @@ race_discrim_bin_diabetes_new_7models = Seven_models(subset_var = "race_white",
 
 
 
-write.csv(race_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
+write.csv(female_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "female_discrim_bin_diabetes_new.csv", sep=""))
 
 
 

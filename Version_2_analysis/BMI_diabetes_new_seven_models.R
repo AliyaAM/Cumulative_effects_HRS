@@ -42,7 +42,7 @@ SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
 DATAIN_ROOT = (paste(current_directory, "/data_files/", sep="")) 
 
 
-# function that subsets and srts dataset for a particular var (eg., female == 1)
+# function that subsets and srts dataset for a particular var (eg., BMI == 1)
 
 #/Users/aliyaamirova/proj/Cumulative_effects_HRS/Version_2_analysis
 source((paste(SOURCE_ROOT, "subset_func.R", sep="")))
@@ -93,33 +93,43 @@ HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
 
 
-HRS2008_data_intermediate$race_white = as.factor(HRS2008_data_intermediate$race_white)
-HRS2010_data_intermediate$race_white = as.factor(HRS2010_data_intermediate$race_white)
-HRS2012_data_intermediate$race_white = as.factor(HRS2012_data_intermediate$race_white)
-HRS2014_data_intermediate$race_white = as.factor(HRS2014_data_intermediate$race_white)
-HRS2016_data_intermediate$race_white = as.factor(HRS2016_data_intermediate$race_white)
-HRS2018_data_intermediate$race_white = as.factor(HRS2018_data_intermediate$race_white)
+HRS2008_data_intermediate$BMI_white = as.factor(HRS2008_data_intermediate$sex_1_2)
+HRS2010_data_intermediate$BMI_white = as.factor(HRS2010_data_intermediate$sex_1_2)
+HRS2012_data_intermediate$BMI_white = as.factor(HRS2012_data_intermediate$sex_1_2)
+HRS2014_data_intermediate$BMI_white = as.factor(HRS2014_data_intermediate$sex_1_2)
+HRS2016_data_intermediate$BMI_white = as.factor(HRS2016_data_intermediate$sex_1_2)
+HRS2018_data_intermediate$BMI_white = as.factor(HRS2018_data_intermediate$sex_1_2)
 
 
 
 #exposure = "discrim_bin", 
 #outcome = "diabetes_new_bin"
 
-race_discrim_bin_diabetes_new_7models = Seven_models(subset_var = "race_white", 
-                                                     subset_value = 0, 
-                                                     HRS2008_data = HRS2008_data, 
-                                                     HRS2010_data = HRS2010_data, 
-                                                     HRS2012_data = HRS2012_data, 
-                                                     HRS2014_data = HRS2014_data, 
-                                                     HRS2016_data = HRS2016_data, 
-                                                     HRS2018_data = HRS2018_data, 
-                                                     exposure = "discrim_bin", 
-                                                     outcome = "diabetes_new") 
+BMI_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA", 
+                                                    subset_value1 = "NA", 
+                                                    
+                                                    subset_BMI = "assessed_BMI", 
+                                                    subset_BMI_value = 30, 
+                                                       
+                                                    subset_var2 = "NA", 
+                                                    subset_value2 = "NA", 
+                                                    
+                                                    subset_var3= "NA", 
+                                                    subset_value3 = "NA", 
+                                                    
+                                                    HRS2008_data = HRS2008_data, 
+                                                    HRS2010_data = HRS2010_data, 
+                                                    HRS2012_data = HRS2012_data, 
+                                                    HRS2014_data = HRS2014_data, 
+                                                    HRS2016_data = HRS2016_data, 
+                                                    HRS2018_data = HRS2018_data, 
+                                                    exposure = "discrim_bin", 
+                                                    outcome = "diabetes_new") 
 
 
 
 
-write.csv(race_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
+write.csv(BMI_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "BMI_discrim_bin_diabetes_new.csv", sep=""))
 
 
 

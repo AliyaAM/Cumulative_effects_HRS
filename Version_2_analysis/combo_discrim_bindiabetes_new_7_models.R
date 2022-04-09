@@ -42,12 +42,12 @@ SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
 DATAIN_ROOT = (paste(current_directory, "/data_files/", sep="")) 
 
 
-# function that subsets and srts dataset for a particular var (eg., female == 1)
+# function that subsets and srts dataset for a particular var (eg., combo == 1)
 
 #/Users/aliyaamirova/proj/Cumulative_effects_HRS/Version_2_analysis
 source((paste(SOURCE_ROOT, "subset_func.R", sep="")))
+
 source((paste(SOURCE_ROOT, "clean_recode_keyvars.R", sep="")))
-#source((paste(SOURCE_ROOT, "subset_sort_BMI.R", sep="")))
 
 #function that sorts out the data into a dataframe where each participant x wave pair is one row. Here I also add starting and stopping points to identify each wave
 source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
@@ -93,33 +93,42 @@ HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
 
 
-HRS2008_data_intermediate$race_white = as.factor(HRS2008_data_intermediate$race_white)
-HRS2010_data_intermediate$race_white = as.factor(HRS2010_data_intermediate$race_white)
-HRS2012_data_intermediate$race_white = as.factor(HRS2012_data_intermediate$race_white)
-HRS2014_data_intermediate$race_white = as.factor(HRS2014_data_intermediate$race_white)
-HRS2016_data_intermediate$race_white = as.factor(HRS2016_data_intermediate$race_white)
-HRS2018_data_intermediate$race_white = as.factor(HRS2018_data_intermediate$race_white)
-
+HRS2008_data_intermediate$combo_white = as.factor(HRS2008_data_intermediate$sex_1_2)
+HRS2010_data_intermediate$combo_white = as.factor(HRS2010_data_intermediate$sex_1_2)
+HRS2012_data_intermediate$combo_white = as.factor(HRS2012_data_intermediate$sex_1_2)
+HRS2014_data_intermediate$combo_white = as.factor(HRS2014_data_intermediate$sex_1_2)
+HRS2016_data_intermediate$combo_white = as.factor(HRS2016_data_intermediate$sex_1_2)
+HRS2018_data_intermediate$combo_white = as.factor(HRS2018_data_intermediate$sex_1_2)
 
 
 #exposure = "discrim_bin", 
 #outcome = "diabetes_new_bin"
 
-race_discrim_bin_diabetes_new_7models = Seven_models(subset_var = "race_white", 
-                                                     subset_value = 0, 
-                                                     HRS2008_data = HRS2008_data, 
-                                                     HRS2010_data = HRS2010_data, 
-                                                     HRS2012_data = HRS2012_data, 
-                                                     HRS2014_data = HRS2014_data, 
-                                                     HRS2016_data = HRS2016_data, 
-                                                     HRS2018_data = HRS2018_data, 
-                                                     exposure = "discrim_bin", 
-                                                     outcome = "diabetes_new") 
+combo_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "race_white", 
+                                                    subset_value1 = 0, 
+                                                    
+                                                    subset_BMI = "NA", 
+                                                    subset_BMI_value  = "NA", 
+                                                    
+                                                    subset_var2 = "religion_bin", 
+                                                    subset_value2 = 1,  
+                                                    
+                                                    subset_var3= "national_origin_ousideUS_bin", 
+                                                    subset_value3 = 1, 
+                                                    
+                                                    HRS2008_data = HRS2008_data, 
+                                                    HRS2010_data = HRS2010_data, 
+                                                    HRS2012_data = HRS2012_data, 
+                                                    HRS2014_data = HRS2014_data, 
+                                                    HRS2016_data = HRS2016_data, 
+                                                    HRS2018_data = HRS2018_data, 
+                                                    exposure = "discrim_bin", 
+                                                    outcome = "diabetes_new") 
 
 
 
 
-write.csv(race_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
+write.csv(combo_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "combo_discrim_bin_diabetes_new.csv", sep=""))
 
 
 
