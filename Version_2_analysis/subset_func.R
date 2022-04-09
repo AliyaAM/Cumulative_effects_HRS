@@ -37,7 +37,7 @@ subset_func = function(subset_var1,
     
   }
   
-  if (subset_var1 !="NA" & subset_BMI !="NA" & subset_var2 =="NA" & subset_var3 =="NA"){
+  if (subset_var1 !="NA" & subset_BMI =="NA" & subset_var2 =="NA" & subset_var3 =="NA"){
     
   
   HRS2008_data_subset  = subset(HRS2008_data, HRS2008_data[ , subset_var1] == subset_value1)
