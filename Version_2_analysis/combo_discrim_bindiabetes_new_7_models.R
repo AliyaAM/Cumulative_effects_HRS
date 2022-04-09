@@ -116,6 +116,8 @@ combo_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "race_white"
                                                     subset_var3= "national_origin_ousideUS_bin", 
                                                     subset_value3 = 1, 
                                                     
+                                                    subset_name = "COMBO", 
+                                                    
                                                     HRS2008_data = HRS2008_data, 
                                                     HRS2010_data = HRS2010_data, 
                                                     HRS2012_data = HRS2012_data, 

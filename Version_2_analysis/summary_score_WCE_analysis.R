@@ -2,7 +2,7 @@
 #all values have to be numeric for this analysis 
 
 
-summary_score_WCE_analysis = function(data_WCE, exposure, outcome, covariates_list){
+summary_score_WCE_analysis = function(data_WCE, exposure, outcome, covariates_list, Model_name, subset_name){
   
 #exposure = as.numeric(exposure)
 #outcome = as.numeric(outcome)
@@ -17,6 +17,7 @@ checkWCE(data_WCE,
 # check that the minumum start of time point 0 and min for stop is 1
   start_new_check = table(by(data_WCE$start_new,  data_WCE$HHIDPN, min)) 
   print(start_new_check) 
+  
   
 
   stop_new_check = table(by(data_WCE$stop_new,  data_WCE$HHIDPN, min)) 
@@ -163,6 +164,38 @@ results_stats_WCE= cbind(mat_t1_value,
                          est_value_D4, 
                          est_value_D5)
 
+#####
+#output: 
+numb_new_events = wce$nevents
+analysed_n =  start_new_check 
+n_timepoints_max = max(n_timepoints_list)
+median_timepoints = median(n_timepoints_list)
+BIC_information_criterion = wce$info.criterion
 
-return(hazard_ratio_1vs0)
+
+results = cbind(analysed_n, numb_new_events,n_timepoints_max, median_timepoints, BIC_information_criterion, hazard_ratio_1vs0)
+colnames(results) = c("analysed n", "diabetes onset (n)", "max. timepoints", "median timepoint", "BIC", "hazard ratio")
+
+#changes with number of waves: 
+people_timepoints_n = table(data_WCE$timepoints_indiv)
+analysed_each_wave_n = table(data_WCE$start_new)
+WCEmat = wce$WCEmat
+
+wave_info = rbind(people_timepoints_n, 
+                  analysed_each_wave_n, 
+                  WCEmat)
+
+
+write.csv(wave_info, paste(OUTPUT_ROOT, subset_name, Model_name, "wave_info.csv", sep=""))
+
+#changes with number of covariates: 
+wce$beta.hat.covariates
+wce$se.covariates
+
+covar_coef_se = rbind(wce$beta.hat.covariates, wce$se.covariates)
+
+write.csv(covar_coef_se, paste(OUTPUT_ROOT, subset_name, Model_name, "covar_coef_se.csv", sep=""))
+
+
+return(results)
 }

@@ -15,6 +15,8 @@ Seven_models = function (subset_var1,
                          
                          outcome, 
                          
+                         subset_name, 
+                         
                          HRS2008_data,
                          HRS2010_data, 
                          HRS2012_data,
@@ -124,9 +126,11 @@ Model_1_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
                                                   
                                                   exposure = exposure, 
                                                   outcome = outcome,
+                                    
+                                    
+                                    subset_name = subset_name, 
                                                 
-                                                  Model_name = "Model_1")
-
+                                    Model_name = "Model_1")
 
 
 Model_2_exposure =  HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
@@ -134,6 +138,9 @@ Model_2_exposure =  HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
+                                     
+                                     subset_name = subset_name, 
+                                     
                                        
                                        Model_name = "Model_2")
 
@@ -145,6 +152,9 @@ Model_3_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
+                                    
+                                    subset_name = subset_name, 
+                                    
                                        
                                        Model_name = "Model_3")
 
@@ -155,6 +165,9 @@ Model_4_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
+                                    
+                                    subset_name = subset_name, 
+                                    
                                        
                                        Model_name = "Model_4")
 
@@ -167,6 +180,9 @@ Model_5_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
+                                    
+                                    subset_name = subset_name, 
+                                    
                                        
                                        Model_name = "Model_5")
 
@@ -178,6 +194,9 @@ Model_6_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
+                                    
+                                    subset_name = subset_name, 
+                                    
                                        
                                        Model_name = "Model_6")
 
@@ -188,6 +207,8 @@ Model_7_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
+                                    subset_name = subset_name, 
+                                    
                                        
                                        Model_name = "Model_7")
 
@@ -213,5 +234,5 @@ results_exposure_table_col = cbind(Model_1_exposure,
 
 
 
-return(params = c(results_exposure, results_exposure_table_col))
+return(results_exposure)
 }

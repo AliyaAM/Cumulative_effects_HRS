@@ -1,9 +1,13 @@
 
 HRs_CIs_analysis = function (data_wce_subset,
-                        Model_n,
-                        Model_name, 
-                        exposure, 
-                        outcome){
+                        
+                             Model_n,
+                        
+                             exposure, 
+                             outcome, 
+                             
+                             subset_name,
+                             Model_name){
   
   
   exposure = exposure
@@ -14,6 +18,8 @@ HRs_CIs_analysis = function (data_wce_subset,
   subset__subset = summary_score_WCE_analysis(data_WCE = data_wce_subset,
                                                          exposure = exposure, 
                                                          outcome = outcome, 
+                                              subset_name = subset_name,
+                                              Model_name = Model_name, 
                                                          covariates_list = Model_n)
   
   
@@ -45,12 +51,13 @@ HRs_CIs_analysis = function (data_wce_subset,
   
   
   subset__HR_subset = unlist(subset__HR_subset)
-  subset_results_subset = cbind(subset__HR_subset, subset__age_CI_subset)
+  subset_results_HR_CIs = cbind(subset__HR_subset, subset__age_CI_subset)
   
-  colnames(subset_results_subset) = c("hazard ratio", "5% CI", "95% CI")
+  colnames(subset_results_HR_CIs) = c("hazard ratio", "5% CI", "95% CI")
   
+  #subset_results_subset = add total n = start_new = 0, number of cases,coefficient table for each model, BIC,
   
-  return(subset_results_subset)
+  return(subset_results_HR_CIs)
 }
 
 ########
