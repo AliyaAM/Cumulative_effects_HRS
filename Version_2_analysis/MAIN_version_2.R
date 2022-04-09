@@ -71,7 +71,7 @@ source((paste(SOURCE_ROOT, "summary_score_WCE_analysis.R", sep="")))
 # function that samples bootstrapped CIs
 source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 # function that runs WCE analysis and CIs sampling for a specified subset and with a specified model 
-source((paste(SOURCE_ROOT, "models_func.R", sep="")))
+source((paste(SOURCE_ROOT, "HRs_CIs_analysis.R", sep="")))
 
 
 #Model 1: age and sex, wealth  [basis adjustment]
@@ -180,7 +180,7 @@ race_dataset_noNAs_timepoints = sort_timepoints(data = race_dataset_noNAs)
 
 unique(HRS2008_data_initial$diabetes_new)
 
-race_Model_1_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+race_Model_1_discrim_bin = HRs_CIs_analysis(data_wce_subset = race_dataset_noNAs_timepoints, 
                                                   Model_n = Model_1, 
                                                   
                                                   exposure = "discrim_bin", 
@@ -190,7 +190,7 @@ race_Model_1_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_time
 
 
 
-race_Model_2_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+race_Model_2_discrim_bin =  HRs_CIs_analysis(data_wce_subset = race_dataset_noNAs_timepoints, 
                                        Model_n = Model_3, 
                                        
                                        exposure = "discrim_bin", 
@@ -201,7 +201,7 @@ race_Model_2_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_time
 
 
 
-race_Model_3_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+race_Model_3_discrim_bin = HRs_CIs_analysis(data_wce_subset = race_dataset_noNAs_timepoints, 
                                        Model_n = Model_3, 
                                        
                                        exposure = "discrim_bin", 
@@ -211,7 +211,7 @@ race_Model_3_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_time
 
 
 
-race_Model_4_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+race_Model_4_discrim_bin = HRs_CIs_analysis(data_wce_subset = race_dataset_noNAs_timepoints, 
                                        Model_n = Model_4, 
                                        
                                        exposure = "discrim_bin", 
@@ -223,7 +223,7 @@ race_Model_4_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_time
 
 
 
-race_Model_5_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+race_Model_5_discrim_bin = HRs_CIs_analysis(data_wce_subset = race_dataset_noNAs_timepoints, 
                                        Model_n = Model_5, 
                                        
                                        exposure = "discrim_bin", 
@@ -234,7 +234,7 @@ race_Model_5_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_time
 
 
 
-race_Model_6_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+race_Model_6_discrim_bin = HRs_CIs_analysis(data_wce_subset = race_dataset_noNAs_timepoints, 
                                        Model_n = Model_5, 
                                        
                                        exposure = "discrim_bin", 
@@ -244,14 +244,13 @@ race_Model_6_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_time
 
 
 
-race_Model_7_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+race_Model_7_discrim_bin = HRs_CIs_analysis(data_wce_subset = race_dataset_noNAs_timepoints, 
                                        Model_n = Model_5, 
                                        
                                        exposure = "discrim_bin", 
                                        outcome = "diabetes_new",
                                        
                                        Model_name = "Model_7")
-
 
 
 
@@ -263,7 +262,7 @@ race_results_discrim_bin = rbind(race_Model_1_discrim_bin,
                                  race_Model_6_discrim_bin,
                                  race_Model_7_discrim_bin)
 
-write.csv(race_results_discrim_bin, paste(OUTPUT_ROOT, "race_results_discrim_binrestricted__V4.csv", sep=""))
+write.csv(race_results_discrim_bin, paste(OUTPUT_ROOT, "race_results_discrim_binrestricted_V2_diabetes_outcome.csv", sep=""))
 
 
 race_results_discrim_bin_table_col = cbind(race_Model_1_discrim_bin,
@@ -274,4 +273,4 @@ race_results_discrim_bin_table_col = cbind(race_Model_1_discrim_bin,
                                            race_Model_6_discrim_bin,
                                            race_Model_7_discrim_bin)
 
-write.csv(race_results_discrim_bin_table_col, paste(OUTPUT_ROOT, "race_results_discrim_bin_table_colrestricted__V4.csv", sep=""))
+write.csv(race_results_discrim_bin_table_col, paste(OUTPUT_ROOT, "race_results_discrim_bin_table_colrestricted_V2_diabetes_outcome.csv", sep=""))

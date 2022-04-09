@@ -1,5 +1,5 @@
 
-models_func = function (data_wce_subset,
+HRs_CIs_analysis = function (data_wce_subset,
                         Model_n,
                         Model_name, 
                         exposure, 
