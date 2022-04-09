@@ -23,18 +23,48 @@
 #.d=DK
 #.r=RF      
 
-
+library(car)
 # create binary CVD variable 
 
 clean_recode_keyvars =  function (data){
 
   data = data 
   
-
-  data$CVD[data$heartcondition_ever_bin == 1 | data$heartcondition_new_bin == 1 | data$angina_new_bin ==1 | data$stroke_new_bin == 1 | data$heartfailure2yrs_bin == 1 | data$heartattack_ever_bin == 1 | data$heartattack_new_bin == 1] <-1
+  ###### turn to numeric vectors, coercing NAs 
   
+  data$discrim_harassed = as.numeric(data$discrim_harassed)
+  data$discrim_lessrespect = as.numeric(data$discrim_lessrespect)
+  data$discrim_medical = as.numeric(data$discrim_medical)
+  data$discrim_notclever = as.numeric(data$discrim_notclever)
+  data$discrim_poorerservice = as.numeric(data$discrim_poorerservice)
+  data$discrim_afraidothers = as.numeric(data$discrim_afraidothers)
+  
+  
+  data$heartcondition_ever_bin = as.numeric(data$heartcondition_ever_bin)
+  data$heartcondition_new_bin = as.numeric(data$heartcondition_new_bin)
+  data$angina_new_bin = as.numeric(data$angina_new_bin)
+  data$stroke_new_bin = as.numeric(data$stroke_new_bin)
+  data$heartfailure2yrs_bin = as.numeric(data$heartfailure2yrs_bin)
+  data$heartattack_ever_bin = as.numeric(data$heartattack_ever_bin)
+  data$heartattack_new_bin = as.numeric(data$heartattack_new_bin)
+  
+  data$vigarious_physical_activity = as.numeric(data$vigarious_physical_activity)
+
+  
+  data$alcohol_days_week = as.numeric(data$alcohol_days_week)
+  data$smokes_now_bin = as.numeric(data$smokes_now_bin)
+  data$checklist_depression_bin = as.numeric(data$checklist_depression_bin)
+  data$wealth_noIRA = as.numeric(data$wealth_noIRA)
+  
+  
+  data$diabetes_new = as.numeric(data$diabetes_new)
+  
+  ##### recode below: 
+  
+  data$CVD[data$heartcondition_ever_bin == 1 | data$heartcondition_new_bin == 1 | data$angina_new_bin ==1 | data$stroke_new_bin == 1 | data$heartfailure2yrs_bin == 1 | data$heartattack_ever_bin == 1 | data$heartattack_new_bin == 1] <-1
   data$CVD[data$heartcondition_ever_bin == 0 & data$heartcondition_new_bin == 0 & data$angina_new_bin ==0 & data$stroke_new_bin == 0 & data$heartfailure2yrs_bin == 0 & data$heartattack_ever_bin == 0 & data$heartattack_new_bin == 0] <-0
 
+  
 ###### add binary esposure and binary outcome 
   data$diabetes_new_bin = case_when(data$diabetes_new == 1 ~ 1, 
                                     data$diabetes_new == 0 ~ 0, 
@@ -72,7 +102,7 @@ clean_recode_keyvars =  function (data){
 
 
 ###### recode into single var  discrim_bin
-
+ 
 
   data$discrim_harassed_bin = case_when(data$discrim_harassed == 1 ~ 1, 
                                         data$discrim_harassed == 2 ~ 1, 
@@ -83,9 +113,7 @@ clean_recode_keyvars =  function (data){
                                         data$discrim_harassed == 0 ~ 0) 
 
 
-
-
-
+  
   data$discrim_lessrespect_bin = case_when(data$discrim_lessrespect == 1 ~ 1, 
                                            data$discrim_lessrespect == 2 ~ 1, 
                                            data$discrim_lessrespect == 3 ~ 1, 
@@ -119,7 +147,6 @@ clean_recode_keyvars =  function (data){
 
 
 
-  data$discrim_poorerservice = as.numeric(data$discrim_poorerservice) 
 
 
   data$discrim_poorerservice_bin = case_when(data$discrim_poorerservice == 1 ~ 1, 
@@ -148,21 +175,6 @@ clean_recode_keyvars =  function (data){
 
 ############# 
 
-
-  data = subset(data, HHIDPN != "3020")
-  data = subset(data , diabetes_new_bin != " NA")
-  data = subset(data , summary_mean_score_discrim != " NA")
-  data = subset(data , discrim_harassed != " NA")
-  data = subset(data , discrim_lessrespect != " NA")
-  data = subset(data , discrim_medical != " NA")
-  data = subset(data , discrim_notclever != " NA")
-  data = subset(data , discrim_poorerservice != " NA")
-  data = subset(data , discrim_afraidothers != " NA")
-  data$alcohol_days_week_new = as.numeric(data$alcohol_days_week_new)
-  data$vigarious_physical_activity_new = as.numeric(data$vigarious_physical_activity_new)
-  data$smokes_now_bin = as.numeric(data$smokes_now_bin)
-  data$checklist_depression_bin = as.numeric(data$checklist_depression_bin)
-  data$wealth_noIRA = as.numeric(data$wealth_noIRA)
 
 return(data)
 }
