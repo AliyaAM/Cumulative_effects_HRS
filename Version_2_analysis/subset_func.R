@@ -1,6 +1,7 @@
 
 
-subset_func = function(subset_var, subset_value,
+subset_func = function(subset_var, 
+                       subset_value,
                        HRS2008_data, 
                        HRS2010_data, 
                        HRS2012_data, 
