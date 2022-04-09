@@ -141,7 +141,7 @@ HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
 
 
-race_dataset = clean_recode_sort(subset_var = race_white, 
+race_dataset = clean_recode_sort(subset_var = "race_white", 
                                  subset_value = 0, 
                                  HRS2008_data = HRS2008_data_intermediate,
                                  HRS2010_data = HRS2010_data_intermediate, 
@@ -156,7 +156,17 @@ race_dataset = clean_recode_sort(subset_var = race_white,
 #outcome = "diabetes_new_bin",
 
 
-race_Model_1_discrim_bin = models_func(data_wce_subset = race_dataset, 
+###### drop NAs and weird strings like " NA", THE WCE ANALYSIS DOES NOT RUN WITH NAs
+
+race_dataset_noNAs = race_dataset %>% drop_na(diabetes_new_bin)
+unique(race_dataset_noNAs$diabetes_new_bin)
+
+race_dataset_noNAs = race_dataset_noNAs %>% drop_na(discrim_bin)
+
+
+
+
+race_Model_1_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs, 
                                                   Model_n = Model_1, 
                                                   
                                                   exposure = "discrim_bin", 

@@ -23,7 +23,6 @@
 #.d=DK
 #.r=RF      
 
-library(car)
 # create binary CVD variable 
 
 clean_recode_keyvars =  function (data){

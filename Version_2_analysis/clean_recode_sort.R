@@ -31,12 +31,8 @@
     
     dataset_clean = clean_recode_keyvars(data = dataset)
 
-
-###### drop NAs and weird strings like " NA", THE WCE ANALYSIS DOES NOT RUN WITH NAs
-    dataset_clean = dataset_clean %>% drop_na(dataset_clean)
-    data_wce_subset = sort_timepoints(data = dataset_clean)
     
-    return(data_wce_subset)
+    return(dataset_clean)
 }
 
 #######
