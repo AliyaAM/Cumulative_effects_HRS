@@ -93,21 +93,20 @@ HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
 
 
-HRS2008_data_intermediate$female_white = as.factor(HRS2008_data_intermediate$sex_1_2)
-HRS2010_data_intermediate$female_white = as.factor(HRS2010_data_intermediate$sex_1_2)
-HRS2012_data_intermediate$female_white = as.factor(HRS2012_data_intermediate$sex_1_2)
-HRS2014_data_intermediate$female_white = as.factor(HRS2014_data_intermediate$sex_1_2)
-HRS2016_data_intermediate$female_white = as.factor(HRS2016_data_intermediate$sex_1_2)
-HRS2018_data_intermediate$female_white = as.factor(HRS2018_data_intermediate$sex_1_2)
+HRS2008_data_intermediate$all_white = as.factor(HRS2008_data_intermediate$all_white)
+HRS2010_data_intermediate$all_white = as.factor(HRS2010_data_intermediate$all_white)
+HRS2012_data_intermediate$all_white = as.factor(HRS2012_data_intermediate$all_white)
+HRS2014_data_intermediate$all_white = as.factor(HRS2014_data_intermediate$all_white)
+HRS2016_data_intermediate$all_white = as.factor(HRS2016_data_intermediate$all_white)
+HRS2018_data_intermediate$all_white = as.factor(HRS2018_data_intermediate$all_white)
 
 
 
 #exposure = "discrim_bin", 
 #outcome = "diabetes_new_bin"
 
-female_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "sex_1_2", 
-                                                     subset_value1 = 2, 
-                                                     
+all_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA", 
+                                                     subset_value1 = "NA", 
                                                      
                                                      subset_BMI = "NA", 
                                                      subset_BMI_value  = "NA", 
@@ -118,7 +117,7 @@ female_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "sex_1_2",
                                                      subset_var3= "NA", 
                                                      subset_value3 = "NA", 
                                                      
-                                                     subset_name = "FEMALE", 
+                                                     subset_name = "ALL", 
                                                      
                                                      HRS2008_data = HRS2008_data, 
                                                      HRS2010_data = HRS2010_data, 
@@ -133,7 +132,7 @@ female_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "sex_1_2",
 
 
 
-write.csv(female_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "female_discrim_bin_diabetes_new.csv", sep=""))
+write.csv(all_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new.csv", sep=""))
 
 
 

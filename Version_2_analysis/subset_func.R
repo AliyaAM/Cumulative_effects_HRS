@@ -24,6 +24,19 @@ subset_func = function(subset_var1,
   #################################### subset ########################################################################
   # # # # subset the datasets 
   
+  
+  if (subset_var1 =="NA" & subset_BMI =="NA" & subset_var2 =="NA" & subset_var3 =="NA"){
+    
+    
+    HRS2008_data_subset  = HRS2008_data
+    HRS2010_data_subset  = HRS2010_data
+    HRS2012_data_subset  = HRS2012_data
+    HRS2014_data_subset  = HRS2014_data
+    HRS2016_data_subset  = HRS2016_data
+    HRS2018_data_subset  = HRS2018_data
+    
+  }
+  
   if (subset_var1 !="NA" & subset_BMI !="NA" & subset_var2 =="NA" & subset_var3 =="NA"){
     
   

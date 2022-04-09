@@ -105,14 +105,27 @@ HRS2018_data_intermediate$race_white = as.factor(HRS2018_data_intermediate$race_
 #exposure = "discrim_bin", 
 #outcome = "diabetes_new_bin"
 
-race_discrim_bin_diabetes_new_7models = Seven_models(subset_var = "race_white", 
-                                                     subset_value = 0, 
+race_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "race_white", 
+                                                     subset_value1 = 0, 
+                                                     
+                                                     subset_BMI = "NA", 
+                                                     subset_BMI_value  = "NA", 
+                                                     
+                                                     subset_var2 = "NA", 
+                                                     subset_value2 = "NA",  
+                                                     
+                                                     subset_var3= "NA", 
+                                                     subset_value3 = "NA", 
+                                                     
+                                                     subset_name = "RACE", 
+                                                     
                                                      HRS2008_data = HRS2008_data, 
                                                      HRS2010_data = HRS2010_data, 
                                                      HRS2012_data = HRS2012_data, 
                                                      HRS2014_data = HRS2014_data, 
                                                      HRS2016_data = HRS2016_data, 
                                                      HRS2018_data = HRS2018_data, 
+                                                     
                                                      exposure = "discrim_bin", 
                                                      outcome = "diabetes_new") 
 

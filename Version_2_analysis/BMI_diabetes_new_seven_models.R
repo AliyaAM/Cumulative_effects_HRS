@@ -117,6 +117,9 @@ BMI_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA",
                                                     subset_var3= "NA", 
                                                     subset_value3 = "NA", 
                                                     
+                                                  
+                                                    subset_name = "BMI", 
+                                                    
                                                     HRS2008_data = HRS2008_data, 
                                                     HRS2010_data = HRS2010_data, 
                                                     HRS2012_data = HRS2012_data, 
