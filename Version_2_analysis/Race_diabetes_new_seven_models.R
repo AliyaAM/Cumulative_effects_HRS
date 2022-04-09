@@ -1,5 +1,11 @@
 
+#library(here)
 
+#setwd('~/proj/Cumulative_effects_HRS/')
+
+#current_directory = here()
+#print(current_directory)
+#print(file.path())
 
 library(WCE)
 library(survival)
@@ -28,11 +34,8 @@ library(Hmisc)
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
 
-library("here")
 
-
-current_directory = here()
-
+current_directory 
 
 OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/", sep=""))
 SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
