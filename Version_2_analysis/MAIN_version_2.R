@@ -46,12 +46,12 @@ HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2018_data_short.csv", sep
 
 #######
 
-HRS2008_data_intermediate = subset(HRS2008_data_initial, HRS2008_data_initial$diabetes_ever == 0)
-HRS2010_data_intermediate = subset(HRS2010_data_initial, HRS2010_data_initial$diabetes_ever == 0)
-HRS2012_data_intermediate = subset(HRS2012_data_initial, HRS2012_data_initial$diabetes_ever == 0)
-HRS2014_data_intermediate = subset(HRS2014_data_initial, HRS2014_data_initial$diabetes_ever == 0)
-HRS2016_data_intermediate = subset(HRS2016_data_initial, HRS2016_data_initial$diabetes_ever == 0)
-HRS2018_data_intermediate = subset(HRS2018_data_initial, HRS2018_data_initial$diabetes_ever == 0)
+HRS2008_data_intermediate = HRS2008_data_initial
+HRS2010_data_intermediate = HRS2010_data_initial
+HRS2012_data_intermediate = HRS2012_data_initial
+HRS2014_data_intermediate = HRS2014_data_initial
+HRS2016_data_intermediate = HRS2016_data_initial
+HRS2018_data_intermediate = HRS2018_data_initial
 
 
 # function that subsets and srts dataset for a particular var (eg., female == 1)
@@ -157,49 +157,101 @@ race_dataset = clean_recode_sort(subset_var = "race_white",
 
 
 ###### drop NAs and weird strings like " NA", THE WCE ANALYSIS DOES NOT RUN WITH NAs
+unique(race_dataset$diabetes_new)
 
-race_dataset_noNAs = race_dataset %>% drop_na(diabetes_new_bin)
-unique(race_dataset_noNAs$diabetes_new_bin)
+unique(HRS2008_data_initial$diabetes_new)
+unique(HRS2008_data_intermediate$diabetes_new)
+
+
+race_dataset_noNAs = race_dataset %>% drop_na(diabetes_new)
+unique(race_dataset_noNAs$diabetes_new)
 
 race_dataset_noNAs = race_dataset_noNAs %>% drop_na(discrim_bin)
+unique(race_dataset_noNAs$discrim_bin)
 
 
+# sort out data and tag time points as start_new, stop_new
+race_dataset_noNAs_timepoints = sort_timepoints(data = race_dataset_noNAs)
 
+# diabetes_new is r2diabs:w2 r had diabetes since last iw 
+# r3diabs:w3 r had diabetes since last iw  
+# r4diabs:w4 r had diabetes since last iw  
+# rndiabs:wn r had diabetes since last iw  
 
-race_Model_1_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs, 
+unique(HRS2008_data_initial$diabetes_new)
+
+race_Model_1_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
                                                   Model_n = Model_1, 
                                                   
                                                   exposure = "discrim_bin", 
-                                                  outcome = "diabetes_new_bin",
+                                                  outcome = "diabetes_new",
                                                 
                                                   Model_name = "Model_1")
 
 
-race_Model_2_discrim_bin = discrim_bin_model_func(data_wce_subset = race_dataset, 
-                                                  Model_n = Model_2, 
-                                                  Model_name = "Model_2")
 
-
-race_Model_3_discrim_bin = discrim_bin_model_func(data_wce_subset = race_dataset, 
-                                                  Model_n = Model_3)
-
-
-
-race_Model_4_discrim_bin = discrim_bin_model_func(data_wce_subset = race_dataset, 
-                                                  Model_n = Model_4)
+race_Model_2_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+                                       Model_n = Model_3, 
+                                       
+                                       exposure = "discrim_bin", 
+                                       outcome = "diabetes_new",
+                                       
+                                       Model_name = "Model_2")
 
 
 
-race_Model_5_discrim_bin = discrim_bin_model_func(data_wce_subset = race_dataset, 
-                                                  Model_n = Model_5)
+
+race_Model_3_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+                                       Model_n = Model_3, 
+                                       
+                                       exposure = "discrim_bin", 
+                                       outcome = "diabetes_new",
+                                       
+                                       Model_name = "Model_3")
 
 
-race_Model_6_discrim_bin = discrim_bin_model_func(data_wce_subset = race_dataset, 
-                                                  Model_n = Model_6)
+
+race_Model_4_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+                                       Model_n = Model_4, 
+                                       
+                                       exposure = "discrim_bin", 
+                                       outcome = "diabetes_new",
+                                       
+                                       Model_name = "Model_4")
 
 
-race_Model_7_discrim_bin = discrim_bin_model_func(data_wce_subset = race_dataset, 
-                                                  Model_n = Model_7)
+
+
+
+race_Model_5_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+                                       Model_n = Model_5, 
+                                       
+                                       exposure = "discrim_bin", 
+                                       outcome = "diabetes_new",
+                                       
+                                       Model_name = "Model_5")
+
+
+
+
+race_Model_6_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+                                       Model_n = Model_5, 
+                                       
+                                       exposure = "discrim_bin", 
+                                       outcome = "diabetes_new",
+                                       
+                                       Model_name = "Model_6")
+
+
+
+race_Model_7_discrim_bin = models_func(data_wce_subset = race_dataset_noNAs_timepoints, 
+                                       Model_n = Model_5, 
+                                       
+                                       exposure = "discrim_bin", 
+                                       outcome = "diabetes_new",
+                                       
+                                       Model_name = "Model_7")
+
 
 
 

@@ -63,12 +63,7 @@ clean_recode_keyvars =  function (data){
   data$CVD[data$heartcondition_ever_bin == 1 | data$heartcondition_new_bin == 1 | data$angina_new_bin ==1 | data$stroke_new_bin == 1 | data$heartfailure2yrs_bin == 1 | data$heartattack_ever_bin == 1 | data$heartattack_new_bin == 1] <-1
   data$CVD[data$heartcondition_ever_bin == 0 & data$heartcondition_new_bin == 0 & data$angina_new_bin ==0 & data$stroke_new_bin == 0 & data$heartfailure2yrs_bin == 0 & data$heartattack_ever_bin == 0 & data$heartattack_new_bin == 0] <-0
 
-  
-###### add binary esposure and binary outcome 
-  data$diabetes_new_bin = case_when(data$diabetes_new == 1 ~ 1, 
-                                    data$diabetes_new == 0 ~ 0, 
-                                    data$diabetes_new == 3 ~ 1, 
-                                    data$diabetes_new == 4 ~ 0) 
+
 
 
 

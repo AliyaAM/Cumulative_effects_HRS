@@ -6,6 +6,9 @@ models_func = function (data_wce_subset,
                         outcome){
   
   
+  exposure = exposure
+  outcome = outcome
+  
   results = data.frame()
   
   subset__subset = summary_score_WCE_analysis(data_WCE = data_wce_subset,
@@ -42,9 +45,9 @@ models_func = function (data_wce_subset,
   
   
   subset__HR_subset = unlist(subset__HR_subset)
-  subset__results_subset = cbind(subset__HR_subset, subset__age_CI_subset)
+  subset_results_subset = cbind(subset__HR_subset, subset__age_CI_subset)
   
-  colnames(subset__results_subset) = c("hazard ratio", "5% CI", "95% CI")
+  colnames(subset_results_subset) = c("hazard ratio", "5% CI", "95% CI")
   
   
   return(subset_results_subset)
