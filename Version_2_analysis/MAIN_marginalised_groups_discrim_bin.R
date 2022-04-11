@@ -63,6 +63,9 @@ source((paste(SOURCE_ROOT, "HRs_CIs_analysis.R", sep="")))
 
 source((paste(SOURCE_ROOT, "Seven_models.R", sep="")))
 
+source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
+
+
 
 #data 
 HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2008_data_short.csv", sep=""))
