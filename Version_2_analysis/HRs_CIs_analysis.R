@@ -48,14 +48,24 @@ HRs_CIs_analysis = function (data_wce_subset,
   
   subset_results_HR_CIs = cbind(subset__HR_subset, subset__age_CI_subset)
   
-  colnames(subset_results_HR_CIs) = c("analysed n", 
-                                      "diabetes onset (n)",
-                                      "max. timepoints", 
-                                      "median timepoint",
+  #colnames(subset_results_HR_CIs) = c("analysed n", 
+                                      #"diabetes onset (n)",
+                                      #"max. timepoints", 
+                                      #"median timepoint",
+                                      #"BIC", 
+                                      #"hazard ratio",
+                                      #"5% CI",
+                                      #"95% CI")
+  
+  colnames(subset_results_HR_CIs) = c("analysed_n", 
+                                      "diabetes_onset_n",
+                                      "max_timepoints", 
+                                      "median_timepoint",
                                       "BIC", 
-                                      "hazard ratio",
-                                      "5% CI",
-                                      "95% CI")
+                                      "hazard_ratio",
+                                      "5_CI",
+                                      "95_CI")
+  
   
   #subset_results_subset = add total n = start_new = 0, number of cases,coefficient table for each model, BIC,
   

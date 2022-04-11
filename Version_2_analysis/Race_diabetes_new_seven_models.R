@@ -137,9 +137,11 @@ race_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "race_white",
 
 write.csv(race_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
 
-Model = c(1, 2, 3, 4, 5, 6, 7)
+Model = rbind(1, 2, 3, 4, 5, 6, 7)
 
-race_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = race_discrim_bin_diabetes_new_7models,
+test_data = read.csv(paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
+
+race_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = test_data,
                                                              subset_name = "Race", 
                                                              Model = Model)
 

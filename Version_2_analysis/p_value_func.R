@@ -1,13 +1,20 @@
 
-p_value_func = function(data, subset_name, Model){
-  
+
+Model = rbind(1, 2, 3, 4, 5, 6, 7)
+subset_name = "Race"
+
+#data = read.csv(paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
+data = race_discrim_bin_diabetes_new_7models
+
 Model = c(1, 2, 3, 4, 5, 6, 7)
 
 subset_name = rep(subset_name, times = nrow(data))
 
 
 data = cbind(subset_name, Model, data)
-data = as.data.frame(data)
+#data = as.data.frame(data)
+
+data$`hazard ratio`
 
 hazard_ratio = as.numeric(data$`hazard ratio`)
 CI_5 = as.numeric(data$`5% CI`)
@@ -50,6 +57,3 @@ clean_data_HRsonly = cbind(clean_data$`analysed n`,
                            clean_data$CI_both)
 
 #write.csv(clean_data_HRsonly, paste(c(OUTPUT_ROOT, subset_name, "clean_data_HRsonly.csv", sep="")))
-
-return(clean_data)
-}
