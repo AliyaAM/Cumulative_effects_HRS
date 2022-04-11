@@ -1,8 +1,7 @@
 
 p_value_func = function (data, subset_name, Model){
-#Model = rbind(1, 2, 3, 4, 5, 6, 7)
-#subset_name = "Race"
 
+Model_col = rep(Model, times = nrow(data))
 
 subset_name_col = rep(subset_name, times = nrow(data))
 
@@ -40,7 +39,9 @@ clean_data$asterix_mark = case_when(clean_data$p_value <=0.05 & clean_data$p_val
 clean_data$CI_both = paste("[", clean_data$CI_5, ";" , clean_data$CI_95, "]", sep="")
 
 
-clean_data_HRsonly = cbind(clean_data$analysed_n,
+clean_data_HRsonly = cbind(Model_col,
+                           subset_name_col, 
+                           clean_data$analysed_n,
                            clean_data$diabetes_onset_n,
                            clean_data$median_timepoint, 
                            clean_data$BIC, 
@@ -48,7 +49,9 @@ clean_data_HRsonly = cbind(clean_data$analysed_n,
                            clean_data$asterix_mark, 
                            clean_data$CI_both)
 
-colnames(clean_data_HRsonly) = c("analysed_n",
+colnames(clean_data_HRsonly) = c("Model",
+                                 "subset",
+                                 "analysed_n",
                                   "diabetes_onset_n",
                                   "median_timepoint", 
                                   "BIC", 

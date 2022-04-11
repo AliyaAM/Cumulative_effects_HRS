@@ -102,7 +102,7 @@ exposure = "discrim_bin"
 
 # ####### # ####### # ####### # ####### OUTCOME # ####### # ####### # ####### # #######
 
-outcome = "diabetes_new_bin"
+outcome = "diabetes_new"
 
 all_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA", 
                                                     subset_value1 = "NA", 
@@ -133,6 +133,10 @@ all_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA",
 write.csv(all_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new.csv", sep=""))
 
 
+all_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = all_discrim_bin_diabetes_new_7models,
+                                                             subset_name = "All", 
+                                                             Model = Model)
+
 
 female_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "sex_1_2", 
                                                        subset_value1 = 2, 
@@ -162,6 +166,14 @@ female_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "sex_1_2",
 
 
 write.csv(female_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "female_discrim_bin_diabetes_new.csv", sep=""))
+
+
+
+
+female_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = female_discrim_bin_diabetes_new_7models,
+                                                            subset_name = "Female", 
+                                                            Model = Model)
+
 
 
 
@@ -197,6 +209,12 @@ write.csv(race_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "race_discri
 
 
 
+race_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = race_discrim_bin_diabetes_new_7models,
+                                                             subset_name = "Race", 
+                                                             Model = Model)
+
+
+
 combo_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "race_white", 
                                                       subset_value1 = 0, 
                                                       
@@ -229,6 +247,11 @@ write.csv(combo_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "combo_disc
 
 
 
+Combo_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = combo_discrim_bin_diabetes_new_7models,
+                                                             subset_name = "Combo", 
+                                                             Model = Model)
+
+
 BMI_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA", 
                                                     subset_value1 = "NA", 
                                                     
@@ -258,8 +281,15 @@ BMI_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA",
 
 write.csv(BMI_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "BMI_discrim_bin_diabetes_new.csv", sep=""))
 
-subset = rep("BMI", times = nrow(BMI_discrim_bin_diabetes_new_7models))
+BMI_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = BMI_discrim_bin_diabetes_new_7models,
+                                                              subset_name = "BMI", 
+                                                              Model = Model)
 
 
-BMI_discrim_bin_diabetes_new_7models = cbind(subset, Model, BMI_discrim_bin_diabetes_new_7models)
+result_table = rbind(all_discrim_bin_diabetes_new_7models, 
+                     female_discrim_bin_diabetes_new_7models_pvalues, 
+                     race_discrim_bin_diabetes_new_7models_pvalues, 
+                     Combo_discrim_bin_diabetes_new_7models_pvalues, 
+                     BMI_discrim_bin_diabetes_new_7models_pvalues) 
 
+write.csv(result_table, paste(OUTPUT_ROOT, "result_table_diabetes_new.csv", sep=""))
