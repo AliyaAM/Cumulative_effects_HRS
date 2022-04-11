@@ -102,6 +102,7 @@ exposure = "discrim_bin"
 
 # ####### # ####### # ####### # ####### OUTCOME # ####### # ####### # ####### # #######
 #change to diabetes_thisWave
+#diabetes_ever
 #outcome = "diabetes_new"
 
 
