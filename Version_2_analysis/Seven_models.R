@@ -134,7 +134,7 @@ Model_1_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
 
 
 Model_2_exposure =  HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                       Model_n = Model_3, 
+                                       Model_n = Model_2, 
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
@@ -190,7 +190,7 @@ Model_5_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
 
 
 Model_6_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                       Model_n = Model_5, 
+                                       Model_n = Model_6, 
                                        
                                        exposure = exposure, 
                                        outcome = outcome,
@@ -203,7 +203,7 @@ Model_6_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
 
 
 Model_7_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                       Model_n = Model_5, 
+                                       Model_n = Model_7, 
                                        
                                        exposure = exposure, 
                                        outcome = outcome,

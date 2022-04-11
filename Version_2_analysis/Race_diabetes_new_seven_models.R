@@ -63,6 +63,9 @@ source((paste(SOURCE_ROOT, "HRs_CIs_analysis.R", sep="")))
 
 source((paste(SOURCE_ROOT, "Seven_models.R", sep="")))
 
+source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
+
+
 
 #data 
 HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2008_data_short.csv", sep=""))
@@ -134,5 +137,9 @@ race_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "race_white",
 
 write.csv(race_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
 
+Model = c(1, 2, 3, 4, 5, 6, 7)
 
+race_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = race_discrim_bin_diabetes_new_7models,
+                                                             subset_name = "Race", 
+                                                             Model = Model)
 

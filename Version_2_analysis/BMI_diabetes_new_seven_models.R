@@ -63,6 +63,8 @@ source((paste(SOURCE_ROOT, "HRs_CIs_analysis.R", sep="")))
 
 source((paste(SOURCE_ROOT, "Seven_models.R", sep="")))
 
+source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
+
 
 #data 
 HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2008_data_short.csv", sep=""))
@@ -130,9 +132,7 @@ BMI_discrim_bin_diabetes_new_7models = Seven_models(subset_var1 = "NA",
                                                     outcome = "diabetes_new") 
 
 
-
-
-write.csv(BMI_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "BMI_discrim_bin_diabetes_new.csv", sep=""))
-
-
+BMI_diabetes_new_7models_pvalues = p_value_func(data = BMI_discrim_bin_diabetes_new_7models,
+                                                subset_name = "BMI", 
+                                                Model = c(1, 2, 3, 4, 5, 6, 7))
 
