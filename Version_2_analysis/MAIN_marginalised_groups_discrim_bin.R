@@ -288,11 +288,52 @@ BMI_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = BMI_discrim_b
                                                               subset_name = "BMI", 
                                                               Model = Model)
 
+all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly.csv", sep=""))
+female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly.csv", sep=""))
+race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly.csv", sep=""))
+combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly.csv", sep=""))
+BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly.csv", sep=""))
 
-result_table = rbind(all_discrim_bin_diabetes_new_7models, 
-                     female_discrim_bin_diabetes_new_7models_pvalues, 
-                     race_discrim_bin_diabetes_new_7models_pvalues, 
-                     Combo_discrim_bin_diabetes_new_7models_pvalues, 
-                     BMI_discrim_bin_diabetes_new_7models_pvalues) 
 
-write.csv(result_table, paste(OUTPUT_ROOT, "result_table_diabetes_new.csv", sep=""))
+results = rbind(all_results[1:7,],
+                female_results[1:7,],
+                race_results[1:7,],
+                combo_results[1:7,],
+                BMI_results[1:7,]) 
+
+write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_new.csv", sep=""))
+
+
+all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly.csv", sep=""))
+female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly.csv", sep=""))
+race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly.csv", sep=""))
+combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly.csv", sep=""))
+BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly.csv", sep=""))
+
+
+results = rbind(all_results[1:7,],
+                female_results[1:7,],
+                race_results[1:7,],
+                combo_results[1:7,],
+                BMI_results[1:7,]) 
+
+Model_1= subset(results, results$Model == 1)
+Model_2= subset(results, results$Model == 2)
+Model_3= subset(results, results$Model == 3)
+Model_4= subset(results, results$Model == 4)
+Model_5= subset(results, results$Model == 5)
+Model_6= subset(results, results$Model == 6)
+Model_7= subset(results, results$Model == 7)
+
+results_col = cbind(Model_1, 
+                    Model_2, 
+                    Model_3, 
+                    Model_4, 
+                    Model_5, 
+                    Model_6, 
+                    Model_7)
+
+results_col = results_col[,c(3:10,18:20, 28:30, 38:40, 48:50, 58:60, 68:70)]
+write.csv(results_col, paste(OUTPUT_ROOT, "result_table_diabetes_new.csv", sep=""))
+
+
