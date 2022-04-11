@@ -63,8 +63,8 @@ HRs_CIs_analysis = function (data_wce_subset,
                                       "median_timepoint",
                                       "BIC", 
                                       "hazard_ratio",
-                                      "5_CI",
-                                      "95_CI")
+                                      "CI_5",
+                                      "CI_95")
   
   
   #subset_results_subset = add total n = start_new = 0, number of cases,coefficient table for each model, BIC,

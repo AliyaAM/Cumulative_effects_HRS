@@ -139,9 +139,9 @@ write.csv(race_discrim_bin_diabetes_new_7models, paste(OUTPUT_ROOT, "race_discri
 
 Model = rbind(1, 2, 3, 4, 5, 6, 7)
 
-test_data = read.csv(paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
+#test_data = read.csv(paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new.csv", sep=""))
 
-race_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = test_data,
+race_discrim_bin_diabetes_new_7models_pvalues = p_value_func(data = race_discrim_bin_diabetes_new_7models,
                                                              subset_name = "Race", 
                                                              Model = Model)
 
