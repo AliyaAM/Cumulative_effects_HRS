@@ -35,18 +35,15 @@ library(Hmisc)
 
 
 
-current_directory = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS"
-
+current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
 OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/Reason_discrim/diabetes_thisWAVE_restrcited_reason/", sep=""))
 SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
-#DATAIN_ROOT = (paste(current_directory, "/data_files/", sep="")) 
+DATAIN_ROOT = (paste(current_directory, "/data_files/OLD_data_diabetes_this_wave/", sep="")) 
 
-DATAIN_ROOT = (paste("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/", sep="")) 
-
-# function that subsets and srts dataset for a particular var (eg., female == 1)
-
+#DATAIN_ROOT = (paste("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/", sep="")) 
 #/Users/aliyaamirova/proj/Cumulative_effects_HRS/Version_2_analysis
+
 source((paste(SOURCE_ROOT, "subset_func.R", sep="")))
 source((paste(SOURCE_ROOT, "clean_recode_keyvars.R", sep="")))
 #source((paste(SOURCE_ROOT, "subset_sort_BMI.R", sep="")))
@@ -70,12 +67,12 @@ source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
 
 
 #data 
-HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/old/HRS2008_data_short_OLD.csv", sep=""))
-HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2010_data/old/HRS2010_data_short_OLD.csv", sep=""))
-HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/old/HRS2012_data_short_OLD.csv", sep=""))
-HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/old/HRS2014_data_short_OLD.csv", sep=""))
-HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/old/HRS2016_data_short_OLD.csv", sep=""))
-HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short_OLD.csv", sep=""))
+HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2008_data_short_OLD.csv", sep=""))
+HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2010_data_short_OLD.csv", sep=""))
+HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2012_data_short_OLD.csv", sep=""))
+HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2014_data_short_OLD.csv", sep=""))
+HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2016_data_short_OLD.csv", sep=""))
+HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2018_data_short_OLD.csv", sep=""))
 
 ########
 
@@ -272,29 +269,26 @@ race_racism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = p_
 
 
 combo_reason_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models(subset_var1 = "race_white", 
-                                                                  subset_value1 = 0, 
-                                                                  
-                                                                  subset_BMI = "NA", 
-                                                                  subset_BMI_value  = "NA", 
-                                                                  
-                                                                  subset_var2 = "religion_bin", 
-                                                                  subset_value2 = 1,  
-                                                                  
-                                                                  subset_var3= "national_origin_ousideUS_bin", 
-                                                                  subset_value3 = 1, 
-                                                                  
-                                                                  
-                                                                  
-                                                                  
-                                                                  subset_reason1 = "reason_discrim1_reason_race", 
-                                                                  subset_reason1_value = 1, 
-                                                                  
-                                                                  subset_reason2 = "NA", 
-                                                                  subset_reason2_value = "NA", 
-                                                                  
-                                                                  
-                                                                  subset_reason3 = "NA", 
-                                                                  subset_reason3_value = "NA", 
+                                                                                    subset_value1 = 0, 
+                                                                                    
+                                                                                    subset_BMI = "NA", 
+                                                                                    subset_BMI_value  = "NA", 
+                                                                                    
+                                                                                    subset_var2 = "religion_bin", 
+                                                                                    subset_value2 = 1,  
+                                                                                    
+                                                                                    subset_var3= "national_origin_ousideUS_bin", 
+                                                                                    subset_value3 = 1, 
+                                                                                    
+                                                                                    subset_reason1 = "reason_discrim1_reason_race", 
+                                                                                    subset_reason1_value = 1, 
+                                                                                    
+
+                                                                                    subset_reason2 = "reason_discrim1_reason_national", 
+                                                                                    subset_reason2_value = 1, 
+                                                                                    
+                                                                                    subset_reason3 = "reason_discrim1_reason_religion", 
+                                                                                    subset_reason3_value = 1, 
                                                                   
                                                                   
                                                                   subset_name = "COMBO_reason", 
@@ -321,12 +315,13 @@ Combo_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = p_value_
                                                                    subset_name = "Combo_reason", 
                                                                    Model = Model)
 
+OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/Reason_discrim/diabetes_thisWAVE_restrcited_reason/", sep=""))
 
 
-all_ageism_results = read.csv(paste(OUTPUT_ROOT, "all_ageism_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
-female_sexism_results =  read.csv(paste(OUTPUT_ROOT, "female_sexism_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
-race_racism_results = read.csv(paste(OUTPUT_ROOT, "race_racism_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
-combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_reason_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
+all_ageism_results = read.csv(paste(OUTPUT_ROOT, "all_ageism_clean_data_HRsonly.csv", sep=""))
+female_sexism_results =  read.csv(paste(OUTPUT_ROOT, "FEMALE_sexism_clean_data_HRsonly.csv", sep=""))
+race_racism_results = read.csv(paste(OUTPUT_ROOT, "race_racism_clean_data_HRsonly.csv", sep=""))
+combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_reason_clean_data_HRsonly.csv", sep=""))
 
 
 results_reason = rbind(all_ageism_results[1:7,],

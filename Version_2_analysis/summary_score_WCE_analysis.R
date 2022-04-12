@@ -185,6 +185,8 @@ wave_info = rbind(people_timepoints_n,
                   analysed_each_wave_n, 
                   WCEmat)
 
+address_wave_info = paste(OUTPUT_ROOT, subset_name, Model_name, "wave_info.csv", sep = "")
+print(address_wave_info)
 
 write.csv(wave_info, paste(OUTPUT_ROOT, subset_name, Model_name, "wave_info.csv", sep=""))
 
