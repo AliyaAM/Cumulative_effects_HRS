@@ -21,15 +21,6 @@ HRS2016_data = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/HRS2016_data_short.csv
 HRS2018_data = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/HRS2018_data_short.csv", sep=""))
 
 
-#HRS2008_data = subset(HRS2008_data, HRS2008_data$diabetes_ever == 0)
-#HRS2010_data = subset(HRS2010_data, HRS2010_data$diabetes_ever == 0)
-#HRS2012_data = subset(HRS2012_data, HRS2012_data$diabetes_ever == 0)
-#HRS2014_data = subset(HRS2014_data, HRS2014_data$diabetes_ever == 0)
-#HRS2016_data = subset(HRS2016_data, HRS2016_data$diabetes_ever == 0)
-#HRS2018_data = subset(HRS2018_data, HRS2018_data$diabetes_ever == 0)
-
-
-
 #subset everything to diabetes_ever == 0 
 
 entire_dataset = rbind(HRS2008_data, 
@@ -45,7 +36,7 @@ entire_dataset_Nvalue = length(entire_dataset_n)
 total_n_proportion = rbind(total_n_proportion, 
                            entire_dataset_Nvalue)
 
-                         
+
 wave_1 = subset(entire_dataset,  entire_dataset$start == 0)
 wave_1_diabetes  = subset(wave_1, wave_1$diabetes_new == 1)
 
@@ -99,13 +90,13 @@ new_diabetes_wave6_dataset = length(diabetes_wave_6_unique)
 
 
 new_diabetes_each_wave = rbind(new_diabetes_wave1_dataset, 
-                                new_diabetes_wave2_dataset,
-                                new_diabetes_wave3_dataset,
-                                new_diabetes_wave4_dataset,
-                                new_diabetes_wave5_dataset,
-                                new_diabetes_wave6_dataset)
+                               new_diabetes_wave2_dataset,
+                               new_diabetes_wave3_dataset,
+                               new_diabetes_wave4_dataset,
+                               new_diabetes_wave5_dataset,
+                               new_diabetes_wave6_dataset)
 
-write.csv(new_diabetes_each_wave, (paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIABS.csv", sep="")))
+write.csv(new_diabetes_each_wave, (paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIABS_restricted_reason.csv", sep="")))
 
 
 diabetes_all_waves = rbind(wave_1_diabetes, 
@@ -124,15 +115,78 @@ new_diabetes_entire_dataset = length(diabetes_all_waves_unique)
 total_n_proportion = data.frame()
 total_n_proportion = rbind(total_n_proportion, 
                            new_diabetes_entire_dataset)
+
+
+
+HRS2008_data_ageism = subset(HRS2008_data, HRS2008_data$reason_discrim1_reason_age == 1)
+HRS2010_data_ageism = subset(HRS2010_data, HRS2010_data$reason_discrim1_reason_age == 1)
+HRS2012_data_ageism = subset(HRS2012_data, HRS2012_data$reason_discrim1_reason_age == 1)
+HRS2014_data_ageism = subset(HRS2014_data, HRS2014_data$reason_discrim1_reason_age == 1)
+HRS2016_data_ageism = subset(HRS2016_data, HRS2016_data$reason_discrim1_reason_age == 1)
+HRS2018_data_ageism = subset(HRS2018_data, HRS2018_data$reason_discrim1_reason_age == 1)
+
+
+
+ageism_dataset = rbind(HRS2008_data_ageism, 
+                       HRS2010_data_ageism,
+                       HRS2012_data_ageism,
+                       HRS2014_data_ageism,
+                       HRS2016_data_ageism,
+                       HRS2018_data_ageism)
+
+wave_ageism_1 = subset(ageism_dataset,  ageism_dataset$start == 0)
+wave_ageism_1_diabetes_ageism  = subset(wave_ageism_1, wave_ageism_1$diabetes_new == 1)
+
+wave_ageism_2 = subset(ageism_dataset, ageism_dataset$start == 1)
+wave_ageism_2_diabetes_ageism  = subset(wave_ageism_2, wave_ageism_2$diabetes_new == 1)
+
+wave_ageism_3 = subset(ageism_dataset, ageism_dataset$start == 2)
+wave_ageism_3_diabetes_ageism  = subset(wave_ageism_3, wave_ageism_3$diabetes_new == 1)
+
+wave_ageism_4 = subset(ageism_dataset, ageism_dataset$start == 3)
+wave_ageism_4_diabetes_ageism  = subset(wave_ageism_4, wave_ageism_4$diabetes_new == 1)
+
+wave_ageism_5 = subset(ageism_dataset, ageism_dataset$start == 4)
+wave_ageism_5_diabetes_ageism  = subset(wave_ageism_5, wave_ageism_5$diabetes_new == 1)
+
+wave_ageism_6 = subset(ageism_dataset, ageism_dataset$start == 5)
+wave_ageism_6_diabetes_ageism  = subset(wave_ageism_6, wave_ageism_6$diabetes_new == 1)
+
+
+diabetes_ageism_all_wave_ageisms = rbind(wave_ageism_1_diabetes_ageism, 
+                                         wave_ageism_2_diabetes_ageism, 
+                                         wave_ageism_3_diabetes_ageism, 
+                                         wave_ageism_4_diabetes_ageism, 
+                                         wave_ageism_5_diabetes_ageism, 
+                                         wave_ageism_6_diabetes_ageism)
+
+diabetes_ageism_all_wave_ageisms_unique = unique(diabetes_ageism_all_wave_ageisms$HHIDPN)
+
+
+
+ageism_dataset_n = unique(ageism_dataset$HHIDPN) 
+ageism_dataset_Nvalue = length(ageism_dataset_n)
+
+total_n_proportion = rbind(total_n_proportion, 
+                           ageism_dataset_Nvalue)
+
+new_diabetes_ageism_ageism_dataset = length(diabetes_ageism_all_wave_ageisms_unique)
+
+total_n_proportion = rbind(total_n_proportion, 
+                           new_diabetes_ageism_ageism_dataset)
+
+
+######################
 ######################
 
+######################
 #female 
-HRS2008_data_female = subset(HRS2008_data, HRS2008_data$sex_1_2==2)
-HRS2010_data_female = subset(HRS2010_data, HRS2010_data$sex_1_2==2)
-HRS2012_data_female = subset(HRS2012_data, HRS2012_data$sex_1_2==2)
-HRS2014_data_female = subset(HRS2014_data, HRS2014_data$sex_1_2==2)
-HRS2016_data_female = subset(HRS2016_data, HRS2016_data$sex_1_2==2)
-HRS2018_data_female = subset(HRS2018_data, HRS2018_data$sex_1_2==2)
+HRS2008_data_female = subset(HRS2008_data, HRS2008_data$sex_1_2==2 & HRS2008_data$reason_discrim1_reason_gender == 1)
+HRS2010_data_female = subset(HRS2010_data, HRS2010_data$sex_1_2==2 & HRS2010_data$reason_discrim1_reason_gender == 1)
+HRS2012_data_female = subset(HRS2012_data, HRS2012_data$sex_1_2==2 & HRS2012_data$reason_discrim1_reason_gender == 1)
+HRS2014_data_female = subset(HRS2014_data, HRS2014_data$sex_1_2==2 & HRS2014_data$reason_discrim1_reason_gender == 1)
+HRS2016_data_female = subset(HRS2016_data, HRS2016_data$sex_1_2==2 & HRS2016_data$reason_discrim1_reason_gender == 1)
+HRS2018_data_female = subset(HRS2018_data, HRS2018_data$sex_1_2==2 & HRS2018_data$reason_discrim1_reason_gender == 1)
 
 
 female_dataset = rbind(HRS2008_data_female, 
@@ -162,11 +216,11 @@ wave_female_6_diabetes_female  = subset(wave_female_6, wave_female_6$diabetes_ne
 
 
 diabetes_female_all_wave_females = rbind(wave_female_1_diabetes_female, 
-                           wave_female_2_diabetes_female, 
-                           wave_female_3_diabetes_female, 
-                           wave_female_4_diabetes_female, 
-                           wave_female_5_diabetes_female, 
-                           wave_female_6_diabetes_female)
+                                         wave_female_2_diabetes_female, 
+                                         wave_female_3_diabetes_female, 
+                                         wave_female_4_diabetes_female, 
+                                         wave_female_5_diabetes_female, 
+                                         wave_female_6_diabetes_female)
 
 diabetes_female_all_wave_females_unique = unique(diabetes_female_all_wave_females$HHIDPN)
 
@@ -188,12 +242,12 @@ total_n_proportion = rbind(total_n_proportion,
 ######################
 HRS2008_data$race_white == 0
 #race 
-HRS2008_data_race = subset(HRS2008_data, HRS2008_data$race_white==0)
-HRS2010_data_race = subset(HRS2010_data, HRS2010_data$race_white==0)
-HRS2012_data_race = subset(HRS2012_data, HRS2012_data$race_white==0)
-HRS2014_data_race = subset(HRS2014_data, HRS2014_data$race_white==0)
-HRS2016_data_race = subset(HRS2016_data, HRS2016_data$race_white==0)
-HRS2018_data_race = subset(HRS2018_data, HRS2018_data$race_white==0)
+HRS2008_data_race = subset(HRS2008_data, HRS2008_data$race_white==0 & HRS2008_data$reason_discrim1_reason_race ==1)
+HRS2010_data_race = subset(HRS2010_data, HRS2010_data$race_white==0 & HRS2010_data$reason_discrim1_reason_race ==1) 
+HRS2012_data_race = subset(HRS2012_data, HRS2012_data$race_white==0 & HRS2012_data$reason_discrim1_reason_race ==1)
+HRS2014_data_race = subset(HRS2014_data, HRS2014_data$race_white==0 & HRS2014_data$reason_discrim1_reason_race ==1)
+HRS2016_data_race = subset(HRS2016_data, HRS2016_data$race_white==0 & HRS2016_data$reason_discrim1_reason_race ==1)
+HRS2018_data_race = subset(HRS2018_data, HRS2018_data$race_white==0 & HRS2018_data$reason_discrim1_reason_race ==1)
 
 
 race_dataset = rbind(HRS2008_data_race, 
@@ -254,12 +308,12 @@ total_n_proportion = rbind(total_n_proportion,
 
 
 #race_combo 
-HRS2008_data_race_combo = subset(HRS2008_data, HRS2008_data$race_white==0 | HRS2008_data$national_origin_ousideUS_bin == 1 | HRS2008_data$religion_bin == 1) 
-HRS2010_data_race_combo = subset(HRS2010_data, HRS2010_data$race_white==0 | HRS2010_data$national_origin_ousideUS_bin == 1 | HRS2010_data$religion_bin == 1) 
-HRS2012_data_race_combo = subset(HRS2012_data, HRS2012_data$race_white==0 | HRS2012_data$national_origin_ousideUS_bin == 1 | HRS2012_data$religion_bin == 1) 
-HRS2014_data_race_combo = subset(HRS2014_data, HRS2014_data$race_white==0 | HRS2014_data$national_origin_ousideUS_bin == 1 | HRS2014_data$religion_bin == 1) 
-HRS2016_data_race_combo = subset(HRS2016_data, HRS2016_data$race_white==0 | HRS2016_data$national_origin_ousideUS_bin == 1 | HRS2016_data$religion_bin == 1) 
-HRS2018_data_race_combo = subset(HRS2018_data, HRS2018_data$race_white==0 | HRS2018_data$national_origin_ousideUS_bin == 1 | HRS2018_data$religion_bin == 1) 
+HRS2008_data_race_combo = subset(HRS2008_data, HRS2008_data$race_white==0 | HRS2008_data$national_origin_ousideUS_bin == 1 | HRS2008_data$religion_bin == 1 & HRS2008_data$reason_discrim1_reason_race ==1) 
+HRS2010_data_race_combo = subset(HRS2010_data, HRS2010_data$race_white==0 | HRS2010_data$national_origin_ousideUS_bin == 1 | HRS2010_data$religion_bin == 1 & HRS2010_data$reason_discrim1_reason_race ==1) 
+HRS2012_data_race_combo = subset(HRS2012_data, HRS2012_data$race_white==0 | HRS2012_data$national_origin_ousideUS_bin == 1 | HRS2012_data$religion_bin == 1 & HRS2012_data$reason_discrim1_reason_race ==1) 
+HRS2014_data_race_combo = subset(HRS2014_data, HRS2014_data$race_white==0 | HRS2014_data$national_origin_ousideUS_bin == 1 | HRS2014_data$religion_bin == 1 & HRS2014_data$reason_discrim1_reason_race ==1) 
+HRS2016_data_race_combo = subset(HRS2016_data, HRS2016_data$race_white==0 | HRS2016_data$national_origin_ousideUS_bin == 1 | HRS2016_data$religion_bin == 1 & HRS2016_data$reason_discrim1_reason_race ==1) 
+HRS2018_data_race_combo = subset(HRS2018_data, HRS2018_data$race_white==0 | HRS2018_data$national_origin_ousideUS_bin == 1 | HRS2018_data$religion_bin == 1 & HRS2018_data$reason_discrim1_reason_race ==1) 
 
 
 race_combo_dataset = rbind(HRS2008_data_race_combo, 
@@ -318,12 +372,12 @@ total_n_proportion = rbind(total_n_proportion,
 
 
 #BMI 
-HRS2008_data_BMI = subset(HRS2008_data, HRS2008_data$assessed_BMI>30)  
-HRS2010_data_BMI = subset(HRS2010_data, HRS2010_data$assessed_BMI>30)   
-HRS2012_data_BMI = subset(HRS2012_data, HRS2012_data$assessed_BMI>30)   
-HRS2014_data_BMI = subset(HRS2014_data, HRS2014_data$assessed_BMI>30)   
-HRS2016_data_BMI = subset(HRS2016_data, HRS2016_data$assessed_BMI>30)   
-HRS2018_data_BMI = subset(HRS2018_data, HRS2018_data$assessed_BMI>30)   
+HRS2008_data_BMI = subset(HRS2008_data, HRS2008_data$assessed_BMI>30 & HRS2008_data$reason_discrim1_reason_weight == 1)   
+HRS2010_data_BMI = subset(HRS2010_data, HRS2010_data$assessed_BMI>30 & HRS2010_data$reason_discrim1_reason_weight == 1)   
+HRS2012_data_BMI = subset(HRS2012_data, HRS2012_data$assessed_BMI>30 & HRS2012_data$reason_discrim1_reason_weight == 1)   
+HRS2014_data_BMI = subset(HRS2014_data, HRS2014_data$assessed_BMI>30 & HRS2014_data$reason_discrim1_reason_weight == 1)   
+HRS2016_data_BMI = subset(HRS2016_data, HRS2016_data$assessed_BMI>30 & HRS2016_data$reason_discrim1_reason_weight == 1)   
+HRS2018_data_BMI = subset(HRS2018_data, HRS2018_data$assessed_BMI>30 & HRS2018_data$reason_discrim1_reason_weight == 1)   
 
 
 BMI_dataset = rbind(HRS2008_data_BMI, 
@@ -372,22 +426,25 @@ new_diabetes_BMI_BMI_dataset = length(diabetes_BMI_all_wave_BMIs_unique)
 
 
 total_N = rbind(entire_dataset_Nvalue,
-
-                           female_dataset_Nvalue, 
-
-                           race_dataset_Nvalue, 
-
-                           race_combo_dataset_Nvalue, 
-
-                           BMI_dataset_Nvalue)
+                
+                ageism_dataset_Nvalue, 
+                
+                female_dataset_Nvalue, 
+                
+                race_dataset_Nvalue, 
+                
+                race_combo_dataset_Nvalue, 
+                
+                BMI_dataset_Nvalue)
 
 
 
 diabetes_cases = rbind(new_diabetes_entire_dataset, 
-  new_diabetes_female_female_dataset, 
-  new_diabetes_race_race_dataset, 
-  new_diabetes_race_combo_race_combo_dataset,
-  new_diabetes_BMI_BMI_dataset) 
+                       new_diabetes_ageism_ageism_dataset, 
+                       new_diabetes_female_female_dataset, 
+                       new_diabetes_race_race_dataset, 
+                       new_diabetes_race_combo_race_combo_dataset,
+                       new_diabetes_BMI_BMI_dataset) 
 
 percentage_diabetes = (diabetes_cases/total_N) * 100
 
@@ -398,8 +455,8 @@ numbers = cbind(total_N,
 numbers = as.data.frame(numbers)
 colnames(numbers) = c("total N", "new diabetes cases", "%")
 
-write.csv(numbers, (paste(OUTPUT_ROOT, "diabetes_new_cases_DIABS_in_each_subset.csv", sep="")))
-          
+write.csv(numbers, (paste(OUTPUT_ROOT, "diabetes_new_cases_DIABS_in_each_subset_restricted_reason.csv", sep="")))
+
 ########################################################
 ########################################################
 

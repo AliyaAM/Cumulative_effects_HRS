@@ -9,16 +9,18 @@ SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
 
 #DATAIN_ROOT = (paste(current_directory, "/data_files/", sep="")) 
 
+
 DATAIN_ROOT = (paste("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/", sep="")) 
 
 total_n_proportion = data.frame()
 #"heartcondition_ever_bin", "heartcondition_new_bin", "angina_new_bin", "stroke_new_bin", "heartfailure2yrs_bin", "heartattack_ever_bin", "heartattack_new_bin"
-HRS2008_data = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/HRS2008_data_short.csv", sep=""))
-HRS2010_data = read.csv(paste(DATAIN_ROOT, "HRS_2010_data/HRS2010_data_short.csv", sep=""))
-HRS2012_data = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/HRS2012_data_short.csv", sep=""))
-HRS2014_data = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/HRS2014_data_short.csv", sep=""))
-HRS2016_data = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/HRS2016_data_short.csv", sep=""))
-HRS2018_data = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/HRS2018_data_short.csv", sep=""))
+#data 
+HRS2008_data = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/old/HRS2008_data_short_OLD.csv", sep=""))
+HRS2010_data = read.csv(paste(DATAIN_ROOT, "HRS_2010_data/old/HRS2010_data_short_OLD.csv", sep=""))
+HRS2012_data = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/old/HRS2012_data_short_OLD.csv", sep=""))
+HRS2014_data = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/old/HRS2014_data_short_OLD.csv", sep=""))
+HRS2016_data = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/old/HRS2016_data_short_OLD.csv", sep=""))
+HRS2018_data = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short_OLD.csv", sep=""))
 
 
 #HRS2008_data = subset(HRS2008_data, HRS2008_data$diabetes_ever == 0)
@@ -45,7 +47,7 @@ entire_dataset_Nvalue = length(entire_dataset_n)
 total_n_proportion = rbind(total_n_proportion, 
                            entire_dataset_Nvalue)
 
-                         
+
 wave_1 = subset(entire_dataset,  entire_dataset$start == 0)
 wave_1_diabetes  = subset(wave_1, wave_1$diabetes_new == 1)
 
@@ -99,13 +101,13 @@ new_diabetes_wave6_dataset = length(diabetes_wave_6_unique)
 
 
 new_diabetes_each_wave = rbind(new_diabetes_wave1_dataset, 
-                                new_diabetes_wave2_dataset,
-                                new_diabetes_wave3_dataset,
-                                new_diabetes_wave4_dataset,
-                                new_diabetes_wave5_dataset,
-                                new_diabetes_wave6_dataset)
+                               new_diabetes_wave2_dataset,
+                               new_diabetes_wave3_dataset,
+                               new_diabetes_wave4_dataset,
+                               new_diabetes_wave5_dataset,
+                               new_diabetes_wave6_dataset)
 
-write.csv(new_diabetes_each_wave, (paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIABS.csv", sep="")))
+write.csv(new_diabetes_each_wave, (paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIAB.csv", sep="")))
 
 
 diabetes_all_waves = rbind(wave_1_diabetes, 
@@ -162,11 +164,11 @@ wave_female_6_diabetes_female  = subset(wave_female_6, wave_female_6$diabetes_ne
 
 
 diabetes_female_all_wave_females = rbind(wave_female_1_diabetes_female, 
-                           wave_female_2_diabetes_female, 
-                           wave_female_3_diabetes_female, 
-                           wave_female_4_diabetes_female, 
-                           wave_female_5_diabetes_female, 
-                           wave_female_6_diabetes_female)
+                                         wave_female_2_diabetes_female, 
+                                         wave_female_3_diabetes_female, 
+                                         wave_female_4_diabetes_female, 
+                                         wave_female_5_diabetes_female, 
+                                         wave_female_6_diabetes_female)
 
 diabetes_female_all_wave_females_unique = unique(diabetes_female_all_wave_females$HHIDPN)
 
@@ -372,22 +374,22 @@ new_diabetes_BMI_BMI_dataset = length(diabetes_BMI_all_wave_BMIs_unique)
 
 
 total_N = rbind(entire_dataset_Nvalue,
-
-                           female_dataset_Nvalue, 
-
-                           race_dataset_Nvalue, 
-
-                           race_combo_dataset_Nvalue, 
-
-                           BMI_dataset_Nvalue)
+                
+                female_dataset_Nvalue, 
+                
+                race_dataset_Nvalue, 
+                
+                race_combo_dataset_Nvalue, 
+                
+                BMI_dataset_Nvalue)
 
 
 
 diabetes_cases = rbind(new_diabetes_entire_dataset, 
-  new_diabetes_female_female_dataset, 
-  new_diabetes_race_race_dataset, 
-  new_diabetes_race_combo_race_combo_dataset,
-  new_diabetes_BMI_BMI_dataset) 
+                       new_diabetes_female_female_dataset, 
+                       new_diabetes_race_race_dataset, 
+                       new_diabetes_race_combo_race_combo_dataset,
+                       new_diabetes_BMI_BMI_dataset) 
 
 percentage_diabetes = (diabetes_cases/total_N) * 100
 
@@ -398,8 +400,8 @@ numbers = cbind(total_N,
 numbers = as.data.frame(numbers)
 colnames(numbers) = c("total N", "new diabetes cases", "%")
 
-write.csv(numbers, (paste(OUTPUT_ROOT, "diabetes_new_cases_DIABS_in_each_subset.csv", sep="")))
-          
+write.csv(numbers, (paste(OUTPUT_ROOT, "diabetes_new_cases_DIAB_in_each_subset.csv", sep="")))
+
 ########################################################
 ########################################################
 
