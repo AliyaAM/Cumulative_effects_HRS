@@ -315,8 +315,6 @@ Combo_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = p_value_
                                                                    subset_name = "Combo_reason", 
                                                                    Model = Model)
 
-OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/Reason_discrim/diabetes_thisWAVE_restrcited_reason/", sep=""))
-
 
 all_ageism_results = read.csv(paste(OUTPUT_ROOT, "all_ageism_clean_data_HRsonly.csv", sep=""))
 female_sexism_results =  read.csv(paste(OUTPUT_ROOT, "FEMALE_sexism_clean_data_HRsonly.csv", sep=""))
@@ -331,17 +329,6 @@ results_reason = rbind(all_ageism_results[1:7,],
 
 write.csv(results_reason, paste(OUTPUT_ROOT, "result_table_diabetes_thisWAVE_restricted_reason.csv", sep=""))
 
-
-all_ageism_results = read.csv(paste(OUTPUT_ROOT, "all_ageism_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
-female_sexism_results =  read.csv(paste(OUTPUT_ROOT, "female_sexism_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
-race_racism_results = read.csv(paste(OUTPUT_ROOT, "race_racism_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
-combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_reason_clean_data_diabetes_thisWAVE_restricted_reason_HRsonly.csv", sep=""))
-
-
-results_reason = rbind(all_ageism_results[1:7,],
-                       female_sexism_results[1:7,],
-                       race_racism_results[1:7,],
-                       combo_results[1:7,]) 
 
 Model_1= subset(results_reason, results_reason$Model == 1)
 Model_2= subset(results_reason, results_reason$Model == 2)
