@@ -12,6 +12,18 @@
                                 subset_var3, 
                                 subset_value3,
                                 
+                                
+                                subset_reason1, 
+                                subset_reason1_value, 
+                                
+                                subset_reason2, 
+                                subset_reason2_value, 
+                                
+                                
+                                subset_reason3, 
+                                subset_reason3_value, 
+                                
+                               
                                 HRS2008_data, 
                                 HRS2010_data, 
                                 HRS2012_data, 
@@ -41,6 +53,16 @@
                           
                           subset_var3 = subset_var3, 
                           subset_value3 = subset_value3,
+                          
+                          subset_reason1 = subset_reason1, 
+                          subset_reason1_value = subset_reason1_value, 
+                          
+                          subset_reason2 = subset_reason2, 
+                          subset_reason2_value =  subset_reason2_value, 
+                          
+                          
+                          subset_reason3 = subset_reason3, 
+                          subset_reason3_value = subset_reason3_value, 
                     
                            HRS2008_data = HRS2008_data, 
                            HRS2010_data = HRS2010_data, 
