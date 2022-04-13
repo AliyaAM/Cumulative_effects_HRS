@@ -33,12 +33,6 @@ sort_timepoints_drop_baseline = function (data,
       participant_wave$start_new = c(0)
       participant_wave$stop_new = c(1)
       
-      participant_wave = subset(participant_wave, participant_wave$start_new  != 0 & participant_wave$outcome != 1) 
-    
-      participant_wave_nrow = nrow(participant_wave)
-      print("participant_wave_nrow: ")
-      
-      print(participant_wave_nrow) 
       
       participant_wave_df = rbind(participant_wave_df, participant_wave) 
       
