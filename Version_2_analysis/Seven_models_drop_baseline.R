@@ -138,7 +138,7 @@ Seven_models_drop_baseline = function (subset_var1,
   dataset_noNAs_timepoints = sort_timepoints(data = dataset_noNAs)
   
   #excluding those who had diabetes at baseline: 
-  dataset_noNAs_timepoints = subset(dataset_noNAs_timepoints, dataset_noNAs_timepoints$start_new  != 0 & dataset_noNAs_timepoints$diabetes_new != 1) 
+  dataset_noNAs_timepoints = subset(dataset_noNAs_timepoints, dataset_noNAs_timepoints$start_new  != 0 & dataset_noNAs_timepoints$diabetes_new_bin != 1) 
   
   nrow_dataset_noNAs_timepoints = nrow(dataset_noNAs_timepoints)
   
