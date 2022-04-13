@@ -41,6 +41,8 @@ entire_dataset = rbind(HRS2008_data,
                        HRS2016_data,
                        HRS2018_data)
 
+
+
 entire_dataset_n = unique(entire_dataset$HHIDPN) 
 entire_dataset_Nvalue = length(entire_dataset_n) 
 
@@ -48,7 +50,86 @@ total_n_proportion = rbind(total_n_proportion,
                            entire_dataset_Nvalue)
 
 
-wave_1 = subset(entire_dataset,  entire_dataset$start == 0)
+
+  ID = unique(entire_dataset$HHIDPN)
+  
+  #print(isTRUE(entire_dataset$HHIDPN == ID[1]))
+  #entire_dataset = entire_dataset %>% drop_na()
+  
+  participant_wave_df = data.frame()
+  
+  n = 1
+  for (id in ID){
+    
+    
+    participant_wave = subset(entire_dataset, entire_dataset$HHIDPN == id)
+    
+    if (nrow(participant_wave)== 1){
+      
+      participant_wave$timepoints_indiv = 1
+      
+      
+      participant_wave$start_new = c(0)
+      participant_wave$stop_new = c(1)
+      
+      participant_wave_df = rbind(participant_wave_df, participant_wave) 
+      
+    }
+    
+    if (nrow(participant_wave) ==2){
+      
+      participant_wave$timepoints_indiv = 2
+      
+      participant_wave$start_new = c(0, 1)
+      participant_wave$stop_new = c(1, 2)
+      participant_wave_df = rbind(participant_wave_df, participant_wave) 
+      
+    }
+    
+    if (nrow(participant_wave)==3){
+      
+      participant_wave$timepoints_indiv = 3
+      
+      participant_wave$start_new = c(0, 1, 2)
+      participant_wave$stop_new = c(1, 2, 3)
+      participant_wave_df = rbind(participant_wave_df, participant_wave) 
+      
+    } 
+    
+    
+    if (nrow(participant_wave)==4){
+      
+      participant_wave$timepoints_indiv = 4
+      
+      participant_wave$start_new = c(0, 1, 2, 3)
+      participant_wave$stop_new = c(1, 2, 3, 4)
+      participant_wave_df = rbind(participant_wave_df, participant_wave) 
+      
+    } 
+    
+    if (nrow(participant_wave)==5){
+      
+      participant_wave$timepoints_indiv = 5
+      
+      participant_wave$start_new = c(0, 1, 2, 3, 4)
+      participant_wave$stop_new = c(1, 2, 3, 4, 5)
+      participant_wave_df = rbind(participant_wave_df, participant_wave) 
+      
+    } 
+    
+    if (nrow(participant_wave)==6){
+      
+      participant_wave$timepoints_indiv = 6
+      participant_wave$start_new = c(0, 1, 2, 3, 4, 5)
+      participant_wave$stop_new = c(1, 2, 3, 4, 5, 6)
+      participant_wave_df = rbind(participant_wave_df, participant_wave) 
+      
+    }
+    n = n + 1
+  }
+
+
+wave_1 = subset(participant_wave_df,  participant_wave_df$start_new == 0)
 wave_1_diabetes  = subset(wave_1, wave_1$diabetes_new == 1)
 
 
@@ -57,7 +138,7 @@ new_diabetes_wave1_dataset = length(diabetes_wave_1_unique)
 #wave 1: 224 cases 
 
 
-wave_2 = subset(entire_dataset, entire_dataset$start == 1)
+wave_2 = subset(participant_wave_df, participant_wave_df$start_new == 1)
 wave_2_diabetes  = subset(wave_2, wave_2$diabetes_new == 1)
 
 diabetes_wave_2_unique = unique(wave_2_diabetes$HHIDPN)
@@ -65,7 +146,7 @@ new_diabetes_wave2_dataset = length(diabetes_wave_2_unique)
 #wave 2: 318 cases 
 
 
-wave_3 = subset(entire_dataset, entire_dataset$start == 2)
+wave_3 = subset(participant_wave_df, participant_wave_df$start_new == 2)
 wave_3_diabetes  = subset(wave_3, wave_3$diabetes_new == 1)
 
 
@@ -74,7 +155,7 @@ new_diabetes_wave3_dataset = length(diabetes_wave_3_unique)
 #wave 3: 233 cases 
 
 
-wave_4 = subset(entire_dataset, entire_dataset$start == 3)
+wave_4 = subset(participant_wave_df, participant_wave_df$start_new == 3)
 wave_4_diabetes  = subset(wave_4, wave_4$diabetes_new == 1)
 
 
@@ -83,7 +164,7 @@ new_diabetes_wave4_dataset = length(diabetes_wave_4_unique)
 #wave 4: 174 cases 
 
 
-wave_5 = subset(entire_dataset, entire_dataset$start == 4)
+wave_5 = subset(participant_wave_df, participant_wave_df$start_new == 4)
 wave_5_diabetes  = subset(wave_5, wave_5$diabetes_new == 1)
 
 
@@ -91,7 +172,7 @@ diabetes_wave_5_unique = unique(wave_5_diabetes$HHIDPN)
 new_diabetes_wave5_dataset = length(diabetes_wave_5_unique)
 #
 
-wave_6 = subset(entire_dataset, entire_dataset$start == 5)
+wave_6 = subset(participant_wave_df, participant_wave_df$start_new == 5)
 wave_6_diabetes  = subset(wave_6, wave_6$diabetes_new == 1)
 
 
@@ -121,11 +202,11 @@ diabetes_all_waves_unique = unique(diabetes_all_waves$HHIDPN)
 
 
 
-new_diabetes_entire_dataset = length(diabetes_all_waves_unique)
+new_diabetes_participant_wave_df = length(diabetes_all_waves_unique)
 
 total_n_proportion = data.frame()
 total_n_proportion = rbind(total_n_proportion, 
-                           new_diabetes_entire_dataset)
+                           new_diabetes_participant_wave_df)
 ######################
 
 #female 
@@ -144,22 +225,22 @@ female_dataset = rbind(HRS2008_data_female,
                        HRS2016_data_female,
                        HRS2018_data_female)
 
-wave_female_1 = subset(female_dataset,  female_dataset$start == 0)
+wave_female_1 = subset(female_dataset,  female_dataset$start_new == 0)
 wave_female_1_diabetes_female  = subset(wave_female_1, wave_female_1$diabetes_new == 1)
 
-wave_female_2 = subset(female_dataset, female_dataset$start == 1)
+wave_female_2 = subset(female_dataset, female_dataset$start_new == 1)
 wave_female_2_diabetes_female  = subset(wave_female_2, wave_female_2$diabetes_new == 1)
 
-wave_female_3 = subset(female_dataset, female_dataset$start == 2)
+wave_female_3 = subset(female_dataset, female_dataset$start_new == 2)
 wave_female_3_diabetes_female  = subset(wave_female_3, wave_female_3$diabetes_new == 1)
 
-wave_female_4 = subset(female_dataset, female_dataset$start == 3)
+wave_female_4 = subset(female_dataset, female_dataset$start_new == 3)
 wave_female_4_diabetes_female  = subset(wave_female_4, wave_female_4$diabetes_new == 1)
 
-wave_female_5 = subset(female_dataset, female_dataset$start == 4)
+wave_female_5 = subset(female_dataset, female_dataset$start_new == 4)
 wave_female_5_diabetes_female  = subset(wave_female_5, wave_female_5$diabetes_new == 1)
 
-wave_female_6 = subset(female_dataset, female_dataset$start == 5)
+wave_female_6 = subset(female_dataset, female_dataset$start_new == 5)
 wave_female_6_diabetes_female  = subset(wave_female_6, wave_female_6$diabetes_new == 1)
 
 
@@ -205,22 +286,22 @@ race_dataset = rbind(HRS2008_data_race,
                      HRS2016_data_race,
                      HRS2018_data_race)
 
-wave_race_1 = subset(race_dataset,  race_dataset$start == 0)
+wave_race_1 = subset(race_dataset,  race_dataset$start_new == 0)
 wave_race_1_diabetes_race  = subset(wave_race_1, wave_race_1$diabetes_new == 1)
 
-wave_race_2 = subset(race_dataset, race_dataset$start == 1)
+wave_race_2 = subset(race_dataset, race_dataset$start_new == 1)
 wave_race_2_diabetes_race  = subset(wave_race_2, wave_race_2$diabetes_new == 1)
 
-wave_race_3 = subset(race_dataset, race_dataset$start == 2)
+wave_race_3 = subset(race_dataset, race_dataset$start_new == 2)
 wave_race_3_diabetes_race  = subset(wave_race_3, wave_race_3$diabetes_new == 1)
 
-wave_race_4 = subset(race_dataset, race_dataset$start == 3)
+wave_race_4 = subset(race_dataset, race_dataset$start_new == 3)
 wave_race_4_diabetes_race  = subset(wave_race_4, wave_race_4$diabetes_new == 1)
 
-wave_race_5 = subset(race_dataset, race_dataset$start == 4)
+wave_race_5 = subset(race_dataset, race_dataset$start_new == 4)
 wave_race_5_diabetes_race  = subset(wave_race_5, wave_race_5$diabetes_new == 1)
 
-wave_race_6 = subset(race_dataset, race_dataset$start == 5)
+wave_race_6 = subset(race_dataset, race_dataset$start_new == 5)
 wave_race_6_diabetes_race  = subset(wave_race_6, wave_race_6$diabetes_new == 1)
 
 
@@ -271,22 +352,22 @@ race_combo_dataset = rbind(HRS2008_data_race_combo,
                            HRS2016_data_race_combo,
                            HRS2018_data_race_combo)
 
-wave_race_combo_1 = subset(race_combo_dataset,  race_combo_dataset$start == 0)
+wave_race_combo_1 = subset(race_combo_dataset,  race_combo_dataset$start_new == 0)
 wave_race_combo_1_diabetes_race_combo  = subset(wave_race_combo_1, wave_race_combo_1$diabetes_new == 1)
 
-wave_race_combo_2 = subset(race_combo_dataset, race_combo_dataset$start == 1)
+wave_race_combo_2 = subset(race_combo_dataset, race_combo_dataset$start_new == 1)
 wave_race_combo_2_diabetes_race_combo  = subset(wave_race_combo_2, wave_race_combo_2$diabetes_new == 1)
 
-wave_race_combo_3 = subset(race_combo_dataset, race_combo_dataset$start == 2)
+wave_race_combo_3 = subset(race_combo_dataset, race_combo_dataset$start_new == 2)
 wave_race_combo_3_diabetes_race_combo  = subset(wave_race_combo_3, wave_race_combo_3$diabetes_new == 1)
 
-wave_race_combo_4 = subset(race_combo_dataset, race_combo_dataset$start == 3)
+wave_race_combo_4 = subset(race_combo_dataset, race_combo_dataset$start_new == 3)
 wave_race_combo_4_diabetes_race_combo  = subset(wave_race_combo_4, wave_race_combo_4$diabetes_new == 1)
 
-wave_race_combo_5 = subset(race_combo_dataset, race_combo_dataset$start == 4)
+wave_race_combo_5 = subset(race_combo_dataset, race_combo_dataset$start_new == 4)
 wave_race_combo_5_diabetes_race_combo  = subset(wave_race_combo_5, wave_race_combo_5$diabetes_new == 1)
 
-wave_race_combo_6 = subset(race_combo_dataset, race_combo_dataset$start == 5)
+wave_race_combo_6 = subset(race_combo_dataset, race_combo_dataset$start_new == 5)
 wave_race_combo_6_diabetes_race_combo  = subset(wave_race_combo_6, wave_race_combo_6$diabetes_new == 1)
 
 
@@ -335,22 +416,22 @@ BMI_dataset = rbind(HRS2008_data_BMI,
                     HRS2016_data_BMI,
                     HRS2018_data_BMI)
 
-wave_BMI_1 = subset(BMI_dataset,  BMI_dataset$start == 0)
+wave_BMI_1 = subset(BMI_dataset,  BMI_dataset$start_new == 0)
 wave_BMI_1_diabetes_BMI  = subset(wave_BMI_1, wave_BMI_1$diabetes_new == 1)
 
-wave_BMI_2 = subset(BMI_dataset, BMI_dataset$start == 1)
+wave_BMI_2 = subset(BMI_dataset, BMI_dataset$start_new == 1)
 wave_BMI_2_diabetes_BMI  = subset(wave_BMI_2, wave_BMI_2$diabetes_new == 1)
 
-wave_BMI_3 = subset(BMI_dataset, BMI_dataset$start == 2)
+wave_BMI_3 = subset(BMI_dataset, BMI_dataset$start_new == 2)
 wave_BMI_3_diabetes_BMI  = subset(wave_BMI_3, wave_BMI_3$diabetes_new == 1)
 
-wave_BMI_4 = subset(BMI_dataset, BMI_dataset$start == 3)
+wave_BMI_4 = subset(BMI_dataset, BMI_dataset$start_new == 3)
 wave_BMI_4_diabetes_BMI  = subset(wave_BMI_4, wave_BMI_4$diabetes_new == 1)
 
-wave_BMI_5 = subset(BMI_dataset, BMI_dataset$start == 4)
+wave_BMI_5 = subset(BMI_dataset, BMI_dataset$start_new == 4)
 wave_BMI_5_diabetes_BMI  = subset(wave_BMI_5, wave_BMI_5$diabetes_new == 1)
 
-wave_BMI_6 = subset(BMI_dataset, BMI_dataset$start == 5)
+wave_BMI_6 = subset(BMI_dataset, BMI_dataset$start_new == 5)
 wave_BMI_6_diabetes_BMI  = subset(wave_BMI_6, wave_BMI_6$diabetes_new == 1)
 
 
@@ -373,7 +454,7 @@ new_diabetes_BMI_BMI_dataset = length(diabetes_BMI_all_wave_BMIs_unique)
 
 
 
-total_N = rbind(entire_dataset_Nvalue,
+total_N = rbind(participant_wave_df_Nvalue,
                 
                 female_dataset_Nvalue, 
                 
@@ -385,7 +466,7 @@ total_N = rbind(entire_dataset_Nvalue,
 
 
 
-diabetes_cases = rbind(new_diabetes_entire_dataset, 
+diabetes_cases = rbind(new_diabetes_participant_wave_df, 
                        new_diabetes_female_female_dataset, 
                        new_diabetes_race_race_dataset, 
                        new_diabetes_race_combo_race_combo_dataset,
