@@ -27,7 +27,10 @@ library(lme4)
 library(lattice)
 library(Hmisc)
 
-
+##### error message: > source("~/proj/Cumulative_effects_HRS/Version_2_analysis/MAIN_marginalised_groups_discrim_bin_diabetesTHIS_WAVE.R")
+###Note: Using an external vector in selections is ambiguous.
+###ℹ Use `all_of(outcome)` instead of `outcome` to silence this message.
+###ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>
 
 # plots: 
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
@@ -37,19 +40,20 @@ library(Hmisc)
 
 current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/Reason_discrim/diabetes_thisWAVE_restrcited_reason/", sep=""))
+OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/DIAB_diabetes_this_wave_correct/", sep=""))
 SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
 DATAIN_ROOT = (paste(current_directory, "/data_files/OLD_data_diabetes_this_wave/", sep="")) 
 
-#DATAIN_ROOT = (paste("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/", sep="")) 
-#/Users/aliyaamirova/proj/Cumulative_effects_HRS/Version_2_analysis
 
+# function that subsets and srts dataset for a particular var (eg., female == 1)
+
+#/Users/aliyaamirova/proj/Cumulative_effects_HRS/Version_2_analysis
 source((paste(SOURCE_ROOT, "subset_func.R", sep="")))
 source((paste(SOURCE_ROOT, "clean_recode_keyvars.R", sep="")))
 #source((paste(SOURCE_ROOT, "subset_sort_BMI.R", sep="")))
 
 #function that sorts out the data into a dataframe where each participant x wave pair is one row. Here I also add starting and stopping points to identify each wave
-source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
+source((paste(SOURCE_ROOT, "sort_timepoints_drop_baseline.R", sep="")))
 
 source((paste(SOURCE_ROOT, "clean_recode_sort.R", sep="")))
 
@@ -60,7 +64,7 @@ source((paste(SOURCE_ROOT, "summary_score_Bootstrapped_CI.R", sep="")))
 # function that runs WCE analysis and CIs sampling for a specified subset and with a specified model 
 source((paste(SOURCE_ROOT, "HRs_CIs_analysis.R", sep="")))
 
-source((paste(SOURCE_ROOT, "Seven_models.R", sep="")))
+source((paste(SOURCE_ROOT, "Seven_models_drop_baseline.R", sep="")))
 
 source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
 
@@ -94,32 +98,97 @@ HRS2014_data = HRS2014_data_intermediate
 HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
 
-
-
 #########
 
 Model = c(1, 2, 3, 4, 5, 6, 7)
 
 
 # ####### # ####### # ####### # ####### EXPOSURE # ####### # ####### # ####### # #######
-#individual reasons: ageism, sexism, racism etc
 exposure = "discrim_bin"
 
 # ####### # ####### # ####### # ####### OUTCOME # ####### # ####### # ####### # #######
-
-outcome = "diabetes_new"
-
-unique(HRS2008_data$reason_discrim1_reason_age)
-unique(HRS2008_data$reason_discrim1_reason_gender)
-unique(HRS2008_data$reason_discrim1_reason_national)
-unique(HRS2008_data$reason_discrim1_reason_race)
-unique(HRS2008_data$reason_discrim1_reason_religion)
-unique(HRS2008_data$reason_discrim1_reason_weight)
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+# this is DIAB below (from older files, where diab this wave was coded as diabetes)
 
 
+unique(HRS2008_data$diabetes_new) 
+unique(HRS2010_data$diabetes_new) 
+unique(HRS2012_data$diabetes_new)
+unique(HRS2014_data$diabetes_new)
+unique(HRS2016_data$diabetes_new)
+unique(HRS2018_data$diabetes_new)
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB recode to DIAB_bin
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
 
 
-all_ageism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models(subset_var1 = "NA", 
+
+HRS2008_data$diabetes_new_bin = case_when(HRS2008_data$diabetes_new == 1 ~ 1,
+                                          HRS2008_data$diabetes_new == 0 ~ 0, 
+                                          HRS2008_data$diabetes_new == 3 ~ 1, 
+                                          HRS2008_data$diabetes_new == 4 ~ 0)    
+
+
+HRS2010_data$diabetes_new_bin = case_when(HRS2010_data$diabetes_new == 1 ~ 1,
+                                          HRS2010_data$diabetes_new == 0 ~ 0, 
+                                          HRS2010_data$diabetes_new == 3 ~ 1, 
+                                          HRS2010_data$diabetes_new == 4 ~ 0)   
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+
+HRS2012_data$diabetes_new_bin = case_when(HRS2012_data$diabetes_new == 1 ~ 1,
+                                          HRS2012_data$diabetes_new == 0 ~ 0, 
+                                          HRS2012_data$diabetes_new == 3 ~ 1, 
+                                          HRS2012_data$diabetes_new == 4 ~ 0)
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+
+HRS2014_data$diabetes_new_bin = case_when(HRS2014_data$diabetes_new == 1 ~ 1,
+                                          HRS2014_data$diabetes_new == 0 ~ 0, 
+                                          HRS2014_data$diabetes_new == 3 ~ 1, 
+                                          HRS2014_data$diabetes_new == 4 ~ 0) 
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+HRS2016_data$diabetes_new_bin = case_when(HRS2016_data$diabetes_new == 1 ~ 1,
+                                          HRS2016_data$diabetes_new == 0 ~ 0, 
+                                          HRS2016_data$diabetes_new == 3 ~ 1, 
+                                          HRS2016_data$diabetes_new == 4 ~ 0) 
+unique(HRS2016_data$diabetes_new_bin)
+
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+HRS2018_data$diabetes_new_bin = case_when(HRS2018_data$diabetes_new == 1 ~ 1,
+                                          HRS2018_data$diabetes_new == 0 ~ 0, 
+                                          HRS2018_data$diabetes_new == 3 ~ 1, 
+                                          HRS2018_data$diabetes_new == 4 ~ 0) 
+
+unique(HRS2018_data$diabetes_new_bin)
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+# this is DIAB below (from older files, where diab this wave was coded as diabetes)
+outcome = "diabetes_new_bin"
+
+
+
+all_ageism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models_drop_baseline(subset_var1 = "NA", 
                                                                 subset_value1 = "NA", 
                                                                 
                                                                 subset_BMI = "NA", 
@@ -166,7 +235,7 @@ all_ageism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = p_v
                                                                         Model = Model)
 
 
-female_sexism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models(subset_var1 = "sex_1_2", 
+female_sexism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models_drop_baseline(subset_var1 = "sex_1_2", 
                                                                    subset_value1 = 2, 
                                                                    
                                                                    
@@ -219,7 +288,7 @@ female_sexism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = 
 
 
 
-race_racism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models(subset_var1 = "race_white", 
+race_racism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models_drop_baseline(subset_var1 = "race_white", 
                                                                  subset_value1 = 0, 
                                                                  
                                                                  subset_BMI = "NA", 
@@ -268,7 +337,7 @@ race_racism_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = p_
 
 
 
-combo_reason_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models(subset_var1 = "race_white", 
+combo_reason_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models_drop_baseline(subset_var1 = "race_white", 
                                                                                     subset_value1 = 0, 
                                                                                     
                                                                                     subset_BMI = "NA", 
@@ -316,6 +385,8 @@ Combo_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = p_value_
                                                                    Model = Model)
 
 
+
+
 all_ageism_results = read.csv(paste(OUTPUT_ROOT, "all_ageism_clean_data_HRsonly.csv", sep=""))
 female_sexism_results =  read.csv(paste(OUTPUT_ROOT, "FEMALE_sexism_clean_data_HRsonly.csv", sep=""))
 race_racism_results = read.csv(paste(OUTPUT_ROOT, "race_racism_clean_data_HRsonly.csv", sep=""))
@@ -348,5 +419,48 @@ results_reason_col = cbind(Model_1,
 
 results_reason_col = results_reason_col[,c(3:10,18:20, 28:30, 38:40, 48:50, 58:60, 68:70)]
 write.csv(results_reason_col, paste(OUTPUT_ROOT, "result_reason_table_diabetes_thisWAVE_restricted_reason.csv", sep=""))
+
+
+BMI_discrim_bin_diabetes_thisWAVE_restricted_reason_7models = Seven_models_drop_baseline(subset_var1 = "NA", 
+                                                                                         subset_value1 = "NA", 
+                                                                                         
+                                                                                         subset_BMI = "assessed_BMI", 
+                                                                                         subset_BMI_value = 30, 
+                                                                                         
+                                                                                         subset_var2 = "NA", 
+                                                                                         subset_value2 = "NA", 
+                                                                                         
+                                                                                         subset_var3= "NA", 
+                                                                                         subset_value3 = "NA", 
+                                                                                         
+                                                                                         subset_reason1 = "reason_discrim1_reason_weight", 
+                                                                                         subset_reason1_value = "NA", 
+                                                                                         
+                                                                                         subset_reason2 = "NA", 
+                                                                                         subset_reason2_value =  "NA", 
+                                                                                         
+                                                                                         
+                                                                                         subset_reason3 = "NA", 
+                                                                                         subset_reason3_value = "NA", 
+                                                                                         
+                                                                                         subset_name = "BMI", 
+                                                                                         
+                                                                                         HRS2008_data = HRS2008_data, 
+                                                                                         HRS2010_data = HRS2010_data, 
+                                                                                         HRS2012_data = HRS2012_data, 
+                                                                                         HRS2014_data = HRS2014_data, 
+                                                                                         HRS2016_data = HRS2016_data, 
+                                                                                         HRS2018_data = HRS2018_data, 
+                                                                                         
+                                                                                         exposure = exposure, 
+                                                                                         outcome = outcome) 
+
+
+
+write.csv(BMI_discrim_bin_diabetes_thisWAVE_restricted_reason_7models, paste(OUTPUT_ROOT, "BMI_weight_discrim_bin_diabetes_thisWAVE_restricted_reason_7models.csv", sep=""))
+
+BMI_discrim_bin_diabetes_thisWAVE_restricted_reason_7models_pvalues = p_value_func(data = BMI_discrim_bin_diabetes_thisWAVE_restricted_reason_7models,
+                                                                                   subset_name = "BMI", 
+                                                                                   Model = Model)
 
 
