@@ -153,6 +153,8 @@ sort_timepoints_drop_baseline = function (data){
   
   write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep="")))
   
+  all_waves_no_diab_baseline_unique = unique(all_waves_no_diab_baseline$HHIDPN)
+  all_waves_no_diab_baseline_unique_values = length(all_waves_no_diab_baseline_unique)
   
   # number of rows are: 112895 
   all_waves_unique_id = unique(all_waves$HHIDPN)
@@ -166,14 +168,11 @@ sort_timepoints_drop_baseline = function (data){
                              wave_6_diabetes)
   
   diabetes_all_waves_unique = unique(diabetes_all_waves$HHIDPN)
-  
-  
-  
   new_diabetes_participant_wave_df = length(diabetes_all_waves_unique)
   
   
-  total_n_proportion = rbind(data_Nvalue, 
-                              all_waves_unique_id_value, 
+  total_n_proportion = rbind(all_waves_unique_id_value, 
+                             all_waves_no_diab_baseline_unique_values, 
                               new_diabetes_participant_wave_df)
   
   write.csv(total_n_proportion, (paste(OUTPUT_ROOT, "total_n_nodiabatbaseline_DIAB_values.csv", sep="")))
