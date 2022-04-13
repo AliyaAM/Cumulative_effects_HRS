@@ -27,7 +27,10 @@ library(lme4)
 library(lattice)
 library(Hmisc)
 
-
+##### error message: > source("~/proj/Cumulative_effects_HRS/Version_2_analysis/MAIN_marginalised_groups_discrim_bin_diabetesTHIS_WAVE.R")
+###Note: Using an external vector in selections is ambiguous.
+###ℹ Use `all_of(outcome)` instead of `outcome` to silence this message.
+###ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>
 
 # plots: 
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
@@ -50,7 +53,7 @@ source((paste(SOURCE_ROOT, "clean_recode_keyvars.R", sep="")))
 #source((paste(SOURCE_ROOT, "subset_sort_BMI.R", sep="")))
 
 #function that sorts out the data into a dataframe where each participant x wave pair is one row. Here I also add starting and stopping points to identify each wave
-source((paste(SOURCE_ROOT, "sort_timepoints.R", sep="")))
+source((paste(SOURCE_ROOT, "sort_timepoints_drop_baseline.R", sep="")))
 
 source((paste(SOURCE_ROOT, "clean_recode_sort.R", sep="")))
 
@@ -160,6 +163,8 @@ HRS2016_data$diabetes_new_bin = case_when(HRS2016_data$diabetes_new == 1 ~ 1,
                                          HRS2016_data$diabetes_new == 0 ~ 0, 
                                          HRS2016_data$diabetes_new == 3 ~ 1, 
                                          HRS2016_data$diabetes_new == 4 ~ 0) 
+unique(HRS2016_data$diabetes_new_bin)
+
 
 ##### DIAB DIAB DIAB DIAB DIAB DIAB 
 ##### DIAB DIAB DIAB DIAB DIAB DIAB 
@@ -169,6 +174,7 @@ HRS2018_data$diabetes_new_bin = case_when(HRS2018_data$diabetes_new == 1 ~ 1,
                                          HRS2018_data$diabetes_new == 3 ~ 1, 
                                          HRS2018_data$diabetes_new == 4 ~ 0) 
 
+unique(HRS2018_data$diabetes_new_bin)
 
 ##### DIAB DIAB DIAB DIAB DIAB DIAB 
 ##### DIAB DIAB DIAB DIAB DIAB DIAB 

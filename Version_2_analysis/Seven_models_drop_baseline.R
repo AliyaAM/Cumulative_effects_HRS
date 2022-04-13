@@ -125,25 +125,18 @@ Seven_models_drop_baseline = function (subset_var1,
   
   ###### drop NAs and weird strings like " NA", THE WCE ANALYSIS DOES NOT RUN WITH NAs
   
-  
-  
-  dataset_noNAs = dataset %>% drop_na(diabetes_new)
-  unique(dataset_noNAs$diabetes_new)
+
+  dataset_noNAs = dataset %>% drop_na(outcome)
+  unique(dataset_noNAs$outcome)
   
   dataset_noNAs = dataset_noNAs %>% drop_na(exposure)
   unique(dataset_noNAs$exposure)
   
   
   # sort out data and tag time points as start_new, stop_new
-  dataset_noNAs_timepoints = sort_timepoints(data = dataset_noNAs)
+  dataset_noNAs_timepoints = sort_timepoints_drop_baseline(data = dataset_noNAs, 
+                                                           outcome = outcome)
   
-  #excluding those who had diabetes at baseline: 
-  dataset_noNAs_timepoints = subset(dataset_noNAs_timepoints, dataset_noNAs_timepoints$start_new  != 0 & dataset_noNAs_timepoints$diabetes_new_bin != 1) 
-  
-  nrow_dataset_noNAs_timepoints = nrow(dataset_noNAs_timepoints)
-  
-  print("nrow_dataset_noNAs_timepoints: ")
-  print(nrow_dataset_noNAs_timepoints) 
   
   Model_1_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
                                       Model_n = Model_1, 
