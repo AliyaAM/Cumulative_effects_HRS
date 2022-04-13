@@ -104,9 +104,82 @@ Model = c(1, 2, 3, 4, 5, 6, 7)
 exposure = "discrim_bin"
 
 # ####### # ####### # ####### # ####### OUTCOME # ####### # ####### # ####### # #######
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+# this is DIAB below (from older files, where diab this wave was coded as diabetes)
 
-# this is DIAB below (from older files, wheer diab this wave was coded as diabetes)
-outcome = "diabetes_new"
+
+unique(HRS2008_data$diabetes_new) 
+   unique(HRS2010_data$diabetes_new) 
+       unique(HRS2012_data$diabetes_new)
+              unique(HRS2014_data$diabetes_new)
+                     unique(HRS2016_data$diabetes_new)
+                            unique(HRS2018_data$diabetes_new)
+                            
+##### DIAB DIAB DIAB DIAB DIAB DIAB recode to DIAB_bin
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+                            
+                           
+                            
+HRS2008_data$diabetes_new_bin = case_when(HRS2008_data$diabetes_new == 1 ~ 1,
+                                         HRS2008_data$diabetes_new == 0 ~ 0, 
+                                         HRS2008_data$diabetes_new == 3 ~ 1, 
+                                         HRS2008_data$diabetes_new == 4 ~ 0)    
+
+
+HRS2010_data$diabetes_new_bin = case_when(HRS2010_data$diabetes_new == 1 ~ 1,
+                                         HRS2010_data$diabetes_new == 0 ~ 0, 
+                                         HRS2010_data$diabetes_new == 3 ~ 1, 
+                                         HRS2010_data$diabetes_new == 4 ~ 0)   
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+
+HRS2012_data$diabetes_new_bin = case_when(HRS2012_data$diabetes_new == 1 ~ 1,
+                                         HRS2012_data$diabetes_new == 0 ~ 0, 
+                                         HRS2012_data$diabetes_new == 3 ~ 1, 
+                                         HRS2012_data$diabetes_new == 4 ~ 0)
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+
+HRS2014_data$diabetes_new_bin = case_when(HRS2014_data$diabetes_new == 1 ~ 1,
+                                         HRS2014_data$diabetes_new == 0 ~ 0, 
+                                         HRS2014_data$diabetes_new == 3 ~ 1, 
+                                         HRS2014_data$diabetes_new == 4 ~ 0) 
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+HRS2016_data$diabetes_new_bin = case_when(HRS2016_data$diabetes_new == 1 ~ 1,
+                                         HRS2016_data$diabetes_new == 0 ~ 0, 
+                                         HRS2016_data$diabetes_new == 3 ~ 1, 
+                                         HRS2016_data$diabetes_new == 4 ~ 0) 
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+HRS2018_data$diabetes_new_bin = case_when(HRS2018_data$diabetes_new == 1 ~ 1,
+                                         HRS2018_data$diabetes_new == 0 ~ 0, 
+                                         HRS2018_data$diabetes_new == 3 ~ 1, 
+                                         HRS2018_data$diabetes_new == 4 ~ 0) 
+
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+# this is DIAB below (from older files, where diab this wave was coded as diabetes)
+outcome = "diabetes_new_bin"
+
 
 all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA", 
                                                     subset_value1 = "NA", 

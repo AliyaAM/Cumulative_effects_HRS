@@ -57,6 +57,9 @@ clean_recode_keyvars =  function (data){
   
   
   data$diabetes_new = as.numeric(data$diabetes_new)
+  data$diabetes_new_bin = as.numeric(data$diabetes_new_bin)
+  
+  
   
   ##### recode below: 
   
