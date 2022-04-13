@@ -134,8 +134,6 @@ sort_timepoints_drop_baseline = function (data,
     }
     n = n + 1
     
-    participant_wave_df = subset(participant_wave_df, participant_wave_df$timepoints_indiv !=1)
-    
   }
   return(participant_wave_df)
 }
