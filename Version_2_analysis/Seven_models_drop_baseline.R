@@ -207,7 +207,7 @@ Seven_models_drop_baseline = function (subset_var1,
   
   Model_6_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
                                       Model_n = Model_6, 
-                                      
+                                       
                                       exposure = exposure, 
                                       outcome = outcome,
                                       
