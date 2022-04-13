@@ -147,14 +147,6 @@ sort_timepoints_drop_baseline = function (data,
     n = n + 1
     
     
-    participant_wave_df=participant_wave_df[!(participant_wave_df$start_new==0 & participant_wave_df$outcome==1),]
-    
-    participant_wave_df_nrow = nrow(participant_wave_df)
-    
-    
-    print("participant_wave_df_nrow: ")
-    print(participant_wave_df_nrow) 
-    
   }
   return(participant_wave_df)
 }
