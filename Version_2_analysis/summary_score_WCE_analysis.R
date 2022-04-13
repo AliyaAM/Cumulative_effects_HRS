@@ -130,9 +130,9 @@ print(hazard_ratio_1vs0)
 
 
 
-mat_t1_value = wce$WCEmat[1,1]
-mat_t2_value = wce$WCEmat[1,2]
-mat_t3_value = wce$WCEmat[1,3]
+#mat_t1_value = wce$WCEmat[1,1]
+#mat_t2_value = wce$WCEmat[1,2]
+#mat_t3_value = wce$WCEmat[1,3]
 
 #loglik_value = wce$loglik[1]
 
@@ -150,19 +150,19 @@ est_value_D5 = est_value_all$`3 knot(s)`[5]
 
 results_HR_WCE = rbind(hazard_ratio_1vs0) 
 
-results_stats_WCE= cbind(mat_t1_value, 
-                         mat_t2_value,
-                         mat_t3_value,
+#results_stats_WCE= cbind(mat_t1_value, 
+#                         mat_t2_value,
+#                         mat_t3_value,
                          
                         # loglik_value,
                          
-                         info_criterion_value,
+#                         info_criterion_value,
                          
-                         est_value_D1, 
-                         est_value_D2, 
-                         est_value_D3, 
-                         est_value_D4, 
-                         est_value_D5)
+#                         est_value_D1, 
+#                         est_value_D2, 
+#                         est_value_D3, 
+#                         est_value_D4, 
+#                         est_value_D5)
 
 #####
 #output: 
@@ -179,11 +179,11 @@ colnames(results) = c("analysed n", "diabetes onset (n)", "max. timepoints", "me
 #changes with number of waves: 
 people_timepoints_n = table(data_WCE$timepoints_indiv)
 analysed_each_wave_n = table(data_WCE$start_new)
-WCEmat = wce$WCEmat
+#WCEmat = wce$WCEmat
 
 wave_info = rbind(people_timepoints_n, 
-                  analysed_each_wave_n, 
-                  WCEmat)
+                  analysed_each_wave_n)
+                  #WCEmat)
 
 address_wave_info = paste(OUTPUT_ROOT, subset_name, Model_name, "wave_info.csv", sep = "")
 print(address_wave_info)
