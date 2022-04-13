@@ -423,7 +423,7 @@ race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly.csv", sep=""
 combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly.csv", sep=""))
 BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly.csv", sep=""))
 
-
+ 
 results = rbind(all_results[1:7,],
                 female_results[1:7,],
                 race_results[1:7,],
