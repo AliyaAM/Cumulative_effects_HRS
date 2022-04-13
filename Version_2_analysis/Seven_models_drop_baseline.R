@@ -134,8 +134,7 @@ Seven_models_drop_baseline = function (subset_var1,
   
   
   # sort out data and tag time points as start_new, stop_new
-  dataset_noNAs_timepoints = sort_timepoints_drop_baseline(data = dataset_noNAs, 
-                                                           outcome = outcome)
+  dataset_noNAs_timepoints = sort_timepoints_drop_baseline(data = dataset_noNAs)
   
   
   Model_1_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 

@@ -1,5 +1,6 @@
 
-
+library(dplyr)
+library(tidyr)
 
 current_directory = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS"
 
@@ -32,7 +33,77 @@ HRS2018_data = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short
 
 
 
-#subset everything to diabetes_ever == 0 
+unique(HRS2008_data$diabetes_new) 
+unique(HRS2010_data$diabetes_new) 
+unique(HRS2012_data$diabetes_new)
+unique(HRS2014_data$diabetes_new)
+unique(HRS2016_data$diabetes_new)
+unique(HRS2018_data$diabetes_new)
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB recode to DIAB_bin
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+
+HRS2008_data$diabetes_new_bin = case_when(HRS2008_data$diabetes_new == 1 ~ 1,
+                                          HRS2008_data$diabetes_new == 0 ~ 0, 
+                                          HRS2008_data$diabetes_new == 3 ~ 1, 
+                                          HRS2008_data$diabetes_new == 4 ~ 0)    
+
+
+HRS2010_data$diabetes_new_bin = case_when(HRS2010_data$diabetes_new == 1 ~ 1,
+                                          HRS2010_data$diabetes_new == 0 ~ 0, 
+                                          HRS2010_data$diabetes_new == 3 ~ 1, 
+                                          HRS2010_data$diabetes_new == 4 ~ 0)   
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+
+HRS2012_data$diabetes_new_bin = case_when(HRS2012_data$diabetes_new == 1 ~ 1,
+                                          HRS2012_data$diabetes_new == 0 ~ 0, 
+                                          HRS2012_data$diabetes_new == 3 ~ 1, 
+                                          HRS2012_data$diabetes_new == 4 ~ 0)
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+
+HRS2014_data$diabetes_new_bin = case_when(HRS2014_data$diabetes_new == 1 ~ 1,
+                                          HRS2014_data$diabetes_new == 0 ~ 0, 
+                                          HRS2014_data$diabetes_new == 3 ~ 1, 
+                                          HRS2014_data$diabetes_new == 4 ~ 0) 
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+
+HRS2016_data$diabetes_new_bin = case_when(HRS2016_data$diabetes_new == 1 ~ 1,
+                                          HRS2016_data$diabetes_new == 0 ~ 0, 
+                                          HRS2016_data$diabetes_new == 3 ~ 1, 
+                                          HRS2016_data$diabetes_new == 4 ~ 0) 
+unique(HRS2016_data$diabetes_new_bin)
+
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
+HRS2018_data$diabetes_new_bin = case_when(HRS2018_data$diabetes_new == 1 ~ 1,
+                                          HRS2018_data$diabetes_new == 0 ~ 0, 
+                                          HRS2018_data$diabetes_new == 3 ~ 1, 
+                                          HRS2018_data$diabetes_new == 4 ~ 0) 
+
+unique(HRS2018_data$diabetes_new_bin)
+
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+##### DIAB DIAB DIAB DIAB DIAB DIAB 
+
 
 entire_dataset = rbind(HRS2008_data, 
                        HRS2010_data,
@@ -42,13 +113,19 @@ entire_dataset = rbind(HRS2008_data,
                        HRS2018_data)
 
 
+  
+  
+entire_dataset = entire_dataset %>% drop_na(diabetes_new_bin)
+unique(entire_dataset$diabetes_new)
+
+entire_dataset = entire_dataset %>% drop_na(exposure)
+unique(entire_dataset$exposure)
 
 entire_dataset_n = unique(entire_dataset$HHIDPN) 
 entire_dataset_Nvalue = length(entire_dataset_n) 
 
 total_n_proportion = rbind(total_n_proportion, 
                            entire_dataset_Nvalue)
-
 
 
   ID = unique(entire_dataset$HHIDPN)
@@ -189,6 +266,23 @@ new_diabetes_each_wave = rbind(new_diabetes_wave2_dataset,
 
 write.csv(new_diabetes_each_wave, (paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIAB.csv", sep="")))
 
+all_waves = rbind(wave_1, 
+                  wave_2, 
+                  wave_3, 
+                  wave_4, 
+                  wave_5, 
+                  wave_6)
+
+
+all_waves_no_diab_baseline <- all_waves[ !(all_waves$HHIDPN %in% c(diabetes_wave_1_unique)), ]
+
+write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep="")))
+
+all_waves_no_diab_baseline
+# number of rows are: 112895 
+all_waves_unique_id = unique(all_waves$HHIDPN)
+
+all_waves_unique_id_value = length(all_waves_unique_id) 
 
 diabetes_all_waves = rbind(wave_2_diabetes, 
                            wave_3_diabetes, 
@@ -202,7 +296,8 @@ diabetes_all_waves_unique = unique(diabetes_all_waves$HHIDPN)
 
 new_diabetes_participant_wave_df = length(diabetes_all_waves_unique)
 
-total_n_proportion = data.frame()
-total_n_proportion = rbind(total_n_proportion, 
+
+total_n_proportion = rbind( entire_dataset_Nvalue, 
+                           all_waves_unique_id_value, 
                            new_diabetes_participant_wave_df)
 ######################
