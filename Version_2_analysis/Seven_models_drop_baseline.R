@@ -249,9 +249,7 @@ Seven_models_drop_baseline = function (subset_var1,
                                      Model_6_exposure,
                                      Model_7_exposure)
   
-  
-  print("nrow_dataset_noNAs_timepoints: ")
-  print(nrow_dataset_noNAs_timepoints) 
+
   
   return(results_exposure)
 }
