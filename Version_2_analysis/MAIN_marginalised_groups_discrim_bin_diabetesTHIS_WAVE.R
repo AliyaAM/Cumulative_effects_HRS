@@ -27,10 +27,6 @@ library(lme4)
 library(lattice)
 library(Hmisc)
 
-##### error message: > source("~/proj/Cumulative_effects_HRS/Version_2_analysis/MAIN_marginalised_groups_discrim_bin_diabetesTHIS_WAVE.R")
-###Note: Using an external vector in selections is ambiguous.
-###ℹ Use `all_of(outcome)` instead of `outcome` to silence this message.
-###ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>
 
 # plots: 
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
