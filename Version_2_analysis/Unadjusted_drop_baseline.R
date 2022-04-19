@@ -89,7 +89,7 @@ Unadjusted_drop_baseline = function (subset_var1,
   
   
   Model_unadjusted = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                      Model_n = NA, 
+                                      Model_n = NULL, 
                                       
                                       exposure = exposure, 
                                       outcome = outcome,
