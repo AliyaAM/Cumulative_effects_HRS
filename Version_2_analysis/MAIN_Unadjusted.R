@@ -38,9 +38,9 @@ library(Hmisc)
 
 
 
-#current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
+current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-current_directory = "/Users/aliya/my_docs/proj"
+#current_directory = "/Users/aliya/my_docs/proj"
 
 OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/DIAB_diabetes_this_wave_correct/", sep=""))
 SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
@@ -455,15 +455,9 @@ Model_5= subset(results, results$Model == 5)
 Model_6= subset(results, results$Model == 6)
 Model_7= subset(results, results$Model == 7)
 
-results_col = cbind(Model_1, 
-                    Model_2, 
-                    Model_3, 
-                    Model_4, 
-                    Model_5, 
-                    Model_6, 
-                    Model_7)
+results_col = cbind(Model_1)
 
 results_col = results_col[,c(3:10,18:20, 28:30, 38:40, 48:50, 58:60, 68:70)]
-write.csv(results_col, paste(OUTPUT_ROOT, "result_table_diabetes_thisWAVE.csv", sep=""))
+write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_thisWAVE_unadjusted.csv", sep=""))
 
 
