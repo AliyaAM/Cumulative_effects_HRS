@@ -103,7 +103,7 @@ Unadjusted_drop_baseline = function (subset_var1,
   
   
   
-  results_exposure = rbind(Model_1_exposure)
+  results_exposure = rbind(Model_unadjusted)
   
   
   

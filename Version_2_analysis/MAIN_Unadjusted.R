@@ -457,7 +457,6 @@ Model_7= subset(results, results$Model == 7)
 
 results_col = cbind(Model_1)
 
-results_col = results_col[,c(3:10,18:20, 28:30, 38:40, 48:50, 58:60, 68:70)]
 write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_thisWAVE_unadjusted.csv", sep=""))
 
 
