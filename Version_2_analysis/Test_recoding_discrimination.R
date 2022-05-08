@@ -610,6 +610,8 @@ for (id in ID){
 
 
 
+
+
 unique(participant_wave_df$discrimination_cat)
 
 wave_1 = subset(participant_wave_df,  participant_wave_df$start_new == 0)
