@@ -13,6 +13,27 @@ cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Dat
 
 cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 
+cumulative_effects_dat
+
+#if discrimination at wave 1 = 0 and discriination at wave 2 = 0 ~ discrimination categorical = 0 
+#if discrimination at wave 1  = 1 and discrimination at wave 2 = 0 ~  discrimination categorical = 1 
+#if discrimination at wave 1  = 0 and discrimination at wave 2 = 1 ~  discrimination categorical = 2 
+#if discrimination at wave 1  = 1 and discrimination at wave 2 = 1 ~  discrimination categorical = 3 
+
+
+
+discrimination_categorical = case_when(cumulative_effects_dat$start_new == 0 & 
+                                       cumulative_effects_dat$start_new == 1 & 
+                                       cumulative_effects_dat$start_new == 2 & 
+                                       cumulative_effects_dat$discrim_bin == 0 ~ 0) 
+
+
+head(cumulative_effects_dat)
+                 
+cumulative_effects_dat$HHIDPN                       
+
+unique(cumulative_effects_dat$discrimination)
+
 #time: cumulative_effects_dat$stop_new
 
 #cumulative_effects_dat$sex_1_2
