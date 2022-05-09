@@ -56,9 +56,8 @@ Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_
 Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin", "checklist_depression_bin")
 
 ###### DATA:
-
-#cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
-cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
+#write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv", sep=""))
 
 ###### Adding variables to the main dataset:
 
@@ -69,7 +68,8 @@ cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_e
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
+
+cumulative_effects_dat$discrimination = cumulative_effects_dat$discrimination_cat
 cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 
 #1 = 2 year 
@@ -129,7 +129,7 @@ All_results_Model_3_non_interact$p_value = summary_all$logtest[3]
 
 print(All_results_Model_3_non_interact)
 
-write.csv(All_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_3_non_interact.csv")
+#write.csv(All_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_3_non_interact.csv")
 
 
 
@@ -166,7 +166,7 @@ Female_results_Model_3_non_interact$p_value = summary_female$logtest[3]
 
 print(Female_results_Model_3_non_interact)
 
-write.csv(Female_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_3_non_interact.csv")
+#write.csv(Female_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_3_non_interact.csv")
 
 
 
@@ -207,7 +207,7 @@ male_results_Model_3_non_interact$p_value = summary_male$logtest[3]
 
 print(male_results_Model_3_non_interact)
 
-write.csv(male_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_3_non_interact.csv")
+#write.csv(male_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_3_non_interact.csv")
 
 
 
@@ -244,7 +244,7 @@ race_results_Model_3_non_interact$p_value = summary_race$logtest[3]
 
 print(race_results_Model_3_non_interact)
 
-write.csv(race_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_3_non_interact.csv")
+#write.csv(race_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_3_non_interact.csv")
 
 
 ########
@@ -280,7 +280,7 @@ BMI_results_Model_3_non_interact$p_value = summary_BMI$logtest[3]
 
 print(BMI_results_Model_3_non_interact)
 
-write.csv(BMI_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_3_non_interact.csv")
+#write.csv(BMI_results_Model_3_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_3_non_interact.csv")
 
 Model_3_non_interact_results = rbind(All_results_Model_3_non_interact, 
                                      Female_results_Model_3_non_interact, 
@@ -288,4 +288,7 @@ Model_3_non_interact_results = rbind(All_results_Model_3_non_interact,
                                      race_results_Model_3_non_interact, 
                                      BMI_results_Model_3_non_interact) 
 
-write.csv(Model_3_non_interact_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_3_non_interact_results.csv")
+
+write.csv(Model_3_non_interact_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Model_3_non_interact_results.csv")
+
+#write.csv(Model_3_non_interact_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_3_non_interact_results.csv")

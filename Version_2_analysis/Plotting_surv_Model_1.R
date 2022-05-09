@@ -59,7 +59,8 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 ###### DATA:
 
 #cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
-cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+#cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
 
 ###### Adding variables to the main dataset:
 
@@ -70,7 +71,9 @@ cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_e
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
+unique(cumulative_effects_dat$discrimination_cat)
+
+cumulative_effects_dat$discrimination = cumulative_effects_dat$discrimination_cat
 cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 
 #1 = 2 year 
@@ -130,7 +133,7 @@ All_results_Model_1$p_value = summary_all$logtest[3]
 
 print(All_results_Model_1)
 
-write.csv(All_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_1.csv")
+#write.csv(All_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_1.csv")
 
 
 
@@ -167,7 +170,7 @@ Female_results_Model_1$p_value = summary_female$logtest[3]
 
 print(Female_results_Model_1)
 
-write.csv(Female_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_1.csv")
+#write.csv(Female_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_1.csv")
 
 
 
@@ -208,7 +211,7 @@ male_results_Model_1$p_value = summary_male$logtest[3]
 
 print(male_results_Model_1)
 
-write.csv(male_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_1.csv")
+#write.csv(male_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_1.csv")
 
 
 
@@ -245,7 +248,7 @@ race_results_Model_1$p_value = summary_race$logtest[3]
 
 print(race_results_Model_1)
 
-write.csv(race_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_1.csv")
+#write.csv(race_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_1.csv")
 
 
 ########
@@ -281,7 +284,7 @@ BMI_results_Model_1$p_value = summary_BMI$logtest[3]
 
 print(BMI_results_Model_1)
 
-write.csv(BMI_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_1.csv")
+#write.csv(BMI_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_1.csv")
 
 Model_1_results = rbind(All_results_Model_1, 
                        Female_results_Model_1, 
@@ -289,4 +292,5 @@ Model_1_results = rbind(All_results_Model_1,
                        race_results_Model_1, 
                        BMI_results_Model_1) 
 
-write.csv(Model_1_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_1_results.csv")
+print(Model_1_results)
+write.csv(Model_1_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Model_1_results.csv")

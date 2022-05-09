@@ -4,7 +4,6 @@ library("survminer")
 library("dplyr")
 
 
-continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin + CVD 
 
 #Model 1: age and sex, wealth  [basis adjustment]
 #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
@@ -54,9 +53,17 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 ###### DATA:
 
 #cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
-cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
+#write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv", sep=""))
+
 
 ###### Adding variables to the main dataset:
+
+cumulative_effects_dat$CVD = case_when(cumulative_effects_dat$heartattack_new_bin == 1 ~ 1, 
+                                       cumulative_effects_dat$heartattack_new_bin == 0 ~ 0)
+
+unique(cumulative_effects_dat$CVD)
+############# 
 
 #outcome:  cumulative_effects_dat$diabetes_new_bin
 #exposure: cumulative_effects_dat$discrim_bin
@@ -65,9 +72,11 @@ cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_e
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
+
+cumulative_effects_dat$discrimination = cumulative_effects_dat$discrimination_cat
 cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 
+unique(cumulative_effects_dat$discrimination)
 #1 = 2 year 
 #2 = 4 years 
 #3 = 6 years 
@@ -86,14 +95,18 @@ data_female = subset(cumulative_effects_dat, cumulative_effects_dat$sex_1_2 ==2)
 data_race = subset(cumulative_effects_dat, cumulative_effects_dat$race_white == 0) 
 data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 30) 
 
-#cumulative_effects_dat$sex_1_2
+cumulative_effects_dat$sex_1_2
+cumulative_effects_dat$continious_age
+cumulative_effects_dat$wealth_noIRA
 #cumulative_effects_dat$race_white
 #cumulative_effects_dat$race_white
 #cumulative_effects_dat$national_origin_ousideUS_bin
 #cumulative_effects_dat$religion_bin
-#cumulative_effects_dat$assessed_BMI
-
-
+unique(cumulative_effects_dat$assessed_BMI)
+unique(cumulative_effects_dat$hypertension_new_bin)
+unique(cumulative_effects_dat$CVD)
+unique(cumulative_effects_dat$diabetes_new_bin)
+unique(cumulative_effects_dat$years)
 #### plot for the entire dataset:
 #survfit.coxph
 
@@ -125,7 +138,7 @@ All_results_Model_6_non_interact$p_value = summary_all$logtest[3]
 
 print(All_results_Model_6_non_interact)
 
-write.csv(All_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_6_non_interact.csv")
+#write.csv(All_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_6_non_interact.csv")
 
 
 
@@ -162,7 +175,7 @@ Female_results_Model_6_non_interact$p_value = summary_female$logtest[3]
 
 print(Female_results_Model_6_non_interact)
 
-write.csv(Female_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_6_non_interact.csv")
+#write.csv(Female_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_6_non_interact.csv")
 
 
 
@@ -203,7 +216,7 @@ male_results_Model_6_non_interact$p_value = summary_male$logtest[3]
 
 print(male_results_Model_6_non_interact)
 
-write.csv(male_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_6_non_interact.csv")
+#write.csv(male_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_6_non_interact.csv")
 
 
 
@@ -240,7 +253,7 @@ race_results_Model_6_non_interact$p_value = summary_race$logtest[3]
 
 print(race_results_Model_6_non_interact)
 
-write.csv(race_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_6_non_interact.csv")
+#write.csv(race_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_6_non_interact.csv")
 
 
 ########
@@ -276,7 +289,7 @@ BMI_results_Model_6_non_interact$p_value = summary_BMI$logtest[3]
 
 print(BMI_results_Model_6_non_interact)
 
-write.csv(BMI_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_6_non_interact.csv")
+#write.csv(BMI_results_Model_6_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_6_non_interact.csv")
 
 Model_6_non_interact_results = rbind(All_results_Model_6_non_interact, 
                                      Female_results_Model_6_non_interact, 
@@ -284,4 +297,4 @@ Model_6_non_interact_results = rbind(All_results_Model_6_non_interact,
                                      race_results_Model_6_non_interact, 
                                      BMI_results_Model_6_non_interact) 
 
-write.csv(Model_6_non_interact_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_6_non_interact_results.csv")
+write.csv(Model_6_non_interact_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Model_6_non_interact_results.csv")

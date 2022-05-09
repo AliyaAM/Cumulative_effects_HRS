@@ -331,7 +331,7 @@ for (id in ID){
       
     }
     
-    if (!is.na(participant_wave$discrim_bin[1]) & is.na(participant_wave$discrim_bin[2]) & is.na(participant_wave$discrim_bin[3])){
+    if (!is.na(participant_wave$discrim_bin[1]) & is.na(participant_wave$discrim_bin[2]) & !is.na(participant_wave$discrim_bin[3])){
       
       discrimination_cat_value = participant_wave$discrim_bin[1] + participant_wave$discrim_bin[3]
       
@@ -350,7 +350,7 @@ for (id in ID){
 
     }
     
-    if (is.na(participant_wave$discrim_bin[1]) & is.na(participant_wave$discrim_bin[2]) & is.na(participant_wave$discrim_bin[3])){
+    if (is.na(participant_wave$discrim_bin[1]) & is.na(participant_wave$discrim_bin[2]) & !is.na(participant_wave$discrim_bin[3])){
       
       discrimination_cat_value =  participant_wave$discrim_bin[3]
       participant_wave$discrimination_cat = c(discrimination_cat_value, discrimination_cat_value, discrimination_cat_value)
@@ -436,7 +436,7 @@ for (id in ID){
 
     }
     
-    if (is.na(participant_wave$discrim_bin[1]) & !is.na(participant_wave$discrim_bin[2]) & !is.na(participant_wave$discrim_bin[3]) & is.na(participant_wave$discrim_bin[4])){
+    if (!is.na(participant_wave$discrim_bin[1]) & !is.na(participant_wave$discrim_bin[2]) & !is.na(participant_wave$discrim_bin[3]) & !is.na(participant_wave$discrim_bin[4])){
       
       discrimination_cat_value = NA
       participant_wave$discrimination_cat = c(discrimination_cat_value, discrimination_cat_value, discrimination_cat_value, discrimination_cat_value)
@@ -709,6 +709,11 @@ total_n_proportion = rbind(all_waves_unique_id_value,
                            new_diabetes_participant_wave_df)
 
 #write.csv(total_n_proportion, (paste(OUTPUT_ROOT, "total_n_nodiabatbaseline_DIAB_values.csv", sep="")))
+
+
+
+all_waves_no_diab_baseline$CVD = case_when(all_waves_no_diab_baseline$heartattack_new_bin ==1 | all_waves_no_diab_baseline$heartcondition_new_bin == 1 | all_waves_no_diab_baseline$heartfailure2yrs_bin == 1 ~ 1, 
+                                           all_waves_no_diab_baseline$heartattack_new_bin ==0 & all_waves_no_diab_baseline$heartcondition_new_bin == 0 & all_waves_no_diab_baseline$heartfailure2yrs_bin == 0 ~ 0)
 
 
 ############# 
