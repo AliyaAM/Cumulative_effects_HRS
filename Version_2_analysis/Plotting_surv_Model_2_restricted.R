@@ -285,8 +285,8 @@ print(BMI_results_Model_2_restricted)
 write.csv(BMI_results_Model_2_restricted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_2_restricted.csv")
 
 Model_2_restricted_results = rbind(All_results_Model_2_restricted, 
-                        Female_results_Model_2_restricted, 
-                        race_results_Model_2_restricted, 
-                        BMI_results_Model_2_restricted) 
+                                   Female_results_Model_2_restricted, 
+                                   race_results_Model_2_restricted, 
+                                   BMI_results_Model_2_restricted) 
 
 write.csv(Model_2_restricted_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_2_restricted_results.csv")
