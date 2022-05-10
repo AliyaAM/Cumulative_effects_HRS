@@ -682,9 +682,9 @@ all_waves = rbind(wave_1,
                   wave_6)
 
 
-all_waves_no_diab_baseline <- all_waves[ !(all_waves$HHIDPN %in% c(diabetes_wave_1_unique)), ]
+all_waves_no_diab_baseline <- all_waves[ !(all_waves$HHIDPN %in% c(diabetes_wave_1_unique, diabetes_wave_2_unique)), ]
 
-write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv", sep="")))
+write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiab_at_two_first_waves_DIAB_discrim_recoded.csv", sep="")))
 
 all_waves_no_diab_baseline_unique = unique(all_waves_no_diab_baseline$HHIDPN)
 all_waves_no_diab_baseline_unique_values = length(all_waves_no_diab_baseline_unique)

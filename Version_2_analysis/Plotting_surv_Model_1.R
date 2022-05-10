@@ -60,7 +60,7 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 
 #cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
 #cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
-cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
+cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiab_at_two_first_waves_DIAB_discrim_recoded.csv")
 
 ###### Adding variables to the main dataset:
 
@@ -73,7 +73,7 @@ cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Dat
 
 unique(cumulative_effects_dat$discrimination_cat)
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrimination_cat
+cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 
 #1 = 2 year 
@@ -293,4 +293,4 @@ Model_1_results = rbind(All_results_Model_1,
                        BMI_results_Model_1) 
 
 print(Model_1_results)
-write.csv(Model_1_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Model_1_results.csv")
+write.csv(Model_1_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Model_1_results_no_diab_at_two_first_waves_discrim_bin.csv")
