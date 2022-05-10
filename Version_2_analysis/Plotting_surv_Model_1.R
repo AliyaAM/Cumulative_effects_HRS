@@ -61,6 +61,10 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 #cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
 cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
 
+exclude_data = subset(cumulative_effects_dat,  cumulative_effects_dat$diabetes_new == 1 & cumulative_effects_dat$start_new == 0) 
+correct_data = subset(cumulative_effects_dat,  cumulative_effects_dat$diabetes_new == 0 & cumulative_effects_dat$start_new == 0) 
+
+
 ###### Adding variables to the main dataset:
 
 #outcome:  cumulative_effects_dat$diabetes_new_bin
