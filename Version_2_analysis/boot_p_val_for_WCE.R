@@ -18,11 +18,11 @@ Num_time_points = max(cumulative_effects_dat$timepoints_indiv)
 
 
 #Sample IDs with replacement:
-ID <- unique(WCE_data_CI$HHIDPN) 
+ID <- unique(cumulative_effects_dat$HHIDPN) 
 
 for (i in 1:bootstraps_samples){ 
   ID.resamp <- sort(sample(ID, replace=TRUE))
-  datab <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+  datab <- cumulative_effects_dat[cumulative_effects_dat$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
   
   # deal with duplicated HHIDPN and assign them new HHIDPN 
   step <- 1 
@@ -31,10 +31,10 @@ for (i in 1:bootstraps_samples){
     ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
     if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
     # select obs. but remaining duplicated HHIDPN are ignored 
-    subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
+    subset.dup <- cumulative_effects_dat[cumulative_effects_dat$HHIDPN %in% ID.resamp,] 
     # assign new HHIDPN to duplicates 
-    subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
-    # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
+    subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(cumulative_effects_dat$HHIDPN))) 
+    # 10^ceiling(log10(max(cumulative_effects_dat$HHIDPN)) is the power of 10 
     #above the maximum HHIDPN from original data
     datab <- rbind(datab, subset.dup) 
     step <- step+1 
