@@ -16,11 +16,11 @@ HRs_CIs_analysis = function (data_wce_subset,
   results = data.frame()
   
   subset__HR_subset = summary_score_WCE_analysis(data_WCE = data_wce_subset,
-                                                         exposure = exposure, 
-                                                         outcome = outcome, 
-                                              subset_name = subset_name,
-                                              Model_name = Model_name, 
-                                                         covariates_list = Model_n)
+                                                 exposure = exposure, 
+                                                 outcome = outcome, 
+                                                 subset_name = subset_name,
+                                                 Model_name = Model_name, 
+                                                 covariates_list = Model_n)
   
   
    

@@ -13,22 +13,26 @@ cumulative_effects_dat$sex_1_2
 cumulative_effects_dat$continious_age
 cumulative_effects_dat$wealth_noIRA
 
-cumulative_effects_dat$discrim_bin
+
+#differently defined discrimination variable 
+cumulative_effects_dat$discrimination_cat
+cumulative_effects_dat$discrimination_cat
 
 
-discrimination_sex <- glm(diabetes_new_bin ~ discrim_bin*sex_1_2, data=cumulative_effects_dat, family=binomial)
+
+discrimination_sex <- glm(diabetes_new_bin ~ discrimination_cat*sex_1_2, data=cumulative_effects_dat, family=binomial)
 discrimination_sex_summary = summary(discrimination_sex)
 discrimination_sex_summary$coefficients
 
 
 
-discrimination_age <- glm(diabetes_new_bin ~ discrim_bin*continious_age, data=cumulative_effects_dat, family=binomial)
+discrimination_age <- glm(diabetes_new_bin ~ discrimination_cat*continious_age, data=cumulative_effects_dat, family=binomial)
 discrimination_age_summary = summary(discrimination_age)
 discrimination_age_summary$coefficients
 
 
 
-discrimination_wealth <- glm(diabetes_new_bin ~ discrim_bin*wealth_noIRA, data=cumulative_effects_dat, family=binomial)
+discrimination_wealth <- glm(diabetes_new_bin ~ discrimination_cat*wealth_noIRA, data=cumulative_effects_dat, family=binomial)
 discrimination_wealth_summary = summary(discrimination_wealth)
 discrimination_wealth_summary$coefficients
 
@@ -38,24 +42,26 @@ all_interaction_coef = rbind(discrimination_sex_summary$coefficients,
                              discrimination_wealth_summary$coefficients) 
 
 
+write.csv(all_interaction_coef, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/all_interaction_coef_discrimination_cat.csv")
+
 
 ######## adjusting for hypertension 
 
 cumulative_effects_dat$hypertension_new_bin
 
-discrimination_sex_adj_hptn <- glm(diabetes_new_bin ~ discrim_bin*sex_1_2 + hypertension_new_bin, data=cumulative_effects_dat, family=binomial)
+discrimination_sex_adj_hptn <- glm(diabetes_new_bin ~ discrimination_cat*sex_1_2 + hypertension_new_bin, data=cumulative_effects_dat, family=binomial)
 discrimination_sex_adj_hptn_summary = summary(discrimination_sex_adj_hptn)
 discrimination_sex_adj_hptn_summary$coefficients
 
 
 
-discrimination_age_adj_hptn <- glm(diabetes_new_bin ~ discrim_bin*continious_age + hypertension_new_bin, data=cumulative_effects_dat, family=binomial)
+discrimination_age_adj_hptn <- glm(diabetes_new_bin ~ discrimination_cat*continious_age + hypertension_new_bin, data=cumulative_effects_dat, family=binomial)
 discrimination_age_adj_hptn_summary = summary(discrimination_age_adj_hptn)
 discrimination_age_adj_hptn_summary$coefficients
 
 
 
-discrimination_wealth_adj_hptn <- glm(diabetes_new_bin ~ discrim_bin*wealth_noIRA + hypertension_new_bin, data=cumulative_effects_dat, family=binomial)
+discrimination_wealth_adj_hptn <- glm(diabetes_new_bin ~ discrimination_cat*wealth_noIRA + hypertension_new_bin, data=cumulative_effects_dat, family=binomial)
 discrimination_wealth_adj_hptn_summary = summary(discrimination_wealth_adj_hptn)
 discrimination_wealth_adj_hptn_summary$coefficients
 
@@ -63,6 +69,9 @@ discrimination_wealth_adj_hptn_summary$coefficients
 all_interaction_coef__adj_hptn = rbind(discrimination_sex_adj_hptn_summary$coefficients, 
                                        discrimination_age_adj_hptn_summary$coefficients,
                                        discrimination_wealth_adj_hptn_summary$coefficients) 
+
+write.csv(all_interaction_coef__adj_hptn, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/all_interaction_coef__adj_hptn_discrimination_cat.csv")
+
 
 # sig sex x discrimination interaction adjusting for hypertension 
 
@@ -73,17 +82,17 @@ all_interaction_coef__adj_hptn = rbind(discrimination_sex_adj_hptn_summary$coeff
 ######## adjusting for depression 
 
 cumulative_effects_dat$checklist_depression_bin
-discrimination_sex_adj_depres <- glm(diabetes_new_bin ~ discrim_bin*sex_1_2 + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
+discrimination_sex_adj_depres <- glm(diabetes_new_bin ~ discrimination_cat*sex_1_2 + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
 discrimination_sex_adj_depres_summary = summary(discrimination_sex_adj_depres)
 discrimination_sex_adj_depres_summary$coefficients
 
 
-discrimination_age_adj_depres <- glm(diabetes_new_bin ~ discrim_bin*continious_age + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
+discrimination_age_adj_depres <- glm(diabetes_new_bin ~ discrimination_cat*continious_age + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
 discrimination_age_adj_depres_summary = summary(discrimination_age_adj_depres)
 discrimination_age_adj_depres_summary$coefficients
 
 
-discrimination_wealth_adj_depres <- glm(diabetes_new_bin ~ discrim_bin*wealth_noIRA + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
+discrimination_wealth_adj_depres <- glm(diabetes_new_bin ~ discrimination_cat*wealth_noIRA + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
 discrimination_wealth_adj_depres_summary = summary(discrimination_wealth_adj_depres)
 discrimination_wealth_adj_depres_summary$coefficients
 
@@ -92,23 +101,24 @@ all_interaction_coef__adj_depres = rbind(discrimination_sex_adj_depres_summary$c
                                          discrimination_age_adj_depres_summary$coefficients,
                                          discrimination_wealth_adj_depres_summary$coefficients) 
 
+write.csv(all_interaction_coef__adj_depres, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/all_interaction_coef__adj_depres_discrimination_cat.csv")
 
 #the interaction effect between discrimination and sex disappeared when adjusting for depression  
 
 
 ######## adjusting for BMI 
 cumulative_effects_dat$assessed_BMI
-discrimination_sex_adj_BMI <- glm(diabetes_new_bin ~ discrim_bin*sex_1_2 + assessed_BMI, data=cumulative_effects_dat, family=binomial)
+discrimination_sex_adj_BMI <- glm(diabetes_new_bin ~ discrimination_cat*sex_1_2 + assessed_BMI, data=cumulative_effects_dat, family=binomial)
 discrimination_sex_adj_BMI_summary = summary(discrimination_sex_adj_BMI)
 discrimination_sex_adj_BMI_summary$coefficients
 
 
-discrimination_age_adj_BMI <- glm(diabetes_new_bin ~ discrim_bin*continious_age + assessed_BMI, data=cumulative_effects_dat, family=binomial)
+discrimination_age_adj_BMI <- glm(diabetes_new_bin ~ discrimination_cat*continious_age + assessed_BMI, data=cumulative_effects_dat, family=binomial)
 discrimination_age_adj_BMI_summary = summary(discrimination_age_adj_BMI)
 discrimination_age_adj_BMI_summary$coefficients
 
 
-discrimination_wealth_adj_BMI <- glm(diabetes_new_bin ~ discrim_bin*wealth_noIRA + assessed_BMI, data=cumulative_effects_dat, family=binomial)
+discrimination_wealth_adj_BMI <- glm(diabetes_new_bin ~ discrimination_cat*wealth_noIRA + assessed_BMI, data=cumulative_effects_dat, family=binomial)
 discrimination_wealth_adj_BMI_summary = summary(discrimination_wealth_adj_BMI)
 discrimination_wealth_adj_BMI_summary$coefficients
 
@@ -119,6 +129,7 @@ all_interaction_coef__adj_BMI = rbind(discrimination_sex_adj_BMI_summary$coeffic
                                       discrimination_age_adj_BMI_summary$coefficients,
                                       discrimination_wealth_adj_BMI_summary$coefficients) 
 
+write.csv(all_interaction_coef__adj_BMI, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/all_interaction_coef__adj_BMI_discrimination_cat.csv")
 
 ######## adjusting for health behaviours 
 
@@ -135,10 +146,10 @@ all_interaction_coef__adj_BMI = rbind(discrimination_sex_adj_BMI_summary$coeffic
 
 #The image above shows the “Residual vs. Fitted”-plot and the “Scale-Location”-plot for a regression model without heteroscedastic residuals. In other words, the variance of the residuals is the same for all values of the fitted values.
 #Although the lines in both plots are not flat, the variability among the (square root of the standardized) residuals seems stable. The variability does neither increase nor decrease with the fitted values. Therefore, we can assume that this regression model does not violate the homoscedasticity assumption.
-#discrimination_sex_adj_depres <- glm(diabetes_new_bin ~ discrim_bin*sex_1_2 + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
+#discrimination_sex_adj_depres <- glm(diabetes_new_bin ~ discrimination_cat*sex_1_2 + checklist_depression_bin, data=cumulative_effects_dat, family=binomial)
 
 
-hetorescedacity_test_discrim_diabetes <- lm(diabetes_new_bin~discrim_bin, data = cumulative_effects_dat)
+hetorescedacity_test_discrim_diabetes <- lm(diabetes_new_bin~discrimination_cat, data = cumulative_effects_dat)
 par(mfrow = c(2, 2))
 plot(hetorescedacity_test_discrim_diabetes)
 
@@ -155,16 +166,16 @@ lmtest::bptest(hetorescedacity_test_discrim_diabetes)
 
 
 
-hetorescedacity_test_discrim_diabetes_male <- lm(diabetes_new_bin~discrim_bin, data = data_male)
+hetorescedacity_test_discrim_diabetes_male <- lm(diabetes_new_bin~discrimination_cat, data = data_male)
 lmtest::bptest(hetorescedacity_test_discrim_diabetes_male)
 
-hetorescedacity_test_discrim_diabetes_female <- lm(diabetes_new_bin~discrim_bin, data = data_female)
+hetorescedacity_test_discrim_diabetes_female <- lm(diabetes_new_bin~discrimination_cat, data = data_female)
 lmtest::bptest(hetorescedacity_test_discrim_diabetes_female)
 
-hetorescedacity_test_discrim_diabetes_race <- lm(diabetes_new_bin~discrim_bin, data = data_race)
+hetorescedacity_test_discrim_diabetes_race <- lm(diabetes_new_bin~discrimination_cat, data = data_race)
 lmtest::bptest(hetorescedacity_test_discrim_diabetes_race)
 
-hetorescedacity_test_discrim_diabetes_BMI<- lm(diabetes_new_bin~discrim_bin, data = data_BMI)
+hetorescedacity_test_discrim_diabetes_BMI<- lm(diabetes_new_bin~discrimination_cat, data = data_BMI)
 lmtest::bptest(hetorescedacity_test_discrim_diabetes_BMI)
 
 
