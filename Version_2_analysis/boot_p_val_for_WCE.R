@@ -1,6 +1,8 @@
-library(boot)
-library(boot.pval)
+
+#library(boot)
+#library(boot.pval)
 library(WCE)
+library(riskRegression)
 
 
 cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
@@ -87,11 +89,23 @@ for (i in 1:bootstraps_samples){
 
 boot.HR_1vs0 = as.numeric(boot.HR_1vs0) 
 
+null_values = rep(0, times=100)
 
+quantile(boot.HR_1vs0,probs = 0.5)
+
+kUDoct<-function(datab, subset.dup) 
+  
 boot_coxph = boot(boot.HR_1vs0, 
-                  statistic = (datab, 
+                  kUDoct, 
                   R = bootstraps_samples) 
            
-boot.pval(boot.HR_1vs0)
+boot.pval(boot_coxph)
+
+
+p_value_bootstrap = boot2pvalue(boot.HR_1vs0,
+                                null = null_values,
+                                estimate = 1,
+                                alternative = "two.sided")
+
 
 
