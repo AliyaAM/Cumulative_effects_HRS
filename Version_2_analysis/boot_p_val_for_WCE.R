@@ -88,11 +88,10 @@ for (i in 1:bootstraps_samples){
 boot.HR_1vs0 = as.numeric(boot.HR_1vs0) 
 
 
-
 boot_coxph = boot(boot.HR_1vs0, 
-                  statistic = mod, 
+                  statistic = (datab, 
                   R = bootstraps_samples) 
            
-boot.pval(boot_coxph)
+boot.pval(boot.HR_1vs0)
 
 
