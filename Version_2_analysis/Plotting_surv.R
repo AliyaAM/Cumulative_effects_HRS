@@ -61,9 +61,9 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 ###### DATA:
   
 #cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
-#cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
 #cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
-cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
+#cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
 #write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv", sep=""))
 
 ###### Adding variables to the main dataset:
@@ -77,8 +77,9 @@ cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Dat
 
 unique(cumulative_effects_dat$discrimination_cat)
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrimination_cat
-cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
+cumulative_effects_dat$discrimination = case_when(cumulative_effects_dat$discrim_bin == 1 ~ 0, 
+                                                  cumulative_effects_dat$discrim_bin == 0 ~ 1) 
+cumulative_effects_dat$years = cumulative_effects_dat$timepoints_indiv
 
 #1 = 2 year 
 #2 = 4 years 
@@ -107,7 +108,7 @@ data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 
 
 #### plot for the entire dataset: 
 
-fit <- survfit(Surv(years, diabetes_new_bin_reversed) ~ discrimination, data = cumulative_effects_dat)
+fit <- survfit(Surv(years, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
 summary_all = summary(fit)
 print(summary_all)
 
@@ -118,7 +119,7 @@ summary_all_table = summary_all$table
 subset_all = rep("All", time=nrow(summary_all_table))
 summary_all_table = cbind(subset_all, summary_all_table)
 
-write.csv(summary_all_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_all_table_discrimination_cat.csv")
+#write.csv(summary_all_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_all_table_discrimination_cat.csv")
 
 Number_events_all = fit$n.event
 Number_risk_all = fit$n.risk
@@ -147,16 +148,22 @@ All_results_unadjusted = cbind(Number_events_all,
 
 subset_all_undj  = rep("All", time=nrow(All_results_unadjusted)) 
 All_results_unadjusted = cbind(subset_all_undj, All_results_unadjusted) 
-write.csv(All_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/All_results_unadjusted_discrimination_cat.csv")
+#write.csv(All_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/All_results_unadjusted_discrimination_cat.csv")
 
 
 plot_all = ggsurvplot(fit,
            pval = TRUE, conf.int = TRUE,
+           pval.coord = c(0, 0), 
            risk.table = FALSE, # Add risk table
            risk.table.col = "strata", # Change risk table color by groups
            linetype = "strata", # Change line type by groups
            surv.median.line = "hv", # Specify median survival
+           #ylim = c(0.75, 1),
            ggtheme = theme_bw(), # Change ggplot2 theme
+           title = "Overal sample", 
+           font.title = c(20, "bold"),
+           legend = "bottom", 
+           ylab = "Probabibility, T2DM", 
            palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_all)  
@@ -169,7 +176,7 @@ print(plot_all)
 
 #### plot for female dataset: 
 
-fit_female <- survfit(Surv(years, diabetes_new_bin_reversed) ~ discrimination, data = data_female)
+fit_female <- survfit(Surv(years, diabetes_new_bin) ~ discrimination, data = data_female)
 summary_female = summary(fit_female)
 print(summary_female)
 
@@ -179,7 +186,7 @@ subset_female = rep("female", time=nrow(fit_female))
 summary_female_table = summary_female$table
 summary_female_table = cbind(subset_female, summary_female_table)
 
-write.csv(summary_female_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_female_table_discrimination_cat.csv")
+#write.csv(summary_female_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_female_table_discrimination_cat.csv")
 
 Number_events_female = fit_female$n.event
 Number_risk_female = fit_female$n.risk
@@ -208,18 +215,27 @@ female_results_unadjusted = cbind(Number_events_female,
 
 subset_female_undj = rep("female", time=nrow(female_results_unadjusted))
 female_results_unadjusted = cbind(subset_female_undj, female_results_unadjusted) 
-write.csv(female_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/female_results_unadjusted_discrimination_cat.csv")
+#write.csv(female_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/female_results_unadjusted_discrimination_cat.csv")
 
 plot_female = ggsurvplot(fit_female,
                       pval = TRUE, conf.int = TRUE,
+                      pval.coord = c(0, 0), 
                       risk.table = FALSE, # Add risk table
                       risk.table.col = "strata", # Change risk table color by groups
                       linetype = "strata", # Change line type by groups
                       surv.median.line = "hv", # Specify median survival
+                      #ylim = c(0.75, 1),
                       ggtheme = theme_bw(), # Change ggplot2 theme
+                      
+                      title = "Female", 
+                      font.title = c(20, "bold"),
+                      legend = "bottom", 
+                      ylab = "Probabibility, T2DM", 
+                      
                       palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_female) 
+
 
 ########
 ########
@@ -238,7 +254,7 @@ subset_male = rep("male", time=nrow(fit_male))
 summary_male_table = summary_male$table
 summary_male_table = cbind(subset_male, summary_male_table)
 
-write.csv(summary_male_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_male_table_discrimination_cat.csv")
+#write.csv(summary_male_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_male_table_discrimination_cat.csv")
 
 Number_events_male = fit_male$n.event
 Number_risk_male = fit_male$n.risk
@@ -267,18 +283,18 @@ male_results_unadjusted = cbind(Number_events_male,
 
 subset_male_undj = rep("male", time=nrow(male_results_unadjusted))
 male_results_unadjusted = cbind(subset_male_undj, male_results_unadjusted) 
-write.csv(male_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/male_results_unadjusted_discrimination_cat.csv")
+#write.csv(male_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/male_results_unadjusted_discrimination_cat.csv")
 
-plot_male = ggsurvplot(fit_male,
-                         pval = TRUE, conf.int = TRUE,
-                         risk.table = FALSE, # Add risk table
-                         risk.table.col = "strata", # Change risk table color by groups
-                         linetype = "strata", # Change line type by groups
-                         surv.median.line = "hv", # Specify median survival
-                         ggtheme = theme_bw(), # Change ggplot2 theme
-                         palette = c("#E7B800", "#2E9FDF"))
+#plot_male = ggsurvplot(fit_male,
+#                         pval = TRUE, conf.int = TRUE,
+#                         risk.table = FALSE, # Add risk table
+#                         risk.table.col = "strata", # Change risk table color by groups
+#                         linetype = "strata", # Change line type by groups
+ #                        surv.median.line = "hv", # Specify median survival
+ #                        ggtheme = theme_bw(), # Change ggplot2 theme
+ #                        palette = c("#E7B800", "#2E9FDF"))
 
-print(plot_male)  
+#print(plot_male)  
 
 
 ########
@@ -298,7 +314,7 @@ subset_race = rep("race", time=nrow(fit_race))
 summary_race_table = summary_race$table
 summary_race_table = cbind(subset_race, summary_race_table)
 
-write.csv(summary_race_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_race_table_discrimination_cat.csv")
+#write.csv(summary_race_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_race_table_discrimination_cat.csv")
 
 Number_events_race = fit_race$n.event
 Number_risk_race = fit_race$n.risk
@@ -327,18 +343,27 @@ race_results_unadjusted = cbind(Number_events_race,
 
 subset_race_undj = rep("race", time=nrow(race_results_unadjusted))
 race_results_unadjusted = cbind(subset_race_undj, race_results_unadjusted) 
-write.csv(race_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/race_results_unadjusted_discrimination_cat.csv")
+#write.csv(race_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/race_results_unadjusted_discrimination_cat.csv")
+
 
 plot_race = ggsurvplot(fit_race,
-                       pval = TRUE, conf.int = TRUE,
-                       risk.table = FALSE, # Add risk table
-                       risk.table.col = "strata", # Change risk table color by groups
-                       linetype = "strata", # Change line type by groups
-                       surv.median.line = "hv", # Specify median survival
-                       ggtheme = theme_bw(), # Change ggplot2 theme
-                       palette = c("#E7B800", "#2E9FDF"))
+           pval = TRUE, conf.int = TRUE,
+           pval.coord = c(0, 0), 
+           risk.table = FALSE, # Add risk table
+           risk.table.col = "strata", # Change risk table color by groups
+           linetype = "strata", # Change line type by groups
+           surv.median.line = "hv", # Specify median survival
+           #ylim = c(0.75, 1),
+           ggtheme = theme_bw(), # Change ggplot2 theme
+           
+           title = "Ethnic minorities", 
+           font.title = c(20, "bold"),
+           legend = "bottom", 
+           ylab = "Probabibility, T2DM", 
+           
+           palette = c("#E7B800", "#2E9FDF"))
 
-print(plot_race)  
+plot_race
 
 ########
 ########
@@ -357,7 +382,7 @@ subset_BMI = rep("BMI", time=nrow(fit_BMI))
 summary_BMI_table = summary_BMI$table
 summary_BMI_table = cbind(subset_BMI, summary_BMI_table)
 
-write.csv(summary_BMI_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_BMI_table_discrimination_cat.csv")
+#write.csv(summary_BMI_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_BMI_table_discrimination_cat.csv")
 
 Number_events_BMI = fit_BMI$n.event
 Number_risk_BMI = fit_BMI$n.risk
@@ -387,16 +412,46 @@ BMI_results_unadjusted = cbind(Number_events_BMI,
 subset_BMI_undj = rep("BMI", time=nrow(BMI_results_unadjusted))
 BMI_results_unadjusted = cbind(subset_BMI_undj, BMI_results_unadjusted) 
 
-write.csv(BMI_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/BMI_results_unadjusted_discrimination_cat.csv")
+#write.csv(BMI_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/BMI_results_unadjusted_discrimination_cat.csv")
 
 
 plot_BMI = ggsurvplot(fit_BMI,
-                       pval = TRUE, conf.int = TRUE,
-                       risk.table = FALSE, # Add risk table
-                       risk.table.col = "strata", # Change risk table color by groups
-                       linetype = "strata", # Change line type by groups
-                       surv.median.line = "hv", # Specify median survival
-                       ggtheme = theme_bw(), # Change ggplot2 theme
-                       palette = c("#E7B800", "#2E9FDF"))
+                      pval = TRUE, conf.int = TRUE,
+                      pval.coord = c(0, 0), 
+                      risk.table = FALSE, # Add risk table
+                      risk.table.col = "strata", # Change risk table color by groups
+                      linetype = "strata", # Change line type by groups
+                      surv.median.line = "hv", # Specify median survival
+                      #ylim = c(0.75, 1),
+                      ggtheme = theme_bw(), # Change ggplot2 theme
+                      
+                      title = "BMI>30 kg/m^2", 
+                      font.title = c(20, "bold"),
+                      legend = "bottom", 
+                      ylab = "Probabibility, T2DM", 
+                      
+                      palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_BMI)  
+
+
+
+
+
+splots <- list()
+splots[[1]] <- plot_all
+splots[[2]] <- plot_female
+splots[[3]] <- plot_race
+splots[[4]] <- plot_BMI
+
+
+# Arrange multiple ggsurvplots and print the output
+arrange_ggsurvplots(splots, print = TRUE,
+                    ncol = 2, nrow = 2, risk.table.height = 0.4)
+
+## Not run: 
+# Arrange and save into pdf file
+res <- arrange_ggsurvplots(splots, print = TRUE)
+ggsave("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/myfile.pdf", res)
+
+## End(Not run)
