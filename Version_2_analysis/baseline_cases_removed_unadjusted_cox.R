@@ -145,7 +145,15 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 cumulative_effects_dat$discrim_bin
 
 cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
-cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
+
+cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
+
+cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
+
+cumulative_effects_dat$months = 12 * cumulative_effects_dat$years
+
+cumulative_effects_dat$follow_up = cumulative_effects_dat$months
+
 
 #1 = 2 year 
 #2 = 4 years 
@@ -181,7 +189,7 @@ data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 
 
 #cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
 
-fit <- coxph(Surv(years, diabetes_new_bin)~ discrimination, data = cumulative_effects_dat)
+fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination, data = cumulative_effects_dat)
 summary_all = summary(fit)
 
 # coeffcients for discrimination: 
@@ -218,7 +226,7 @@ write.csv(All_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_e
 
 #### plot for female dataset: 
 
-fit_female <- coxph(Surv(years, diabetes_new_bin)~ discrimination, data = data_female)
+fit_female <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination, data = data_female)
 summary_female = summary(fit_female)
 
 # coeffcients for discrimination: 
@@ -259,7 +267,7 @@ write.csv(Female_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulativ
 #### plot for male dataset: 
 
 
-fit_male <- coxph(Surv(years, diabetes_new_bin)~ discrimination, data = data_male)
+fit_male <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination, data = data_male)
 summary_male = summary(fit_male)
 
 # coeffcients for discrimination: 
@@ -296,7 +304,7 @@ write.csv(male_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_
 
 #### plot for race dataset: 
 
-fit_race <- coxph(Surv(years, diabetes_new_bin)~ discrimination, data = data_race)
+fit_race <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination, data = data_race)
 summary_race = summary(fit_race)
 
 # coeffcients for discrimination: 
@@ -332,7 +340,7 @@ write.csv(race_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_
 
 #### plot for BMI dataset: 
 
-fit_BMI <- coxph(Surv(years, diabetes_new_bin)~ discrimination, data = data_BMI)
+fit_BMI <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination, data = data_BMI)
 summary_BMI = summary(fit_BMI)
 
 # coeffcients for discrimination: 
@@ -367,4 +375,4 @@ Unadjusted_results = rbind(All_results_Unadjusted,
                            BMI_results_Unadjusted) 
 
 print(Unadjusted_results)
-write.csv(Unadjusted_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Unadjusted_results_nobaseline_discrim_bin.csv")
+write.csv(Unadjusted_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Unadjusted_results_nobaseline_discrim_bin_over_months.csv")
