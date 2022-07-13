@@ -57,13 +57,83 @@ Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_
 Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin", "checklist_depression_bin")
 
 ###### DATA:
+# below is the entire dataset, not subseted to anyone: 
 
-cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
-#cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
-#cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiab_at_two_first_waves_DIAB_discrim_recoded.csv")
-#cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
+cumulative_effects_dat = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
 
 ###### Adding variables to the main dataset:
+
+
+
+cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
+                                                       cumulative_effects_dat$discrim_harassed == 2 ~ 1, 
+                                                       cumulative_effects_dat$discrim_harassed == 3 ~ 1, 
+                                                       cumulative_effects_dat$discrim_harassed == 4 ~ 1, 
+                                                       cumulative_effects_dat$discrim_harassed == 5 ~ 0, 
+                                                       cumulative_effects_dat$discrim_harassed == 6 ~ 0,
+                                                       cumulative_effects_dat$discrim_harassed == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_lessrespect_bin = case_when(cumulative_effects_dat$discrim_lessrespect == 1 ~ 1, 
+                                                          cumulative_effects_dat$discrim_lessrespect == 2 ~ 1, 
+                                                          cumulative_effects_dat$discrim_lessrespect == 3 ~ 1, 
+                                                          cumulative_effects_dat$discrim_lessrespect == 4 ~ 1, 
+                                                          cumulative_effects_dat$discrim_lessrespect == 5 ~ 0, 
+                                                          cumulative_effects_dat$discrim_lessrespect == 6 ~ 0,
+                                                          cumulative_effects_dat$discrim_lessrespect == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_medical_bin = case_when(cumulative_effects_dat$discrim_medical == 1 ~ 1, 
+                                                      cumulative_effects_dat$discrim_medical == 2 ~ 1, 
+                                                      cumulative_effects_dat$discrim_medical == 3 ~ 1, 
+                                                      cumulative_effects_dat$discrim_medical == 4 ~ 1, 
+                                                      cumulative_effects_dat$discrim_medical == 5 ~ 0, 
+                                                      cumulative_effects_dat$discrim_medical == 6 ~ 0,
+                                                      cumulative_effects_dat$discrim_medical == 0 ~ 0) 
+
+
+
+
+
+cumulative_effects_dat$discrim_notclever_bin = case_when(cumulative_effects_dat$discrim_notclever == 1 ~ 1, 
+                                                        cumulative_effects_dat$discrim_notclever == 2 ~ 1, 
+                                                        cumulative_effects_dat$discrim_notclever == 3 ~ 1, 
+                                                        cumulative_effects_dat$discrim_notclever == 4 ~ 1, 
+                                                        cumulative_effects_dat$discrim_notclever == 5 ~ 0, 
+                                                        cumulative_effects_dat$discrim_notclever == 6 ~ 0,
+                                                        cumulative_effects_dat$discrim_notclever == 0 ~ 0) 
+
+
+
+
+
+
+cumulative_effects_dat$discrim_poorerservice_bin = case_when(cumulative_effects_dat$discrim_poorerservice == 1 ~ 1, 
+                                                            cumulative_effects_dat$discrim_poorerservice == 2 ~ 1, 
+                                                            cumulative_effects_dat$discrim_poorerservice == 3 ~ 1, 
+                                                            cumulative_effects_dat$discrim_poorerservice == 4 ~ 1, 
+                                                            cumulative_effects_dat$discrim_poorerservice == 5 ~ 0, 
+                                                            cumulative_effects_dat$discrim_poorerservice == 6 ~ 0) 
+
+
+
+
+cumulative_effects_dat$discrim_afraidothers_bin = case_when(cumulative_effects_dat$discrim_afraidothers == 1 ~ 1,
+                                                           cumulative_effects_dat$discrim_afraidothers == 2 ~ 1, 
+                                                           cumulative_effects_dat$discrim_afraidothers == 3 ~ 1, 
+                                                           cumulative_effects_dat$discrim_afraidothers == 4 ~ 1, 
+                                                           cumulative_effects_dat$discrim_afraidothers == 5 ~ 0, 
+                                                           cumulative_effects_dat$discrim_afraidothers == 6 ~ 0,
+                                                           cumulative_effects_dat$discrim_afraidothers == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_harassed_bin == 1 | cumulative_effects_dat$discrim_lessrespect_bin == 1 | cumulative_effects_dat$discrim_medical_bin  == 1 | cumulative_effects_dat$discrim_notclever_bin == 1 | cumulative_effects_dat$discrim_afraidothers_bin == 1 | cumulative_effects_dat$discrim_poorerservice_bin == 1 ~ 1, 
+                                              cumulative_effects_dat$discrim_harassed_bin == 0 & cumulative_effects_dat$discrim_lessrespect_bin == 0 & cumulative_effects_dat$discrim_medical_bin  == 0 & cumulative_effects_dat$discrim_notclever_bin == 0 & cumulative_effects_dat$discrim_afraidothers_bin == 0 & cumulative_effects_dat$discrim_poorerservice_bin == 0 ~ 0) 
+
+
 
 #outcome:  cumulative_effects_dat$diabetes_new_bin
 #exposure: cumulative_effects_dat$discrim_bin
