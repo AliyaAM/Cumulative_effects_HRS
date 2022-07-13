@@ -99,12 +99,11 @@ mod_cb <- fitSmoothHazard(diabetes_new_bin ~ log(years) + discrimination + conti
                           time = "timepoints_indiv")
 
 # plot exposed to and not exposed to discrimination next to each other: 
-plot(mod_cb,
+ plot(mod_cb,
      hazard.params = list(xvar = "years",
                           by = "discrimination",
                           alpha = alpha_level,
                           ylab = "Hazard"))
-
 
 #######
 #######

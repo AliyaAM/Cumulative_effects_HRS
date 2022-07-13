@@ -60,10 +60,10 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 
 ###### DATA:
   
-#cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
 #cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
 #cumulative_effects_dat = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
-cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
+#cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
 #write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv", sep=""))
 
 ###### Adding variables to the main dataset:
@@ -77,7 +77,7 @@ cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Dat
 
 unique(cumulative_effects_dat$discrimination_cat)
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrimination_cat
+cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 
 #1 = 2 year 
@@ -118,7 +118,7 @@ summary_all_table = summary_all$table
 subset_all = rep("All", time=nrow(summary_all_table))
 summary_all_table = cbind(subset_all, summary_all_table)
 
-write.csv(summary_all_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_all_table_discrimination_cat.csv")
+#write.csv(summary_all_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_all_table_discrimination_cat.csv")
 
 Number_events_all = fit$n.event
 Number_risk_all = fit$n.risk
@@ -147,7 +147,7 @@ All_results_unadjusted = cbind(Number_events_all,
 
 subset_all_undj  = rep("All", time=nrow(All_results_unadjusted)) 
 All_results_unadjusted = cbind(subset_all_undj, All_results_unadjusted) 
-write.csv(All_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/All_results_unadjusted_discrimination_cat.csv")
+#write.csv(All_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/All_results_unadjusted_discrimination_cat.csv")
 
 
 plot_all = ggsurvplot(fit,
@@ -159,6 +159,7 @@ plot_all = ggsurvplot(fit,
            ggtheme = theme_bw(), # Change ggplot2 theme
            palette = c("#E7B800", "#2E9FDF"))
 
+plot_all
 print(plot_all)  
 
 
@@ -179,7 +180,7 @@ subset_female = rep("female", time=nrow(fit_female))
 summary_female_table = summary_female$table
 summary_female_table = cbind(subset_female, summary_female_table)
 
-write.csv(summary_female_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_female_table_discrimination_cat.csv")
+#write.csv(summary_female_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_female_table_discrimination_cat.csv")
 
 Number_events_female = fit_female$n.event
 Number_risk_female = fit_female$n.risk
@@ -208,7 +209,7 @@ female_results_unadjusted = cbind(Number_events_female,
 
 subset_female_undj = rep("female", time=nrow(female_results_unadjusted))
 female_results_unadjusted = cbind(subset_female_undj, female_results_unadjusted) 
-write.csv(female_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/female_results_unadjusted_discrimination_cat.csv")
+#write.csv(female_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/female_results_unadjusted_discrimination_cat.csv")
 
 plot_female = ggsurvplot(fit_female,
                       pval = TRUE, conf.int = TRUE,
@@ -238,7 +239,7 @@ subset_male = rep("male", time=nrow(fit_male))
 summary_male_table = summary_male$table
 summary_male_table = cbind(subset_male, summary_male_table)
 
-write.csv(summary_male_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_male_table_discrimination_cat.csv")
+#write.csv(summary_male_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_male_table_discrimination_cat.csv")
 
 Number_events_male = fit_male$n.event
 Number_risk_male = fit_male$n.risk
@@ -267,7 +268,7 @@ male_results_unadjusted = cbind(Number_events_male,
 
 subset_male_undj = rep("male", time=nrow(male_results_unadjusted))
 male_results_unadjusted = cbind(subset_male_undj, male_results_unadjusted) 
-write.csv(male_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/male_results_unadjusted_discrimination_cat.csv")
+#write.csv(male_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/male_results_unadjusted_discrimination_cat.csv")
 
 plot_male = ggsurvplot(fit_male,
                          pval = TRUE, conf.int = TRUE,
@@ -298,7 +299,7 @@ subset_race = rep("race", time=nrow(fit_race))
 summary_race_table = summary_race$table
 summary_race_table = cbind(subset_race, summary_race_table)
 
-write.csv(summary_race_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_race_table_discrimination_cat.csv")
+#write.csv(summary_race_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_race_table_discrimination_cat.csv")
 
 Number_events_race = fit_race$n.event
 Number_risk_race = fit_race$n.risk
@@ -327,7 +328,7 @@ race_results_unadjusted = cbind(Number_events_race,
 
 subset_race_undj = rep("race", time=nrow(race_results_unadjusted))
 race_results_unadjusted = cbind(subset_race_undj, race_results_unadjusted) 
-write.csv(race_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/race_results_unadjusted_discrimination_cat.csv")
+#write.csv(race_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/race_results_unadjusted_discrimination_cat.csv")
 
 plot_race = ggsurvplot(fit_race,
                        pval = TRUE, conf.int = TRUE,
@@ -357,7 +358,7 @@ subset_BMI = rep("BMI", time=nrow(fit_BMI))
 summary_BMI_table = summary_BMI$table
 summary_BMI_table = cbind(subset_BMI, summary_BMI_table)
 
-write.csv(summary_BMI_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_BMI_table_discrimination_cat.csv")
+#write.csv(summary_BMI_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_BMI_table_discrimination_cat.csv")
 
 Number_events_BMI = fit_BMI$n.event
 Number_risk_BMI = fit_BMI$n.risk
@@ -387,7 +388,7 @@ BMI_results_unadjusted = cbind(Number_events_BMI,
 subset_BMI_undj = rep("BMI", time=nrow(BMI_results_unadjusted))
 BMI_results_unadjusted = cbind(subset_BMI_undj, BMI_results_unadjusted) 
 
-write.csv(BMI_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/BMI_results_unadjusted_discrimination_cat.csv")
+#write.csv(BMI_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/BMI_results_unadjusted_discrimination_cat.csv")
 
 
 plot_BMI = ggsurvplot(fit_BMI,
