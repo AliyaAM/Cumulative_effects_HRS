@@ -72,7 +72,77 @@ cumulative_effects_dat = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-unique(cumulative_effects_dat$discrimination_cat)
+
+
+cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 2 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 3 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 4 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 5 ~ 0, 
+                                                        cumulative_effects_dat$discrim_harassed == 6 ~ 0,
+                                                        cumulative_effects_dat$discrim_harassed == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_lessrespect_bin = case_when(cumulative_effects_dat$discrim_lessrespect == 1 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 2 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 3 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 4 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 5 ~ 0, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 6 ~ 0,
+                                                           cumulative_effects_dat$discrim_lessrespect == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_medical_bin = case_when(cumulative_effects_dat$discrim_medical == 1 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 2 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 3 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 4 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 5 ~ 0, 
+                                                       cumulative_effects_dat$discrim_medical == 6 ~ 0,
+                                                       cumulative_effects_dat$discrim_medical == 0 ~ 0) 
+
+
+
+
+
+cumulative_effects_dat$discrim_notclever_bin = case_when(cumulative_effects_dat$discrim_notclever == 1 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 2 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 3 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 4 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 5 ~ 0, 
+                                                         cumulative_effects_dat$discrim_notclever == 6 ~ 0,
+                                                         cumulative_effects_dat$discrim_notclever == 0 ~ 0) 
+
+
+
+
+
+
+cumulative_effects_dat$discrim_poorerservice_bin = case_when(cumulative_effects_dat$discrim_poorerservice == 1 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 2 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 3 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 4 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 5 ~ 0, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 6 ~ 0) 
+
+
+
+
+cumulative_effects_dat$discrim_afraidothers_bin = case_when(cumulative_effects_dat$discrim_afraidothers == 1 ~ 1,
+                                                            cumulative_effects_dat$discrim_afraidothers == 2 ~ 1, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 3 ~ 1, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 4 ~ 1, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 5 ~ 0, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 6 ~ 0,
+                                                            cumulative_effects_dat$discrim_afraidothers == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_harassed_bin == 1 | cumulative_effects_dat$discrim_lessrespect_bin == 1 | cumulative_effects_dat$discrim_medical_bin  == 1 | cumulative_effects_dat$discrim_notclever_bin == 1 | cumulative_effects_dat$discrim_afraidothers_bin == 1 | cumulative_effects_dat$discrim_poorerservice_bin == 1 ~ 1, 
+                                               cumulative_effects_dat$discrim_harassed_bin == 0 & cumulative_effects_dat$discrim_lessrespect_bin == 0 & cumulative_effects_dat$discrim_medical_bin  == 0 & cumulative_effects_dat$discrim_notclever_bin == 0 & cumulative_effects_dat$discrim_afraidothers_bin == 0 & cumulative_effects_dat$discrim_poorerservice_bin == 0 ~ 0) 
+
+
 
 cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
@@ -84,6 +154,12 @@ cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 
 unique(cumulative_effects_dat$timepoints_indiv)
 unique(cumulative_effects_dat$start_new)
+
+
+
+cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 1, 
+                                                             cumulative_effects_dat$diabetes_new == 0 ~ 0) 
+
 
 cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
                                                        cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
@@ -388,13 +464,12 @@ BMI_results_unadjusted = cbind(subset_BMI_undj, BMI_results_unadjusted)
 #write.csv(BMI_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/BMI_results_unadjusted_discrimination_cat.csv")
 
 
-plot_BMI = ggsurvplot(fit_BMI,
-                       pval = TRUE, conf.int = TRUE,
-                       risk.table = FALSE, # Add risk table
-                       risk.table.col = "strata", # Change risk table color by groups
-                       linetype = "strata", # Change line type by groups
-                       surv.median.line = "hv", # Specify median survival
-                       ggtheme = theme_bw(), # Change ggplot2 theme
-                       palette = c("#E7B800", "#2E9FDF"))
+
+
+
+
+
+
+
 
 print(plot_BMI)  

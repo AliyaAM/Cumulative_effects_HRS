@@ -156,8 +156,8 @@ cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 unique(cumulative_effects_dat$timepoints_indiv)
 unique(cumulative_effects_dat$start_new)
 
-cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 0, 
-                                                             cumulative_effects_dat$diabetes_new == 0 ~ 1) 
+cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 1, 
+                                                             cumulative_effects_dat$diabetes_new == 0 ~ 0) 
 
 cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
                                                              cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
@@ -207,7 +207,7 @@ All_results_Unadjusted$p_value = summary_all$logtest[3]
 
 print(All_results_Unadjusted)
 
-#write.csv(All_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Unadjusted.csv")
+write.csv(All_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Unadjusted.csv")
 
 
 
@@ -244,7 +244,7 @@ Female_results_Unadjusted$p_value = summary_female$logtest[3]
 
 print(Female_results_Unadjusted)
 
-#write.csv(Female_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Unadjusted.csv")
+write.csv(Female_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Unadjusted.csv")
 
 
 
@@ -285,7 +285,7 @@ male_results_Unadjusted$p_value = summary_male$logtest[3]
 
 print(male_results_Unadjusted)
 
-#write.csv(male_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Unadjusted.csv")
+write.csv(male_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Unadjusted.csv")
 
 
 
@@ -322,7 +322,7 @@ race_results_Unadjusted$p_value = summary_race$logtest[3]
 
 print(race_results_Unadjusted)
 
-#write.csv(race_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Unadjusted.csv")
+write.csv(race_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Unadjusted.csv")
 
 
 ########
@@ -358,7 +358,7 @@ BMI_results_Unadjusted$p_value = summary_BMI$logtest[3]
 
 print(BMI_results_Unadjusted)
 
-#write.csv(BMI_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Unadjusted.csv")
+write.csv(BMI_results_Unadjusted, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Unadjusted.csv")
 
 Unadjusted_results = rbind(All_results_Unadjusted, 
                            Female_results_Unadjusted, 
@@ -367,4 +367,4 @@ Unadjusted_results = rbind(All_results_Unadjusted,
                            BMI_results_Unadjusted) 
 
 print(Unadjusted_results)
-#write.csv(Unadjusted_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Unadjusted_results_nobaseline_discrim_bin.csv")
+write.csv(Unadjusted_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Unadjusted_results_nobaseline_discrim_bin.csv")
