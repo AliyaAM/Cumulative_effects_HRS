@@ -143,7 +143,6 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 ###### Adding variables to the main dataset:
 
 cumulative_effects_dat$discrim_bin
-unique(cumulative_effects_dat$discrimination_cat)
 
 cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
@@ -156,6 +155,9 @@ cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
 
 unique(cumulative_effects_dat$timepoints_indiv)
 unique(cumulative_effects_dat$start_new)
+
+cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 0, 
+                                                             cumulative_effects_dat$diabetes_new == 0 ~ 1) 
 
 cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
                                                              cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
