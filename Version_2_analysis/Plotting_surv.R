@@ -144,12 +144,12 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 
 
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
-cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
+cumulative_effects_dat$discrimination = case_when(cumulative_effects_dat$discrim_bin
+cumulative_effects_dat$follow_up = cumulative_effects_dat$timepoints_indiv
 
 #1 = 2 year 
-#2 = 4 years 
-#3 = 6 years 
+#2 = 4 follow_up 
+#3 = 6 follow_up 
 
 
 unique(cumulative_effects_dat$timepoints_indiv)
@@ -180,7 +180,7 @@ data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 
 
 #### plot for the entire dataset: 
 
-fit <- survfit(Surv(years, diabetes_new_bin_reversed) ~ discrimination, data = cumulative_effects_dat)
+fit <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
 summary_all = summary(fit)
 print(summary_all)
 
@@ -229,7 +229,10 @@ plot_all = ggsurvplot(fit,
            risk.table.col = "strata", # Change risk table color by groups
            linetype = "strata", # Change line type by groups
            surv.median.line = "hv", # Specify median survival
-           ggtheme = theme_bw(), # Change ggplot2 theme
+           ggtheme = theme_bw(),
+           ylim = c(0.7, 1),
+           pval.coord = c(0, 0.95),
+           # Change ggplot2 theme
            palette = c("#E7B800", "#2E9FDF"))
 
 plot_all
@@ -243,7 +246,7 @@ print(plot_all)
 
 #### plot for female dataset: 
 
-fit_female <- survfit(Surv(years, diabetes_new_bin_reversed) ~ discrimination, data = data_female)
+fit_female <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_female)
 summary_female = summary(fit_female)
 print(summary_female)
 
@@ -291,6 +294,8 @@ plot_female = ggsurvplot(fit_female,
                       linetype = "strata", # Change line type by groups
                       surv.median.line = "hv", # Specify median survival
                       ggtheme = theme_bw(), # Change ggplot2 theme
+                      ylim = c(0.7, 1),
+                      pval.coord = c(0, 0.95),
                       palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_female) 
@@ -302,7 +307,7 @@ print(plot_female)
 
 #### plot for male dataset: 
 
-fit_male <- survfit(Surv(years, diabetes_new_bin_reversed) ~ discrimination, data = data_male)
+fit_male <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_male)
 summary_male = summary(fit_male)
 print(summary_male)
 
@@ -350,6 +355,8 @@ plot_male = ggsurvplot(fit_male,
                          linetype = "strata", # Change line type by groups
                          surv.median.line = "hv", # Specify median survival
                          ggtheme = theme_bw(), # Change ggplot2 theme
+                       ylim = c(0.7, 1),
+                       pval.coord = c(0, 0.95),
                          palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_male)  
@@ -362,7 +369,7 @@ print(plot_male)
 
 #### plot for race dataset: 
 
-fit_race <- survfit(Surv(years, diabetes_new_bin_reversed) ~ discrimination, data = data_race)
+fit_race <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_race)
 summary_race = summary(fit_race)
 print(summary_race)
 
@@ -410,6 +417,8 @@ plot_race = ggsurvplot(fit_race,
                        linetype = "strata", # Change line type by groups
                        surv.median.line = "hv", # Specify median survival
                        ggtheme = theme_bw(), # Change ggplot2 theme
+                       ylim = c(0.7, 1),
+                       pval.coord = c(0, 0.95),
                        palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_race)  
@@ -421,7 +430,7 @@ print(plot_race)
 
 #### plot for BMI dataset: 
 
-fit_BMI <- survfit(Surv(years, diabetes_new_bin_reversed) ~ discrimination, data = data_BMI)
+fit_BMI <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_BMI)
 summary_BMI = summary(fit_BMI)
 print(summary_BMI)
 
@@ -465,11 +474,15 @@ BMI_results_unadjusted = cbind(subset_BMI_undj, BMI_results_unadjusted)
 
 
 
+plot_race = ggsurvplot(fit_BMI,
+                       pval = TRUE, conf.int = TRUE,
+                       risk.table = FALSE, # Add risk table
+                       risk.table.col = "strata", # Change risk table color by groups
+                       linetype = "strata", # Change line type by groups
+                       surv.median.line = "hv", # Specify median survival
+                       ggtheme = theme_bw(), # Change ggplot2 theme
+                       ylim = c(0.7, 1),
+                       pval.coord = c(0, 0.95),
+                       palette = c("#E7B800", "#2E9FDF"))
 
-
-
-
-
-
-
-print(plot_BMI)  
+print(plot_race)  
