@@ -144,8 +144,14 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 
 
 
-cumulative_effects_dat$discrimination = case_when(cumulative_effects_dat$discrim_bin == 1 ~ 0,
-                                                  cumulative_effects_dat$discrim_bin == 0 ~ 1)
+
+cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin 
+
+
+
+cumulative_effects_dat$discrimination_reversed = case_when(cumulative_effects_dat$discrim_bin == 1 ~ 0,
+                                                           cumulative_effects_dat$discrim_bin == 0 ~ 1)
+
                                                   
 cumulative_effects_dat$follow_up = cumulative_effects_dat$timepoints_indiv
 
@@ -231,8 +237,11 @@ plot_all = ggsurvplot(fit,
            risk.table.col = "strata", # Change risk table color by groups
            linetype = "strata", # Change line type by groups
            surv.median.line = "hv", # Specify median survival
+           
+           surv.scale = "percent",
+           
            ggtheme = theme_bw(),
-           ylim = c(0.7, 1),
+                      ylim = c(0.8, 1),
            pval.coord = c(0, 0.95),
            # Change ggplot2 theme
            palette = c("#E7B800", "#2E9FDF"))
@@ -295,8 +304,10 @@ plot_female = ggsurvplot(fit_female,
                       risk.table.col = "strata", # Change risk table color by groups
                       linetype = "strata", # Change line type by groups
                       surv.median.line = "hv", # Specify median survival
+                      surv.scale = "percent",
+                      
                       ggtheme = theme_bw(), # Change ggplot2 theme
-                      ylim = c(0.7, 1),
+                      ylim = c(0.8, 1),
                       pval.coord = c(0, 0.95),
                       palette = c("#E7B800", "#2E9FDF"))
 
@@ -356,8 +367,11 @@ plot_male = ggsurvplot(fit_male,
                          risk.table.col = "strata", # Change risk table color by groups
                          linetype = "strata", # Change line type by groups
                          surv.median.line = "hv", # Specify median survival
+                       
+                       surv.scale = "percent",
+                       
                          ggtheme = theme_bw(), # Change ggplot2 theme
-                       ylim = c(0.7, 1),
+                       ylim = c(0.8, 1),
                        pval.coord = c(0, 0.95),
                          palette = c("#E7B800", "#2E9FDF"))
 
@@ -418,8 +432,11 @@ plot_race = ggsurvplot(fit_race,
                        risk.table.col = "strata", # Change risk table color by groups
                        linetype = "strata", # Change line type by groups
                        surv.median.line = "hv", # Specify median survival
+                       
+                       surv.scale = "percent",
+                       
                        ggtheme = theme_bw(), # Change ggplot2 theme
-                       ylim = c(0.7, 1),
+                                  ylim = c(0.8, 1),
                        pval.coord = c(0, 0.95),
                        palette = c("#E7B800", "#2E9FDF"))
 
@@ -476,15 +493,18 @@ BMI_results_unadjusted = cbind(subset_BMI_undj, BMI_results_unadjusted)
 
 
 
-plot_race = ggsurvplot(fit_BMI,
+plot_BMI = ggsurvplot(fit_BMI,
                        pval = TRUE, conf.int = TRUE,
                        risk.table = FALSE, # Add risk table
                        risk.table.col = "strata", # Change risk table color by groups
                        linetype = "strata", # Change line type by groups
                        surv.median.line = "hv", # Specify median survival
                        ggtheme = theme_bw(), # Change ggplot2 theme
-                       ylim = c(0.7, 1),
+                       
+                       surv.scale = "percent",
+                       
+                                  ylim = c(0.8, 1),
                        pval.coord = c(0, 0.95),
                        palette = c("#E7B800", "#2E9FDF"))
 
-print(plot_race)  
+print(plot_BMI)  
