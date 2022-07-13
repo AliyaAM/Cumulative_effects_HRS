@@ -152,7 +152,7 @@ cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
 
 cumulative_effects_dat$months = 12 * cumulative_effects_dat$years
 
-cumulative_effects_dat$follow_up = cumulative_effects_dat$months
+cumulative_effects_dat$follow_up = cumulative_effects_dat$years
 
 
 #1 = 2 year 
@@ -375,4 +375,4 @@ Unadjusted_results = rbind(All_results_Unadjusted,
                            BMI_results_Unadjusted) 
 
 print(Unadjusted_results)
-write.csv(Unadjusted_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Unadjusted_results_nobaseline_discrim_bin_over_months.csv")
+write.csv(Unadjusted_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Unadjusted_results_nobaseline_discrim_bin_over_years.csv")

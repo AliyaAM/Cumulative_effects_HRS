@@ -152,7 +152,6 @@ cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 cumulative_effects_dat$discrimination_reversed = case_when(cumulative_effects_dat$discrim_bin == 1 ~ 0,
                                                            cumulative_effects_dat$discrim_bin == 0 ~ 1)
 
-unique(cumulative_effects_dat$timepoints_indiv)
 unique(cumulative_effects_dat$start_new)
                                                   
 cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
@@ -161,7 +160,7 @@ cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
 
 cumulative_effects_dat$months = 12 * cumulative_effects_dat$years
 
-cumulative_effects_dat$follow_up = cumulative_effects_dat$months
+cumulative_effects_dat$follow_up = cumulative_effects_dat$years
 
 
 #1 = 2 year 
@@ -169,7 +168,6 @@ cumulative_effects_dat$follow_up = cumulative_effects_dat$months
 #3 = 6 follow_up 
 
 
-unique(cumulative_effects_dat$timepoints_indiv)
 unique(cumulative_effects_dat$start_new)
 
 
@@ -253,7 +251,7 @@ plot_all = ggsurvplot(fit,
                       ylim = c(0.8, 1),
            pval.coord = c(0, 0.95),
            
-           xlab = "Months from baseline", 
+           xlab = "Years from baseline", 
            
            ylab = "proportion of cases free of diabetes", 
            
@@ -320,6 +318,10 @@ plot_female = ggsurvplot(fit_female,
                       surv.median.line = "hv", # Specify median survival
                       surv.scale = "percent",
                       
+                      xlab = "Years from baseline", 
+                      
+                      ylab = "proportion of cases free of diabetes", 
+                      
                       ggtheme = theme_bw(), # Change ggplot2 theme
                       ylim = c(0.8, 1),
                       pval.coord = c(0, 0.95),
@@ -383,6 +385,10 @@ plot_male = ggsurvplot(fit_male,
                          surv.median.line = "hv", # Specify median survival
                        
                        surv.scale = "percent",
+                       
+                       xlab = "Years from baseline", 
+                       
+                       ylab = "proportion of cases free of diabetes", 
                        
                          ggtheme = theme_bw(), # Change ggplot2 theme
                        ylim = c(0.8, 1),
@@ -448,6 +454,10 @@ plot_race = ggsurvplot(fit_race,
                        surv.median.line = "hv", # Specify median survival
                        
                        surv.scale = "percent",
+                       
+                       xlab = "Years from baseline", 
+                       
+                       ylab = "proportion of cases free of diabetes", 
                        
                        ggtheme = theme_bw(), # Change ggplot2 theme
                                   ylim = c(0.8, 1),
@@ -516,6 +526,10 @@ plot_BMI = ggsurvplot(fit_BMI,
                        ggtheme = theme_bw(), # Change ggplot2 theme
                        
                        surv.scale = "percent",
+                      
+                      xlab = "Years from baseline", 
+                      
+                      ylab = "proportion of cases free of diabetes", 
                        
                                   ylim = c(0.8, 1),
                        pval.coord = c(0, 0.95),
