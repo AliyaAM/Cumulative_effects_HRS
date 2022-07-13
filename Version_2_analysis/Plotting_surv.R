@@ -144,7 +144,9 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 
 
 
-cumulative_effects_dat$discrimination = case_when(cumulative_effects_dat$discrim_bin
+cumulative_effects_dat$discrimination = case_when(cumulative_effects_dat$discrim_bin == 1 ~ 0,
+                                                  cumulative_effects_dat$discrim_bin == 0 ~ 1)
+                                                  
 cumulative_effects_dat$follow_up = cumulative_effects_dat$timepoints_indiv
 
 #1 = 2 year 
