@@ -152,8 +152,17 @@ cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 cumulative_effects_dat$discrimination_reversed = case_when(cumulative_effects_dat$discrim_bin == 1 ~ 0,
                                                            cumulative_effects_dat$discrim_bin == 0 ~ 1)
 
+unique(cumulative_effects_dat$timepoints_indiv)
+unique(cumulative_effects_dat$start_new)
                                                   
-cumulative_effects_dat$follow_up = cumulative_effects_dat$timepoints_indiv
+cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
+
+cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
+
+cumulative_effects_dat$months = 12 * cumulative_effects_dat$years
+
+cumulative_effects_dat$follow_up = cumulative_effects_dat$months
+
 
 #1 = 2 year 
 #2 = 4 follow_up 
@@ -243,6 +252,11 @@ plot_all = ggsurvplot(fit,
            ggtheme = theme_bw(),
                       ylim = c(0.8, 1),
            pval.coord = c(0, 0.95),
+           
+           xlab = "Months from baseline", 
+           
+           ylab = "proportion of cases free of diabetes", 
+           
            # Change ggplot2 theme
            palette = c("#E7B800", "#2E9FDF"))
 
