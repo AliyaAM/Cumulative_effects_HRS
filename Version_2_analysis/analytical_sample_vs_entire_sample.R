@@ -130,6 +130,46 @@ unique(baseline_data_COX$race_white)
 min(baseline_data_COX$assessed_BMI, na.rm = TRUE)
 max(baseline_data_COX$assessed_BMI, na.rm = TRUE)
 unique(baseline_data_COX$assessed_BMI)
+
+#make table 2 (The results of the Cox regression run on the unrestricted sample)
+
+Unadjusted_cox = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Cox_results_correct_13July_2022/Unadjusted_results_nobaseline_discrim_bin.csv")
+Model_1_cox = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Cox_results_correct_13July_2022/Model_1_results_no_diab_at_baseline_discrim_bin.csv")
+Model_2_cox =read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Cox_results_correct_13July_2022/Model_2_non_interact_results_no_diab_at_baseline_discrim_bin.csv")
+Model_3_cox =read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Cox_results_correct_13July_2022/Model_3_non_interact_results.csv")
+Model_4_cox =read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Cox_results_correct_13July_2022/Model_4_non_interact_results.csv")
+Model_5_cox =read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Cox_results_correct_13July_2022/Model_5_non_interact_results.csv")
+
+RESULTS_COX = cbind(Unadjusted_cox, 
+                    Model_1_cox, 
+                    Model_2_cox, 
+                    Model_3_cox, 
+                    Model_4_cox, 
+                    Model_5_cox)
+
+
+RESULTS_COX$coef = round(RESULTS_COX$coef, 2)
+
+RESULTS_COX$lower_CI = round(RESULTS_COX$lower_CI, 2)
+
+RESULTS_COX$upper_CI = round(RESULTS_COX$upper_CI, 2)
+
+RESULTS_COX$p_value = round(RESULTS_COX$p_value, 4)
+
+write.csv(RESULTS_COX, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/RESULTS_COX.csv")
+
+
+
+MODELS_diagnostics = cbind(MODEL_unadjusted_diagnostics, 
+                            MODEL_1_diagnostics, 
+                            MODEL_2_diagnostics, 
+                            MODEL_3_diagnostics, 
+                            MODEL_4_diagnostics, 
+                            MODEL_5_diagnostics) 
+
+write.csv(MODELS_diagnostics, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/MODELS_diagnostics.csv")
+
+
 #####
 # compare included sample to the overall sample.
 

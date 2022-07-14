@@ -405,5 +405,149 @@ Model_1_results = rbind(All_results_Model_1,
 
 print(Model_1_results)
 
-write.csv(Model_1_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_1_results_no_diab_at_baseline_discrim_bin.csv")
+#write.csv(Model_1_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_1_results_no_diab_at_baseline_discrim_bin.csv")
+
+
+numb_case_all = nobs(fit)
+AIC_all = AIC(fit)
+BIC_all = BIC(fit) 
+
+numb_case_female = nobs(fit_female)
+AIC_female = AIC(fit_female)
+BIC_female = BIC(fit_female)
+
+numb_cases_race = nobs(fit_race)
+AIC_race = AIC(fit_race)
+BIC_race = BIC(fit_race) 
+
+numb_cases_BMI = nobs(fit_BMI)
+AIC_BMI = AIC(fit_BMI)
+BIC_BMI = BIC(fit_BMI) 
+
+
+
+MODEL_1_diagnostics = rbind(numb_case_all, 
+                              AIC_all, 
+                              BIC_all, 
+                              
+                              numb_case_female,
+                              AIC_female,
+                              BIC_female,
+                              
+                              numb_cases_race,
+                              AIC_race,
+                              BIC_race,
+                                
+                              numb_cases_BMI,
+                              AIC_BMI,
+                              BIC_BMI)
+
+
+
+
+#The powerSurvEpi package provides power and sample size calculation for survival analysis (with a focus towards epidemiological studies).
+
+
+n_all = fit$n
+
+HR_all = c(summary_all$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_all <- power.stratify(
+  n = n_all,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_all,
+  lambda0Vec = c(HR_all, HR_all),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+#######
+
+n_female = fit_female$n
+
+HR_female = c(summary_female$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_female <- power.stratify(
+  n = n_female,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_female,
+  lambda0Vec = c(HR_all, HR_all),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+n_race = fit_race$n
+HR_race = c(summary_race$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_race <- power.stratify(
+  n = n_race,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_race,
+  lambda0Vec = c(HR_race, HR_race),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+
+n_BMI = fit_BMI$n
+HR_BMI  = c(summary_BMI $conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_BMI <- power.stratify(
+  n = n_BMI,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_BMI,
+  lambda0Vec = c(HR_race, HR_race),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+
+
+Model_1_analysed_n = rbind(n_all,  
+                           n_female, 
+                           n_race, 
+                           n_BMI) 
+
+
+Model_1_numb_case = rbind(numb_case_all,   
+                          numb_case_female, 
+                          numb_cases_race,
+                          numb_cases_BMI) 
+
+
+Model_1_power = rbind(res.power_all$power,  
+                      res.power_female$power, 
+                      res.power_race$power, 
+                      res.power_BMI$power) 
+
+
+Model_1_power_results = data.frame(Model_1_analysed_n,
+                                   Model_1_numb_case,
+                                   Model_1_power)
+
+write.csv(Model_1_power_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_1_power.csv")
+
 
