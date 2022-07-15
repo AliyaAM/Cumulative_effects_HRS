@@ -6,49 +6,57 @@ participant_char_function =  function (data){
 ## All sex
 
 data$sex_1_2
-data_baseline_female = subset(data, data$sex_1_2 == 2)
-n_female_all = nrow(data_baseline_female)
-
+data_female = subset(data, data$sex_1_2 == 2)
+n_female_all = nrow(data_female)
+percent_female = nrow(data_female)/nrow(data)*100
 
 ## ALL wealth 
+#create wealth quantile variable 
 
 data$wealth_noIRA
 
-quantiles_first_wealth_noIRA = quantile(data$wealth_noIRA,
-                                        probs = seq(0, 0.25), na.rm = TRUE)
+bound_1 = quantile(data$wealth_noIRA,
+                   probs = seq(0, 0.25), na.rm = TRUE)
 
-quantiles_second_wealth_noIRA = quantile(data$wealth_noIRA,
-                                         probs = seq(0.50, 0.75), na.rm = TRUE)
 
-quantiles_third_wealth_noIRA = quantile(data$wealth_noIRA,
+bound_2 = quantile(data$wealth_noIRA,
                                         probs = seq(0.25, 0.5), na.rm = TRUE)
 
 
-quantiles_fourth_wealth_noIRA = quantile(data$wealth_noIRA,
+bound_3 = quantile(data$wealth_noIRA,
+                                         probs = seq(0.50, 0.75), na.rm = TRUE)
+
+
+bound_4 = quantile(data$wealth_noIRA,
                                          probs = seq(0.75, 1), na.rm = TRUE)
 
 
-q1_wealth_noIRA_baseline_all = subset(data_baseline, data$wealth_noIRA <= quantiles_first_wealth_noIRA)
+
+
+q1_wealth_noIRA_baseline_all = subset(data, data$wealth_noIRA > bound_1 & data$wealth_noIRA <= bound_2)
 n_q1 = nrow(q1_wealth_noIRA_baseline_all)
+percent_q1 = n_q1/nrow(data)*100
 
 
 
-q2_wealth_noIRA_baseline_all = subset(data_baseline, data$wealth_noIRA > quantiles_first_wealth_noIRA & data$wealth_noIRA <= quantiles_second_wealth_noIRA)
+q2_wealth_noIRA_baseline_all = subset(data, data$wealth_noIRA > bound_2 & data$wealth_noIRA <= bound_3)
 n_q2 = nrow(q2_wealth_noIRA_baseline_all)
+percent_q2 = n_q2/nrow(data)*100
 
 
-q3_wealth_noIRA_baseline_all = subset(data_baseline, data$wealth_noIRA > quantiles_second_wealth_noIRA & data$wealth_noIRA <= quantiles_third_wealth_noIRA)
+q3_wealth_noIRA_baseline_all = subset(data, data$wealth_noIRA > bound_3 & data$wealth_noIRA <= bound_4)
 n_q3 = nrow(q3_wealth_noIRA_baseline_all)
+percent_q3 = n_q3/nrow(data)*100
 
-
-q4_wealth_noIRA_baseline_all = subset(data_baseline, data$wealth_noIRA > quantiles_third_wealth_noIRA & data$wealth_noIRA <= quantiles_fourth_wealth_noIRA)
+q4_wealth_noIRA_baseline_all = subset(data, data$wealth_noIRA > bound_4)
 n_q4 = nrow(q4_wealth_noIRA_baseline_all)
-
-
-q5_wealth_noIRA_baseline_all = subset(data_baseline, data$wealth_noIRA > quantiles_fourth_wealth_noIRA)
-n_q5 = nrow(q5_wealth_noIRA_baseline_all)
+percent_q4 = n_q4/nrow(data)*100
 
 ## All age 
+data$continious_age = as.numeric(data$continious_age)
+data = tibble(data)
+data = data %>% drop_na(continious_age)
+unique(data$continious_age)
 
 mean_age_all = mean(data$continious_age) 
 sd_age_all = sd(data$continious_age)
@@ -57,64 +65,13 @@ range_age = range(data$continious_age)
 
 ## All CVD
 
-#data$angina_new_bin
-#data_baseline_angina = subset(data_baseline, data$angina_new_bin == 1)
-#n_angina_all = nrow(data_baseline_angina)
+#CVD_new
+#CVD_ever
+data$CVD = factor(data$CVD)
 
-
-#data$hypertension_new_bin
-#data_baseline_hypertension_all = subset(data_baseline, data$hypertension_new_bin == 1)
-#n_baseline_hypertension_all = nrow(data_baseline_hypertension_all)
-
-#data$stroke_new_bin
-#data_baseline_stroke_all = subset(data_baseline, data$stroke_new_bin == 1)
-#n_baseline_stroke_all = nrow(data_baseline_stroke_all)
-
-##data$heartcondition_new_bin
-#data_baseline_heartcondition_all = subset(data_baseline, data$heartcondition_new_bin == 1)
-#n_baseline_heartcondition_all = nrow(data_baseline_heartcondition_all)
-
-#data$heartfailure2yrs_bin
-#data_baseline_heartfailure2yrs_bin_all = subset(data_baseline, data$heartfailure2yrs_bin == 1)
-#n_baseline_heartfailure2yrs_bin_all = nrow(data_baseline_heartfailure2yrs_bin_all)
-
-#data$heartattack_ever_bin
-#data_baseline_heartattack_ever_bin_all = subset(data_baseline, data$heartattack_ever_bin == 1)
-#n_baseline_heartattack_ever_bin_all = nrow(data_baseline_heartattack_ever_bin_all)
-
-
-##### recode into CVD below: 
-  
-  #data$CVD_new = case_when(data$angina_new_bin ==1 | data$heartfailure2yrs_bin == 1 | data$heartattack_new_bin == 1 ~ 1, 
-                           #data$angina_new_bin ==0 & data$heartfailure2yrs_bin == 0  & data$heartattack_new_bin == 0 ~ 0) 
-  
-  
-  #unique(data$CVD)
-  
-  
-  #data$CVD_ever = case_when(data$heartfailure2yrs_bin == 1 | data$heartattack_ever_bin == 1 ~ 1, 
-                            #data$heartfailure2yrs_bin == 0 & data$heartattack_ever_bin == 0 ~ 0) 
-  
-  #unique(data$CVD_ever)
-  
-##### recode below: 
-
-#data$CVD[data$angina_new_bin ==1 | data$heartfailure2yrs_bin == 1 | data$heartattack_ever_bin == 1 | data$heartattack_new_bin == 1] <-1
-#data$CVD[data$angina_new_bin ==0 & data$heartfailure2yrs_bin == 0 & data$heartattack_ever_bin == 0 & data$heartattack_new_bin == 0] <-0
-
-#unique(data$CVD)
-
-
-#data$CVD_ever[data$heartfailure2yrs_bin == 1 | data$heartattack_ever_bin == 1 ] <-1
-#data$CVD_ever[data$heartfailure2yrs_bin == 0 & data$heartattack_ever_bin == 0 ] <-0
-
-#unique(data$CVD_ever)
-
-
-#data$CVD_new[data$angina_new_bin ==1 | data$heartattack_new_bin == 1] <-1
-#data$CVD_new[data$angina_new_bin ==0 & data$heartattack_new_bin == 0] <-0
-
-
+data_CVD = subset(data, data$CVD == 1) 
+nrow_CVD = nrow(data_CVD)
+percent_CVD = ((nrow_CVD)/nrow(data))*100
 
 #unique(data$CVD_new)
   
@@ -139,8 +96,8 @@ range_alchohol_baseline_all = range(data$alcohol_days_week, na.rm = TRUE)
 
 
 data$smokes_now_bin
-data_baseline_smokes_now_bin_all = subset(data_baseline, data$smokes_now_bin == 1)
-n_baseline_smokes_now_bin_all = nrow(data_baseline_smokes_now_bin_all)
+data_smokes_now_bin_all = subset(data, data$smokes_now_bin == 1)
+n_baseline_smokes_now_bin_all = nrow(data_smokes_now_bin_all)
 
 
 median_PA_baseline_all = median(data$vigarious_physical_activity, na.rm = TRUE)
@@ -157,54 +114,126 @@ range_PA_baseline_all = range(data$vigarious_physical_activity, na.rm = TRUE)
 ## All CVD risks
 
 data$hypertension_new_bin
-data_baseline_hypertension_bin_all = subset(data_baseline, data$hypertension_new_bin == 1)
-n_baseline_hypertension_bin_all = nrow(data_baseline_hypertension_bin_all)
+data_hypertension_bin_all = subset(data, data$hypertension_new_bin == 1)
+n_baseline_hypertension_bin_all = nrow(data_hypertension_bin_all)
+percent_hypertension = n_baseline_hypertension_bin_all/nrow(data)*100
 
 
 
 ## All BMI 
+data$assessed_BMI = as.numeric(data$assessed_BMI)
 
 mean_BMI_all = mean(data$assessed_BMI, na.rm = TRUE)
 sd_BMI_all =  sd(data$assessed_BMI, na.rm = TRUE)
 range_BMI_all = range(data$assessed_BMI, na.rm = TRUE) 
 
 
+############ frequencies for different bounds of BMI 
+
+
+
+
+
+
+
+
+#####
+#data = na.omit(data)
+
+#data$assessed_BMI<-data$data[!is.na(data$assessed_BMI)]
+
+data$assessed_BMI = as.integer(data$assessed_BMI)
+data = tibble(data)
+data = data %>% drop_na(assessed_BMI)
+unique(data$assessed_BMI)
+
+data_obese = subset(data, data$assessed_BMI >30) 
+data_overweight = subset(data, data$assessed_BMI >=25 & data$assessed_BMI <=30) 
+data_healthy_weight = subset(data, data$assessed_BMI <25 & data$assessed_BMI >18) 
+data_under_weight = subset(data, data$assessed_BMI <18) 
+
+
+nrow_obese = nrow(data_obese)
+nrow_overweight = nrow(data_overweight)
+nrow_healthy_weight = nrow(data_healthy_weight)
+nrow_under_weight = nrow(data_under_weight)
+
+
+
+
+percent_all_obese = (nrow(data_obese)/nrow(data))*100
+percent_all_overweight = (nrow(data_overweight)/nrow(data))*100
+percent_all_healthy_weight = (nrow(data_healthy_weight)/nrow(data))*100
+percent_all_under_weight = (nrow(data_under_weight)/nrow(data))*100
+
 
 ## All depression 
 data$checklist_depression_bin
-data_baseline_depression_bin_all = subset(data_baseline, data$checklist_depression_bin == 1)
-n_baseline_depression_bin_all = nrow(data_baseline_depression_bin_all)
+data_depression_bin_all = subset(data, data$checklist_depression_bin == 1)
+n_baseline_depression_bin_all = nrow(data_depression_bin_all)
+percent_depression = n_baseline_depression_bin_all/nrow(data)*100
 
-result_participant_char = cbind(mean_age_all, 
+
+result_participant_char = rbind(mean_age_all, 
                             sd_age_all, 
                             range_age, 
                             
                             n_female_all, 
+                            percent_female,
                             
                             
                             n_q1, 
+                            percent_q1,
+                            
+                            n_q1, 
+                            percent_q1,
+                            
                             n_q2, 
+                            percent_q2,
+                        
                             n_q3, 
+                            percent_q3, 
+                            
+                            
                             n_q4, 
-                            n_q5, 
+                            percent_q4, 
                             
-                            #n_data_CVD_new, 
-                           # n_data_CVD_ever,
-                           # n_CVD_baseline, 
-                            
-                            mean_days_alchohol_baseline_all, 
-                            sd_days_alchohol_baseline_all, 
-                            range_alchohol_baseline_all, 
-                            n_baseline_smokes_now_bin_all, 
-                            q2_PA_baseline_all, 
-                            q3_PA_baseline_all, 
-                            range_PA_baseline_all, 
-                            
-                            n_baseline_hypertension_bin_all, 
                             mean_BMI_all, 
                             sd_BMI_all, 
-                            
-                            n_baseline_depression_bin_all)
+                           
+                           
+                           nrow_obese,
+                           percent_all_obese, 
+                           
+                           nrow_overweight,
+                           percent_all_overweight,
+                           
+                           nrow_healthy_weight,
+                           percent_all_healthy_weight,
+                           
+                           nrow_under_weight,
+                           percent_all_under_weight,
+                           
+                    
+                           nrow_CVD, 
+                           percent_CVD, 
+                           n_baseline_hypertension_bin_all, 
+                           percent_hypertension, 
+                           
+                           n_baseline_depression_bin_all,
+                           percent_depression, 
+                           
+                           
+                           mean_days_alchohol_baseline_all, 
+                           sd_days_alchohol_baseline_all, 
+                           range_alchohol_baseline_all, 
+                           
+                           n_baseline_smokes_now_bin_all,
+                           
+                           median_PA_baseline_all, 
+                           q2_PA_baseline_all, 
+                           q3_PA_baseline_all, 
+                           range_PA_baseline_all)
 
 return(result_participant_char)
                   
