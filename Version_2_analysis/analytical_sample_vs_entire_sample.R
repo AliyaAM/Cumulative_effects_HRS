@@ -182,11 +182,7 @@ unique(analytical_sample_COX$discrim_bin)
 
 
 
-unique(baseline_data_COX$sex_1_2)
-unique(baseline_data_COX$race_white)
-min(baseline_data_COX$assessed_BMI, na.rm = TRUE)
-max(baseline_data_COX$assessed_BMI, na.rm = TRUE)
-unique(baseline_data_COX$assessed_BMI)
+
 
 #make table 2 (The results of the Cox regression run on the unrestricted sample)
 
@@ -236,7 +232,11 @@ unique(baseline_data_COX$assessed_BMI)
 
 
 #Subset datasets:
-
+#unique(baseline_data_COX$sex_1_2)
+#unique(baseline_data_COX$race_white)
+#min(baseline_data_COX$assessed_BMI, na.rm = TRUE)
+#max(baseline_data_COX$assessed_BMI, na.rm = TRUE)
+#unique(baseline_data_COX$assessed_BMI)
 
 analytical_sample_COX_baseline = subset(analytical_sample_COX, analytical_sample_COX$start_new == 0) 
 analytical_sample_COX_baseline_ids = unique(analytical_sample_COX_baseline$HHIDPN)
@@ -493,7 +493,7 @@ data_ttest = cbind(case,
                     #Depression, n (%)
                     depression,
                     #Alcohol consumption (days/week), Mean (SD)
-                    Alcohol_consumption,  
+                    #Alcohol_consumption,  
                     #Smoker status, n (%)
                     Smoking_status,
                     MVPA)
@@ -504,7 +504,7 @@ data_ttest$age
 
 age_diff <- t_test(age ~ case, data = data_ttest)
 BMI_diff <- t_test(BMI ~ case, data = data_ttest)
-BMI_diff <- t_test(Alcohol_consumption ~ case, data = data_ttest)
+#BMI_diff <- t_test(Alcohol_consumption ~ case, data = data_ttest)
 
 unique(case)
 unique(Smoking_status)
@@ -513,8 +513,8 @@ chisq.test(case, sex)
 chisq.test(case, CVD)
 chisq.test(case, hypertension)
 chisq.test(case, depression)
-chisq.test(case, Alcohol_consumption)
-chisq.test(case, Smoking_status)
+#chisq.test(case, Alcohol_consumption)
+#chisq.test(case, Smoking_status)
 chisq.test(case, MVPA)
 
 #MVPA frequency, median

@@ -170,7 +170,7 @@ cumulative_effects_dat$follow_up = cumulative_effects_dat$years
 
 unique(cumulative_effects_dat$start_new)
 
-
+sd(cumulative_effects_dat$start_new)
 
 cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 1, 
                                                              cumulative_effects_dat$diabetes_new == 0 ~ 0) 
@@ -248,7 +248,7 @@ plot_all = ggsurvplot(fit,
            surv.scale = "percent",
            
            ggtheme = theme_bw(),
-                      ylim = c(0.8, 1),
+                      ylim = c(0.5, 1),
            pval.coord = c(0, 0.95),
            
            xlab = "Years from baseline", 
@@ -524,14 +524,14 @@ plot_BMI = ggsurvplot(fit_BMI,
                        linetype = "strata", # Change line type by groups
                        surv.median.line = "hv", # Specify median survival
                        ggtheme = theme_bw(), # Change ggplot2 theme
-                       
+                      #risk.table = TRUE,
                        surv.scale = "percent",
                       
                       xlab = "Years from baseline", 
                       
                       ylab = "proportion of cases free of diabetes", 
                        
-                                  ylim = c(0.8, 1),
+                                  ylim = c(0.6, 1),
                        pval.coord = c(0, 0.95),
                        palette = c("#E7B800", "#2E9FDF"))
 
