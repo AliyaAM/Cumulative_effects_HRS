@@ -525,10 +525,3 @@ chisq.test(case, MVPA)
 ##### #Compare AIC and BIC across the 5 included models
 
 
-
-
-
-
-
-
-
