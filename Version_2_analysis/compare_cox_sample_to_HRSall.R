@@ -40,6 +40,42 @@ BMI = c(analytical_sample_COX$assessed_BMI, all_data_HRS$assessed_BMI)
 
 #CVD,  n (%)
 
+
+
+# create a new variable for CVD 
+
+analytical_sample_COX$CVD[analytical_sample_COX$angina_new_bin ==1 | analytical_sample_COX$heartfailure2yrs_bin == 1 | analytical_sample_COX$heartattack_ever_bin == 1 | analytical_sample_COX$heartattack_new_bin == 1] <-1
+analytical_sample_COX$CVD[analytical_sample_COX$angina_new_bin ==0 & analytical_sample_COX$heartfailure2yrs_bin == 0 & analytical_sample_COX$heartattack_ever_bin == 0 & analytical_sample_COX$heartattack_new_bin == 0] <-0
+
+unique(analytical_sample_COX$CVD)
+
+analytical_sample_COX$CVD_ever[analytical_sample_COX$heartfailure2yrs_bin == 1 | analytical_sample_COX$heartattack_ever_bin == 1 ] <-1
+analytical_sample_COX$CVD_ever[analytical_sample_COX$heartfailure2yrs_bin == 0 & analytical_sample_COX$heartattack_ever_bin == 0 ] <-0
+
+unique(analytical_sample_COX$CVD_ever)
+
+
+analytical_sample_COX$CVD_new[analytical_sample_COX$angina_new_bin ==1 | analytical_sample_COX$heartattack_new_bin == 1] <-1
+analytical_sample_COX$CVD_new[analytical_sample_COX$angina_new_bin ==0 & analytical_sample_COX$heartattack_new_bin == 0] <-0
+
+
+
+unique(analytical_sample_COX$CVD_ever)
+
+###########
+###########
+
+
+# create a new variable for CVD 
+
+
+
+all_data_HRS$CVD[all_data_HRS$angina_new_bin ==1 |  all_data_HRS$heart_attack_ever_bin == 1] <-1
+all_data_HRS$CVD[all_data_HRS$angina_new_bin ==0 & all_data_HRS$heart_attack_ever_bin == 0] <-0
+
+unique(all_data_HRS$CVD)
+
+
 CVD = c(analytical_sample_COX$CVD, all_data_HRS$CVD)
 
 #Hypertension, n (%)
@@ -135,3 +171,23 @@ table(case, Smoking_status)
 chisq.test(case, MVPA)
 table(case, MVPA)
 
+
+chisq.test(case, CVD)
+table(case, CVD)
+
+
+##### compare ses in analytic sample to ses in the HRS  #####
+#wealth = c(analytical_sample_COX$wealth_noIRA, all_data_HRS$wealth_noIRA)
+
+
+
+mean(analytical_sample_COX$wealth_noIRA, na.rm = TRUE)
+analytical_sample_COX$ses = case_when(analytical_sample_COX$wealth_noIRA <=mean(analytical_sample_COX$wealth_noIRA, na.rm = TRUE) ~ 1,
+                                      analytical_sample_COX$wealth_noIRA > mean(analytical_sample_COX$wealth_noIRA, na.rm = TRUE) ~ 2)
+
+
+
+ses  = c(analytical_sample_COX$ses, all_data_HRS$ses)
+
+chisq.test(case, ses)
+table(case, ses)

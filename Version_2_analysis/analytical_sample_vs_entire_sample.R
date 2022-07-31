@@ -27,7 +27,7 @@ HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_da
 # the analytical sample does not include the baseline diabetes. 
 
 analytical_sample_COX = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
-
+nrow(analytical_sample_COX)
 #n_all = length(analytical_sample_COX_baseline_ids) 
 #this below is for those with the BMI >30 kg/m2
 analytical_sample_BMI = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
@@ -240,7 +240,7 @@ unique(analytical_sample_COX$discrim_bin)
 
 analytical_sample_COX_baseline = subset(analytical_sample_COX, analytical_sample_COX$start_new == 0) 
 analytical_sample_COX_baseline_ids = unique(analytical_sample_COX_baseline$HHIDPN)
-
+nrow(analytical_sample_COX_baseline_ids)
 data_male = subset(analytical_sample_COX_baseline, analytical_sample_COX_baseline$sex_1_2 ==1) 
 data_female = subset(analytical_sample_COX_baseline, analytical_sample_COX_baseline$sex_1_2 ==2) 
 data_race = subset(analytical_sample_COX_baseline, analytical_sample_COX_baseline$race_white == 0) 
@@ -524,4 +524,54 @@ chisq.test(case, MVPA)
 
 ##### #Compare AIC and BIC across the 5 included models
 
+#wealth 
+median(analytical_sample_COX_baseline$wealth_noIRA, na.rm = TRUE)
+analytical_sample_COX_baseline$ses = case_when(analytical_sample_COX_baseline$wealth_noIRA <=median(analytical_sample_COX_baseline$wealth_noIRA, na.rm = TRUE) ~ 1,
+                                               analytical_sample_COX_baseline$wealth_noIRA > median(analytical_sample_COX_baseline$wealth_noIRA, na.rm = TRUE) ~ 2)
+unique(analytical_sample_COX_baseline$ses)
 
+
+
+median(diabetes_throughout_the_study$wealth_noIRA, na.rm = TRUE)
+diabetes_throughout_the_study$ses = case_when(diabetes_throughout_the_study$wealth_noIRA <=median(diabetes_throughout_the_study$wealth_noIRA, na.rm = TRUE) ~ 1,
+                                              diabetes_throughout_the_study$wealth_noIRA > median(diabetes_throughout_the_study$wealth_noIRA, na.rm = TRUE) ~ 2)
+unique(diabetes_throughout_the_study$ses)
+
+
+
+
+median(non_diabetes_throughout_the_study$wealth_noIRA, na.rm = TRUE)
+non_diabetes_throughout_the_study$ses = case_when(non_diabetes_throughout_the_study$wealth_noIRA <=median(non_diabetes_throughout_the_study$wealth_noIRA, na.rm = TRUE) ~ 1,
+                                                  non_diabetes_throughout_the_study$wealth_noIRA > median(non_diabetes_throughout_the_study$wealth_noIRA, na.rm = TRUE) ~ 2)
+unique(non_diabetes_throughout_the_study$ses)
+
+
+
+median(data_female$wealth_noIRA, na.rm = TRUE)
+data_female$ses = case_when(data_female$wealth_noIRA <=median(data_female$wealth_noIRA, na.rm = TRUE) ~ 1,
+                            data_female$wealth_noIRA > median(data_female$wealth_noIRA, na.rm = TRUE) ~ 2)
+unique(data_female$ses)
+
+median(data_race$wealth_noIRA, na.rm = TRUE)
+
+data_race$ses = case_when(data_race$wealth_noIRA <=median(data_race$wealth_noIRA, na.rm = TRUE) ~ 1,
+                          data_race$wealth_noIRA > median(data_race$wealth_noIRA, na.rm = TRUE) ~ 2)
+
+unique(data_race$ses)
+median(data_BMI$wealth_noIRA, na.rm = TRUE)
+data_BMI$ses = case_when(data_BMI$wealth_noIRA <=median(data_BMI$wealth_noIRA, na.rm = TRUE) ~ 1,
+                         data_BMI$wealth_noIRA > median(data_BMI$wealth_noIRA, na.rm = TRUE) ~ 2)
+unique(data_BMI$ses)
+
+
+ses = c(diabetes_throughout_the_study$ses,
+        non_diabetes_throughout_the_study$ses)
+nrow(ses)
+
+diabetes_throughout_the_study$developed_diabetes = rep(1, times = nrow(diabetes_throughout_the_study))
+non_diabetes_throughout_the_study$developed_diabetes = rep(0, times = nrow(non_diabetes_throughout_the_study)) 
+
+
+
+chisq.test(case, ses)
+table(case, ses)

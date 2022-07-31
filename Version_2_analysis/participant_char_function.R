@@ -1,3 +1,4 @@
+library("stats")
 
 participant_char_function =  function (data){
   
@@ -52,6 +53,26 @@ q4_wealth_noIRA_baseline_all = subset(data, data$wealth_noIRA > bound_4)
 n_q4 = nrow(q4_wealth_noIRA_baseline_all)
 percent_q4 = n_q4/nrow(data)*100
 
+######## wealth quantiles 
+data$wealth_noIRA = as.numeric(data$wealth_noIRA)
+median_wealth = median(data$wealth_noIRA, na.rm	 = TRUE)
+
+
+data$ses = case_when(data$wealth_noIRA <=median(data$wealth_noIRA, na.rm = TRUE) ~ 1,
+                     data$wealth_noIRA > median(data$wealth_noIRA, na.rm = TRUE) ~ 2)
+
+low_ses = subset(data, data$ses == 1)
+low_ses_n = nrow(low_ses)
+low_ses_percent = low_ses_n/nrow(data) *100 
+
+
+high_ses = subset(data, data$ses == 2)
+high_ses_n = nrow(high_ses)
+high_ses_percent = high_ses_n/nrow(data) *100 
+
+
+
+#########
 ## All age 
 data$continious_age = as.numeric(data$continious_age)
 data = tibble(data)
@@ -197,6 +218,11 @@ result_participant_char = rbind(mean_age_all,
                             
                             n_q4, 
                             percent_q4, 
+                            
+                            low_ses_n,
+                            low_ses_percent,
+                            high_ses_n,
+                            high_ses_percent, 
                             
                             mean_BMI_all, 
                             sd_BMI_all, 
