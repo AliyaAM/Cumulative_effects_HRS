@@ -482,6 +482,9 @@ Smoking_status  = c(diabetes_throughout_the_study$smokes_now_bin, non_diabetes_t
 MVPA  = c(diabetes_throughout_the_study$vigarious_physical_activity, non_diabetes_throughout_the_study$vigarious_physical_activity)
 
 
+wealth = c(diabetes_throughout_the_study$wealth_noIRA, 
+           non_diabetes_throughout_the_study$wealth_noIRA)
+
 data_ttest = cbind(case, 
                     age, 
                     sex, 
@@ -496,7 +499,8 @@ data_ttest = cbind(case,
                     #Alcohol_consumption,  
                     #Smoker status, n (%)
                     Smoking_status,
-                    MVPA)
+                    MVPA,
+                   wealth)
 
 data_ttest = as.data.frame(data_ttest)
 
@@ -505,6 +509,9 @@ data_ttest$age
 age_diff <- t_test(age ~ case, data = data_ttest)
 BMI_diff <- t_test(BMI ~ case, data = data_ttest)
 #BMI_diff <- t_test(Alcohol_consumption ~ case, data = data_ttest)
+
+
+wealth_diff <- t_test(wealth ~ case, data = data_ttest)
 
 unique(case)
 unique(Smoking_status)
@@ -575,3 +582,34 @@ non_diabetes_throughout_the_study$developed_diabetes = rep(0, times = nrow(non_d
 
 chisq.test(case, ses)
 table(case, ses)
+
+
+################
+
+summary_stat = summary(diabetes_throughout_the_study$wealth_noIRA)
+
+
+diabetes_throughout_the_study$wealth_quantile = case_when(diabetes_throughout_the_study$wealth_noIRA <summary_stat[2] ~ 1, 
+                                                          diabetes_throughout_the_study$wealth_noIRA >summary_stat[2] & diabetes_throughout_the_study$wealth_noIRA < summary_stat[3] ~ 2,
+                                                          diabetes_throughout_the_study$wealth_noIRA>summary_stat[3] & diabetes_throughout_the_study$wealth_noIRA < summary_stat[5] ~ 3, 
+                                                          diabetes_throughout_the_study$wealth_noIRA>summary_stat[5] ~ 4)
+
+
+
+
+
+summary_stat_no_diab = summary(non_diabetes_throughout_the_study$wealth_noIRA)
+
+
+non_diabetes_throughout_the_study$wealth_quantile = case_when(non_diabetes_throughout_the_study$wealth_noIRA <summary_stat_no_diab[2] ~ 1, 
+                                                          non_diabetes_throughout_the_study$wealth_noIRA >summary_stat_no_diab[2] & non_diabetes_throughout_the_study$wealth_noIRA < summary_stat_no_diab[3] ~ 2,
+                                                          non_diabetes_throughout_the_study$wealth_noIRA>summary_stat_no_diab[3] & non_diabetes_throughout_the_study$wealth_noIRA < summary_stat_no_diab[5] ~ 3, 
+                                                          non_diabetes_throughout_the_study$wealth_noIRA>summary_stat_no_diab[5] ~ 4)
+
+wealth_quantile = c(diabetes_throughout_the_study$wealth_quantile, 
+                    non_diabetes_throughout_the_study$wealth_quantile)
+
+
+chisq.test(case, wealth_quantile)
+
+

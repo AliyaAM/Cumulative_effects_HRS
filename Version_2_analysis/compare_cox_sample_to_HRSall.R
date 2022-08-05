@@ -102,6 +102,8 @@ Smoking_status  = c(analytical_sample_COX$smokes_now_bin, all_data_HRS$smokes_no
 MVPA  = c(analytical_sample_COX$vigarious_physical_activity, all_data_HRS$vigarious_physical_activity)
 
 
+wealth = c(analytical_sample_COX$wealth_noIRA, 
+           all_data_HRS$wealth_noIRA)
 
 data_ttest = cbind(case, 
                    age, 
@@ -117,8 +119,19 @@ data_ttest = cbind(case,
                    #Alcohol_consumption,  
                    #Smoker status, n (%)
                    Smoking_status,
-                   MVPA)
+                   MVPA,
+                   wealth)
 
+data_ttest = as.data.frame(data_ttest)
+
+data_ttest$age
+
+age_diff <- t_test(age ~ case, data = data_ttest)
+BMI_diff <- t_test(BMI ~ case, data = data_ttest)
+#BMI_diff <- t_test(Alcohol_consumption ~ case, data = data_ttest)
+
+
+wealth_diff <- t_test(wealth ~ case, data = data_ttest)
 data_ttest = as.data.frame(data_ttest)
 
 nrow(data_ttest)
