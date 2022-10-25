@@ -77,6 +77,7 @@ cumulative_effects_dat = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_
 
 ###### Adding variables to the main dataset:
 
+DATA_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/situations/"
 
 
 cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
@@ -158,8 +159,6 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 
 cumulative_effects_dat$discrim_bin
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
-
 cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
 
 cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
@@ -184,7 +183,6 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-unique(cumulative_effects_dat$discrimination_cat)
 
 
 #1 = 2 year 
@@ -218,10 +216,10 @@ data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 
 
 #cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
 
-fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA * sex_1_2, data = cumulative_effects_dat)
+fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_harassed_bin + continious_age * wealth_noIRA * sex_1_2, data = cumulative_effects_dat)
 summary_all = summary(fit)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_harassed_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_all$conf.int[1,]
@@ -244,6 +242,8 @@ All_results_Model_1$p_value = summary_all$logtest[3]
 
 print(All_results_Model_1)
 
+#write.csv(All_results_Model_1, paste(DATA_ROOT, "/Model1_All_discrim_harassed_bin_cat.csv", sep = ""))
+
 #write.csv(All_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_1.csv")
 
 
@@ -255,10 +255,10 @@ print(All_results_Model_1)
 
 #### plot for female dataset: 
 
-fit_female <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA, data = data_female)
+fit_female <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_harassed_bin + continious_age * wealth_noIRA, data = data_female)
 summary_female = summary(fit_female)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_harassed_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_female$conf.int[1,]
@@ -296,10 +296,10 @@ print(Female_results_Model_1)
 #### plot for male dataset: 
 
 
-fit_male <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA, data = data_male)
+fit_male <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_harassed_bin + continious_age * wealth_noIRA, data = data_male)
 summary_male = summary(fit_male)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_harassed_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_male$conf.int[1,]
@@ -333,10 +333,10 @@ print(male_results_Model_1)
 
 #### plot for race dataset: 
 
-fit_race <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA * sex_1_2, data = data_race)
+fit_race <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_harassed_bin + continious_age * wealth_noIRA * sex_1_2, data = data_race)
 summary_race = summary(fit_race)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_harassed_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_race$conf.int[1,]
@@ -369,10 +369,10 @@ print(race_results_Model_1)
 
 #### plot for BMI dataset: 
 
-fit_BMI <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA * sex_1_2, data = data_BMI)
+fit_BMI <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_harassed_bin + continious_age * wealth_noIRA * sex_1_2, data = data_BMI)
 summary_BMI = summary(fit_BMI)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_harassed_bin: 
 summary_BMI$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_BMI$conf.int[1,]
@@ -398,12 +398,14 @@ print(BMI_results_Model_1)
 #write.csv(BMI_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_1.csv")
 
 Model_1_results = rbind(All_results_Model_1, 
-                       Female_results_Model_1, 
-                       male_results_Model_1, 
-                       race_results_Model_1, 
-                       BMI_results_Model_1) 
+                        Female_results_Model_1, 
+                        male_results_Model_1, 
+                        race_results_Model_1, 
+                        BMI_results_Model_1) 
 
 print(Model_1_results)
+
+write.csv(Model_1_results, paste(DATA_ROOT, "/Model1_discrim_harassed_bin_cat.csv", sep = ""))
 
 #write.csv(Model_1_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_1_results_no_diab_at_baseline_discrim_bin.csv")
 
@@ -427,20 +429,20 @@ BIC_BMI = BIC(fit_BMI)
 
 
 MODEL_1_diagnostics = rbind(numb_case_all, 
-                              AIC_all, 
-                              BIC_all, 
-                              
-                              numb_case_female,
-                              AIC_female,
-                              BIC_female,
-                              
-                              numb_cases_race,
-                              AIC_race,
-                              BIC_race,
-                                
-                              numb_cases_BMI,
-                              AIC_BMI,
-                              BIC_BMI)
+                            AIC_all, 
+                            BIC_all, 
+                            
+                            numb_case_female,
+                            AIC_female,
+                            BIC_female,
+                            
+                            numb_cases_race,
+                            AIC_race,
+                            BIC_race,
+                            
+                            numb_cases_BMI,
+                            AIC_BMI,
+                            BIC_BMI)
 
 
 

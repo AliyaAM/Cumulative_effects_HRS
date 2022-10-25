@@ -410,7 +410,7 @@ participant_characteristics = rbind(subset_name,
 
 participant_characteristics
 
-write.csv(participant_characteristics, paste(OUTPUT_ROOT, "participant_characteristics_TABLE_1.csv", sep = ""))
+#write.csv(participant_characteristics, paste(OUTPUT_ROOT, "participant_characteristics_TABLE_1.csv", sep = ""))
 
 
 #####                                                                                                                                                                                      
@@ -586,30 +586,30 @@ table(case, ses)
 
 ################
 
-summary_stat = summary(diabetes_throughout_the_study$wealth_noIRA)
+# summary_stat = summary(diabetes_throughout_the_study$wealth_noIRA)
 
 
-diabetes_throughout_the_study$wealth_quantile = case_when(diabetes_throughout_the_study$wealth_noIRA <summary_stat[2] ~ 1, 
-                                                          diabetes_throughout_the_study$wealth_noIRA >summary_stat[2] & diabetes_throughout_the_study$wealth_noIRA < summary_stat[3] ~ 2,
-                                                          diabetes_throughout_the_study$wealth_noIRA>summary_stat[3] & diabetes_throughout_the_study$wealth_noIRA < summary_stat[5] ~ 3, 
-                                                          diabetes_throughout_the_study$wealth_noIRA>summary_stat[5] ~ 4)
-
-
+# diabetes_throughout_the_study$wealth_quantile = case_when(diabetes_throughout_the_study$wealth_noIRA <summary_stat[2] ~ 1, 
+#                                                           diabetes_throughout_the_study$wealth_noIRA >summary_stat[2] & diabetes_throughout_the_study$wealth_noIRA < summary_stat[3] ~ 2,
+#                                                           diabetes_throughout_the_study$wealth_noIRA>summary_stat[3] & diabetes_throughout_the_study$wealth_noIRA < summary_stat[5] ~ 3, 
+#                                                           diabetes_throughout_the_study$wealth_noIRA>summary_stat[5] ~ 4)
 
 
 
-summary_stat_no_diab = summary(non_diabetes_throughout_the_study$wealth_noIRA)
-
-
-non_diabetes_throughout_the_study$wealth_quantile = case_when(non_diabetes_throughout_the_study$wealth_noIRA <summary_stat_no_diab[2] ~ 1, 
-                                                          non_diabetes_throughout_the_study$wealth_noIRA >summary_stat_no_diab[2] & non_diabetes_throughout_the_study$wealth_noIRA < summary_stat_no_diab[3] ~ 2,
-                                                          non_diabetes_throughout_the_study$wealth_noIRA>summary_stat_no_diab[3] & non_diabetes_throughout_the_study$wealth_noIRA < summary_stat_no_diab[5] ~ 3, 
-                                                          non_diabetes_throughout_the_study$wealth_noIRA>summary_stat_no_diab[5] ~ 4)
-
-wealth_quantile = c(diabetes_throughout_the_study$wealth_quantile, 
-                    non_diabetes_throughout_the_study$wealth_quantile)
-
-
-chisq.test(case, wealth_quantile)
-
-
+# 
+# 
+# summary_stat_no_diab = summary(non_diabetes_throughout_the_study$wealth_noIRA)
+# 
+# 
+# non_diabetes_throughout_the_study$wealth_quantile = case_when(non_diabetes_throughout_the_study$wealth_noIRA <summary_stat_no_diab[2] ~ 1, 
+#                                                           non_diabetes_throughout_the_study$wealth_noIRA >summary_stat_no_diab[2] & non_diabetes_throughout_the_study$wealth_noIRA < summary_stat_no_diab[3] ~ 2,
+#                                                           non_diabetes_throughout_the_study$wealth_noIRA>summary_stat_no_diab[3] & non_diabetes_throughout_the_study$wealth_noIRA < summary_stat_no_diab[5] ~ 3, 
+#                                                           non_diabetes_throughout_the_study$wealth_noIRA>summary_stat_no_diab[5] ~ 4)
+# 
+# wealth_quantile = c(diabetes_throughout_the_study$wealth_quantile, 
+#                     non_diabetes_throughout_the_study$wealth_quantile)
+# 
+# 
+# chisq.test(case, wealth_quantile)
+# 
+# 

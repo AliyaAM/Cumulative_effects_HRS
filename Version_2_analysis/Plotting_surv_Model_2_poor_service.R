@@ -3,16 +3,13 @@ library("survival")
 library("survminer")
 library("dplyr")
 
+library("powerSurvEpi")
 
 
-library("survival")
-library("survminer")
-library("dplyr")
 
 
 
 #Model 1: age and sex, wealth  [basis adjustment]
-Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
 #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
 Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
 #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
@@ -28,9 +25,9 @@ Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypert
 
 
 #Model 1: age and sex, wealth  [basis adjustment]
-Model_1_nosex = c("continious_age", "wealth_noIRA")
+Model_2_non_interact_nosex = c("continious_age", "wealth_noIRA")
 #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
+Model_2_non_interact_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
 #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
 Model_3_nosex = c("continious_age", "wealth_noIRA", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
 #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
@@ -61,9 +58,12 @@ Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_
 #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
 Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin", "checklist_depression_bin")
 
-###### DATA:
-# below is the entire dataset, not subseted to anyone: 
 
+
+DATA_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/situations/"
+
+
+###### DATA:
 cumulative_effects_dat = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
 
 
@@ -76,17 +76,6 @@ cumulative_effects_dat = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_
 ###### Adding variables to the main dataset:
 
 ###### Adding variables to the main dataset:
-
-
-
-cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
-                                                        cumulative_effects_dat$discrim_harassed == 2 ~ 1, 
-                                                        cumulative_effects_dat$discrim_harassed == 3 ~ 1, 
-                                                        cumulative_effects_dat$discrim_harassed == 4 ~ 1, 
-                                                        cumulative_effects_dat$discrim_harassed == 5 ~ 0, 
-                                                        cumulative_effects_dat$discrim_harassed == 6 ~ 0,
-                                                        cumulative_effects_dat$discrim_harassed == 0 ~ 0) 
-
 
 
 cumulative_effects_dat$discrim_lessrespect_bin = case_when(cumulative_effects_dat$discrim_lessrespect == 1 ~ 1, 
@@ -144,8 +133,8 @@ cumulative_effects_dat$discrim_afraidothers_bin = case_when(cumulative_effects_d
 
 
 
-cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_harassed_bin == 1 | cumulative_effects_dat$discrim_lessrespect_bin == 1 | cumulative_effects_dat$discrim_medical_bin  == 1 | cumulative_effects_dat$discrim_notclever_bin == 1 | cumulative_effects_dat$discrim_afraidothers_bin == 1 | cumulative_effects_dat$discrim_poorerservice_bin == 1 ~ 1, 
-                                               cumulative_effects_dat$discrim_harassed_bin == 0 & cumulative_effects_dat$discrim_lessrespect_bin == 0 & cumulative_effects_dat$discrim_medical_bin  == 0 & cumulative_effects_dat$discrim_notclever_bin == 0 & cumulative_effects_dat$discrim_afraidothers_bin == 0 & cumulative_effects_dat$discrim_poorerservice_bin == 0 ~ 0) 
+cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_poorerservice_bin == 1 | cumulative_effects_dat$discrim_lessrespect_bin == 1 | cumulative_effects_dat$discrim_medical_bin  == 1 | cumulative_effects_dat$discrim_notclever_bin == 1 | cumulative_effects_dat$discrim_afraidothers_bin == 1 | cumulative_effects_dat$discrim_poorerservice_bin == 1 ~ 1, 
+                                               cumulative_effects_dat$discrim_poorerservice_bin == 0 & cumulative_effects_dat$discrim_lessrespect_bin == 0 & cumulative_effects_dat$discrim_medical_bin  == 0 & cumulative_effects_dat$discrim_notclever_bin == 0 & cumulative_effects_dat$discrim_afraidothers_bin == 0 & cumulative_effects_dat$discrim_poorerservice_bin == 0 ~ 0) 
 
 
 
@@ -156,9 +145,6 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-cumulative_effects_dat$discrim_bin
-
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
 
 cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
 
@@ -184,9 +170,12 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-unique(cumulative_effects_dat$discrimination_cat)
+unique(cumulative_effects_dat$discrim_poorerservice_bin_cat)
+
+unique(cumulative_effects_dat$discrim_poorerservice_bin_cat)
 
 
+cumulative_effects_dat$discrim_poorerservice_bin = cumulative_effects_dat$discrim_bin
 #1 = 2 year 
 #2 = 4 years 
 #3 = 6 years 
@@ -218,10 +207,10 @@ data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 
 
 #cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
 
-fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA * sex_1_2, data = cumulative_effects_dat)
+fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_poorerservice_bin + continious_age + wealth_noIRA  +  assessed_BMI + hypertension_new_bin + sex_1_2, data = cumulative_effects_dat)
 summary_all = summary(fit)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_poorerservice_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_all$conf.int[1,]
@@ -233,18 +222,18 @@ summary_all$nevent
 
 ####
 ### output below: 
-All_results_Model_1 = data.frame("Model_1")
-All_results_Model_1$subset  = c("All")
-All_results_Model_1$coef  = c(summary_all$conf.int[1,1])
-All_results_Model_1$lower_CI = c(summary_all$conf.int[1,3])
-All_results_Model_1$upper_CI = c(summary_all$conf.int[1,4])
-All_results_Model_1$logtest = summary_all$logtest[1]
-All_results_Model_1$df = summary_all$logtest[2]
-All_results_Model_1$p_value = summary_all$logtest[3]
+All_results_Model_2_non_interact = data.frame("Model_2_non_interact")
+All_results_Model_2_non_interact$subset  = c("All")
+All_results_Model_2_non_interact$coef  = c(summary_all$conf.int[1,1])
+All_results_Model_2_non_interact$lower_CI = c(summary_all$conf.int[1,3])
+All_results_Model_2_non_interact$upper_CI = c(summary_all$conf.int[1,4])
+All_results_Model_2_non_interact$logtest = summary_all$logtest[1]
+All_results_Model_2_non_interact$df = summary_all$logtest[2]
+All_results_Model_2_non_interact$p_value = summary_all$logtest[3]
 
-print(All_results_Model_1)
+print(All_results_Model_2_non_interact)
 
-#write.csv(All_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_1.csv")
+#write.csv(All_results_Model_2_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/All_results_Model_2_non_interact.csv")
 
 
 
@@ -255,10 +244,10 @@ print(All_results_Model_1)
 
 #### plot for female dataset: 
 
-fit_female <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA, data = data_female)
+fit_female <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_poorerservice_bin + continious_age + wealth_noIRA  +  assessed_BMI + hypertension_new_bin , data = data_female)
 summary_female = summary(fit_female)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_poorerservice_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_female$conf.int[1,]
@@ -270,18 +259,18 @@ summary_female$nevent
 
 ####
 ### output below: 
-Female_results_Model_1 = data.frame("Model_1")
-Female_results_Model_1$subset  = c("Female")
-Female_results_Model_1$coef  = c(summary_female$conf.int[1,1])
-Female_results_Model_1$lower_CI = c(summary_female$conf.int[1,3])
-Female_results_Model_1$upper_CI = c(summary_female$conf.int[1,4])
-Female_results_Model_1$logtest = summary_female$logtest[1]
-Female_results_Model_1$df = summary_female$logtest[2]
-Female_results_Model_1$p_value = summary_female$logtest[3]
+Female_results_Model_2_non_interact = data.frame("Model_2_non_interact")
+Female_results_Model_2_non_interact$subset  = c("Female")
+Female_results_Model_2_non_interact$coef  = c(summary_female$conf.int[1,1])
+Female_results_Model_2_non_interact$lower_CI = c(summary_female$conf.int[1,3])
+Female_results_Model_2_non_interact$upper_CI = c(summary_female$conf.int[1,4])
+Female_results_Model_2_non_interact$logtest = summary_female$logtest[1]
+Female_results_Model_2_non_interact$df = summary_female$logtest[2]
+Female_results_Model_2_non_interact$p_value = summary_female$logtest[3]
 
-print(Female_results_Model_1)
+print(Female_results_Model_2_non_interact)
 
-#write.csv(Female_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_1.csv")
+#write.csv(Female_results_Model_2_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Female_results_Model_2_non_interact.csv")
 
 
 
@@ -296,10 +285,10 @@ print(Female_results_Model_1)
 #### plot for male dataset: 
 
 
-fit_male <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA, data = data_male)
+fit_male <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_poorerservice_bin + continious_age + wealth_noIRA  +  assessed_BMI + hypertension_new_bin , data = data_male)
 summary_male = summary(fit_male)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_poorerservice_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_male$conf.int[1,]
@@ -311,18 +300,18 @@ summary_male$nevent
 
 ####
 ### output below: 
-male_results_Model_1 = data.frame("Model_1")
-male_results_Model_1$subset  = c("male")
-male_results_Model_1$coef  = c(summary_male$conf.int[1,1])
-male_results_Model_1$lower_CI = c(summary_male$conf.int[1,3])
-male_results_Model_1$upper_CI = c(summary_male$conf.int[1,4])
-male_results_Model_1$logtest = summary_male$logtest[1]
-male_results_Model_1$df = summary_male$logtest[2]
-male_results_Model_1$p_value = summary_male$logtest[3]
+male_results_Model_2_non_interact = data.frame("Model_2_non_interact")
+male_results_Model_2_non_interact$subset  = c("male")
+male_results_Model_2_non_interact$coef  = c(summary_male$conf.int[1,1])
+male_results_Model_2_non_interact$lower_CI = c(summary_male$conf.int[1,3])
+male_results_Model_2_non_interact$upper_CI = c(summary_male$conf.int[1,4])
+male_results_Model_2_non_interact$logtest = summary_male$logtest[1]
+male_results_Model_2_non_interact$df = summary_male$logtest[2]
+male_results_Model_2_non_interact$p_value = summary_male$logtest[3]
 
-print(male_results_Model_1)
+print(male_results_Model_2_non_interact)
 
-#write.csv(male_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_1.csv")
+#write.csv(male_results_Model_2_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/male_results_Model_2_non_interact.csv")
 
 
 
@@ -333,10 +322,10 @@ print(male_results_Model_1)
 
 #### plot for race dataset: 
 
-fit_race <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA * sex_1_2, data = data_race)
+fit_race <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_poorerservice_bin + continious_age + wealth_noIRA  +  assessed_BMI + hypertension_new_bin + sex_1_2, data = data_race)
 summary_race = summary(fit_race)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_poorerservice_bin: 
 summary_all$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_race$conf.int[1,]
@@ -348,18 +337,18 @@ summary_race$nevent
 
 ####
 ### output below: 
-race_results_Model_1 = data.frame("Model_1")
-race_results_Model_1$subset  = c("race")
-race_results_Model_1$coef  = c(summary_race$conf.int[1,1])
-race_results_Model_1$lower_CI = c(summary_race$conf.int[1,3])
-race_results_Model_1$upper_CI = c(summary_race$conf.int[1,4])
-race_results_Model_1$logtest = summary_race$logtest[1]
-race_results_Model_1$df = summary_race$logtest[2]
-race_results_Model_1$p_value = summary_race$logtest[3]
+race_results_Model_2_non_interact = data.frame("Model_2_non_interact")
+race_results_Model_2_non_interact$subset  = c("race")
+race_results_Model_2_non_interact$coef  = c(summary_race$conf.int[1,1])
+race_results_Model_2_non_interact$lower_CI = c(summary_race$conf.int[1,3])
+race_results_Model_2_non_interact$upper_CI = c(summary_race$conf.int[1,4])
+race_results_Model_2_non_interact$logtest = summary_race$logtest[1]
+race_results_Model_2_non_interact$df = summary_race$logtest[2]
+race_results_Model_2_non_interact$p_value = summary_race$logtest[3]
 
-print(race_results_Model_1)
+print(race_results_Model_2_non_interact)
 
-#write.csv(race_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_1.csv")
+#write.csv(race_results_Model_2_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/race_results_Model_2_non_interact.csv")
 
 
 ########
@@ -369,10 +358,10 @@ print(race_results_Model_1)
 
 #### plot for BMI dataset: 
 
-fit_BMI <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age * wealth_noIRA * sex_1_2, data = data_BMI)
+fit_BMI <- coxph(Surv(follow_up, diabetes_new_bin)~ discrim_poorerservice_bin + continious_age + wealth_noIRA  +  assessed_BMI + hypertension_new_bin + sex_1_2, data = data_BMI)
 summary_BMI = summary(fit_BMI)
 
-# coeffcients for discrimination: 
+# coeffcients for discrim_poorerservice_bin: 
 summary_BMI$coefficients[1,]
 # exp (HR), and 95% CI: 
 summary_BMI$conf.int[1,]
@@ -384,69 +373,72 @@ summary_BMI$nevent
 
 ####
 ### output below: 
-BMI_results_Model_1 = data.frame("Model_1")
-BMI_results_Model_1$subset  = c("BMI")
-BMI_results_Model_1$coef  = c(summary_BMI$conf.int[1,1])
-BMI_results_Model_1$lower_CI = c(summary_BMI$conf.int[1,3])
-BMI_results_Model_1$upper_CI = c(summary_BMI$conf.int[1,4])
-BMI_results_Model_1$logtest = summary_BMI$logtest[1]
-BMI_results_Model_1$df = summary_BMI$logtest[2]
-BMI_results_Model_1$p_value = summary_BMI$logtest[3]
+BMI_results_Model_2_non_interact = data.frame("Model_2_non_interact")
+BMI_results_Model_2_non_interact$subset  = c("BMI")
+BMI_results_Model_2_non_interact$coef  = c(summary_BMI$conf.int[1,1])
+BMI_results_Model_2_non_interact$lower_CI = c(summary_BMI$conf.int[1,3])
+BMI_results_Model_2_non_interact$upper_CI = c(summary_BMI$conf.int[1,4])
+BMI_results_Model_2_non_interact$logtest = summary_BMI$logtest[1]
+BMI_results_Model_2_non_interact$df = summary_BMI$logtest[2]
+BMI_results_Model_2_non_interact$p_value = summary_BMI$logtest[3]
 
-print(BMI_results_Model_1)
+print(BMI_results_Model_2_non_interact)
 
-#write.csv(BMI_results_Model_1, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_1.csv")
+#write.csv(BMI_results_Model_2_non_interact, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/BMI_results_Model_2_non_interact.csv")
 
-Model_1_results = rbind(All_results_Model_1, 
-                       Female_results_Model_1, 
-                       male_results_Model_1, 
-                       race_results_Model_1, 
-                       BMI_results_Model_1) 
+Model_2_non_interact_results = rbind(All_results_Model_2_non_interact, 
+                                     Female_results_Model_2_non_interact, 
+                                     male_results_Model_2_non_interact, 
+                                     race_results_Model_2_non_interact, 
+                                     BMI_results_Model_2_non_interact) 
 
-print(Model_1_results)
-
-#write.csv(Model_1_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_1_results_no_diab_at_baseline_discrim_bin.csv")
+#write.csv(Model_2_non_interact_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_2_non_interact_results_no_diab_at_baseline_discrim_bin.csv")
 
 
-numb_case_all = nobs(fit)
-AIC_all = AIC(fit)
-BIC_all = BIC(fit) 
+write.csv(Model_2_non_interact_results, paste(DATA_ROOT, "/Model_2_discrim_poorerservice_bin_results.csv", sep = ""))
 
-numb_case_female = nobs(fit_female)
-AIC_female = AIC(fit_female)
-BIC_female = BIC(fit_female)
+# 
+# numb_case_all = nobs(fit)
+# AIC_all = AIC(fit)
+# BIC_all = BIC(fit) 
+# 
+# numb_case_female = nobs(fit_female)
+# AIC_female = AIC(fit_female)
+# BIC_female = BIC(fit_female)
+# 
+# numb_cases_race = nobs(fit_race)
+# AIC_race = AIC(fit_race)
+# BIC_race = BIC(fit_race) 
+# 
+# numb_cases_BMI = nobs(fit_BMI)
+# AIC_BMI = AIC(fit_BMI)
+# BIC_BMI = BIC(fit_BMI) 
+# 
+# 
+# 
+# MODEL_2_diagnostics = rbind(numb_case_all, 
+#                             AIC_all, 
+#                             BIC_all, 
+#                             
+#                             numb_case_female,
+#                             AIC_female,
+#                             BIC_female,
+#                             
+#                             numb_cases_race,
+#                             AIC_race,
+#                             BIC_race,
+#                             
+#                             numb_cases_BMI,
+#                             AIC_BMI,
+#                             BIC_BMI)
 
-numb_cases_race = nobs(fit_race)
-AIC_race = AIC(fit_race)
-BIC_race = BIC(fit_race) 
-
-numb_cases_BMI = nobs(fit_BMI)
-AIC_BMI = AIC(fit_BMI)
-BIC_BMI = BIC(fit_BMI) 
 
 
-
-MODEL_1_diagnostics = rbind(numb_case_all, 
-                              AIC_all, 
-                              BIC_all, 
-                              
-                              numb_case_female,
-                              AIC_female,
-                              BIC_female,
-                              
-                              numb_cases_race,
-                              AIC_race,
-                              BIC_race,
-                                
-                              numb_cases_BMI,
-                              AIC_BMI,
-                              BIC_BMI)
-
-
-
-
-#The powerSurvEpi package provides power and sample size calculation for survival analysis (with a focus towards epidemiological studies).
-
+# #The powerSurvEpi package provides power and sample size calculation for survival analysis (with a focus towards epidemiological studies).
+# 
+# 
+# #The powerSurvEpi package provides power and sample size calculation for survival analysis (with a focus towards epidemiological studies).
+# 
 # 
 # n_all = fit$n
 # 
@@ -523,31 +515,29 @@ MODEL_1_diagnostics = rbind(numb_case_all,
 #   alpha = 0.05)
 # 
 # 
-# 
-# 
-# 
-# Model_1_analysed_n = rbind(n_all,  
+# Model_2_analysed_n = rbind(n_all,  
 #                            n_female, 
 #                            n_race, 
 #                            n_BMI) 
 # 
 # 
-# Model_1_numb_case = rbind(numb_case_all,   
+# Model_2_numb_case = rbind(numb_case_all,   
 #                           numb_case_female, 
 #                           numb_cases_race,
 #                           numb_cases_BMI) 
 # 
 # 
-# Model_1_power = rbind(res.power_all$power,  
+# Model_2_power = rbind(res.power_all$power,  
 #                       res.power_female$power, 
 #                       res.power_race$power, 
 #                       res.power_BMI$power) 
 # 
 # 
-# Model_1_power_results = data.frame(Model_1_analysed_n,
-#                                    Model_1_numb_case,
-#                                    Model_1_power)
+# Model_2_power_results = data.frame(Model_2_analysed_n,
+#                                    Model_2_numb_case,
+#                                    Model_2_power)
 # 
-# #write.csv(Model_1_power_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_1_power.csv")
 # 
+# 
+# #write.csv(Model_2_power_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_2_power.csv")
 # 

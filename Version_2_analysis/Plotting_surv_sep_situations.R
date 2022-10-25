@@ -74,6 +74,8 @@ cumulative_effects_dat = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_
 
 
 
+DATA_ROOT = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/situations/"
+
 cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
                                                         cumulative_effects_dat$discrim_harassed == 2 ~ 1, 
                                                         cumulative_effects_dat$discrim_harassed == 3 ~ 1, 
@@ -145,15 +147,9 @@ cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_ha
 
 
 
-cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin 
-
-
-
-cumulative_effects_dat$discrimination_reversed = case_when(cumulative_effects_dat$discrim_bin == 1 ~ 0,
-                                                           cumulative_effects_dat$discrim_bin == 0 ~ 1)
 
 unique(cumulative_effects_dat$start_new)
-                                                  
+
 cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
 
 cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
@@ -173,11 +169,11 @@ unique(cumulative_effects_dat$start_new)
 sd(cumulative_effects_dat$start_new)
 
 cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 1, 
-                                                             cumulative_effects_dat$diabetes_new == 0 ~ 0) 
+                                                    cumulative_effects_dat$diabetes_new == 0 ~ 0) 
 
 
 cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
-                                                       cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
+                                                             cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
 
 #Subset datasets:
 data_male = subset(cumulative_effects_dat, cumulative_effects_dat$sex_1_2 ==1) 
@@ -195,7 +191,7 @@ data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 
 
 #### plot for the entire dataset: 
 
-fit <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
+fit <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrim_harassed_bin, data = cumulative_effects_dat)
 summary_all = summary(fit)
 print(summary_all)
 
@@ -206,7 +202,7 @@ summary_all_table = summary_all$table
 subset_all = rep("All", time=nrow(summary_all_table))
 summary_all_table = cbind(subset_all, summary_all_table)
 
-#write.csv(summary_all_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_all_table_discrimination_cat.csv")
+write.csv(summary_all_table, paste(DATA_ROOT, "/summary_all_table_discrim_harassed_bin_cat.csv", sep = ""))
 
 Number_events_all = fit$n.event
 Number_risk_all = fit$n.risk
@@ -235,28 +231,29 @@ All_results_unadjusted = cbind(Number_events_all,
 
 subset_all_undj  = rep("All", time=nrow(All_results_unadjusted)) 
 All_results_unadjusted = cbind(subset_all_undj, All_results_unadjusted) 
-#write.csv(All_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/All_results_unadjusted_discrimination_cat.csv")
+#write.csv(All_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/All_results_unadjusted_discrim_harassed_bin_cat.csv")
 
+write.csv(All_results_unadjusted, paste(DATA_ROOT, "/All_results_unadjusted_discrim_harassed_bin_cat.csv", sep = ""))
 
 plot_all = ggsurvplot(fit,
-           pval = TRUE, conf.int = TRUE,
-           risk.table = FALSE, # Add risk table
-           risk.table.col = "strata", # Change risk table color by groups
-           linetype = "strata", # Change line type by groups
-           surv.median.line = "hv", # Specify median survival
-           
-           surv.scale = "percent",
-           
-           ggtheme = theme_bw(),
+                      pval = TRUE, conf.int = TRUE,
+                      risk.table = FALSE, # Add risk table
+                      risk.table.col = "strata", # Change risk table color by groups
+                      linetype = "strata", # Change line type by groups
+                      surv.median.line = "hv", # Specify median survival
+                      
+                      surv.scale = "percent",
+                      
+                      ggtheme = theme_bw(),
                       ylim = c(0.5, 1),
-           pval.coord = c(0, 0.95),
-           
-           xlab = "Years from baseline", 
-           
-           ylab = "proportion of cases free of diabetes", 
-           
-           # Change ggplot2 theme
-           palette = c("#E7B800", "#2E9FDF"))
+                      pval.coord = c(0, 0.95),
+                      
+                      xlab = "Years from baseline", 
+                      
+                      ylab = "proportion of cases free of diabetes", 
+                      
+                      # Change ggplot2 theme
+                      palette = c("#E7B800", "#2E9FDF"))
 
 plot_all
 print(plot_all)  
@@ -269,7 +266,7 @@ print(plot_all)
 
 #### plot for female dataset: 
 
-fit_female <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_female)
+fit_female <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrim_harassed_bin, data = data_female)
 summary_female = summary(fit_female)
 print(summary_female)
 
@@ -279,7 +276,7 @@ subset_female = rep("female", time=nrow(fit_female))
 summary_female_table = summary_female$table
 summary_female_table = cbind(subset_female, summary_female_table)
 
-#write.csv(summary_female_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_female_table_discrimination_cat.csv")
+#write.csv(summary_female_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_female_table_discrim_harassed_bin_cat.csv")
 
 Number_events_female = fit_female$n.event
 Number_risk_female = fit_female$n.risk
@@ -297,35 +294,35 @@ cumhaz_output_std_female = fit_female$std.chaz
 ####
 ### output below: 
 female_results_unadjusted = cbind(Number_events_female,
-                               Number_risk_female,
-                               Number_censored_female, 
-                               probability_for_nodiab_female, 
-                               probability_SE_female, 
-                               probability_lower_CI_female, 
-                               probability_upper_CI_female, 
-                               cumhaz_output_female, 
-                               cumhaz_output_std_female) 
+                                  Number_risk_female,
+                                  Number_censored_female, 
+                                  probability_for_nodiab_female, 
+                                  probability_SE_female, 
+                                  probability_lower_CI_female, 
+                                  probability_upper_CI_female, 
+                                  cumhaz_output_female, 
+                                  cumhaz_output_std_female) 
 
 subset_female_undj = rep("female", time=nrow(female_results_unadjusted))
 female_results_unadjusted = cbind(subset_female_undj, female_results_unadjusted) 
-#write.csv(female_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/female_results_unadjusted_discrimination_cat.csv")
+#write.csv(female_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/female_results_unadjusted_discrim_harassed_bin_cat.csv")
 
 plot_female = ggsurvplot(fit_female,
-                      pval = TRUE, conf.int = TRUE,
-                      risk.table = FALSE, # Add risk table
-                      risk.table.col = "strata", # Change risk table color by groups
-                      linetype = "strata", # Change line type by groups
-                      surv.median.line = "hv", # Specify median survival
-                      surv.scale = "percent",
-                      
-                      xlab = "Years from baseline", 
-                      
-                      ylab = "proportion of cases free of diabetes", 
-                      
-                      ggtheme = theme_bw(), # Change ggplot2 theme
-                      ylim = c(0.5, 1),
-                      pval.coord = c(0, 0.95),
-                      palette = c("#E7B800", "#2E9FDF"))
+                         pval = TRUE, conf.int = TRUE,
+                         risk.table = FALSE, # Add risk table
+                         risk.table.col = "strata", # Change risk table color by groups
+                         linetype = "strata", # Change line type by groups
+                         surv.median.line = "hv", # Specify median survival
+                         surv.scale = "percent",
+                         
+                         xlab = "Years from baseline", 
+                         
+                         ylab = "proportion of cases free of diabetes", 
+                         
+                         ggtheme = theme_bw(), # Change ggplot2 theme
+                         ylim = c(0.5, 1),
+                         pval.coord = c(0, 0.95),
+                         palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_female) 
 
@@ -336,7 +333,7 @@ print(plot_female)
 
 #### plot for male dataset: 
 
-fit_male <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_male)
+fit_male <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrim_harassed_bin, data = data_male)
 summary_male = summary(fit_male)
 print(summary_male)
 
@@ -346,7 +343,7 @@ subset_male = rep("male", time=nrow(fit_male))
 summary_male_table = summary_male$table
 summary_male_table = cbind(subset_male, summary_male_table)
 
-#write.csv(summary_male_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_male_table_discrimination_cat.csv")
+#write.csv(summary_male_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_male_table_discrim_harassed_bin_cat.csv")
 
 Number_events_male = fit_male$n.event
 Number_risk_male = fit_male$n.risk
@@ -364,18 +361,18 @@ cumhaz_output_std_male = fit_male$std.chaz
 ####
 ### output below: 
 male_results_unadjusted = cbind(Number_events_male,
-                                  Number_risk_male,
-                                  Number_censored_male, 
-                                  probability_for_nodiab_male, 
-                                  probability_SE_male, 
-                                  probability_lower_CI_male, 
-                                  probability_upper_CI_male, 
-                                  cumhaz_output_male, 
-                                  cumhaz_output_std_male) 
+                                Number_risk_male,
+                                Number_censored_male, 
+                                probability_for_nodiab_male, 
+                                probability_SE_male, 
+                                probability_lower_CI_male, 
+                                probability_upper_CI_male, 
+                                cumhaz_output_male, 
+                                cumhaz_output_std_male) 
 
 subset_male_undj = rep("male", time=nrow(male_results_unadjusted))
 male_results_unadjusted = cbind(subset_male_undj, male_results_unadjusted) 
-#write.csv(male_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/male_results_unadjusted_discrimination_cat.csv")
+#write.csv(male_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/male_results_unadjusted_discrim_harassed_bin_cat.csv")
 # 
 # plot_male = ggsurvplot(fit_male,
 #                          pval = TRUE, conf.int = TRUE,
@@ -405,7 +402,7 @@ male_results_unadjusted = cbind(subset_male_undj, male_results_unadjusted)
 
 #### plot for race dataset: 
 
-fit_race <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_race)
+fit_race <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrim_harassed_bin, data = data_race)
 summary_race = summary(fit_race)
 print(summary_race)
 
@@ -415,7 +412,7 @@ subset_race = rep("race", time=nrow(fit_race))
 summary_race_table = summary_race$table
 summary_race_table = cbind(subset_race, summary_race_table)
 
-#write.csv(summary_race_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_race_table_discrimination_cat.csv")
+#write.csv(summary_race_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_race_table_discrim_harassed_bin_cat.csv")
 
 Number_events_race = fit_race$n.event
 Number_risk_race = fit_race$n.risk
@@ -444,7 +441,7 @@ race_results_unadjusted = cbind(Number_events_race,
 
 subset_race_undj = rep("race", time=nrow(race_results_unadjusted))
 race_results_unadjusted = cbind(subset_race_undj, race_results_unadjusted) 
-#write.csv(race_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/race_results_unadjusted_discrimination_cat.csv")
+#write.csv(race_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/race_results_unadjusted_discrim_harassed_bin_cat.csv")
 
 plot_race = ggsurvplot(fit_race,
                        pval = TRUE, conf.int = TRUE,
@@ -460,7 +457,7 @@ plot_race = ggsurvplot(fit_race,
                        ylab = "proportion of cases free of diabetes", 
                        
                        ggtheme = theme_bw(), # Change ggplot2 theme
-                                  ylim = c(0.5, 1),
+                       ylim = c(0.5, 1),
                        pval.coord = c(0, 0.95),
                        palette = c("#E7B800", "#2E9FDF"))
 
@@ -473,7 +470,7 @@ print(plot_race)
 
 #### plot for BMI dataset: 
 
-fit_BMI <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = data_BMI)
+fit_BMI <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrim_harassed_bin, data = data_BMI)
 summary_BMI = summary(fit_BMI)
 print(summary_BMI)
 
@@ -483,7 +480,7 @@ subset_BMI = rep("BMI", time=nrow(fit_BMI))
 summary_BMI_table = summary_BMI$table
 summary_BMI_table = cbind(subset_BMI, summary_BMI_table)
 
-#write.csv(summary_BMI_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_BMI_table_discrimination_cat.csv")
+#write.csv(summary_BMI_table, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/summary_BMI_table_discrim_harassed_bin_cat.csv")
 
 Number_events_BMI = fit_BMI$n.event
 Number_risk_BMI = fit_BMI$n.risk
@@ -501,38 +498,38 @@ cumhaz_output_std_BMI = fit_BMI$std.chaz
 ####
 ### output below: 
 BMI_results_unadjusted = cbind(Number_events_BMI,
-                                Number_risk_BMI,
-                                Number_censored_BMI, 
-                                probability_for_nodiab_BMI, 
-                                probability_SE_BMI, 
-                                probability_lower_CI_BMI, 
-                                probability_upper_CI_BMI, 
-                                cumhaz_output_BMI, 
-                                cumhaz_output_std_BMI) 
+                               Number_risk_BMI,
+                               Number_censored_BMI, 
+                               probability_for_nodiab_BMI, 
+                               probability_SE_BMI, 
+                               probability_lower_CI_BMI, 
+                               probability_upper_CI_BMI, 
+                               cumhaz_output_BMI, 
+                               cumhaz_output_std_BMI) 
 
 subset_BMI_undj = rep("BMI", time=nrow(BMI_results_unadjusted))
 BMI_results_unadjusted = cbind(subset_BMI_undj, BMI_results_unadjusted) 
 
-#write.csv(BMI_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/BMI_results_unadjusted_discrimination_cat.csv")
+#write.csv(BMI_results_unadjusted, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/BMI_results_unadjusted_discrim_harassed_bin_cat.csv")
 
 
 
 plot_BMI = ggsurvplot(fit_BMI,
-                       pval = TRUE, conf.int = TRUE,
-                       risk.table = FALSE, # Add risk table
-                       risk.table.col = "strata", # Change risk table color by groups
-                       linetype = "strata", # Change line type by groups
-                       surv.median.line = "hv", # Specify median survival
-                       ggtheme = theme_bw(), # Change ggplot2 theme
+                      pval = TRUE, conf.int = TRUE,
+                      risk.table = FALSE, # Add risk table
+                      risk.table.col = "strata", # Change risk table color by groups
+                      linetype = "strata", # Change line type by groups
+                      surv.median.line = "hv", # Specify median survival
+                      ggtheme = theme_bw(), # Change ggplot2 theme
                       #risk.table = TRUE,
-                       surv.scale = "percent",
+                      surv.scale = "percent",
                       
                       xlab = "Years from baseline", 
                       
                       ylab = "proportion of cases free of diabetes", 
-                       
-                                  ylim = c(0.5, 1),
-                       pval.coord = c(0, 0.95),
-                       palette = c("#E7B800", "#2E9FDF"))
+                      
+                      ylim = c(0.5, 1),
+                      pval.coord = c(0, 0.95),
+                      palette = c("#E7B800", "#2E9FDF"))
 
 print(plot_BMI)  

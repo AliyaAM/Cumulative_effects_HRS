@@ -73,38 +73,38 @@ high_ses_percent = high_ses_n/nrow(data) *100
 summary(data$wealth_noIRA)
 
 data_n = nrow(data)
-
-subset_1 = subset(data, data$wealth_noIRA<summary_stat[2])
-subset_1_n = nrow(subset_1)
-subset_1_percent = subset_1_n/data_n *100 
-subset_1_mean_wealth = mean(subset_1$wealth_noIRA, na.rm	 = TRUE)
-subset_1_SD_wealth = sd(subset_1$wealth_noIRA, na.rm	 = TRUE)
-
-
-
-subset_2 = subset(data, data$wealth_noIRA>summary_stat[2] & data$wealth_noIRA<summary_stat[3])
-subset_2_n =nrow(subset_2)
-subset_2_percent = subset_2_n/data_n *100 
-
-subset_2_mean_wealth = mean(subset_2$wealth_noIRA, na.rm	 = TRUE)
-subset_2_SD_wealth = sd(subset_2$wealth_noIRA, na.rm	 = TRUE)
-
-
-subset_3 = subset(data, data$wealth_noIRA>summary_stat[3] & data$wealth_noIRA<summary_stat[5])
-subset_3_n =nrow(subset_3)
-subset_3_percent = subset_3_n/data_n *100 
-
-
-subset_3_mean_wealth = mean(subset_3$wealth_noIRA, na.rm	 = TRUE)
-subset_3_SD_wealth = sd(subset_3$wealth_noIRA, na.rm	 = TRUE)
-
-
-subset_4 = subset(data, data$wealth_noIRA>summary_stat[5])
-subset_4_n = nrow(subset_4)
-subset_4_percent = subset_4_n/data_n *100 
-
-subset_4_mean_wealth = mean(subset_4$wealth_noIRA, na.rm	 = TRUE)
-subset_4_SD_wealth = sd(subset_4$wealth_noIRA, na.rm	 = TRUE)
+# 
+# subset_1 = subset(data, data$wealth_noIRA<summary_stat[2])
+# subset_1_n = nrow(subset_1)
+# subset_1_percent = subset_1_n/data_n *100 
+# subset_1_mean_wealth = mean(subset_1$wealth_noIRA, na.rm	 = TRUE)
+# subset_1_SD_wealth = sd(subset_1$wealth_noIRA, na.rm	 = TRUE)
+# 
+# 
+# 
+# subset_2 = subset(data, data$wealth_noIRA>summary_stat[2] & data$wealth_noIRA<summary_stat[3])
+# subset_2_n =nrow(subset_2)
+# subset_2_percent = subset_2_n/data_n *100 
+# 
+# subset_2_mean_wealth = mean(subset_2$wealth_noIRA, na.rm	 = TRUE)
+# subset_2_SD_wealth = sd(subset_2$wealth_noIRA, na.rm	 = TRUE)
+# 
+# 
+# subset_3 = subset(data, data$wealth_noIRA>summary_stat[3] & data$wealth_noIRA<summary_stat[5])
+# subset_3_n =nrow(subset_3)
+# subset_3_percent = subset_3_n/data_n *100 
+# 
+# 
+# subset_3_mean_wealth = mean(subset_3$wealth_noIRA, na.rm	 = TRUE)
+# subset_3_SD_wealth = sd(subset_3$wealth_noIRA, na.rm	 = TRUE)
+# 
+# 
+# subset_4 = subset(data, data$wealth_noIRA>summary_stat[5])
+# subset_4_n = nrow(subset_4)
+# subset_4_percent = subset_4_n/data_n *100 
+# 
+# subset_4_mean_wealth = mean(subset_4$wealth_noIRA, na.rm	 = TRUE)
+# subset_4_SD_wealth = sd(subset_4$wealth_noIRA, na.rm	 = TRUE)
 
 #########
 ## All age 
@@ -252,32 +252,32 @@ result_participant_char = rbind(mean_age_all,
                             n_q4, 
                             percent_q4, 
                             
-                            subset_1_n, 
-                            subset_1_percent, 
-                            subset_1_mean_wealth, 
-                            subset_1_SD_wealth, 
-                            
-                            subset_2_n, 
-                            subset_2_percent, 
-                            subset_2_mean_wealth, 
-                            subset_2_SD_wealth,
-                            
-                            subset_3_n,
-                            subset_3_percent, 
-                            
-                            subset_3_mean_wealth,
-                            subset_3_SD_wealth,
-                            
-                            subset_4_n,
-                            subset_4_percent,
-                           
-                            subset_4_mean_wealth,
-                            subset_4_SD_wealth,
-                            
-                            low_ses_n,
-                            low_ses_percent,
-                            high_ses_n,
-                            high_ses_percent, 
+                            # subset_1_n, 
+                            # subset_1_percent, 
+                            # subset_1_mean_wealth, 
+                            # subset_1_SD_wealth, 
+                            # 
+                            # subset_2_n, 
+                            # subset_2_percent, 
+                            # subset_2_mean_wealth, 
+                            # subset_2_SD_wealth,
+                            # 
+                            # subset_3_n,
+                            # subset_3_percent, 
+                            # 
+                            # subset_3_mean_wealth,
+                            # subset_3_SD_wealth,
+                            # 
+                            # subset_4_n,
+                            # subset_4_percent,
+                            # 
+                            # subset_4_mean_wealth,
+                            # subset_4_SD_wealth,
+                            # 
+                            # low_ses_n,
+                            # low_ses_percent,
+                            # high_ses_n,
+                            # high_ses_percent, 
                             
                             mean_BMI_all, 
                             sd_BMI_all, 
