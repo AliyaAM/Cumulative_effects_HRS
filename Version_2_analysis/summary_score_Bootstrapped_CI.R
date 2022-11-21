@@ -99,6 +99,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   boot.HR_1vs0 = as.numeric(boot.HR_1vs0) 
   print("boot.HR_1vs0:")
   print(boot.HR_1vs0)
+  
   boot.WCE = as.numeric(boot.WCE)
   print("boot.WCE")
   print(boot.WCE)

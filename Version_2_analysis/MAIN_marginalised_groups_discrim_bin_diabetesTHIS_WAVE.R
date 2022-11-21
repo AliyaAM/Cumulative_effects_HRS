@@ -33,13 +33,12 @@ library(Hmisc)
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
 
+current_directory = "/Users/aliya/my_docs/"
+#current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
-
-OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/Hypertension_new_bin/", sep=""))
-SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
-DATAIN_ROOT = (paste(current_directory, "/data_files/OLD_data_diabetes_this_wave/", sep="")) 
-
+OUTPUT_ROOT =(paste(current_directory, "/proj/Cumulative_effects_HRS/Results/diabetes_new_min_revised_nov2022/", sep=""))
+SOURCE_ROOT = (paste(current_directory, "proj/Cumulative_effects_HRS/Version_2_analysis/", sep=""))
+DATAIN_ROOT = (paste(current_directory, "KCL_postDoc/Data_analysis/", sep="")) 
 
 # function that subsets and srts dataset for a particular var (eg., female == 1)
 
@@ -64,14 +63,13 @@ source((paste(SOURCE_ROOT, "Seven_models_drop_baseline.R", sep="")))
 
 source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
 
-
 #data 
-HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2008_data_short_OLD.csv", sep=""))
-HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2010_data_short_OLD.csv", sep=""))
-HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2012_data_short_OLD.csv", sep=""))
-HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2014_data_short_OLD.csv", sep=""))
-HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2016_data_short_OLD.csv", sep=""))
-HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2018_data_short_OLD.csv", sep=""))
+HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/old/HRS2008_data_short_OLD.csv", sep=""))
+HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2010_data/old/HRS2010_data_short_OLD.csv", sep=""))
+HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/old/HRS2012_data_short_OLD.csv", sep=""))
+HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/old/HRS2014_data_short_OLD.csv", sep=""))
+HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/old/HRS2016_data_short_OLD.csv", sep=""))
+HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short_OLD.csv", sep=""))
 
 ########
 
@@ -184,7 +182,7 @@ unique(HRS2018_data$diabetes_new_bin)
 
 
 HRS2008_data_initial$angina_new_bin
-unique(HRS2012_data_initial$hypertension_new_bin)
+unique(HRS2012_data_initial$diabetes_new_bin)
 unique(HRS2008_data_initial$stroke_new_bin) 
 HRS2008_data_initial$heartcondition_new_bin
 HRS2008_data_initial$heartfailure2yrs_bin
@@ -194,7 +192,7 @@ unique(HRS2008_data_initial$vigarious_physical_activity)
 HRS2008_data_initial$alcohol_days_week
 HRS2008_data_initial$checklist_depression_bin
 
-outcome = "hypertension_new_bin"
+outcome = "diabetes_new_bin"
 
 all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA", 
                                                     subset_value1 = "NA", 
@@ -232,7 +230,7 @@ all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_va
 
 
 
-write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_hypertension_new_bin.csv", sep=""))
+write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin.csv", sep=""))
 
 
 all_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = all_discrim_bin_diabetes_thisWAVE_7models,
@@ -277,7 +275,7 @@ female_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset
 
 
 
-write.csv(female_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "female_discrim_bin_hypertension_new_bin.csv", sep=""))
+write.csv(female_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "female_discrim_bin_diabetes_new_bin.csv", sep=""))
 
 
 
@@ -327,7 +325,7 @@ race_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_v
 
 
 
-write.csv(race_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "race_discrim_bin_hypertension_new_bin.csv", sep=""))
+write.csv(race_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new_bin.csv", sep=""))
 
 
 
@@ -374,7 +372,7 @@ combo_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_
 
 
 
-write.csv(combo_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "combo_discrim_bin_hypertension_new_bin.csv", sep=""))
+write.csv(combo_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "combo_discrim_bin_diabetes_new_bin.csv", sep=""))
 
 
 
@@ -420,17 +418,17 @@ BMI_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_va
 
 
 
-write.csv(BMI_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "BMI_discrim_bin_hypertension_new_bin.csv", sep=""))
+write.csv(BMI_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "BMI_discrim_bin_diabetes_new_bin.csv", sep=""))
 
 BMI_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = BMI_discrim_bin_diabetes_thisWAVE_7models,
                                                             subset_name = "BMI", 
                                                             Model = Model)
 
-all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
+all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
 
  
 results = rbind(all_results[1:7,],
@@ -439,14 +437,14 @@ results = rbind(all_results[1:7,],
                 combo_results[1:7,],
                 BMI_results[1:7,]) 
 
-write.csv(results, paste(OUTPUT_ROOT, "result_table_hypertension_new_bin.csv", sep=""))
+write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_new_bin.csv", sep=""))
 
 
-all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
-BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly_hypertension_new_bin.csv", sep=""))
+all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
 
 
 results = rbind(all_results[1:7,],
@@ -472,6 +470,6 @@ results_col = cbind(Model_1,
                     Model_7)
 
 results_col = results_col[,c(3:10,18:20, 28:30, 38:40, 48:50, 58:60, 68:70)]
-write.csv(results_col, paste(OUTPUT_ROOT, "result_table_hypertension_new_bin.csv", sep=""))
+write.csv(results_col, paste(OUTPUT_ROOT, "result_table_diabetes_new_bin.csv", sep=""))
 
 

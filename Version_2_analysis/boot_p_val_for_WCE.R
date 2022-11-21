@@ -16,6 +16,8 @@ Model_1 = c("continious_age", "wealth_noIRA")
 
 outcome = "diabetes_new_bin"
 exposure = "discrim_bin"
+cumulative_effects_dat$discrim_bin
+unique(cumulative_effects_dat$discrim_bin)
 
 covariates_list = Model_1
 
@@ -37,6 +39,21 @@ boot.HR_1vs0 <- rep(NA, bootstraps_samples)
 #boot.HR_3vs6 <- rep(NA, bootstraps_samples)
 #boot.HR_4vs6 <- rep(NA, bootstraps_samples)
 #boot.HR_5vs6 <- rep(NA, bootstraps_samples)
+
+print("the wce function outputs NA for the HR, fix, see how i ended up using the function ")
+
+mod <- WCE(data = datab, 
+           analysis = "Cox", 1, cutoff = Num_time_points, 
+           constrained = "R", aic = FALSE, MatchedSet = NULL, 
+           id = "HHIDPN", 
+           event = outcome, 
+           start = "start_new", 
+           stop = "stop_new", 
+           expos = exposure,
+           covariates = covariates_list)
+
+boot.HR_1vs0 = HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points), allres = T) 
+
 
 #Sample IDs with replacement:
 ID <- unique(cumulative_effects_dat$HHIDPN) 
@@ -64,7 +81,7 @@ for (i in 1:bootstraps_samples){
   # }
   
   mod <- WCE(data = datab, 
-             analysis = "Cox", nknots = 1:3, cutoff = Num_time_points,
+             analysis = "Cox", 1, cutoff = Num_time_points, 
              constrained = "R", aic = FALSE, MatchedSet = NULL, 
              id = "HHIDPN", 
              event = outcome, 
@@ -80,10 +97,8 @@ for (i in 1:bootstraps_samples){
   
   best <- which.min(mod$info.criterion)
   boot.WCE[i,] <- mod$WCEmat[best,]
-  boot.HR[i] <- HR.WCE(mod, rep(1, 100), rep(0, 100))
-  
-  
-  boot.HR_1vs0[i] = HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
+
+  boot.HR_1vs0[i] = HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points), allres = T) 
 }
 
 boot.HR_1vs0 = as.numeric(boot.HR_1vs0) 
