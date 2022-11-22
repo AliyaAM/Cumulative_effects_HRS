@@ -105,7 +105,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #scenario1 <- c(rep(1, Num_time_points))
     #scenario2 <- c(rep(0, Num_time_points))
     
-    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
+    boot.HR[i] <- HR.WCE(mod, rep(1, 90), rep(0, 90)) 
     } 
   
   boot.HR = as.numeric(boot.HR) 
@@ -121,7 +121,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
 
   # estimated HR 
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
-  #boot.HR = na.omit(boot.HR)
+  boot.HR = na.omit(boot.HR)
   HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05) 
   
   #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
