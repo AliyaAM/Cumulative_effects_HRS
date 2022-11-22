@@ -46,9 +46,21 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   ID <- unique(WCE_data_CI$HHIDPN) 
   
   for (i in 1:bootstraps_samples){ 
-    ID.resamp <- sort(sample(ID, replace=TRUE))
-    datab <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+    ID.resamp <- sort(sample(ID, size = 100, replace=TRUE))
     
+    rows_check = WCE_data_CI$HHIDPN %in% ID.resamp
+    
+    datab <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+   
+     print(rows_check)
+     
+     print("rows_check above in summary_score_Bootstrapped_CI")
+    
+    print(datab)
+    
+    print("datab above in summary_score_Bootstrapped_CI")
+    
+    crash 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
     step <- 1 
     repeat {
