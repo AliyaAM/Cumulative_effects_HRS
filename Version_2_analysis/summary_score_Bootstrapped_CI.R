@@ -36,7 +36,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
   
   boot.WCE <- matrix(NA, ncol = Num_time_points, nrow = bootstraps_samples) # to store estimated weight functions 
-  boot.HR_1vs0 <- rep(NA, bootstraps_samples)
+  boot.HR <- rep(NA, bootstraps_samples)
   #boot.HR_2vs6 <- rep(NA, bootstraps_samples)
   #boot.HR_3vs6 <- rep(NA, bootstraps_samples)
   #boot.HR_4vs6 <- rep(NA, bootstraps_samples)
@@ -46,7 +46,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   ID <- unique(WCE_data_CI$HHIDPN) 
   
   for (i in 1:bootstraps_samples){ 
-    ID.resamp <- sort(sample(ID, size = 100, replace=TRUE))
+    ID.resamp <- sort(sample(ID, size = 1000, replace=TRUE))
     
     rows_check = WCE_data_CI$HHIDPN %in% ID.resamp
     
@@ -105,12 +105,12 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #scenario1 <- c(rep(1, Num_time_points))
     #scenario2 <- c(rep(0, Num_time_points))
     
-    boot.HR_1vs0[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
+    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
     } 
   
-  boot.HR_1vs0 = as.numeric(boot.HR_1vs0) 
-  print("boot.HR_1vs0:")
-  print(boot.HR_1vs0)
+  boot.HR = as.numeric(boot.HR) 
+  print("boot.HR:")
+  print(boot.HR)
   
   boot.WCE = as.numeric(boot.WCE)
   print("boot.WCE")
@@ -121,8 +121,8 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
 
   # estimated HR 
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
-  boot.HR_1vs0 = na.omit(boot.HR_1vs0)
-  HR_CI1vs0_lower =  quantile(boot.HR_1vs0, probs=0.05) 
+  #boot.HR = na.omit(boot.HR)
+  HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05) 
   
   #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
   #HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
@@ -131,7 +131,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   #HR_CI5vs6_lower =  quantile(boot.HR_5vs6, p = 0.05) 
   
   
-  HR_CI1vs0_upper =  quantile(boot.HR_1vs0, p  = 0.95) 
+  HR_CI1vs0_upper =  quantile(boot.HR, p  = 0.95) 
   
   
   #HR_CI1vs6_upper =  quantile(boot.HR_1vs6, p  = 0.95) 
