@@ -60,7 +60,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     print("datab above in summary_score_Bootstrapped_CI")
     
-    crash 
+    #crash 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
     step <- 1 
     repeat {
@@ -78,7 +78,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     }
     
 
-        
+    
     mod <- WCE(data = datab, 
                analysis = "Cox", nknots = 1, cutoff = Num_time_points,
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
