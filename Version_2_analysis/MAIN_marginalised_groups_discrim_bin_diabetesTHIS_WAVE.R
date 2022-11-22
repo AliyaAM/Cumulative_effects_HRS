@@ -229,6 +229,7 @@ all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_va
                                                     outcome = outcome) 
 
 
+stop 
 
 write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin.csv", sep=""))
 
