@@ -13,12 +13,12 @@ library(survival)
 library(dplyr)
 library(car)
 library(tidyverse)
-library(tidyr)
+#library(tidyr)
 
 library(epiDisplay) #tab1 function to make a frequency table 
 library(foreign)
 library(rms) # Used to extract p_value from logistic model
-library(ggplot2) #plots 
+#library(ggplot2) #plots 
 library(corrplot)
 library(gridExtra) 
 library(sjPlot)

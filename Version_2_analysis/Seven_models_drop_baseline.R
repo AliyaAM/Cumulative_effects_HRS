@@ -43,7 +43,7 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
+  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new", 'smokes_now_bin')
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
   Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
@@ -66,7 +66,7 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  Model_3_nosex = c("continious_age", "wealth_noIRA", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
+  Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new", 'smokes_now_bin')
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
   Model_4_nosex = c("continious_age", "wealth_noIRA","CVD")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
@@ -90,7 +90,7 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model_noBMIcov_2 = c("continious_age", "wealth_noIRA", "sex_1_2")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
+  Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new", 'smokes_now_bin')
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
   Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
@@ -166,6 +166,10 @@ Seven_models_drop_baseline = function (subset_var1,
                                       
                                       Model_name = "Model_1")
   
+  print("Model_1_exposure:")
+  print(Model_1_exposure)
+  
+  print("Model_1_exposure is above")
   
   Model_2_exposure =  HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
                                        Model_n = Model_2, 

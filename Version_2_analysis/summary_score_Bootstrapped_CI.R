@@ -77,7 +77,15 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
       step <- step+1 
     }
     
-
+    #change 
+    start_stop = c("start_new", "stop_new")
+    
+    
+    datab %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new)
+    
+    datab = na.omit(datab)
+    
+    print(datab)
     
     mod <- WCE(data = datab, 
                analysis = "Cox", nknots = 1, cutoff = Num_time_points,
