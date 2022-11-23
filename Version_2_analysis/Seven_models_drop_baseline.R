@@ -169,106 +169,106 @@ Seven_models_drop_baseline = function (subset_var1,
   print("Model_1_exposure:")
   print(Model_1_exposure)
   
-  print("Model_1_exposure is above")
+  # print("Model_1_exposure is above")
+  # 
+  # Model_2_exposure =  HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
+  #                                      Model_n = Model_2, 
+  #                                      
+  #                                      exposure = exposure, 
+  #                                      outcome = outcome,
+  #                                      
+  #                                      subset_name = subset_name, 
+  #                                      
+  #                                      
+  #                                      Model_name = "Model_2")
+  # 
+  # 
+  # 
+  # 
+  # Model_3_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
+  #                                     Model_n = Model_3, 
+  #                                     
+  #                                     exposure = exposure, 
+  #                                     outcome = outcome,
+  #                                     
+  #                                     subset_name = subset_name, 
+  #                                     
+  #                                     
+  #                                     Model_name = "Model_3")
+  # 
+  # 
+  # 
+  # Model_4_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
+  #                                     Model_n = Model_4, 
+  #                                     
+  #                                     exposure = exposure, 
+  #                                     outcome = outcome,
+  #                                     
+  #                                     subset_name = subset_name, 
+  #                                     
+  #                                     
+  #                                     Model_name = "Model_4")
+  # 
+  # 
+  # 
+  # 
+  # 
+  # Model_5_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
+  #                                     Model_n = Model_5, 
+  #                                     
+  #                                     exposure = exposure, 
+  #                                     outcome = outcome,
+  #                                     
+  #                                     subset_name = subset_name, 
+  #                                     
+  #                                     
+  #                                     Model_name = "Model_5")
+  # 
+  # 
+  # 
+  # 
+  # Model_6_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
+  #                                     Model_n = Model_6, 
+  #                                      
+  #                                     exposure = exposure, 
+  #                                     outcome = outcome,
+  #                                     
+  #                                     subset_name = subset_name, 
+  #                                     
+  #                                     
+  #                                     Model_name = "Model_6")
+  # 
+  # 
+  # 
+  # Model_7_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
+  #                                     Model_n = Model_7, 
+  #                                     
+  #                                     exposure = exposure, 
+  #                                     outcome = outcome,
+  #                                     subset_name = subset_name, 
+  #                                     
+  #                                     
+  #                                     Model_name = "Model_7")
+  # 
+  # 
   
-  Model_2_exposure =  HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                       Model_n = Model_2, 
-                                       
-                                       exposure = exposure, 
-                                       outcome = outcome,
-                                       
-                                       subset_name = subset_name, 
-                                       
-                                       
-                                       Model_name = "Model_2")
+  results_exposure = rbind(Model_1_exposure)
+                           # Model_2_exposure,
+                           # Model_3_exposure,
+                           # Model_4_exposure,
+                           # Model_5_exposure,
+                           # Model_6_exposure,
+                           # Model_7_exposure)
   
   
   
-  
-  Model_3_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                      Model_n = Model_3, 
-                                      
-                                      exposure = exposure, 
-                                      outcome = outcome,
-                                      
-                                      subset_name = subset_name, 
-                                      
-                                      
-                                      Model_name = "Model_3")
-  
-  
-  
-  Model_4_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                      Model_n = Model_4, 
-                                      
-                                      exposure = exposure, 
-                                      outcome = outcome,
-                                      
-                                      subset_name = subset_name, 
-                                      
-                                      
-                                      Model_name = "Model_4")
-  
-  
-  
-  
-  
-  Model_5_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                      Model_n = Model_5, 
-                                      
-                                      exposure = exposure, 
-                                      outcome = outcome,
-                                      
-                                      subset_name = subset_name, 
-                                      
-                                      
-                                      Model_name = "Model_5")
-  
-  
-  
-  
-  Model_6_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                      Model_n = Model_6, 
-                                       
-                                      exposure = exposure, 
-                                      outcome = outcome,
-                                      
-                                      subset_name = subset_name, 
-                                      
-                                      
-                                      Model_name = "Model_6")
-  
-  
-  
-  Model_7_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
-                                      Model_n = Model_7, 
-                                      
-                                      exposure = exposure, 
-                                      outcome = outcome,
-                                      subset_name = subset_name, 
-                                      
-                                      
-                                      Model_name = "Model_7")
-  
-  
-  
-  results_exposure = rbind(Model_1_exposure,
-                           Model_2_exposure,
-                           Model_3_exposure,
-                           Model_4_exposure,
-                           Model_5_exposure,
-                           Model_6_exposure,
-                           Model_7_exposure)
-  
-  
-  
-  results_exposure_table_col = cbind(Model_1_exposure,
-                                     Model_2_exposure,
-                                     Model_3_exposure,
-                                     Model_4_exposure,
-                                     Model_5_exposure,
-                                     Model_6_exposure,
-                                     Model_7_exposure)
+  results_exposure_table_col = cbind(Model_1_exposure)
+                                     # Model_2_exposure,
+                                     # Model_3_exposure,
+                                     # Model_4_exposure,
+                                     # Model_5_exposure,
+                                     # Model_6_exposure,
+                                     # Model_7_exposure)
   
 
   
