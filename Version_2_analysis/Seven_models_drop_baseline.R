@@ -65,7 +65,7 @@ Seven_models_drop_baseline = function (subset_var1,
   
   #Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI")
   
-  #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
+  #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week, var name: alcohol_days_week_new) [basic adjustment + health behaviours]
   Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new", 'smokes_now_bin')
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
   Model_4_nosex = c("continious_age", "wealth_noIRA","CVD")

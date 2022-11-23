@@ -87,8 +87,15 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     print(datab)
     
+    Num_time_points_datab = max(datab$timepoints_indiv)
+    
+    #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
+    
+    boot.WCE <- matrix(NA, ncol = Num_time_points_datab, nrow = bootstraps_samples) # to store estimated weight functions 
+    boot.HR <- rep(NA, bootstraps_samples)
+    
     mod <- WCE(data = datab, 
-               analysis = "Cox", nknots = 1, cutoff = Num_time_points,
+               analysis = "Cox", nknots = 1, cutoff = Num_time_points_datab,
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
                id = "HHIDPN", 
                event = outcome, 
@@ -113,7 +120,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #scenario1 <- c(rep(1, Num_time_points))
     #scenario2 <- c(rep(0, Num_time_points))
     
-    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
+    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points_datab), rep(0, Num_time_points_datab)) 
     } 
   
   boot.HR = as.numeric(boot.HR) 
