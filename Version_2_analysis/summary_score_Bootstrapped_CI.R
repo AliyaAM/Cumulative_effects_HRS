@@ -31,7 +31,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
   bootstraps_samples = 3
-  Num_time_points = max(WCE_data_CI$timepoints_indiv)
+  Num_time_points = 3
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
   
   boot.WCE <- matrix(NA, ncol = Num_time_points, nrow = bootstraps_samples) # to store estimated weight functions 
@@ -45,19 +45,16 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   ID <- unique(WCE_data_CI$HHIDPN) 
   
   for (i in 1:bootstraps_samples){ 
+    print(paste("i", i, sep=": "))
     ID.resamp <- sort(sample(ID, size = 1000, replace=TRUE))
     
-    rows_check = WCE_data_CI$HHIDPN %in% ID.resamp
-    
     datab <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
-   
-     print(rows_check)
      
-     print("rows_check above in summary_score_Bootstrapped_CI")
+     #print("rows_check above in summary_score_Bootstrapped_CI")
     
-    print(datab)
+     #print(datab)
     
-    print("datab above in summary_score_Bootstrapped_CI")
+     #print("datab above in summary_score_Bootstrapped_CI")
     
     #crash 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
@@ -81,11 +78,18 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #datab = datab %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new) 
     datab = datab %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
     
-    print(datab)
+    #print(datab)
     
-    print(unique(datab$outcome))
+    #print(unique(datab$outcome))
     
    num_indiv_points_datab =  max(datab$timepoints_indiv)
+   
+   if (num_indiv_points_datab != Num_time_points) {
+     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+     print(num_indiv_points_datab)
+     print(Num_time_points)
+     print("--------------------------------------")
+   }
    
    print("number of rows in datab")
    nrow(datab) 
@@ -93,16 +97,16 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
    
    #Num_time_points
   
-   print("num_indiv_points_datab:")
-   print(num_indiv_points_datab)
+   #print("num_indiv_points_datab:")
+   #print(num_indiv_points_datab)
     
    # The following line standardizes specific columns provided in a concatenated list (i.e. covariates_list).
    for (covariate in covariates_list){datab[covariate] = scale(datab[covariate])}
    
-    print("mod is below: WCE(data = ...")
+   #print("mod is below: WCE(data = ...")
     
     mod <- WCE(data = datab, 
-               analysis = "Cox", nknots = 1, cutoff = num_indiv_points_datab,
+               analysis = "Cox", nknots = 1, cutoff = Num_time_points,
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
                id = "HHIDPN", 
                event = outcome, 
@@ -113,12 +117,12 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     
     # return best WCE estimates and corresponding HR 
-    print("finished: mod = WCE(data = ...")
+    #print("finished: mod = WCE(data = ...")
     
     
-    mod
-    summary(mod)
-    print("above printed: mod = WCE(data = ...")
+    #mod
+    #summary(mod)
+    #print("above printed: mod = WCE(data = ...")
     
     
     best <- which.min(mod$info.criterion) 
