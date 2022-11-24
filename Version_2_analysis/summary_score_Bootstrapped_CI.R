@@ -78,16 +78,19 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     }
     
     #change 
-    start_stop = c("start_new", "stop_new")
+
+    datab = datab %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new) 
     
-    
-    datab %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new)
-    
-    datab = na.omit(datab)
+    datab = datab %>% drop_na(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new)
     
     print(datab)
+    
+    print(unique(datab$outcome))
+    
+    print("mod is below: WCE(data = ...")
+    
     mod <- WCE(data = datab, 
-               analysis = "Cox", nknots = 1, cutoff = Num_time_points,
+               analysis = "Cox", nknots = 1, cutoff = max(datab$timepoints_indiv),
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
                id = "HHIDPN", 
                event = outcome, 
@@ -98,6 +101,9 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     
     # return best WCE estimates and corresponding HR 
+    
+    print("finished: mod = WCE(data = ...")
+    
     
     best <- which.min(mod$info.criterion) 
     best = as.numeric(best)
