@@ -138,7 +138,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #scenario1 <- c(rep(1, Num_time_points))
     #scenario2 <- c(rep(0, Num_time_points))
     
-    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points)) 
+    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points))[1] 
     } 
   
   boot.HR = as.numeric(boot.HR) 
