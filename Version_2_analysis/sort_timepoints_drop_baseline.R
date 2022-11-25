@@ -1,7 +1,7 @@
 
  
 sort_timepoints_drop_baseline = function (data){
-  
+  print("Runnning sort_timepoints_drop_baseline.")
   
   ID = unique(data$HHIDPN)
   
@@ -12,8 +12,7 @@ sort_timepoints_drop_baseline = function (data){
   
   n = 1
   for (id in ID){
-    
-    
+
     participant_wave = subset(data, data$HHIDPN == id)
     
     if (nrow(participant_wave)== 1){
@@ -79,6 +78,7 @@ sort_timepoints_drop_baseline = function (data){
     }
     n = n + 1
   }
+  print("Finished loop.")
   
   
   wave_1 = subset(participant_wave_df,  participant_wave_df$start_new == 0)
@@ -141,12 +141,14 @@ sort_timepoints_drop_baseline = function (data){
   
   #write.csv(new_diabetes_each_wave, (paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIAB.csv", sep="")))
   
+  print("About to rbind all waves together.")
   all_waves = rbind(wave_1, 
                     wave_2, 
                     wave_3, 
                     wave_4, 
                     wave_5, 
                     wave_6)
+  print("Finished making all_waves.")
   
   
   all_waves_no_diab_baseline <- all_waves[ !(all_waves$HHIDPN %in% c(diabetes_wave_1_unique)), ]

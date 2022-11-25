@@ -152,11 +152,12 @@ Seven_models_drop_baseline = function (subset_var1,
   
   
   # sort out data and tag time points as start_new, stop_new
+  print("About to call sort_timepoints_drop_baseline.")
   dataset_noNAs_timepoints = sort_timepoints_drop_baseline(data = dataset_noNAs)
   
   write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
   
-  
+  print("About to call HRs_CIs_analysis.")
   Model_1_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
                                       Model_n = Model_1, 
                                       
