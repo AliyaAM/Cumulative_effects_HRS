@@ -1,5 +1,5 @@
 # line to standardize specific columns provided in a concatenated list.
-# for (covariate in covariates_list){datab[covariate] = scale(datab[covariate])}
+# for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
 
 summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covariates_list){
   
@@ -63,63 +63,63 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     print(paste("i", i, sep=": "))
     ID.resamp <- sort(sample(ID, size = 1000, replace=TRUE))
     
-    datab <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+    sample_df <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
      
      #print("rows_check above in summary_score_Bootstrapped_CI")
     
-     #print(datab)
+     #print(sample_df)
     
-     #print("datab above in summary_score_Bootstrapped_CI")
+     #print("sample_df above in summary_score_Bootstrapped_CI")
     
     #crash 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
-    # step <- 1 
-    # repeat {
-    #   # select duplicated HHIDPN in ID.resamp 
-    #   ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
-    #   if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
-    #   # select obs. but remaining duplicated HHIDPN are ignored 
-    #   subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
-    #   # assign new HHIDPN to duplicates 
-    #   subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
-    #   # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
-    #   #above the maximum HHIDPN from original data
-    #   datab <- rbind(datab, subset.dup) 
-    #   step <- step+1 
-    # }
+    step <- 1 
+    repeat {
+       # select duplicated HHIDPN in ID.resamp 
+       ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
+       if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
+       # select obs. but remaining duplicated HHIDPN are ignored 
+       subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
+       # assign new HHIDPN to duplicates 
+       subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
+       # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
+       #above the maximum HHIDPN from original data
+       sample_df <- rbind(sample_df, subset.dup) 
+       step <- step+1 
+    }
     
     #change 
 
-    #datab = datab %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new) 
-    datab = datab %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
+    #sample_df = sample_df %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new) 
+    sample_df = sample_df %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
     
-    #print(datab)
+    #print(sample_df)
     
-    #print(unique(datab$outcome))
+    #print(unique(sample_df$outcome))
     
-   num_indiv_points_datab =  max(datab$timepoints_indiv)
+   num_indiv_points_sample_df =  max(sample_df$timepoints_indiv)
    
-   if (num_indiv_points_datab != Num_time_points) {
+   if (num_indiv_points_sample_df != Num_time_points) {
      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-     print(paste("num_indiv_points_datab", num_indiv_points_datab, sep=" = "))
+     print(paste("num_indiv_points_sample_df", num_indiv_points_sample_df, sep=" = "))
      print(paste("Num_time_points", Num_time_points, sep=" = "))
      print("--------------------------------------")
    }
    
-   print(paste("Number of rows in datab", nrow(datab) , sep=" = "))
+   print(paste("Number of rows in sample_df", nrow(sample_df) , sep=" = "))
    
    
    #Num_time_points
   
-   #print("num_indiv_points_datab:")
-   #print(num_indiv_points_datab)
+   #print("num_indiv_points_sample_df:")
+   #print(num_indiv_points_sample_df)
     
    # The following line standardizes specific columns provided in a concatenated list (i.e. covariates_list).
-   for (covariate in covariates_list){datab[covariate] = scale(datab[covariate])}
+   for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
    
    #print("mod is below: WCE(data = ...")
     print("About to call WCE.")
-    mod <- WCE(data = datab, 
+    mod <- WCE(data = sample_df, 
                analysis = "Cox", nknots = 1, cutoff = Num_time_points,
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
                id = "HHIDPN", 
@@ -213,7 +213,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   results = cbind(boot.HR_value, HR_CIs_all)
   
   print("result = ")
-  print(result)
+  print(results)
   
   print("done with this function!")
   return(results) 
