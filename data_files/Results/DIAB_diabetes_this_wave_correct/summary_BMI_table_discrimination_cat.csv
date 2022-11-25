@@ -1,0 +1,3 @@
+"","subset_BMI","records","n.max","n.start","events","*rmean","*se(rmean)","median","0.95LCL","0.95UCL"
+"discrimination=0","BMI","5562","5562","5562","540","5.92956290452298","0.00507123881207811",NA,NA,NA
+"discrimination=1","BMI","4988","4988","4988","504","5.93764397970572","0.00497508215073084",NA,NA,NA

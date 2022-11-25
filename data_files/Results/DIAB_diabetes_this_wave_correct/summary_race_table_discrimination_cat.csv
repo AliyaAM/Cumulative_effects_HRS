@@ -1,0 +1,3 @@
+"","subset_race","records","n.max","n.start","events","*rmean","*se(rmean)","median","0.95LCL","0.95UCL"
+"discrimination=0","race","3893","3893","3893","350","5.90713475714968","0.00701257770506293",NA,NA,NA
+"discrimination=1","race","2924","2924","2924","280","5.90695882837807","0.00824154538147426",NA,NA,NA
