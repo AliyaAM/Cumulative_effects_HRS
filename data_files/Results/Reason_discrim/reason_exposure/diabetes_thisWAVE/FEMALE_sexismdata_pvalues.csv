@@ -1,8 +1,0 @@
-"","subset_name_col","Model","analysed_n","diabetes_onset_n","max_timepoints","median_timepoint","BIC","hazard_ratio","CI_5","CI_95","SE","z_value","p_value"
-"X0","FEMALE_sexism","1","8159","3500","3","2","51550.0915187633",NA,NA,NA,NA,NA,NA
-"X0.1","FEMALE_sexism","2","8159","3500","3","2","18743.6531855433",NA,NA,NA,NA,NA,NA
-"X0.2","FEMALE_sexism","3","8159","3500","3","2","2006.70910954061",NA,NA,NA,NA,NA,NA
-"X0.3","FEMALE_sexism","4","8159","3500","3","2","7218.0667981882",NA,NA,NA,NA,NA,NA
-"X0.4","FEMALE_sexism","5","8159","3500","3","2","50667.0646764304",NA,NA,NA,NA,NA,NA
-"X0.5","FEMALE_sexism","6","8159","3500","3","2","1176.70741860336",NA,NA,NA,NA,NA,NA
-"X0.6","FEMALE_sexism","7","8159","3500","3","2","18735.4000418859",NA,NA,NA,NA,NA,NA

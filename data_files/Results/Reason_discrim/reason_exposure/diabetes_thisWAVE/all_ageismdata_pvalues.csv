@@ -1,8 +1,0 @@
-"","subset_name_col","Model","analysed_n","diabetes_onset_n","max_timepoints","median_timepoint","BIC","hazard_ratio","CI_5","CI_95","SE","z_value","p_value"
-"X0","all_ageism","1","14043","6264","4","2.5","99228.5113170401",NA,NA,NA,NA,NA,NA
-"X0.1","all_ageism","2","14043","6264","4","2.5","37146.0204813262",NA,NA,NA,NA,NA,NA
-"X0.2","all_ageism","3","14043","6264","4","2.5","4194.81182767694",NA,NA,NA,NA,NA,NA
-"X0.3","all_ageism","4","14043","6264","4","2.5","15720.133029004",NA,NA,NA,NA,NA,NA
-"X0.4","all_ageism","5","14043","6264","4","2.5","97120.9104555484",NA,NA,NA,NA,NA,NA
-"X0.5","all_ageism","6","14043","6264","4","2.5","3314.96283186629",NA,NA,NA,NA,NA,NA
-"X0.6","all_ageism","7","14043","6264","4","2.5","37137.4790356828",NA,NA,NA,NA,NA,NA
