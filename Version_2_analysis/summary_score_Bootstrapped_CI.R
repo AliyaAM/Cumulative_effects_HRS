@@ -3,17 +3,6 @@
 
 summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covariates_list){
   
-  
-  outcome = outcome
-  
-  exposure = exposure
-  
-  print(paste("covariates_list", covariates_list, sep=": "))
-  
-  print(paste("nrow(dataset) before dropping nas", nrow(WCE_data_CI), sep=" = "))
-  WCE_data_CI = WCE_data_CI %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
-  print(paste("nrow(dataset) after dropping nas", nrow(WCE_data_CI), sep=" = "))
-  
   #all values have to be numeric for this analysis 
   
   #all values have to be numeric for this analysis 
@@ -41,7 +30,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
-  bootstraps_samples = 10
+  bootstraps_samples = 3
   Num_time_points = 3
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
   
@@ -56,10 +45,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   ID <- unique(WCE_data_CI$HHIDPN) 
   
   for (i in 1:bootstraps_samples){ 
-    
-    outcome = outcome
-    exposure = exposure
-    
     print(paste("i", i, sep=": "))
     ID.resamp <- sort(sample(ID, size = 1000, replace=TRUE))
     
@@ -73,20 +58,20 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     #crash 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
-    # step <- 1 
-    # repeat {
-    #   # select duplicated HHIDPN in ID.resamp 
-    #   ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
-    #   if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
-    #   # select obs. but remaining duplicated HHIDPN are ignored 
-    #   subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
-    #   # assign new HHIDPN to duplicates 
-    #   subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
-    #   # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
-    #   #above the maximum HHIDPN from original data
-    #   datab <- rbind(datab, subset.dup) 
-    #   step <- step+1 
-    # }
+    step <- 1 
+    repeat {
+      # select duplicated HHIDPN in ID.resamp 
+      ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
+      if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
+      # select obs. but remaining duplicated HHIDPN are ignored 
+      subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
+      # assign new HHIDPN to duplicates 
+      subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
+      # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
+      #above the maximum HHIDPN from original data
+      datab <- rbind(datab, subset.dup) 
+      step <- step+1 
+    }
     
     #change 
 
@@ -101,12 +86,13 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
    
    if (num_indiv_points_datab != Num_time_points) {
      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-     print(paste("num_indiv_points_datab", num_indiv_points_datab, sep=" = "))
-     print(paste("Num_time_points", Num_time_points, sep=" = "))
+     print(num_indiv_points_datab)
+     print(Num_time_points)
      print("--------------------------------------")
    }
    
-   print(paste("Number of rows in datab", nrow(datab) , sep=" = "))
+   print("number of rows in datab")
+   nrow(datab) 
    
    
    #Num_time_points
@@ -118,7 +104,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
    for (covariate in covariates_list){datab[covariate] = scale(datab[covariate])}
    
    #print("mod is below: WCE(data = ...")
-    print("About to call WCE.")
+    
     mod <- WCE(data = datab, 
                analysis = "Cox", nknots = 1, cutoff = Num_time_points,
                constrained = "R", aic = FALSE, MatchedSet = NULL, 
@@ -128,7 +114,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
                stop = "stop_new", 
                expos = exposure,
                covariates = all_of(covariates_list))
-    print(summary(mod))
     
     
     # return best WCE estimates and corresponding HR 
@@ -153,7 +138,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     #scenario1 <- c(rep(1, Num_time_points))
     #scenario2 <- c(rep(0, Num_time_points))
     
-    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points))
+    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points))[1] 
     } 
   
   boot.HR = as.numeric(boot.HR) 
@@ -169,16 +154,8 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
 
   # estimated HR 
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
-
-  boot.HR_value = quantile(boot.HR, probs=0.5) 
-  
-  print("boot.HR_value = ")
-  print(boot.HR_value)
-  
+  boot.HR = na.omit(boot.HR)
   HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05) 
-  
-  print("HR_CI1vs0_lower = ")
-  print(HR_CI1vs0_lower)
   
   #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
   #HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
@@ -189,9 +166,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   HR_CI1vs0_upper =  quantile(boot.HR, p  = 0.95) 
   
-  print("HR_CI1vs0_upper= ")
-  print(HR_CI1vs0_upper)
-  
   
   #HR_CI1vs6_upper =  quantile(boot.HR_1vs6, p  = 0.95) 
   #HR_CI2vs6_upper =  quantile(boot.HR_2vs6, p  = 0.95)  
@@ -200,7 +174,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   #HR_CI5vs6_upper =  quantile(boot.HR_5vs6, p  = 0.95) 
   
   
-  print("about to rbind")
   
   HR_CIs_lower = rbind(HR_CI1vs0_lower)
   
@@ -210,11 +183,5 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   HR_CIs_all = cbind(HR_CIs_lower, 
                      HR_CIs_upper)
   
-  results = cbind(boot.HR_value, HR_CIs_all)
-  
-  print("result = ")
-  print(result)
-  
-  print("done with this function!")
-  return(results) 
+  return(HR_CIs_all) 
 }
