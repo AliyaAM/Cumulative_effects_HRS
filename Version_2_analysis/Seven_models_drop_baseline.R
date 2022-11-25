@@ -135,7 +135,8 @@ Seven_models_drop_baseline = function (subset_var1,
                               HRS2012_data = HRS2012_data,
                               HRS2014_data = HRS2014_data, 
                               HRS2016_data = HRS2016_data,
-                              HRS2018_data = HRS2018_data) 
+                              HRS2018_data = HRS2018_data)
+  print("Finished clean_recode_sort.")
   
   ###### run all models 
   
@@ -145,14 +146,17 @@ Seven_models_drop_baseline = function (subset_var1,
   
 
   dataset_noNAs = dataset %>% drop_na(outcome)
-  unique(dataset_noNAs$outcome)
+  print("unique(dataset_noNAs$outcome): ")
+  print(unique(dataset_noNAs$outcome))
   
   dataset_noNAs = dataset_noNAs %>% drop_na(exposure)
-  unique(dataset_noNAs$exposure)
+  print("unique(dataset_noNAs$exposure)")
+  print(unique(dataset_noNAs$exposure))
   
   
   # sort out data and tag time points as start_new, stop_new
   dataset_noNAs_timepoints = sort_timepoints_drop_baseline(data = dataset_noNAs)
+  print("Finished sort_timepoints_drop_baseline.")
   
   write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
   

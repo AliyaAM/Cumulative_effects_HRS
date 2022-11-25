@@ -63,6 +63,8 @@ source((paste(SOURCE_ROOT, "Seven_models_drop_baseline.R", sep="")))
 
 source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
 
+print("About to load the data.")
+
 #data 
 HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/old/HRS2008_data_short_OLD.csv", sep=""))
 HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2010_data/old/HRS2010_data_short_OLD.csv", sep=""))
@@ -70,6 +72,8 @@ HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/old/HRS2012_da
 HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/old/HRS2014_data_short_OLD.csv", sep=""))
 HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/old/HRS2016_data_short_OLD.csv", sep=""))
 HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short_OLD.csv", sep=""))
+
+print("Finished loading data.")
 
 ########
 
@@ -194,6 +198,8 @@ HRS2008_data_initial$checklist_depression_bin
 
 outcome = "diabetes_new_bin"
 
+print("About to call Seven_models_drop_baseline for the first time.")
+
 all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA", 
                                                     subset_value1 = "NA", 
                                                     
@@ -227,6 +233,8 @@ all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_va
                                                     
                                                     exposure = exposure, 
                                                     outcome = outcome) 
+
+print("Finished our first call to the function Seven_models_drop_baseline.")
 
 
 stop 
