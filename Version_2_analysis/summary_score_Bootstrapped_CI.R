@@ -87,6 +87,8 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
        sample_df <- rbind(sample_df, subset.dup) 
        step <- step+1 
     }
+    
+    #change 
 
     #sample_df = sample_df %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new) 
     sample_df = sample_df %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
@@ -117,56 +119,15 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
    
    #print("mod is below: WCE(data = ...")
     print("About to call WCE.")
-    
-    mod <- tryCatch(
-      {
-        # Just to highlight: if you want to use more than one 
-        # R expression in the "try" part then you'll have to 
-        # use curly brackets.
-        # 'tryCatch()' will return the last evaluated expression 
-        # in case the "try" part was completed successfully
-        
-        mordor
-        
-        # The result to be returned goes on the next line, it must be an expression.
-        WCE(data = sample_df, 
-            analysis = "Cox", nknots = 1, cutoff = Num_time_points,
-            constrained = "R", aic = FALSE, MatchedSet = NULL, 
-            id = "HHIDPN", 
-            event = outcome, 
-            start = "start_new", 
-            stop = "stop_new", 
-            expos = exposure,
-            covariates = all_of(covariates_list))
-      },
-      error=function(cond) {
-        message("it seems we caused an error")
-        message("Here's the original error message:")
-        message(cond)
-        
-        message("---")
-        message(sample_df)
-        message(paste("summary(sample_df)", summary(sample_df), sep=": "))
-        message("---")
-        message(paste("nrow(sample_df)", nrow(sample_df), sep=": "))
-        message("---")
-        for (covariate in covariates_list){message(paste("length(sample_df[covariate])", length(sample_df[covariate]), sep=": "))}
-        message("---")
-        message(paste("here is the original error again: ", cond, sep=": "))
-        
-        # Choose a return value in case of error
-        return("mordor")
-      },
-      warning=function(cond) {
-        message("it seems we caused a warning:")
-        message("Here's the original warning message:")
-        message(cond)
-        # Choose a return value in case of warning
-        return(NULL)
-      }
-    )
-    
-    print("About to print summary(mod): ")
+    mod <- WCE(data = sample_df, 
+               analysis = "Cox", nknots = 1, cutoff = Num_time_points,
+               constrained = "R", aic = FALSE, MatchedSet = NULL, 
+               id = "HHIDPN", 
+               event = outcome, 
+               start = "start_new", 
+               stop = "stop_new", 
+               expos = exposure,
+               covariates = all_of(covariates_list))
     print(summary(mod))
     
     
