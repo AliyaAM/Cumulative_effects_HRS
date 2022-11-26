@@ -11,18 +11,22 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   print(paste("covariates_list", covariates_list, sep=": "))
   
   print(paste("nrow(dataset) before dropping nas", nrow(WCE_data_CI), sep=" = "))
+  
+  WCE_data_CI = WCE_data_CI %>% dplyr::select(HHIDPN, all_of(covariates_list), outcome, exposure, start_new, stop_new, timepoints_indiv) 
   WCE_data_CI = WCE_data_CI %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
+  
   print(paste("nrow(dataset) after dropping nas", nrow(WCE_data_CI), sep=" = "))
   
   #all values have to be numeric for this analysis 
   
   #all values have to be numeric for this analysis 
   
-  #WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
+  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
+  WCE_data_CI$discrim_bin = as.numeric(WCE_data_CI$discrim_bin)
   #WCE_data_CI$checklist_depression_bin = as.numeric(WCE_data_CI$checklist_depression_bin)
   
-  #WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
-  # WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
+  WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
+  WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
   
   # WCE_data_CI$discrim_harassed_bin = as.numeric(WCE_data_CI$discrim_harassed_bin)
   #WCE_data_CI$discrim_lessrespect_bin = as.numeric(WCE_data_CI$discrim_lessrespect_bin)
@@ -31,17 +35,16 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   #  WCE_data_CI$discrim_poorerservice_bin = as.numeric(WCE_data_CI$discrim_poorerservice_bin)
   # WCE_data_CI$discrim_afraidothers_bin = as.numeric(WCE_data_CI$discrim_afraidothers_bin)
   
-  #  WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
+  WCE_data_CI$sex_1_2 = as.numeric(WCE_data_CI$sex_1_2)
+  WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
   # WCE_data_CI$assessed_BMI = as.numeric(WCE_data_CI$assessed_BMI)
-  # WCE_data_CI$continious_age = as.numeric(WCE_data_CI$continious_age)
+  WCE_data_CI$continious_age = as.numeric(WCE_data_CI$continious_age)
   
   WCE_data_CI$timepoints_indiv = as.numeric(WCE_data_CI$timepoints_indiv)
   
-  
-  
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
-  bootstraps_samples = 10
+  bootstraps_samples = 100
   Num_time_points = 3
   #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
   
@@ -73,23 +76,22 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     #crash 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
-    step <- 1 
-    repeat {
-      # select duplicated HHIDPN in ID.resamp 
-      ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
-      if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
-      # select obs. but remaining duplicated HHIDPN are ignored 
-      subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
-      # assign new HHIDPN to duplicates 
-      subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
-      # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
-      #above the maximum HHIDPN from original data
-      sample_df <- rbind(sample_df, subset.dup) 
-      step <- step+1 
-    }
+    # step <- 1 
+    # repeat {
+    #   # select duplicated HHIDPN in ID.resamp 
+    #   ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
+    #   if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
+    #   # select obs. but remaining duplicated HHIDPN are ignored 
+    #   subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
+    #   # assign new HHIDPN to duplicates 
+    #   subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
+    #   # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
+    #   #above the maximum HHIDPN from original data
+    #   sample_df <- rbind(sample_df, subset.dup) 
+    #   step <- step+1 
+    # }
     
-    #sample_df = sample_df %>% dplyr::select(HHIDPN, covariates_list, outcome, exposure, start_new, stop_new) 
-    sample_df = sample_df %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
+    #sample_df = sample_df %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
     
     #print(sample_df)
     
@@ -115,6 +117,10 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     # The following line standardizes specific columns provided in a concatenated list (i.e. covariates_list).
     for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
     
+    #sample_df[outcome] = scale(sample_df[outcome])
+    #sample_df[exposure] = scale(sample_df[exposure])
+
+    
     #print("mod is below: WCE(data = ...")
     print("About to call WCE.")
     
@@ -126,17 +132,16 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
         # 'tryCatch()' will return the last evaluated expression 
         # in case the "try" part was completed successfully
         
-        mordor
-        
         # The result to be returned goes on the next line, it must be an expression.
-        WCE(data = sample_df, 
+        
+        WCE(data = sample_df,
             analysis = "Cox", nknots = 1, cutoff = Num_time_points,
-            constrained = "R", aic = FALSE, MatchedSet = NULL, 
-            id = "HHIDPN", 
-            event = outcome, 
-            start = "start_new", 
-            stop = "stop_new", 
-            expos = exposure,
+            constrained = "R", aic = FALSE,
+            id = "HHIDPN",
+            event = "diabetes_new_bin",
+            start = "start_new",
+            stop = "stop_new",
+            expos = "discrim_bin",
             covariates = all_of(covariates_list))
       },
       error=function(cond) {
@@ -145,30 +150,93 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
         message(cond)
         
         message("---")
-        message(sample_df)
-        message(paste("summary(sample_df)", summary(sample_df), sep=": "))
+        message("dim(sample_df): ")
+        print(dim(sample_df))
+        message("---")
+        #message(sample_df)
+        #message(paste("summary(sample_df)", summary(sample_df), sep=": "))
         message("---")
         message(paste("nrow(sample_df)", nrow(sample_df), sep=": "))
         message("---")
-        for (covariate in covariates_list){message(paste("length(sample_df[covariate])", length(sample_df[covariate]), sep=": "))}
+        
+        #cov_1 = covariate[1]
+        #cov_2 = covariate[2]
+        #cov_3 = covariate[3]
+        
+        #cov_1_vector = sample_df[, cov_1]
+        
+        message("---")
+        message(paste("length(sample_df[continious_age])", length(sample_df$continious_age), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[wealth_noIRA])", length(sample_df$wealth_noIRA), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[sex_1_2])", length(sample_df$sex_1_2), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[diabetes_new_bin])", length(sample_df$diabetes_new_bin), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[discrim_bin])", length(sample_df$discrim_bin), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[start_new])", length(sample_df$start_new), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[stop_new])", length(sample_df$stop_new), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[HHIDPN])", length(sample_df$HHIDPN), sep=": "))
+        
+        message("---")
+        print(length(unique(sample_df$HHIDPN)))
+        
+        # for (covariate in covariates_list){
+        #   print(covariate)
+        #   message(paste("class(sample_df[covariate])", class(sample_df[,covariate]), sep=": "))
+        # }
+        message("---")
+        print(class(sample_df$diabetes_new_bin))
+        message("---")
+        print(class(sample_df$discrim_bin))
+        message("---")
+        print(class(sample_df$continious_age))
+        message("---")
+        print(class(sample_df$wealth_noIRA))
+        message("---")
+        print(class(sample_df$sex_1_2))
+        message("---")
+        print(class(sample_df$start_new))
+        message("---")
+        print(class(sample_df$stop_new))
+        message("---")
+        print(class(sample_df$HHIDPN))
+        
+        message("---")
+        print(unique(sample_df$diabetes_new_bin))
+        
+        message("---")
+        print(summary(sample_df))
+        
+        message("---$")
+        print(sample_df$HHIDPN)
+        
         message("---")
         message(paste("here is the original error again: ", cond, sep=": "))
+        message("---")
+        print(checkWCE(sample_df, id = "HHIDPN", event = "diabetes_new_bin",  start = "start_new", stop = "stop_new", expos = "discrim_bin"))
+        message("---")
+        message(paste("crash was in i", i, sep=": "))
         
         # Choose a return value in case of error
-        return("mordor")
-      },
-      warning=function(cond) {
-        message("it seems we caused a warning:")
-        message("Here's the original warning message:")
-        message(cond)
-        # Choose a return value in case of warning
-        return(NULL)
+        return(NA)
       }
     )
     
     print("About to print summary(mod): ")
     print(summary(mod))
-    
+    print("done printing summary")
     
     # return best WCE estimates and corresponding HR 
     #print("finished: mod = WCE(data = ...")
@@ -257,3 +325,17 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   print("done with this function!")
   return(results) 
 }
+
+
+# DELETE THIS LATER!!!
+Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
+exposure = "discrim_bin"
+outcome = "diabetes_new_bin"
+loaded_df = read_csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+
+# Remove bad people.
+loaded_df<-loaded_df[!(loaded_df$HHIDPN==138300010),]
+
+result = summary_score_Bootstrapped_CI(loaded_df, outcome=outcome, exposure=exposure, covariates_list=Model_1)
+
+

@@ -98,6 +98,8 @@ Model = c(1, 2, 3, 4, 5, 6, 7)
 
 # ####### # ####### # ####### # ####### EXPOSURE # ####### # ####### # ####### # #######
 exposure = "discrim_bin"
+outcome = "diabetes_new_bin"
+
 
 
 # ####### # ####### # ####### # ####### OUTCOME # ####### # ####### # ####### # #######
@@ -192,7 +194,6 @@ unique(HRS2008_data_initial$vigarious_physical_activity)
 HRS2008_data_initial$alcohol_days_week
 HRS2008_data_initial$checklist_depression_bin
 
-outcome = "diabetes_new_bin"
 
 all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA", 
                                                     subset_value1 = "NA", 
