@@ -17,10 +17,10 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   
   print(paste("nrow(dataset) before dropping nas", nrow(data_wce_subset), sep=" = "))
   
-  data_wce_subset = data_wce_subset %>% dplyr::select(HHIDPN, all_of(covariates_list), outcome, exposure, start_new, stop_new, timepoints_indiv) 
-  data_wce_subset = data_wce_subset %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
+  data_wce_subset = data_wce_subset %>% dplyr::select(HHIDPN, all_off(covariates_list), outcome, exposure, start_new, stop_new, timepoints_indiv) 
+  data_wce_subset = data_wce_subset %>% drop_na("HHIDPN", any_of(covariates_list), outcome, exposure, "start_new", "stop_new")
   
-  data_wce_subset = data_wce_subset %>% drop_na(all_of(covariates_list))
+  data_wce_subset = data_wce_subset %>% drop_na(any_of(covariates_list))
   
   print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
   
@@ -83,7 +83,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
         start = "start_new",
         stop = "stop_new",
         expos = exposure,
-        covariates = all_of(covariates_list))
+        covariates = any_of(covariates_list))
     
     print("About to print summary(mod): ")
     print(summary(mod))
