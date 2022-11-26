@@ -1,24 +1,28 @@
 # line to standardize specific columns provided in a concatenated list.
 # for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
 
-summary_score_Bootstrapped_CI = function (WCE_data_CI,
+summary_score_Bootstrapped_CI = function (data_wce_subset,
                                           
+                                          Model_n, 
                                       
                                           subset_name,
                                           Model_name,
                                           
                                           outcome, 
-                                          exposure, 
-                                          covariates_list){
+                                          exposure){
+  
+  covariates_list = Model_n 
   
   print(paste("covariates_list", covariates_list, sep=": "))
   
-  print(paste("nrow(dataset) before dropping nas", nrow(WCE_data_CI), sep=" = "))
+  print(paste("nrow(dataset) before dropping nas", nrow(data_wce_subset), sep=" = "))
   
-  WCE_data_CI = WCE_data_CI %>% dplyr::select(HHIDPN, all_of(covariates_list), outcome, exposure, start_new, stop_new, timepoints_indiv) 
-  WCE_data_CI = WCE_data_CI %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
+  data_wce_subset = data_wce_subset %>% dplyr::select(HHIDPN, all_of(covariates_list), outcome, exposure, start_new, stop_new, timepoints_indiv) 
+  data_wce_subset = data_wce_subset %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
   
-  print(paste("nrow(dataset) after dropping nas", nrow(WCE_data_CI), sep=" = "))
+  data_wce_subset = data_wce_subset %>% drop_na(all_of(covariates_list))
+  
+  print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
@@ -34,14 +38,14 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI,
   #boot.HR_5vs6 <- rep(NA, bootstraps_samples)
   
   #Sample IDs with replacement:
-  ID <- unique(WCE_data_CI$HHIDPN) 
+  ID <- unique(data_wce_subset$HHIDPN) 
   
   for (i in 1:bootstraps_samples){ 
     
     print(paste("i", i, sep=": "))
     ID.resamp <- sort(sample(ID, size = 1000, replace=TRUE))
     
-    sample_df <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+    sample_df <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
     step <- 1
@@ -50,10 +54,10 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI,
       ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
       if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with
       # select obs. but remaining duplicated HHIDPN are ignored
-      subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]
+      subset.dup <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,]
       # assign new HHIDPN to duplicates
-      subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN)))
-      # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10
+      subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(data_wce_subset$HHIDPN)))
+      # 10^ceiling(log10(max(data_wce_subset$HHIDPN)) is the power of 10
       #above the maximum HHIDPN from original data
       sample_df <- rbind(sample_df, subset.dup)
       step <- step+1
@@ -115,9 +119,9 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI,
   # estimated HR 
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
   
-  boot.HR_value = quantile(boot.HR, probs=0.5) 
+  boot_HR_value = quantile(boot.HR, probs=0.5) 
   print("boot.HR_value = ")
-  print(boot.HR_value)
+  print(boot_HR_value)
   
   HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05) 
   print("HR_CI1vs0_lower = ")
@@ -152,29 +156,59 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI,
   
   
   # check that the minumum start of time point 0 and min for stop is 1
-  start_new_check = table(by(WCE_data_CI$start_new,  WCE_data_CI$HHIDPN, min)) 
+  start_new_check = table(by(data_wce_subset$start_new,  data_wce_subset$HHIDPN, min)) 
   print(start_new_check)
   
   #######################
   
   numb_new_events = mod$nevents
+  print(paste("numb_new_events ", numb_new_events , sep=" = "))
   print("test 5")
   
   analysed_n =  start_new_check 
+  print(paste("analysed_n ", analysed_n , sep=" = "))
   print("test 6")
   
-  n_timepoints_list = unique(WCE_data_CI$timepoints_indiv)
+  n_timepoints_list = unique(data_wce_subset$timepoints_indiv)
+  
   n_timepoints_max = max(n_timepoints_list)
+  print(paste("n_timepoints_max ", n_timepoints_max , sep=" = "))
+  
+  
   median_timepoints = median(n_timepoints_list)
+  print(paste("median_timepoints ", median_timepoints , sep=" = "))
+  
   BIC_information_criterion = mod$info.criterion
+  print(paste("BIC_information_criterion ", BIC_information_criterion , sep=" = "))
+  
   
   print("test 7")
   
-  results = cbind(analysed_n,         numb_new_events,       n_timepoints_max,  median_timepoints,  BIC_information_criterion, boot.HR_value,  HR_CIs_all)
-  colnames(results) = c("analysed n", "diabetes onset (n)",  "max. timepoints", "median timepoint", "BIC",                     "hazard ratio", "95 % CI")
+  results = cbind(analysed_n, 
+                  numb_new_events, 
+                  n_timepoints_max, 
+                  median_timepoints,
+                  BIC_information_criterion,
+                  boot_HR_value, 
+                  HR_CIs_all)
+  
+
   print("test 8")
   
+  results = data.frame(results)
+  print(typeof(results)) 
   
+  print("test 9")
+  
+  colnames(results) = c("analysed n",
+                        "diabetes onset (n)",
+                        "max. timepoints",
+                        "median timepoint",
+                        "BIC",             
+                        "hazard ratio", 
+                        "95 % CI")
+  
+
   print("result = ")
   print(results)
   

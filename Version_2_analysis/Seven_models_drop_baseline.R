@@ -160,6 +160,8 @@ Seven_models_drop_baseline = function (subset_var1,
   
   # Remove participant with sneaky NA in their sex variable.
   dataset_noNAs_timepoints<-dataset_noNAs_timepoints[!(dataset_noNAs_timepoints$HHIDPN==138300010),]
+
+  
   
   print("About to call summary_score_Bootstrapped_CI.")
   Model_1_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints, 
