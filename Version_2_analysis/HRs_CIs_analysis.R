@@ -30,9 +30,11 @@ HRs_CIs_analysis = function (data_wce_subset,
   
   ######## bootstrapped CIs for the HRs from the above model 
   subset__age_CI_subset  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_subset,
-                                                                    exposure = exposure, 
-                                                                    outcome = outcome,
-                                                                    covariates_list = Model_n)
+                                                         exposure = exposure, 
+                                                         outcome = outcome,
+                                                         subset_name = subset_name,
+                                                         Model_name = Model_name, 
+                                                         covariates_list = Model_n)
   
   
 

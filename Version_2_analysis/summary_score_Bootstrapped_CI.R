@@ -1,7 +1,15 @@
 # line to standardize specific columns provided in a concatenated list.
 # for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
 
-summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covariates_list){
+summary_score_Bootstrapped_CI = function (WCE_data_CI,
+                                          
+                                      
+                                          subset_name,
+                                          Model_name,
+                                          
+                                          outcome, 
+                                          exposure, 
+                                          covariates_list){
   
   print(paste("covariates_list", covariates_list, sep=": "))
   
@@ -108,12 +116,10 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
   
   boot.HR_value = quantile(boot.HR, probs=0.5) 
-  
   print("boot.HR_value = ")
   print(boot.HR_value)
   
   HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05) 
-  
   print("HR_CI1vs0_lower = ")
   print(HR_CI1vs0_lower)
   
@@ -125,7 +131,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   
   
   HR_CI1vs0_upper =  quantile(boot.HR, p  = 0.95) 
-  
   print("HR_CI1vs0_upper= ")
   print(HR_CI1vs0_upper)
   
@@ -140,14 +145,35 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
   print("about to rbind")
   
   HR_CIs_lower = rbind(HR_CI1vs0_lower)
-  
-  
   HR_CIs_upper = rbind(HR_CI1vs0_upper)
-  
   HR_CIs_all = cbind(HR_CIs_lower, 
                      HR_CIs_upper)
   
-  results = cbind(boot.HR_value, HR_CIs_all)
+  
+  
+  # check that the minumum start of time point 0 and min for stop is 1
+  start_new_check = table(by(WCE_data_CI$start_new,  WCE_data_CI$HHIDPN, min)) 
+  print(start_new_check)
+  
+  #######################
+  
+  numb_new_events = mod$nevents
+  print("test 5")
+  
+  analysed_n =  start_new_check 
+  print("test 6")
+  
+  n_timepoints_list = unique(WCE_data_CI$timepoints_indiv)
+  n_timepoints_max = max(n_timepoints_list)
+  median_timepoints = median(n_timepoints_list)
+  BIC_information_criterion = mod$info.criterion
+  
+  print("test 7")
+  
+  results = cbind(analysed_n,         numb_new_events,       n_timepoints_max,  median_timepoints,  BIC_information_criterion, boot.HR_value,  HR_CIs_all)
+  colnames(results) = c("analysed n", "diabetes onset (n)",  "max. timepoints", "median timepoint", "BIC",                     "hazard ratio", "95 % CI")
+  print("test 8")
+  
   
   print("result = ")
   print(results)
