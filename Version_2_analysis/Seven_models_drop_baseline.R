@@ -161,8 +161,8 @@ Seven_models_drop_baseline = function (subset_var1,
   # Remove participant with sneaky NA in their sex variable.
   dataset_noNAs_timepoints<-dataset_noNAs_timepoints[!(dataset_noNAs_timepoints$HHIDPN==138300010),]
   
-  print("About to call HRs_CIs_analysis.")
-  Model_1_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints, 
+  print("About to call summary_score_Bootstrapped_CI.")
+  Model_1_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints, 
                                       Model_n = Model_1, 
                                       
                                       exposure = exposure, 
@@ -178,7 +178,7 @@ Seven_models_drop_baseline = function (subset_var1,
   
   print("Model_1_exposure is above")
 
-  Model_2_exposure =  HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
+  Model_2_exposure =  summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
                                        Model_n = Model_2,
 
                                        exposure = exposure,
@@ -192,7 +192,7 @@ Seven_models_drop_baseline = function (subset_var1,
 
 
 
-  Model_3_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
+  Model_3_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
                                       Model_n = Model_3,
 
                                       exposure = exposure,
@@ -205,7 +205,7 @@ Seven_models_drop_baseline = function (subset_var1,
 
 
 
-  Model_4_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
+  Model_4_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
                                       Model_n = Model_4,
 
                                       exposure = exposure,
@@ -220,7 +220,7 @@ Seven_models_drop_baseline = function (subset_var1,
 
 
 
-  Model_5_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
+  Model_5_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
                                       Model_n = Model_5,
 
                                       exposure = exposure,
@@ -234,7 +234,7 @@ Seven_models_drop_baseline = function (subset_var1,
 
 
 
-  Model_6_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
+  Model_6_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
                                       Model_n = Model_6,
 
                                       exposure = exposure,
@@ -247,7 +247,7 @@ Seven_models_drop_baseline = function (subset_var1,
 
 
 
-  Model_7_exposure = HRs_CIs_analysis(data_wce_subset = dataset_noNAs_timepoints,
+  Model_7_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
                                       Model_n = Model_7,
 
                                       exposure = exposure,
