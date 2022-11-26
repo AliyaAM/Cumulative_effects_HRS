@@ -119,7 +119,7 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI, outcome, exposure, covari
     
     #sample_df[outcome] = scale(sample_df[outcome])
     #sample_df[exposure] = scale(sample_df[exposure])
-
+    
     
     #print("mod is below: WCE(data = ...")
     print("About to call WCE.")
