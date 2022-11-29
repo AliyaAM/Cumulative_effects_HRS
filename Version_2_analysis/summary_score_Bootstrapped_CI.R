@@ -1,63 +1,53 @@
 # line to standardize specific columns provided in a concatenated list.
-# for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
+# for (covariate in Model_n){sample_df[covariate] = scale(sample_df[covariate])}
 
 
 
-summary_score_Bootstrapped_CI = function (data_wce_subset,
-                                          
-                                          Model_n, 
-                                      
-                                          subset_name,
-                                          Model_name,
-                                          
+summary_score_Bootstrapped_CI = function (data_wce_subset, 
                                           outcome, 
-                                          exposure){
+                                          exposure, 
+                                          subset_name, 
+                                          Model_name, 
+                                          Model_n){
   
-  covariates_list = Model_n 
   
-  print(paste("covariates_list", covariates_list, sep=": "))
+  outcome = outcome
   
-  print(paste("nrow(dataset) before dropping nas", nrow(data_wce_subset), sep=" = "))
+  exposure = exposure
   
-  data_wce_subset = data_wce_subset %>% dplyr::select(HHIDPN, 
-                                                      outcome,
-                                                      exposure,
-                                                      start_new,
-                                                      stop_new,
-                                                      all_of(covariates_list), 
-                                                      timepoints_indiv) 
-  
-  #data_wce_subset = data_wce_subset %>% tidyr::drop_na("HHIDPN", outcome, exposure, "start_new", "stop_new")
-  
-  #data_wce_subset = data_wce_subset[complete.cases(data_wce_subset), ]
-  
+  print(paste("Model_n", Model_n, sep=": "))
   
   print(paste("nrow(dataset) before dropping nas", nrow(data_wce_subset), sep=" = "))
   
-  #vars = c("HHIDPN", Model_1, outcome, exposure, "start_new", "stop_new") 
-  
-  data_wce_subset = data_wce_subset %>% na.omit(data_wce_subset)
-  data_wce_subset = data_wce_subset %>% drop_na(any_of(covariates_list))
-  
+  data_wce_subset = data_wce_subset %>% dplyr::select(HHIDPN, all_of(Model_n), outcome, exposure, start_new, stop_new, timepoints_indiv) 
+  #data_wce_subset = data_wce_subset %>% drop_na("HHIDPN", all_of(Model_n), outcome, exposure, "start_new", "stop_new")
   
   print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
   
-  print(head(data_wce_subset))
+  #all values have to be numeric for this analysis 
   
+  #all values have to be numeric for this analysis 
   
-  #all_of(covariates_list)
+  data_wce_subset$diabetes_new_bin = as.numeric(data_wce_subset$diabetes_new_bin)
+  data_wce_subset$discrim_bin = as.numeric(data_wce_subset$discrim_bin)
+  #data_wce_subset$checklist_depression_bin = as.numeric(data_wce_subset$checklist_depression_bin)
   
+  data_wce_subset$start_new = as.numeric(data_wce_subset$start_new)
+  data_wce_subset$stop_new = as.numeric(data_wce_subset$stop_new)
   
+  # data_wce_subset$discrim_harassed_bin = as.numeric(data_wce_subset$discrim_harassed_bin)
+  #data_wce_subset$discrim_lessrespect_bin = as.numeric(data_wce_subset$discrim_lessrespect_bin)
+  # data_wce_subset$discrim_medical_bin = as.numeric(data_wce_subset$discrim_medical_bin)
+  # data_wce_subset$discrim_notclever_bin = as.numeric(data_wce_subset$discrim_notclever_bin)
+  #  data_wce_subset$discrim_poorerservice_bin = as.numeric(data_wce_subset$discrim_poorerservice_bin)
+  # data_wce_subset$discrim_afraidothers_bin = as.numeric(data_wce_subset$discrim_afraidothers_bin)
   
-  #this does not work because the unlisting is not done for covariate_list: data_wce_subset = data_wce_subset %>% drop_na(any_of(covariates_list))
+  data_wce_subset$sex_1_2 = as.numeric(data_wce_subset$sex_1_2)
+  data_wce_subset$wealth_noIRA = as.numeric(data_wce_subset$wealth_noIRA)
+  # data_wce_subset$assessed_BMI = as.numeric(data_wce_subset$assessed_BMI)
+  data_wce_subset$continious_age = as.numeric(data_wce_subset$continious_age)
   
-  #this does not drop nas but drops cols in covariates data_wce_subset <- data_wce_subset %>% # Combine certain columns  dplyr::mutate(x = invoke(coalesce, across(all_of(covariates_list)))) %>% dplyr::select(x, colnames(data_wce_subset)[! colnames(data_wce_subset) %in% covariates_list])
- 
-  
-  
-    
-    
-  print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
+  data_wce_subset$timepoints_indiv = as.numeric(data_wce_subset$timepoints_indiv)
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
   
@@ -72,60 +62,197 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   #boot.HR_4vs6 <- rep(NA, bootstraps_samples)
   #boot.HR_5vs6 <- rep(NA, bootstraps_samples)
   
-  
   #Sample IDs with replacement:
   ID <- unique(data_wce_subset$HHIDPN) 
   
   for (i in 1:bootstraps_samples){ 
     
+    outcome = outcome
+    exposure = exposure
+    
     print(paste("i", i, sep=": "))
     ID.resamp <- sort(sample(ID, size = 1000, replace=TRUE))
     
     sample_df <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
-
+    
+    #print("rows_check above in summary_score_Bootstrapped_CI")
+    
+    #print(sample_df)
+    
+    #print("sample_df above in summary_score_Bootstrapped_CI")
+    
+    #crash 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
-    # step <- 1
+    # step <- 1 
     # repeat {
-    #   # select duplicated HHIDPN in ID.resamp
+    #   # select duplicated HHIDPN in ID.resamp 
     #   ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
-    #   if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with
-    #   # select obs. but remaining duplicated HHIDPN are ignored
-    #   subset.dup <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,]
-    #   # assign new HHIDPN to duplicates
-    #   subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(data_wce_subset$HHIDPN)))
-    #   # 10^ceiling(log10(max(data_wce_subset$HHIDPN)) is the power of 10
+    #   if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
+    #   # select obs. but remaining duplicated HHIDPN are ignored 
+    #   subset.dup <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,] 
+    #   # assign new HHIDPN to duplicates 
+    #   subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(data_wce_subset$HHIDPN))) 
+    #   # 10^ceiling(log10(max(data_wce_subset$HHIDPN)) is the power of 10 
     #   #above the maximum HHIDPN from original data
-    #   sample_df <- rbind(sample_df, subset.dup)
-    #   step <- step+1
+    #   sample_df <- rbind(sample_df, subset.dup) 
+    #   step <- step+1 
     # }
     
+    #sample_df = sample_df %>% drop_na("HHIDPN", all_of(Model_n), outcome, exposure, "start_new", "stop_new")
+    
+    #print(sample_df)
+    
+    #print(unique(sample_df$outcome))
+    
     num_indiv_points_sample_df =  max(sample_df$timepoints_indiv)
+    
+    if (num_indiv_points_sample_df != Num_time_points) {
+      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+      print(paste("num_indiv_points_sample_df", num_indiv_points_sample_df, sep=" = "))
+      print(paste("Num_time_points", Num_time_points, sep=" = "))
+      print("--------------------------------------")
+    }
     
     print(paste("Number of rows in sample_df", nrow(sample_df) , sep=" = "))
     
     
-    # The following line standardizes specific columns provided in a concatenated list (i.e. covariates_list).
-    for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
+    #Num_time_points
+    
+    #print("num_indiv_points_sample_df:")
+    #print(num_indiv_points_sample_df)
+    
+    # The following line standardizes specific columns provided in a concatenated list (i.e. Model_n).
+    for (covariate in Model_n){sample_df[covariate] = scale(sample_df[covariate])}
     
     #sample_df[outcome] = scale(sample_df[outcome])
     #sample_df[exposure] = scale(sample_df[exposure])
     
-    #sample_df = sample_df %>% na.omit(sample_df)
     
+    #print("mod is below: WCE(data = ...")
     print("About to call WCE.")
-    mod <- WCE(data = sample_df,
-        analysis = "Cox", nknots = 1, cutoff = Num_time_points,
-        constrained = "R", aic = FALSE,
-        id = "HHIDPN",
-        event = outcome,
-        start = "start_new",
-        stop = "stop_new",
-        expos = exposure,
-        covariates = all_of(covariates_list))
+    
+    mod <- tryCatch(
+      {
+        # Just to highlight: if you want to use more than one 
+        # R expression in the "try" part then you'll have to 
+        # use curly brackets.
+        # 'tryCatch()' will return the last evaluated expression 
+        # in case the "try" part was completed successfully
+        
+        # The result to be returned goes on the next line, it must be an expression.
+        
+        WCE(data = sample_df,
+            analysis = "Cox", nknots = 1, cutoff = Num_time_points,
+            constrained = "R", aic = FALSE,
+            id = "HHIDPN",
+            event = "diabetes_new_bin",
+            start = "start_new",
+            stop = "stop_new",
+            expos = "discrim_bin",
+            covariates = all_of(Model_n))
+      },
+      error=function(cond) {
+        message("it seems we caused an error")
+        message("Here's the original error message:")
+        message(cond)
+        
+        message("---")
+        message("dim(sample_df): ")
+        print(dim(sample_df))
+        message("---")
+        #message(sample_df)
+        #message(paste("summary(sample_df)", summary(sample_df), sep=": "))
+        message("---")
+        message(paste("nrow(sample_df)", nrow(sample_df), sep=": "))
+        message("---")
+        
+        #cov_1 = covariate[1]
+        #cov_2 = covariate[2]
+        #cov_3 = covariate[3]
+        
+        #cov_1_vector = sample_df[, cov_1]
+        
+        message("---")
+        message(paste("length(sample_df[continious_age])", length(sample_df$continious_age), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[wealth_noIRA])", length(sample_df$wealth_noIRA), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[sex_1_2])", length(sample_df$sex_1_2), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[diabetes_new_bin])", length(sample_df$diabetes_new_bin), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[discrim_bin])", length(sample_df$discrim_bin), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[start_new])", length(sample_df$start_new), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[stop_new])", length(sample_df$stop_new), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[HHIDPN])", length(sample_df$HHIDPN), sep=": "))
+        
+        message("---")
+        print(length(unique(sample_df$HHIDPN)))
+        
+        # for (covariate in Model_n){
+        #   print(covariate)
+        #   message(paste("class(sample_df[covariate])", class(sample_df[,covariate]), sep=": "))
+        # }
+        message("---")
+        print(class(sample_df$diabetes_new_bin))
+        message("---")
+        print(class(sample_df$discrim_bin))
+        message("---")
+        print(class(sample_df$continious_age))
+        message("---")
+        print(class(sample_df$wealth_noIRA))
+        message("---")
+        print(class(sample_df$sex_1_2))
+        message("---")
+        print(class(sample_df$start_new))
+        message("---")
+        print(class(sample_df$stop_new))
+        message("---")
+        print(class(sample_df$HHIDPN))
+        
+        message("---")
+        print(unique(sample_df$diabetes_new_bin))
+        
+        message("---")
+        print(summary(sample_df))
+        
+        message("---$")
+        print(sample_df$HHIDPN)
+        
+        message("---")
+        message(paste("here is the original error again: ", cond, sep=": "))
+        message("---")
+        print(checkWCE(sample_df, id = "HHIDPN", event = "diabetes_new_bin",  start = "start_new", stop = "stop_new", expos = "discrim_bin"))
+        message("---")
+        message(paste("crash was in i", i, sep=": "))
+        
+        # Choose a return value in case of error
+        return(NA)
+      }
+    )
     
     print("About to print summary(mod): ")
     print(summary(mod))
     print("done printing summary")
+    
+    # return best WCE estimates and corresponding HR 
+    #print("finished: mod = WCE(data = ...")
+    
+    
+    #mod
+    #summary(mod)
+    #print("above printed: mod = WCE(data = ...")
+    
     
     best <- which.min(mod$info.criterion) 
     best = as.numeric(best)

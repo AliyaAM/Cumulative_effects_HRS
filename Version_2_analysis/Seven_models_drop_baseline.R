@@ -45,12 +45,12 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
   Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
+  Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
   Model_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
   
-  Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin", "CVD")
+  Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
   #Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "CVD")
   
   #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
@@ -68,11 +68,11 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week, var name: alcohol_days_week_new) [basic adjustment + health behaviours]
   Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new")
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_4_nosex = c("continious_age", "wealth_noIRA","CVD")
+  Model_4_nosex = c("continious_age", "wealth_noIRA")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
   Model_5_nosex = c("continious_age","wealth_noIRA", "checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-  Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin", "CVD")
+  Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
   #Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI","CVD")
   
   #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
@@ -92,12 +92,12 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
   Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
+  Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
   Model_noBMIcov_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
   
-  Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin", "CVD")
+  Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin")
   #Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD")
   
   #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
@@ -171,7 +171,7 @@ Seven_models_drop_baseline = function (subset_var1,
   
   # The following line to write a debug csv at this point in the code was actually really useful for debugging.
   #write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
-  dataset_noNAs_timepoints = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+  #dataset_noNAs_timepoints = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
   # Remove participant with sneaky NA in their sex variable.
   
   
