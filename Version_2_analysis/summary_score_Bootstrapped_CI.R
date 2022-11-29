@@ -36,8 +36,9 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   
   #vars = c("HHIDPN", Model_1, outcome, exposure, "start_new", "stop_new") 
   
+  data_wce_subset = data_wce_subset %>% na.omit(data_wce_subset)
+  data_wce_subset = data_wce_subset %>% tidyverse::drop_na(any_of(covariates_list))
   
-  data_wce_subset %>% na.omit()
   
   print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
   
