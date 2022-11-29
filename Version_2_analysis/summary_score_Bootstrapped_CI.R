@@ -1,6 +1,8 @@
 # line to standardize specific columns provided in a concatenated list.
 # for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
 
+
+
 summary_score_Bootstrapped_CI = function (data_wce_subset,
                                           
                                           Model_n, 
@@ -17,11 +19,43 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   
   print(paste("nrow(dataset) before dropping nas", nrow(data_wce_subset), sep=" = "))
   
-  data_wce_subset = data_wce_subset %>% dplyr::select(HHIDPN, all_off(covariates_list), outcome, exposure, start_new, stop_new, timepoints_indiv) 
-  data_wce_subset = data_wce_subset %>% drop_na("HHIDPN", any_of(covariates_list), outcome, exposure, "start_new", "stop_new")
+  data_wce_subset = data_wce_subset %>% dplyr::select(HHIDPN, 
+                                                      outcome,
+                                                      exposure,
+                                                      start_new,
+                                                      stop_new,
+                                                      all_of(covariates_list), 
+                                                      timepoints_indiv) 
   
-  data_wce_subset = data_wce_subset %>% drop_na(any_of(covariates_list))
+  #data_wce_subset = data_wce_subset %>% tidyr::drop_na("HHIDPN", outcome, exposure, "start_new", "stop_new")
   
+  #data_wce_subset = data_wce_subset[complete.cases(data_wce_subset), ]
+  
+  
+  print(paste("nrow(dataset) before dropping nas", nrow(data_wce_subset), sep=" = "))
+  
+  #vars = c("HHIDPN", Model_1, outcome, exposure, "start_new", "stop_new") 
+  
+  
+  data_wce_subset %>% na.omit()
+  
+  print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
+  
+  print(head(data_wce_subset))
+  
+  
+  #all_of(covariates_list)
+  
+  
+  
+  #this does not work because the unlisting is not done for covariate_list: data_wce_subset = data_wce_subset %>% drop_na(any_of(covariates_list))
+  
+  #this does not drop nas but drops cols in covariates data_wce_subset <- data_wce_subset %>% # Combine certain columns  dplyr::mutate(x = invoke(coalesce, across(all_of(covariates_list)))) %>% dplyr::select(x, colnames(data_wce_subset)[! colnames(data_wce_subset) %in% covariates_list])
+ 
+  
+  
+    
+    
   print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
   
   #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
@@ -36,6 +70,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   #boot.HR_3vs6 <- rep(NA, bootstraps_samples)
   #boot.HR_4vs6 <- rep(NA, bootstraps_samples)
   #boot.HR_5vs6 <- rep(NA, bootstraps_samples)
+  
   
   #Sample IDs with replacement:
   ID <- unique(data_wce_subset$HHIDPN) 
@@ -73,7 +108,9 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
     
     #sample_df[outcome] = scale(sample_df[outcome])
     #sample_df[exposure] = scale(sample_df[exposure])
-
+    
+    sample_df = sample_df %>% na.omit(sample_df)
+    
     print("About to call WCE.")
     mod <- WCE(data = sample_df,
         analysis = "Cox", nknots = 1, cutoff = Num_time_points,
@@ -83,7 +120,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
         start = "start_new",
         stop = "stop_new",
         expos = exposure,
-        covariates = any_of(covariates_list))
+        covariates = all_of(covariates_list))
     
     print("About to print summary(mod): ")
     print(summary(mod))
