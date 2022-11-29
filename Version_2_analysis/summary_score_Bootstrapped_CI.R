@@ -37,7 +37,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   #vars = c("HHIDPN", Model_1, outcome, exposure, "start_new", "stop_new") 
   
   data_wce_subset = data_wce_subset %>% na.omit(data_wce_subset)
-  data_wce_subset = data_wce_subset %>% tidyverse::drop_na(any_of(covariates_list))
+  data_wce_subset = data_wce_subset %>% drop_na(any_of(covariates_list))
   
   
   print(paste("nrow(dataset) after dropping nas", nrow(data_wce_subset), sep=" = "))
@@ -84,20 +84,20 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
     sample_df <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
 
     # deal with duplicated HHIDPN and assign them new HHIDPN 
-    step <- 1
-    repeat {
-      # select duplicated HHIDPN in ID.resamp
-      ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
-      if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with
-      # select obs. but remaining duplicated HHIDPN are ignored
-      subset.dup <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,]
-      # assign new HHIDPN to duplicates
-      subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(data_wce_subset$HHIDPN)))
-      # 10^ceiling(log10(max(data_wce_subset$HHIDPN)) is the power of 10
-      #above the maximum HHIDPN from original data
-      sample_df <- rbind(sample_df, subset.dup)
-      step <- step+1
-    }
+    # step <- 1
+    # repeat {
+    #   # select duplicated HHIDPN in ID.resamp
+    #   ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
+    #   if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with
+    #   # select obs. but remaining duplicated HHIDPN are ignored
+    #   subset.dup <- data_wce_subset[data_wce_subset$HHIDPN %in% ID.resamp,]
+    #   # assign new HHIDPN to duplicates
+    #   subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(data_wce_subset$HHIDPN)))
+    #   # 10^ceiling(log10(max(data_wce_subset$HHIDPN)) is the power of 10
+    #   #above the maximum HHIDPN from original data
+    #   sample_df <- rbind(sample_df, subset.dup)
+    #   step <- step+1
+    # }
     
     num_indiv_points_sample_df =  max(sample_df$timepoints_indiv)
     
@@ -110,7 +110,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
     #sample_df[outcome] = scale(sample_df[outcome])
     #sample_df[exposure] = scale(sample_df[exposure])
     
-    sample_df = sample_df %>% na.omit(sample_df)
+    #sample_df = sample_df %>% na.omit(sample_df)
     
     print("About to call WCE.")
     mod <- WCE(data = sample_df,
