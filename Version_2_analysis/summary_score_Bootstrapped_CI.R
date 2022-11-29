@@ -282,8 +282,8 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   # estimated HR 
   #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
   
-  boot_HR_val = apply(boot.WCE, 2, quantile, p = c(0.05, 0.95))
-  HR_CI = quantile(boot.HR, p = c(0.05, 0.95))
+  #boot_HR_val = apply(boot.WCE, 2, quantile, p = c(0.05, 0.95))
+  #HR_CI = quantile(boot.HR, p = c(0.05, 0.95))
   
   print(boot_HR)
   
@@ -359,8 +359,8 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
                   n_timepoints_max, 
                   median_timepoints,
                   BIC_information_criterion,
-                  boot_HR_val, 
-                  HR_CI)
+                  boot_HR_value, 
+                  HR_CIs_all)
   
 
   print("test 8")

@@ -195,43 +195,43 @@ HRS2008_data_initial$alcohol_days_week
 HRS2008_data_initial$checklist_depression_bin
 
 
-# all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA", 
-#                                                     subset_value1 = "NA", 
-#                                                     
-#                                                     subset_BMI = "NA", 
-#                                                     subset_BMI_value  = "NA", 
-#                                                     
-#                                                     subset_var2 = "NA", 
-#                                                     subset_value2 = "NA",  
-#                                                     
-#                                                     subset_var3= "NA", 
-#                                                     subset_value3 = "NA", 
-#                                                     
-#                                                     subset_name = "ALL", 
-#                                                     
-#                                                     subset_reason1 = "NA", 
-#                                                     subset_reason1_value = "NA", 
-#                                                     
-#                                                     subset_reason2 = "NA", 
-#                                                     subset_reason2_value =  "NA", 
-#                                                     
-#                                                     
-#                                                     subset_reason3 = "NA", 
-#                                                     subset_reason3_value = "NA", 
-#                                                     
-#                                                     HRS2008_data = HRS2008_data, 
-#                                                     HRS2010_data = HRS2010_data, 
-#                                                     HRS2012_data = HRS2012_data, 
-#                                                     HRS2014_data = HRS2014_data, 
-#                                                     HRS2016_data = HRS2016_data, 
-#                                                     HRS2018_data = HRS2018_data, 
-#                                                     
-#                                                     exposure = exposure, 
-#                                                     outcome = outcome) 
-# 
-# 
-# 
-# write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin.csv", sep=""))
+all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA",
+                                                    subset_value1 = "NA",
+
+                                                    subset_BMI = "NA",
+                                                    subset_BMI_value  = "NA",
+
+                                                    subset_var2 = "NA",
+                                                    subset_value2 = "NA",
+
+                                                    subset_var3= "NA",
+                                                    subset_value3 = "NA",
+
+                                                    subset_name = "ALL",
+
+                                                    subset_reason1 = "NA",
+                                                    subset_reason1_value = "NA",
+
+                                                    subset_reason2 = "NA",
+                                                    subset_reason2_value =  "NA",
+
+
+                                                    subset_reason3 = "NA",
+                                                    subset_reason3_value = "NA",
+
+                                                    HRS2008_data = HRS2008_data,
+                                                    HRS2010_data = HRS2010_data,
+                                                    HRS2012_data = HRS2012_data,
+                                                    HRS2014_data = HRS2014_data,
+                                                    HRS2016_data = HRS2016_data,
+                                                    HRS2018_data = HRS2018_data,
+
+                                                    exposure = exposure,
+                                                    outcome = outcome)
+
+
+
+write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin.csv", sep=""))
 
 
 # all_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = all_discrim_bin_diabetes_thisWAVE_7models,
