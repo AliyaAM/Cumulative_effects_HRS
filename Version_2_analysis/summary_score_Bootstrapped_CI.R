@@ -285,15 +285,15 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   #boot_HR_val = apply(boot.WCE, 2, quantile, p = c(0.05, 0.95))
   #HR_CI = quantile(boot.HR, p = c(0.05, 0.95))
   
-  print(boot_HR)
+  #print(boot_HR)
   
-  print(HR_CI)
+  #print(HR_CI)
   
-  boot_HR_value = quantile(boot.HR, probs=0.5) 
+  boot_HR_value = quantile(boot.HR, probs=0.5, na.rm = TRUE) 
   print("boot.HR_value = ")
   print(boot_HR_value)
   
-  HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05) 
+  HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05, na.rm = TRUE) 
   print("HR_CI1vs0_lower = ")
   print(HR_CI1vs0_lower)
   
@@ -304,7 +304,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   #HR_CI5vs6_lower =  quantile(boot.HR_5vs6, p = 0.05) 
   
   
-  HR_CI1vs0_upper =  quantile(boot.HR, p  = 0.95) 
+  HR_CI1vs0_upper =  quantile(boot.HR, p  = 0.95, na.rm = TRUE) 
   print("HR_CI1vs0_upper= ")
   print(HR_CI1vs0_upper)
   
@@ -369,6 +369,14 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   print(typeof(results)) 
   
   print("test 9")
+  
+  
+  boot2pvalue(boot.HR,
+              null = null_values,
+              estimate = 1,
+              alternative = "two.sided")
+  
+  print("test 10")
   
   colnames(results) = c("analysed n",
                         "diabetes onset (n)",
