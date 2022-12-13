@@ -2,7 +2,7 @@
 library("survival")
 library("survminer")
 library("dplyr")
-
+library("powerSurvEpi")
 
 
 
@@ -76,7 +76,14 @@ cumulative_effects_dat$discrim_bin
 unique(cumulative_effects_dat$discrimination_cat)
 
 cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
-cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
+
+cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
+
+cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
+
+cumulative_effects_dat$months = 12 * cumulative_effects_dat$years
+
+cumulative_effects_dat$follow_up = cumulative_effects_dat$years
 
 #1 = 2 year 
 #2 = 4 years 
@@ -298,4 +305,159 @@ Unadjusted_results = rbind(All_results_Unadjusted,
                            BMI_results_Unadjusted) 
 
 print(Unadjusted_results)
+
 #write.csv(Unadjusted_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Unadjusted_results_nobaseline_discrim_bin.csv")
+
+write.csv(Unadjusted_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Unadjusted_results_nobaseline_discrim_bin_over_years.csv")
+
+
+numb_case_all = nobs(fit)
+AIC_all = AIC(fit)
+BIC_all = BIC(fit) 
+
+numb_case_female = nobs(fit_female)
+AIC_female = AIC(fit_female)
+BIC_female = BIC(fit_female)
+
+numb_cases_race = nobs(fit_race)
+AIC_race = AIC(fit_race)
+BIC_race = BIC(fit_race) 
+
+numb_cases_BMI = nobs(fit_BMI)
+AIC_BMI = AIC(fit_BMI)
+BIC_BMI = BIC(fit_BMI) 
+
+#############
+#############
+#############
+
+
+MODEL_unadjusted_diagnostics = rbind(numb_case_all, 
+                            AIC_all, 
+                            BIC_all, 
+                            
+                            numb_case_female,
+                            AIC_female,
+                            BIC_female,
+                            
+                            numb_cases_race,
+                            AIC_race,
+                            BIC_race,
+                            
+                            numb_cases_BMI,
+                            AIC_BMI,
+                
+                            BIC_BMI)
+
+
+#The powerSurvEpi package provides power and sample size calculation for survival analysis (with a focus towards epidemiological studies).
+
+
+#The powerSurvEpi package provides power and sample size calculation for survival analysis (with a focus towards epidemiological studies).
+
+
+n_all = fit$n
+
+HR_all = c(summary_all$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_all <- power.stratify(
+  n = n_all,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_all,
+  lambda0Vec = c(HR_all, HR_all),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+#######
+
+n_female = fit_female$n
+
+HR_female = c(summary_female$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_female <- power.stratify(
+  n = n_female,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_female,
+  lambda0Vec = c(HR_all, HR_all),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+n_race = fit_race$n
+HR_race = c(summary_race$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_race <- power.stratify(
+  n = n_race,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_race,
+  lambda0Vec = c(HR_race, HR_race),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+
+n_BMI = fit_BMI$n
+HR_BMI  = c(summary_BMI $conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_BMI <- power.stratify(
+  n = n_BMI,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_BMI,
+  lambda0Vec = c(HR_race, HR_race),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+
+
+
+Unadjusted_analysed_n = rbind(n_all,  
+                           n_female, 
+                           n_race, 
+                           n_BMI) 
+
+
+
+Unadjusted_numb_case = rbind(numb_case_all,   
+                          numb_case_female, 
+                          numb_cases_race,
+                          numb_cases_BMI) 
+
+
+
+Unadjusted_power = rbind(res.power_all$power,  
+                      res.power_female$power, 
+                      res.power_race$power, 
+                      res.power_BMI$power) 
+
+
+
+Unadjusted_power_results = data.frame(Unadjusted_analysed_n,
+                                      Unadjusted_numb_case,
+                                      Unadjusted_power)
+
+write.csv(Unadjusted_power_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Unadjusted_power_results.csv")

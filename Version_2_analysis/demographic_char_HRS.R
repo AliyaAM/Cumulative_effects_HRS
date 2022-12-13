@@ -2,9 +2,6 @@
 library("dplyr")
 library("tidyr")
 
-cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv")
-#write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv", sep=""))
-
 ###### Adding variables to the main dataset:
 
 #outcome:  cumulative_effects_dat$diabetes_new_bin
@@ -276,5 +273,5 @@ demographics = cbind(subset_name,
                      percent_under_weight)
 
 
-write.csv(demographics, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/demographics.csv")
+#write.csv(demographics, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/demographics.csv")
 

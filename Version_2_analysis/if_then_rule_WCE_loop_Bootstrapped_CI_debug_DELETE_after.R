@@ -1,0 +1,380 @@
+
+
+# line to standardize specific columns provided in a concatenated list.
+# for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
+
+summary_score_Bootstrapped_CI = function (WCE_data_CI, 
+                                          outcome, 
+                                          exposure, 
+                                          covariates_list){
+  
+  
+  print(paste("nrow(dataset) before dropping nas", nrow(WCE_data_CI), sep=" = "))
+  
+  WCE_data_CI = WCE_data_CI %>% dplyr::select(HHIDPN, all_of(covariates_list), outcome, exposure, start_new, stop_new, timepoints_indiv) 
+  
+  #vars = c("HHIDPN", Model_1, outcome, exposure, "start_new", "stop_new") 
+  
+  WCE_data_CI = WCE_data_CI %>% na.omit(WCE_data_CI)
+                                        
+  print(paste("nrow(dataset) after dropping nas", nrow(WCE_data_CI), sep=" = "))
+  
+  print(head(WCE_data_CI))
+  
+  print(paste("unique values in hypertension", unique(WCE_data_CI$hypertension_new_bin), sep=" "))
+  print(paste("unique values in assessed_BMI", unique(WCE_data_CI$assessed_BMI), sep=" "))
+  
+  print(unique(WCE_data_CI$hypertension_new_bin))
+  print(unique(WCE_data_CI$assessed_BMI))
+  
+  #all values have to be numeric for this analysis 
+  
+  
+  #number_cov = length(covariates_list) 
+
+  
+  #print(paste("covariates_list", covariates_list, sep=": "))
+  
+  #all values have to be numeric for this analysis 
+  
+  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
+  WCE_data_CI$discrim_bin = as.numeric(WCE_data_CI$discrim_bin)
+  #WCE_data_CI$checklist_depression_bin = as.numeric(WCE_data_CI$checklist_depression_bin)
+  
+  WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
+  WCE_data_CI$stop_new = as.numeric(WCE_data_CI$stop_new)
+  
+  # WCE_data_CI$discrim_harassed_bin = as.numeric(WCE_data_CI$discrim_harassed_bin)
+  #WCE_data_CI$discrim_lessrespect_bin = as.numeric(WCE_data_CI$discrim_lessrespect_bin)
+  # WCE_data_CI$discrim_medical_bin = as.numeric(WCE_data_CI$discrim_medical_bin)
+  # WCE_data_CI$discrim_notclever_bin = as.numeric(WCE_data_CI$discrim_notclever_bin)
+  #  WCE_data_CI$discrim_poorerservice_bin = as.numeric(WCE_data_CI$discrim_poorerservice_bin)
+  # WCE_data_CI$discrim_afraidothers_bin = as.numeric(WCE_data_CI$discrim_afraidothers_bin)
+  
+  WCE_data_CI$sex_1_2 = as.numeric(WCE_data_CI$sex_1_2)
+  WCE_data_CI$wealth_noIRA = as.numeric(WCE_data_CI$wealth_noIRA)
+  # WCE_data_CI$assessed_BMI = as.numeric(WCE_data_CI$assessed_BMI)
+  WCE_data_CI$continious_age = as.numeric(WCE_data_CI$continious_age)
+  
+  WCE_data_CI$timepoints_indiv = as.numeric(WCE_data_CI$timepoints_indiv)
+  
+  #bootstraps_samples should be between 300 and 100, the more the better but runs slower. to test the analysis I will set it to 5 for now. 
+  
+  bootstraps_samples = 100
+  Num_time_points = 3
+  #Prepare vectors to extract estimated weight function and (if relevant) HRs for each bootstrap resample: 
+  
+  boot.WCE <- matrix(NA, ncol = Num_time_points, nrow = bootstraps_samples) # to store estimated weight functions 
+  boot.HR <- rep(NA, bootstraps_samples)
+  #boot.HR_2vs6 <- rep(NA, bootstraps_samples)
+  #boot.HR_3vs6 <- rep(NA, bootstraps_samples)
+  #boot.HR_4vs6 <- rep(NA, bootstraps_samples)
+  #boot.HR_5vs6 <- rep(NA, bootstraps_samples)
+  
+  #Sample IDs with replacement:
+  ID <- unique(WCE_data_CI$HHIDPN) 
+  
+  for (i in 1:bootstraps_samples){ 
+    
+    outcome = outcome
+    exposure = exposure
+    
+    print(paste("i", i, sep=": "))
+    ID.resamp <- sort(sample(ID, size = 1000, replace=TRUE))
+    
+    sample_df <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,]  # select obs. but duplicated Id are ignored
+    
+    #print("rows_check above in summary_score_Bootstrapped_CI")
+    
+    #print(sample_df)
+    
+    #print("sample_df above in summary_score_Bootstrapped_CI")
+    
+    #crash 
+    # deal with duplicated HHIDPN and assign them new HHIDPN 
+    # step <- 1 
+    # repeat {
+    #   # select duplicated HHIDPN in ID.resamp 
+    #   ID.resamp <- ID.resamp[duplicated(ID.resamp)==TRUE]
+    #   if (length(ID.resamp)==0) break # stop when no more duplicated HHIDPN to deal with 
+    #   # select obs. but remaining duplicated HHIDPN are ignored 
+    #   subset.dup <- WCE_data_CI[WCE_data_CI$HHIDPN %in% ID.resamp,] 
+    #   # assign new HHIDPN to duplicates 
+    #   subset.dup$HHIDPN <- subset.dup$HHIDPN + step * 10^ceiling(log10(max(WCE_data_CI$HHIDPN))) 
+    #   # 10^ceiling(log10(max(WCE_data_CI$HHIDPN)) is the power of 10 
+    #   #above the maximum HHIDPN from original data
+    #   sample_df <- rbind(sample_df, subset.dup) 
+    #   step <- step+1 
+    # }
+    
+    #sample_df = sample_df %>% drop_na("HHIDPN", all_of(covariates_list), outcome, exposure, "start_new", "stop_new")
+    
+    #print(sample_df)
+    
+    #print(unique(sample_df$outcome))
+    
+    num_indiv_points_sample_df =  max(sample_df$timepoints_indiv)
+    
+    if (num_indiv_points_sample_df != Num_time_points) {
+      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+      print(paste("num_indiv_points_sample_df", num_indiv_points_sample_df, sep=" = "))
+      print(paste("Num_time_points", Num_time_points, sep=" = "))
+      print("--------------------------------------")
+    }
+    
+    print(paste("Number of rows in sample_df", nrow(sample_df) , sep=" = "))
+    
+    
+    #Num_time_points
+    
+    #print("num_indiv_points_sample_df:")
+    #print(num_indiv_points_sample_df)
+    
+    # The following line standardizes specific columns provided in a concatenated list (i.e. covariates_list).
+    for (covariate in covariates_list){sample_df[covariate] = scale(sample_df[covariate])}
+    
+    #sample_df[outcome] = scale(sample_df[outcome])
+    #sample_df[exposure] = scale(sample_df[exposure])
+    
+    
+    #print("mod is below: WCE(data = ...")
+    print("About to call WCE.")
+    
+    mod <- tryCatch(
+      {
+        # Just to highlight: if you want to use more than one 
+        # R expression in the "try" part then you'll have to 
+        # use curly brackets.
+        # 'tryCatch()' will return the last evaluated expression 
+        # in case the "try" part was completed successfully
+        
+        # The result to be returned goes on the next line, it must be an expression.
+        sample_df = sample_df %>% na.omit(sample_df)
+        
+        WCE(data = sample_df,
+            analysis = "Cox", nknots = 1, cutoff = Num_time_points,
+            constrained = "R", aic = FALSE,
+            id = "HHIDPN",
+            event = "diabetes_new_bin",
+            start = "start_new",
+            stop = "stop_new",
+            expos = "discrim_bin",
+            covariates = all_of(covariates_list))
+      },
+      error=function(cond) {
+        message("it seems we caused an error")
+        message("Here's the original error message:")
+        message(cond)
+        
+        message("---")
+        message("dim(sample_df): ")
+        print(dim(sample_df))
+        message("---")
+        #message(sample_df)
+        #message(paste("summary(sample_df)", summary(sample_df), sep=": "))
+        message("---")
+        message(paste("nrow(sample_df)", nrow(sample_df), sep=": "))
+        message("---")
+        
+        #cov_1 = covariate[1]
+        #cov_2 = covariate[2]
+        #cov_3 = covariate[3]
+        
+        #cov_1_vector = sample_df[, cov_1]
+        
+        message("---")
+        message(paste("length(sample_df[continious_age])", length(sample_df$continious_age), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[wealth_noIRA])", length(sample_df$wealth_noIRA), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[sex_1_2])", length(sample_df$sex_1_2), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[diabetes_new_bin])", length(sample_df$diabetes_new_bin), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[discrim_bin])", length(sample_df$discrim_bin), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[start_new])", length(sample_df$start_new), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[stop_new])", length(sample_df$stop_new), sep=": "))
+        
+        message("---")
+        message(paste("length(sample_df[HHIDPN])", length(sample_df$HHIDPN), sep=": "))
+        
+        message("---")
+        print(length(unique(sample_df$HHIDPN)))
+        
+        # for (covariate in covariates_list){
+        #   print(covariate)
+        #   message(paste("class(sample_df[covariate])", class(sample_df[,covariate]), sep=": "))
+        # }
+        message("---")
+        print(class(sample_df$diabetes_new_bin))
+        message("---")
+        print(class(sample_df$discrim_bin))
+        message("---")
+        print(class(sample_df$continious_age))
+        message("---")
+        print(class(sample_df$wealth_noIRA))
+        message("---")
+        print(class(sample_df$sex_1_2))
+        message("---")
+        print(class(sample_df$start_new))
+        message("---")
+        print(class(sample_df$stop_new))
+        message("---")
+        print(class(sample_df$HHIDPN))
+        
+        message("---")
+        print(unique(sample_df$diabetes_new_bin))
+        
+        message("---")
+        print(summary(sample_df))
+        
+        message("---$")
+        print(sample_df$HHIDPN)
+        
+        message("---")
+        message(paste("here is the original error again: ", cond, sep=": "))
+        message("---")
+        print(checkWCE(sample_df, id = "HHIDPN", event = "diabetes_new_bin",  start = "start_new", stop = "stop_new", expos = "discrim_bin"))
+        message("---")
+        message(paste("crash was in i", i, sep=": "))
+        
+        # Choose a return value in case of error
+        return(NA)
+      }
+    )
+    
+    print("About to print summary(mod): ")
+    print(summary(mod))
+    print("done printing summary")
+    
+    # return best WCE estimates and corresponding HR 
+    #print("finished: mod = WCE(data = ...")
+    
+    
+    #mod
+    #summary(mod)
+    #print("above printed: mod = WCE(data = ...")
+    
+    
+    best <- which.min(mod$info.criterion) 
+    best = as.numeric(best)
+    boot.WCE[i,] <- mod$WCEmat[best,] 
+    
+    #boot.HR_1vs6[i] <- HR.WCE(mod, rep(2, Num_time_points), rep(1, Num_time_points)) 
+    # boot.HR_2vs6[i] <- HR.WCE(mod, rep(3, Num_time_points), rep(1, Num_time_points)) 
+    # boot.HR_3vs6[i] <- HR.WCE(mod, rep(4, Num_time_points), rep(1, Num_time_points)) 
+    #boot.HR_4vs6[i] <- HR.WCE(mod, rep(5, Num_time_points), rep(1, Num_time_points)) 
+    #boot.HR_5vs6[i] <- HR.WCE(mod, rep(6, Num_time_points), rep(1, Num_time_points)) 
+    
+    #scenario1 <- c(rep(1, Num_time_points))
+    #scenario2 <- c(rep(0, Num_time_points))
+    
+    boot.HR[i] <- HR.WCE(mod, rep(1, Num_time_points), rep(0, Num_time_points))
+  } 
+  
+  boot.HR = as.numeric(boot.HR) 
+  print("boot.HR:")
+  print(boot.HR)
+  
+  boot.WCE = as.numeric(boot.WCE)
+  print("boot.WCE")
+  print(boot.WCE)
+  # estimated weight functions 
+  #estimated_weight_functions  = apply(boot.WCE, 2, quantile, p = c(0.05, 0.95))
+  
+  
+  # estimated HR 
+  #quantile(as.numeric(x), probs=c(.25, .75), na.rm = TRUE)
+  
+  boot.HR_value = quantile(boot.HR, probs=0.5) 
+  
+  print("boot.HR_value = ")
+  print(boot.HR_value)
+  
+  HR_CI1vs0_lower =  quantile(boot.HR, probs=0.05) 
+  
+  print("HR_CI1vs0_lower = ")
+  print(HR_CI1vs0_lower)
+  
+  #HR_CI1vs6_lower =  quantile(boot.HR_1vs6, p = 0.05) 
+  #HR_CI2vs6_lower =  quantile(boot.HR_2vs6, p = 0.05) 
+  #HR_CI3vs6_lower =  quantile(boot.HR_3vs6, p = 0.05) 
+  #HR_CI4vs6_lower =  quantile(boot.HR_4vs6, p = 0.05) 
+  #HR_CI5vs6_lower =  quantile(boot.HR_5vs6, p = 0.05) 
+  
+  
+  HR_CI1vs0_upper =  quantile(boot.HR, p  = 0.95) 
+  
+  print("HR_CI1vs0_upper= ")
+  print(HR_CI1vs0_upper)
+  
+  
+  #HR_CI1vs6_upper =  quantile(boot.HR_1vs6, p  = 0.95) 
+  #HR_CI2vs6_upper =  quantile(boot.HR_2vs6, p  = 0.95)  
+  #HR_CI3vs6_upper =  quantile(boot.HR_3vs6, p  = 0.95) 
+  #HR_CI4vs6_upper =  quantile(boot.HR_4vs6, p  = 0.95) 
+  #HR_CI5vs6_upper =  quantile(boot.HR_5vs6, p  = 0.95) 
+  
+  
+  print("about to rbind")
+  
+  HR_CIs_lower = rbind(HR_CI1vs0_lower)
+  
+  
+  HR_CIs_upper = rbind(HR_CI1vs0_upper)
+  
+  HR_CIs_all = cbind(HR_CIs_lower, 
+                     HR_CIs_upper)
+  
+  results = cbind(boot.HR_value, HR_CIs_all)
+  
+  print("result = ")
+  print(results)
+  
+  print("done with this function!")
+  return(results) 
+}
+
+
+# DELETE THIS LATER!!!
+Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2", "vigarious_physical_activity_new")
+exposure = "discrim_bin"
+outcome = "diabetes_new_bin"
+loaded_df = read_csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+
+# Remove NAs that slipped in anyway
+#loaded_df<-loaded_df[!(loaded_df$HHIDPN==BMI_null_ids),]
+
+result = summary_score_Bootstrapped_CI(loaded_df, outcome=outcome, exposure=exposure, covariates_list=Model_1)
+
+
+BMI_null_ids = c(18525020,  20634010,  24040011,  50158020,  53033031,  57630010,
+                 58974010,  81751020,  82648040,  85482020,  85630010,  87287020,
+                 87549040, 115355020, 153089010, 153479010, 184591010, 500498010,
+                 500582020, 502068011, 502328010, 502490010,  13635010,  39357040,
+                 42943020,  46558020,  47582011,  57644040,  72327040,  77744020,
+                 139930020, 141144020, 210253010, 500281020, 500286020, 501717010,
+                 502021010, 502226020, 502364020, 521251010, 524179010, 527123010,
+                 529360010, 532259020, 536403020, 537264020, 537283010, 902489020,
+                 915508010, 915508020, 920200020,  14578040, 501219020, 526342020,
+                 527180010, 526578010, 529828010, 912068010, 917056010, 917702010,
+                 204659010, 212361010, 902805020, 914269010, 915940020,  11948020,
+                 21675030,  47602020,  78026021,  80353040, 117310011, 200683020,
+                 202973010, 205110021, 501646010,  12458020,  12745020,  13734020,
+                 17234040,  18285030,  46641020,  59258030,  60232040,  60290030,
+                 71012020, 138205010, 160233010, 212572010, 900500010, 919052010)
+
+
+loaded_df<-loaded_df[!(loaded_df$HHIDPN==c(BMI_null_ids)),]
+loaded_df = subset(loaded_df, loaded_df$HHIDPN != BMI_null_ids)
+unique(loaded_df$assessed_BMI)
+
+is.na(loaded_df$assessed_BMI) 

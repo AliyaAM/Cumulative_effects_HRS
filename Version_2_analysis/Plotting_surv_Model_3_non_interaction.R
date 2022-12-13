@@ -1,16 +1,34 @@
 
+
 library("survival")
 library("survminer")
 library("dplyr")
+library("tibble")
+library("tidyverse")
+library("powerSurvEpi")
+
+
+DATA_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
+
+
+current_directory = "/Users/aliya/my_docs/proj/Cumulative_effects_HRS"
+
+
+SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
+DATA_ROOT = "/Users/aliya/my_docs/KCL_postDoc/Data_analysis/"
 
 
 
+
+#drop cases with baseline diabetes: 
+
+source((paste(SOURCE_ROOT, "sort_timepoints_drop_baseline.R", sep="")))
 
 #Model 1: age and sex, wealth  [basis adjustment]
 #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
+Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
 #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
-
+Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week",  "vigarious_physical_activity", 'smokes_now_bin')
 #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
 Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
 #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
@@ -22,11 +40,11 @@ Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypert
 
 
 #Model 1: age and sex, wealth  [basis adjustment]
-Model_3_non_interact_nosex = c("continious_age", "wealth_noIRA")
+Model_2_non_interact_nosex = c("continious_age", "wealth_noIRA")
 #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-Model_3_non_interact_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
+Model_2_non_interact_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
 #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-Model_3_nosex = c("continious_age", "wealth_noIRA", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
+Model_3_nosex = c("continious_age", "wealth_noIRA", "alcohol_days_week",  "vigarious_physical_activity", 'smokes_now_bin')
 #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
 Model_4_nosex = c("continious_age", "wealth_noIRA","CVD")
 #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
@@ -45,7 +63,7 @@ Model_noBMIcov_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
 #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
 Model_noBMIcov_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin")
 #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
+Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week",  "vigarious_physical_activity", 'smokes_now_bin')
 #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
 Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
 #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
@@ -56,22 +74,273 @@ Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_
 Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin", "checklist_depression_bin")
 
 ###### DATA:
-cumulative_effects_dat = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/DATA_FOR_PLOT/all_waves_nodiab_at_two_first_waves_DIAB_discrim_recoded.csv")
-#write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB_discrim_recoded.csv", sep=""))
+
+cumulative_effects_dat = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
+
+
 
 ###### Adding variables to the main dataset:
+
+###### Adding variables to the main dataset:
+
+
+cumulative_effects_dat$discrim_harassed = as.numeric(cumulative_effects_dat$discrim_harassed)
+cumulative_effects_dat$discrim_lessrespect = as.numeric(cumulative_effects_dat$discrim_lessrespect)
+cumulative_effects_dat$discrim_medical = as.numeric(cumulative_effects_dat$discrim_medical)
+cumulative_effects_dat$discrim_notclever = as.numeric(cumulative_effects_dat$discrim_notclever)
+cumulative_effects_dat$discrim_poorerservice = as.numeric(cumulative_effects_dat$discrim_poorerservice)
+cumulative_effects_dat$discrim_afraidothers = as.numeric(cumulative_effects_dat$discrim_afraidothers)
+
+
+cumulative_effects_dat$heartcondition_ever_bin = as.numeric(cumulative_effects_dat$heartcondition_ever_bin)
+cumulative_effects_dat$heartcondition_new_bin = as.numeric(cumulative_effects_dat$heartcondition_new_bin)
+cumulative_effects_dat$angina_new_bin = as.numeric(cumulative_effects_dat$angina_new_bin)
+cumulative_effects_dat$stroke_new_bin = as.numeric(cumulative_effects_dat$stroke_new_bin)
+cumulative_effects_dat$heartfailure2yrs_bin = as.numeric(cumulative_effects_dat$heartfailure2yrs_bin)
+cumulative_effects_dat$heartattack_ever_bin = as.numeric(cumulative_effects_dat$heartattack_ever_bin)
+cumulative_effects_dat$heartattack_new_bin = as.numeric(cumulative_effects_dat$heartattack_new_bin)
+
+cumulative_effects_dat$vigarious_physical_activity = as.numeric(cumulative_effects_dat$vigarious_physical_activity)
+
+
+cumulative_effects_dat$alcohol_days_week = as.numeric(cumulative_effects_dat$alcohol_days_week)
+cumulative_effects_dat$checklist_depression_bin = as.numeric(cumulative_effects_dat$checklist_depression_bin)
+cumulative_effects_dat$wealth_noIRA = as.numeric(cumulative_effects_dat$wealth_noIRA)
+
+
+cumulative_effects_dat$diabetes_new = as.numeric(cumulative_effects_dat$diabetes_new)
+
+
+
+
+##### recode below: 
+
+cumulative_effects_dat$CVD[cumulative_effects_dat$angina_new_bin ==1 | cumulative_effects_dat$heartfailure2yrs_bin == 1 | cumulative_effects_dat$heartattack_ever_bin == 1 | cumulative_effects_dat$heartattack_new_bin == 1] <-1
+cumulative_effects_dat$CVD[cumulative_effects_dat$angina_new_bin ==0 & cumulative_effects_dat$heartfailure2yrs_bin == 0 & cumulative_effects_dat$heartattack_ever_bin == 0 & cumulative_effects_dat$heartattack_new_bin == 0] <-0
+
+unique(cumulative_effects_dat$CVD)
+
+
+cumulative_effects_dat$CVD_ever[cumulative_effects_dat$heartfailure2yrs_bin == 1 | cumulative_effects_dat$heartattack_ever_bin == 1 ] <-1
+cumulative_effects_dat$CVD_ever[cumulative_effects_dat$heartfailure2yrs_bin == 0 & cumulative_effects_dat$heartattack_ever_bin == 0 ] <-0
+
+unique(cumulative_effects_dat$CVD_ever)
+
+
+cumulative_effects_dat$CVD_new[cumulative_effects_dat$angina_new_bin ==1 | cumulative_effects_dat$heartattack_new_bin == 1] <-1
+cumulative_effects_dat$CVD_new[cumulative_effects_dat$angina_new_bin ==0 & cumulative_effects_dat$heartattack_new_bin == 0] <-0
+
+
+
+unique(cumulative_effects_dat$CVD_new)
+
+
+
+
+#physical activity (original): 1.every day; 2.>1 per week; 3.1 per week; 4.l-3 per mon; 5.never; .d=DK/NA; .r=RF
+
+cumulative_effects_dat$vigarious_physical_activity_new = case_when(cumulative_effects_dat$vigarious_physical_activity == 1 ~ 5, 
+                                                 cumulative_effects_dat$vigarious_physical_activity == 2 ~ 4, 
+                                                 cumulative_effects_dat$vigarious_physical_activity == 3 ~ 3, 
+                                                 cumulative_effects_dat$vigarious_physical_activity == 4 ~ 2, 
+                                                 cumulative_effects_dat$vigarious_physical_activity == 5 ~ 1) 
+
+
+
+
+cumulative_effects_dat$vigarious_physical_activity_bin = case_when(cumulative_effects_dat$vigarious_physical_activity_new == 5 ~ 1, 
+                                                 cumulative_effects_dat$vigarious_physical_activity_new == 4 ~ 1, 
+                                                 cumulative_effects_dat$vigarious_physical_activity_new == 3 ~ 1, 
+                                                 cumulative_effects_dat$vigarious_physical_activity_new == 2 ~ 0, 
+                                                 cumulative_effects_dat$vigarious_physical_activity_new == 1 ~ 0) 
+
+
+
+
+
+cumulative_effects_dat$alcohol_days_week_new =  na_if(cumulative_effects_dat$alcohol_days_week, 8)
+cumulative_effects_dat$alcohol_days_week_new = na_if(cumulative_effects_dat$alcohol_days_week_new, 9) 
+
+
+###### extract smoking variable
+
+HRS_2008_data = read.csv(paste(DATA_ROOT, "HRS_2008_data/HRS2008_dataset_latest.csv", sep=""))
+HRS_2010_data = read.csv(paste(DATA_ROOT, "HRS_2010_data/HRS2010_dataset_latest.csv", sep=""))
+HRS_2012_data =  read.csv(paste(DATA_ROOT, "HRS_2012_data/HRS2012_dataset_latest.csv", sep=""))
+HRS_2014_data =  read.csv(paste(DATA_ROOT, "HRS_2014_data/HRS2014_dataset_latest.csv", sep=""))
+HRS_2016_data =  read.csv(paste(DATA_ROOT, "HRS_2016_data/HRS2016_dataset_latest.csv", sep=""))
+HRS_2018_data =  read.csv(paste(DATA_ROOT, "HRS_2018_data/HRS2018_dataset_latest.csv", sep=""))
+
+
+HRS_2010_data  = tibble(HRS_2010_data$smokes_now_bin, HRS_2010_data$HHIDPN, HRS_2010_data$diabetes_new) 
+HRS_2012_data  = tibble(HRS_2012_data$smokes_now_bin, HRS_2012_data$HHIDPN, HRS_2012_data$diabetes_new) 
+HRS_2014_data  = tibble(HRS_2014_data$smokes_now_bin, HRS_2014_data$HHIDPN, HRS_2014_data$diabetes_new) 
+HRS_2016_data  = tibble(HRS_2016_data$smokes_now_bin, HRS_2016_data$HHIDPN, HRS_2016_data$diabetes_new) 
+HRS_2018_data  = tibble(HRS_2018_data$smokes_now_bin, HRS_2018_data$HHIDPN, HRS_2018_data$diabetes_new) 
+
+
+colnames(HRS_2010_data) = c("smokes_now_bin", "HHIDPN", "diabetes_new") 
+colnames(HRS_2012_data) = c("smokes_now_bin", "HHIDPN", "diabetes_new") 
+colnames(HRS_2014_data) = c("smokes_now_bin", "HHIDPN", "diabetes_new") 
+colnames(HRS_2016_data) = c("smokes_now_bin", "HHIDPN", "diabetes_new") 
+colnames(HRS_2018_data) = c("smokes_now_bin", "HHIDPN", "diabetes_new") 
+
+smoking_now_bin_data = rbind(HRS_2010_data, 
+                                 HRS_2012_data, 
+                                 HRS_2014_data, 
+                                 HRS_2016_data, 
+                                 HRS_2018_data)
+
+dataset_add_smoking_now_bin = sort_timepoints_drop_baseline(data = smoking_now_bin_data)
+
+#################
+#################
+
+# match cases 
+
+dataset_add_smoking_now_bin$time_point_person_ID = paste(dataset_add_smoking_now_bin$HHIDPN, "_", dataset_add_smoking_now_bin$start_new, sep="")
+head(dataset_add_smoking_now_bin)
+
+dataset_with_smoking_now_bin = tibble(dataset_add_smoking_now_bin$smokes_now_bin, 
+                                    dataset_add_smoking_now_bin$time_point_person_ID)
+
+colnames(dataset_with_smoking_now_bin) = c("smokes_now_bin", "time_point_person_ID") 
+
+
+cumulative_effects_dat$time_point_person_ID = paste(cumulative_effects_dat$HHIDPN, "_", cumulative_effects_dat$start_new, sep="")
+
+ID = unique(cumulative_effects_dat$time_point_person_ID) 
+
+dataset_with_smoking_now_bin <- dataset_with_smoking_now_bin[ (dataset_with_smoking_now_bin$time_point_person_ID %in% c(ID)), ]
+
+
+#################
+#################
+
+
+
+###### extract smoking variable to the dataset for the Cox analysis, substituting misisng data on smkoing with NA
+rep(NA, times = 14946)
+cumulative_effects_dat$smokes_now_bin = c(rep(NA, times = 14946), dataset_with_smoking_now_bin$smokes_now_bin)
+
+unique(dataset_with_smoking_now_bin$smokes_now_bin)
+unique(cumulative_effects_dat$smokes_now_bin)
+
+###### Recode vars
+
+
+cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 2 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 3 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 4 ~ 1, 
+                                                        cumulative_effects_dat$discrim_harassed == 5 ~ 0, 
+                                                        cumulative_effects_dat$discrim_harassed == 6 ~ 0,
+                                                        cumulative_effects_dat$discrim_harassed == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_lessrespect_bin = case_when(cumulative_effects_dat$discrim_lessrespect == 1 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 2 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 3 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 4 ~ 1, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 5 ~ 0, 
+                                                           cumulative_effects_dat$discrim_lessrespect == 6 ~ 0,
+                                                           cumulative_effects_dat$discrim_lessrespect == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_medical_bin = case_when(cumulative_effects_dat$discrim_medical == 1 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 2 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 3 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 4 ~ 1, 
+                                                       cumulative_effects_dat$discrim_medical == 5 ~ 0, 
+                                                       cumulative_effects_dat$discrim_medical == 6 ~ 0,
+                                                       cumulative_effects_dat$discrim_medical == 0 ~ 0) 
+
+
+
+
+
+cumulative_effects_dat$discrim_notclever_bin = case_when(cumulative_effects_dat$discrim_notclever == 1 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 2 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 3 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 4 ~ 1, 
+                                                         cumulative_effects_dat$discrim_notclever == 5 ~ 0, 
+                                                         cumulative_effects_dat$discrim_notclever == 6 ~ 0,
+                                                         cumulative_effects_dat$discrim_notclever == 0 ~ 0) 
+
+
+
+
+
+
+cumulative_effects_dat$discrim_poorerservice_bin = case_when(cumulative_effects_dat$discrim_poorerservice == 1 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 2 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 3 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 4 ~ 1, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 5 ~ 0, 
+                                                             cumulative_effects_dat$discrim_poorerservice == 6 ~ 0) 
+
+
+
+
+cumulative_effects_dat$discrim_afraidothers_bin = case_when(cumulative_effects_dat$discrim_afraidothers == 1 ~ 1,
+                                                            cumulative_effects_dat$discrim_afraidothers == 2 ~ 1, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 3 ~ 1, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 4 ~ 1, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 5 ~ 0, 
+                                                            cumulative_effects_dat$discrim_afraidothers == 6 ~ 0,
+                                                            cumulative_effects_dat$discrim_afraidothers == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_bin = case_when(cumulative_effects_dat$discrim_harassed_bin == 1 | cumulative_effects_dat$discrim_lessrespect_bin == 1 | cumulative_effects_dat$discrim_medical_bin  == 1 | cumulative_effects_dat$discrim_notclever_bin == 1 | cumulative_effects_dat$discrim_afraidothers_bin == 1 | cumulative_effects_dat$discrim_poorerservice_bin == 1 ~ 1, 
+                                               cumulative_effects_dat$discrim_harassed_bin == 0 & cumulative_effects_dat$discrim_lessrespect_bin == 0 & cumulative_effects_dat$discrim_medical_bin  == 0 & cumulative_effects_dat$discrim_notclever_bin == 0 & cumulative_effects_dat$discrim_afraidothers_bin == 0 & cumulative_effects_dat$discrim_poorerservice_bin == 0 ~ 0) 
+
+
+unique(cumulative_effects_dat$start_new)
 
 #outcome:  cumulative_effects_dat$diabetes_new_bin
 #exposure: cumulative_effects_dat$discrim_bin
 #time: cumulative_effects_dat$stop_new
 
-###### Adding variables to the main dataset:
-###### Adding variables to the main dataset:
+###### Adding variables to the main cumulative_effects_datset:
+###### Adding variables to the main cumulative_effects_datset:
+
+cumulative_effects_dat$discrim_bin
+
+cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
+
+cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
+
+cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
+
+cumulative_effects_dat$months = 12 * cumulative_effects_dat$years
+
+cumulative_effects_dat$follow_up = cumulative_effects_dat$years
+
+
+cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 1, 
+                                                    cumulative_effects_dat$diabetes_new == 0 ~ 0) 
+
+
+cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
+                                                             cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
+
+
+#outcome:  cumulative_effects_dat$diabetes_new_bin
+#exposure: cumulative_effects_dat$discrim_bin
+#time: cumulative_effects_dat$stop_new
+
+###### Adding variables to the main cumulative_effects_datset:
+###### Adding variables to the main cumulative_effects_datset:
+
+unique(cumulative_effects_dat$discrimination_cat)
+
+unique(cumulative_effects_dat$discrimination_cat)
 
 
 cumulative_effects_dat$discrimination = cumulative_effects_dat$discrim_bin
-cumulative_effects_dat$years = 2 *cumulative_effects_dat$timepoints_indiv
-
 #1 = 2 year 
 #2 = 4 years 
 #3 = 6 years 
@@ -84,11 +353,18 @@ unique(cumulative_effects_dat$start_new)
 cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
                                                              cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
 
-#Subset datasets:
+#Subset cumulative_effects_datsets:
 data_male = subset(cumulative_effects_dat, cumulative_effects_dat$sex_1_2 ==1) 
-data_female = subset(cumulative_effects_dat, cumulative_effects_dat$sex_1_2 ==2) 
+
+unique(cumulative_effects_dat$sex_1_2.1)
+head(cumulative_effects_dat) 
+
+data_female = subset(cumulative_effects_dat, cumulative_effects_dat$sex_1_2.1 == 2) 
+
+
 data_race = subset(cumulative_effects_dat, cumulative_effects_dat$race_white == 0) 
 data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 30) 
+
 
 #cumulative_effects_dat$sex_1_2
 #cumulative_effects_dat$race_white
@@ -103,7 +379,12 @@ data_BMI = subset(cumulative_effects_dat, cumulative_effects_dat$assessed_BMI > 
 
 #cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
 
-fit <- coxph(Surv(years, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin , data = cumulative_effects_dat)
+
+unique(cumulative_effects_dat$alcohol_days_week_new)
+unique(cumulative_effects_dat$smokes_now_bin)
+unique(cumulative_effects_dat$vigarious_physical_activity)
+
+fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin , data = cumulative_effects_dat)
 summary_all = summary(fit)
 
 # coeffcients for discrimination: 
@@ -139,8 +420,9 @@ print(All_results_Model_3_non_interact)
 ########
 
 #### plot for female dataset: 
+unique(data_female$smokes_now_bin)
 
-fit_female <- coxph(Surv(years, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin  , data = data_female)
+fit_female <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin  , data = data_female)
 summary_female = summary(fit_female)
 
 # coeffcients for discrimination: 
@@ -181,7 +463,7 @@ print(Female_results_Model_3_non_interact)
 #### plot for male dataset: 
 
 
-fit_male <- coxph(Surv(years, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin  , data = data_male)
+fit_male <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin  , data = data_male)
 summary_male = summary(fit_male)
 
 # coeffcients for discrimination: 
@@ -218,7 +500,7 @@ print(male_results_Model_3_non_interact)
 
 #### plot for race dataset: 
 
-fit_race <- coxph(Surv(years, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin , data = data_race)
+fit_race <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin , data = data_race)
 summary_race = summary(fit_race)
 
 # coeffcients for discrimination: 
@@ -254,7 +536,9 @@ print(race_results_Model_3_non_interact)
 
 #### plot for BMI dataset: 
 
-fit_BMI <- coxph(Surv(years, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin , data = data_BMI)
+data_BMI$alcohol_days_week
+
+fit_BMI <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + alcohol_days_week_new +  vigarious_physical_activity_new + smokes_now_bin , data = data_BMI)
 summary_BMI = summary(fit_BMI)
 
 # coeffcients for discrimination: 
@@ -289,6 +573,152 @@ Model_3_non_interact_results = rbind(All_results_Model_3_non_interact,
                                      BMI_results_Model_3_non_interact) 
 
 
-write.csv(Model_3_non_interact_results, "/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/Cumulative_effects_laptop/Model_3_non_interact_results_no_diab_at_two_first_waves_discrim_bin.csv")
-
 #write.csv(Model_3_non_interact_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_3_non_interact_results.csv")
+
+
+numb_case_all = nobs(fit)
+AIC_all = AIC(fit)
+BIC_all = BIC(fit) 
+
+numb_case_female = nobs(fit_female)
+AIC_female = AIC(fit_female)
+BIC_female = BIC(fit_female)
+
+numb_cases_race = nobs(fit_race)
+AIC_race = AIC(fit_race)
+BIC_race = BIC(fit_race) 
+
+numb_cases_BMI = nobs(fit_BMI)
+AIC_BMI = AIC(fit_BMI)
+BIC_BMI = BIC(fit_BMI) 
+
+
+
+MODEL_3_diagnostics = rbind(numb_case_all, 
+                                     AIC_all, 
+                                     BIC_all, 
+                                     
+                                     numb_case_female,
+                                     AIC_female,
+                                     BIC_female,
+                                     
+                                     numb_cases_race,
+                                     AIC_race,
+                                     BIC_race,
+                                     
+                                     numb_cases_BMI,
+                                     AIC_BMI,
+                                     BIC_BMI)
+
+
+
+
+#The powerSurvEpi package provides power and sample size calculation for survival analysis (with a focus towards epidemiological studies).
+
+
+n_all = fit$n
+
+HR_all = c(summary_all$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_all <- power.stratify(
+  n = n_all,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_all,
+  lambda0Vec = c(HR_all, HR_all),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+#######
+
+n_female = fit_female$n
+
+HR_female = c(summary_female$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_female <- power.stratify(
+  n = n_female,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_female,
+  lambda0Vec = c(HR_all, HR_all),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+n_race = fit_race$n
+HR_race = c(summary_race$conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_race <- power.stratify(
+  n = n_race,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_race,
+  lambda0Vec = c(HR_race, HR_race),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+
+
+n_BMI = fit_BMI$n
+HR_BMI  = c(summary_BMI $conf.int[1,1])
+
+# example on page 803 of Palta M and Amini SB. (1985).
+res.power_BMI <- power.stratify(
+  n = n_BMI,
+  timeUnit = 6,
+  gVec = c(0.5, 0.5),
+  PVec = c(0.5, 0.5),
+  HR = HR_BMI,
+  lambda0Vec = c(HR_race, HR_race),
+  power.ini = 0.8,
+  power.low = 0.001,
+  power.upp = 0.999,
+  alpha = 0.05)
+
+
+Model_3_power_results = rbind(res.power_BMI$power,  
+                              res.power_BMI$power, 
+                               res.power_BMI$power, 
+                               res.power_BMI$power) 
+
+
+
+
+Model_3_analysed_n = rbind(n_all,  
+                           n_female, 
+                           n_race, 
+                           n_BMI) 
+
+
+Model_3_numb_case = rbind(numb_case_all,   
+                          numb_case_female, 
+                          numb_cases_race,
+                          numb_cases_BMI) 
+
+
+Model_3_power = rbind(res.power_all$power,  
+                      res.power_female$power, 
+                      res.power_race$power, 
+                      res.power_BMI$power) 
+
+
+Model_3_power_results = data.frame(Model_3_analysed_n,
+                                   Model_3_numb_case,
+                                   Model_3_power)
+
+write.csv(Model_3_power_results, "/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/Model_3_power.csv")

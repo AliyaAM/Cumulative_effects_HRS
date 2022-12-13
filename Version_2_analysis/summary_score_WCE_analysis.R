@@ -137,18 +137,23 @@ print(hazard_ratio_1vs0)
 #loglik_value = wce$loglik[1]
 
 info_criterion_value = wce$info.criterion[1]
-
+print("test 1")
 est_value_all = wce$est
+print("test 2")
+
 est_value_D1 = est_value_all$`1 knot(s)`[1]
 est_value_D2 = est_value_all$`1 knot(s)`[2]
 est_value_D3 = est_value_all$`1 knot(s)`[3]
 est_value_D4 = est_value_all$`2 knot(s)`[4]
 est_value_D5 = est_value_all$`3 knot(s)`[5]
 
+print("test 3")
 
 
 
 results_HR_WCE = rbind(hazard_ratio_1vs0) 
+
+print("test 4")
 
 #results_stats_WCE= cbind(mat_t1_value, 
 #                         mat_t2_value,
@@ -167,14 +172,20 @@ results_HR_WCE = rbind(hazard_ratio_1vs0)
 #####
 #output: 
 numb_new_events = wce$nevents
+print("test 5")
+
 analysed_n =  start_new_check 
+print("test 6")
+
 n_timepoints_max = max(n_timepoints_list)
 median_timepoints = median(n_timepoints_list)
 BIC_information_criterion = wce$info.criterion
 
+print("test 7")
 
 results = cbind(analysed_n, numb_new_events,n_timepoints_max, median_timepoints, BIC_information_criterion, hazard_ratio_1vs0)
 colnames(results) = c("analysed n", "diabetes onset (n)", "max. timepoints", "median timepoint", "BIC", "hazard ratio")
+print("test 8")
 
 #changes with number of waves: 
 people_timepoints_n = table(data_WCE$timepoints_indiv)
@@ -187,17 +198,22 @@ wave_info = rbind(people_timepoints_n,
 
 address_wave_info = paste(OUTPUT_ROOT, subset_name, Model_name, "wave_info.csv", sep = "")
 print(address_wave_info)
+print("test 9")
 
-write.csv(wave_info, paste(OUTPUT_ROOT, subset_name, Model_name, "wave_info.csv", sep=""))
+
+#write.csv(wave_info, paste(OUTPUT_ROOT, subset_name, Model_name, "wave_info.csv", sep=""))
+#print("test 10")
 
 #changes with number of covariates: 
 wce$beta.hat.covariates
 wce$se.covariates
 
 covar_coef_se = rbind(wce$beta.hat.covariates, wce$se.covariates)
+print("test 11")
 
-write.csv(covar_coef_se, paste(OUTPUT_ROOT, subset_name, Model_name, "covar_coef_se.csv", sep=""))
+#write.csv(covar_coef_se, paste(OUTPUT_ROOT, subset_name, Model_name, "covar_coef_se.csv", sep=""))
 
+print("test 12")
 
 return(results)
 }

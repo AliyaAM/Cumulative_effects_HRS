@@ -15,12 +15,12 @@ HRs_CIs_analysis = function (data_wce_subset,
   
   results = data.frame()
   
-  subset__HR_subset = summary_score_WCE_analysis(data_WCE = data_wce_subset,
-                                                 exposure = exposure, 
-                                                 outcome = outcome, 
-                                                 subset_name = subset_name,
-                                                 Model_name = Model_name, 
-                                                 covariates_list = Model_n)
+  # subset__HR_subset = summary_score_WCE_analysis(data_WCE = data_wce_subset,
+  #                                                exposure = exposure, 
+  #                                                outcome = outcome, 
+  #                                                subset_name = subset_name,
+  #                                                Model_name = Model_name, 
+  #                                                covariates_list = Model_n)
   
   
    
@@ -30,9 +30,11 @@ HRs_CIs_analysis = function (data_wce_subset,
   
   ######## bootstrapped CIs for the HRs from the above model 
   subset__age_CI_subset  = summary_score_Bootstrapped_CI(WCE_data_CI = data_wce_subset,
-                                                                    exposure = exposure, 
-                                                                    outcome = outcome,
-                                                                    covariates_list = Model_n)
+                                                         exposure = exposure, 
+                                                         outcome = outcome,
+                                                         subset_name = subset_name,
+                                                         Model_name = Model_name, 
+                                                         covariates_list = Model_n)
   
   
 
@@ -46,7 +48,7 @@ HRs_CIs_analysis = function (data_wce_subset,
   #write.csv(subset__subset_stats_recoded, paste(OUTPUT_ROOT, folder_1, folder_2, "subset__subset_stats.csv", sep=""))
   
   
-  subset_results_HR_CIs = cbind(subset__HR_subset, subset__age_CI_subset)
+  subset_results_HR_CIs = cbind(subset__age_CI_subset)
   
   #colnames(subset_results_HR_CIs) = c("analysed n", 
                                       #"diabetes onset (n)",
