@@ -39,44 +39,52 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model 1: age and sex, wealth  [basis adjustment]
   Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
   #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-  Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
+  #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
+  Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin")
+  
   #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
+  #Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
+  
+  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
+  
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
+  #Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
-  Model_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
+  Model_5 = c("continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
   
-  Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
+  #Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
   #Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "CVD")
   
   #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
-  Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
+  #Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
   #Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "checklist_depression_bin")
   
   
   #Model 1: age and sex, wealth  [basis adjustment]
   Model_1_nosex = c("continious_age", "wealth_noIRA")
   #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-  Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
+  #Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
+  Model_2_nosex = c("continious_age", "wealth_noIRA",  "hypertension_new_bin")
   
   #Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week, var name: alcohol_days_week_new) [basic adjustment + health behaviours]
-  Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new")
+  #Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new")
+  Model_3_nosex = c("continious_age", "wealth_noIRA")
+  
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
   Model_4_nosex = c("continious_age", "wealth_noIRA")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
   Model_5_nosex = c("continious_age","wealth_noIRA", "checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-  Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
+  #Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
   #Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI","CVD")
   
   #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
-  Model_7_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
+  #Model_7_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
   #Model_7_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "checklist_depression_bin")
   
   
@@ -90,19 +98,21 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model_noBMIcov_2 = c("continious_age", "wealth_noIRA", "sex_1_2")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
+  #Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
+  Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
+  
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
   Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
   Model_noBMIcov_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
   
-  Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin")
+  #Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin")
   #Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD")
   
   #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
   #Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin", "checklist_depression_bin")
-  Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "checklist_depression_bin")
+  #Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "checklist_depression_bin")
   
   
   
@@ -315,7 +325,8 @@ Seven_models_drop_baseline = function (subset_var1,
   # no NA in CVD and checklist_depression bin variable 
   
   
-  all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids, BMI_null_ids)
+  #all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids, BMI_null_ids)
+  all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids)
   
   ID_nas = unique(all_nas)
   
@@ -396,29 +407,29 @@ Seven_models_drop_baseline = function (subset_var1,
 
 
 
-
-  Model_6_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
-                                      Model_n = Model_6,
-
-                                      exposure = exposure,
-                                      outcome = outcome,
-
-                                      subset_name = subset_name,
-
-
-                                      Model_name = "Model_6")
-
-
-
-  Model_7_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
-                                      Model_n = Model_7,
-
-                                      exposure = exposure,
-                                      outcome = outcome,
-                                      subset_name = subset_name,
+# 
+#   Model_6_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
+#                                       Model_n = Model_6,
+# 
+#                                       exposure = exposure,
+#                                       outcome = outcome,
+# 
+#                                       subset_name = subset_name,
+# 
+# 
+#                                       Model_name = "Model_6")
 
 
-                                      Model_name = "Model_7")
+# 
+#   Model_7_exposure = summary_score_Bootstrapped_CI(data_wce_subset = dataset_noNAs_timepoints,
+#                                       Model_n = Model_7,
+# 
+#                                       exposure = exposure,
+#                                       outcome = outcome,
+#                                       subset_name = subset_name,
+# 
+# 
+#                                       Model_name = "Model_7")
 
 
   
@@ -426,9 +437,9 @@ Seven_models_drop_baseline = function (subset_var1,
                            Model_2_exposure,
                            Model_3_exposure,
                            Model_4_exposure,
-                           Model_5_exposure,
-                           Model_6_exposure,
-                           Model_7_exposure)
+                           Model_5_exposure)
+                           #Model_6_exposure,
+                           #Model_7_exposure)
   
   
   
@@ -436,9 +447,9 @@ Seven_models_drop_baseline = function (subset_var1,
                                      Model_2_exposure,
                                      Model_3_exposure,
                                      Model_4_exposure,
-                                     Model_5_exposure,
-                                     Model_6_exposure,
-                                     Model_7_exposure)
+                                     Model_5_exposure)
+                                     #Model_6_exposure,
+                                     #Model_7_exposure)
   
 
   
