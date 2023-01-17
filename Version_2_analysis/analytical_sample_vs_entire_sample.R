@@ -25,12 +25,14 @@ HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_da
 
 # the analytical sample for the WCE (and the subset of it is in COX), which includes all years and each year is labeled by a new variable (start_new: 0 for baseline, 1 for the first follow-up, 2 for the second follow-up etc, at 2-year intervals)
 # the analytical sample does not include the baseline diabetes. 
+analytical_sample_COX = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
 
-analytical_sample_COX = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
+#analytical_sample_COX = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
 nrow(analytical_sample_COX)
 #n_all = length(analytical_sample_COX_baseline_ids) 
 #this below is for those with the BMI >30 kg/m2
-analytical_sample_BMI = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+analytical_sample_BMI = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
+#read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
 
 
 #####
@@ -259,6 +261,7 @@ non_diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$di
 non_diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 4)
 non_diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 5)
 
+table(non_diabetes_baseline$discrim_bin) 
 
 non_diabetes_baseline_and1 = inner_join(non_diabetes_baseline, 
                                         non_diabetes_followup_1,
@@ -578,6 +581,8 @@ nrow(ses)
 diabetes_throughout_the_study$developed_diabetes = rep(1, times = nrow(diabetes_throughout_the_study))
 non_diabetes_throughout_the_study$developed_diabetes = rep(0, times = nrow(non_diabetes_throughout_the_study)) 
 
+
+table(diabetes_throughout_the_study$discrim_bin)
 
 
 chisq.test(case, ses)

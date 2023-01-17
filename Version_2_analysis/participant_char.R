@@ -2,7 +2,7 @@ library(ggplot2)
 library(ggpubr)
 theme_set(theme_pubr())
 
-data = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
+data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
 
 
 data_baseline = subset(data, data$start_new == 0)
@@ -184,6 +184,9 @@ developed_diabetes_later_baseline$smokes_now_bin
 
 developed_diabetes_later_baseline$hypertension_new_bin
 developed_diabetes_later_baseline$checklist_depression_bin
+
+frequency(developed_diabetes_later_baseline$discrim_bin)
+unique(developed_diabetes_later_baseline$discrim_bin)
 
 ##############
 ##############
