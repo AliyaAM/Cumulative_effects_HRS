@@ -182,10 +182,13 @@ Seven_models_drop_baseline = function (subset_var1,
   # The following line to write a debug csv at this point in the code was actually really useful for debugging.
   #write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
   #dataset_noNAs_timepoints = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
-  # Remove participant with sneaky NA in their sex variable.
+  write.csv(dataset_noNAs_timepoints, "/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
+  dataset_noNAs_timepoints = read.csv("/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
+  
+   # Remove participant with sneaky NA in their sex variable.
   
   
-  #dataset_noNAs_timepoints<-dataset_noNAs_timepoints[!(dataset_noNAs_timepoints$HHIDPN==138300010),]
+  dataset_noNAs_timepoints<-dataset_noNAs_timepoints[!(dataset_noNAs_timepoints$HHIDPN==138300010),]
   
   sex_na = c(138300010)
   #  Remove participant with sneaky NA in their BMI variable.
@@ -324,9 +327,12 @@ Seven_models_drop_baseline = function (subset_var1,
   
   # no NA in CVD and checklist_depression bin variable 
   
+  MI_null_ids = c(17661030,  19298020,  22150010,  57921010,  78509010, 138300010,
+  172749010, 184925020, 211537020, 212253020, 212764010, 212904010,
+  501848010)
   
   #all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids, BMI_null_ids)
-  all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids)
+  all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids, MI_null_ids)
   
   ID_nas = unique(all_nas)
   
