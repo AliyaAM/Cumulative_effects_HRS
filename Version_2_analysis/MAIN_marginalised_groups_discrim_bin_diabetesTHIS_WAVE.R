@@ -27,7 +27,7 @@ library(lme4)
 library(lattice)
 library(Hmisc)
 
-library(riskRegression)
+#library(riskRegression)
 
 
 # plots: 
@@ -38,7 +38,7 @@ library(riskRegression)
 current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-OUTPUT_ROOT =(paste(current_directory, "proj/Cumulative_effects_HRS/Results/diabetes_new_min_revised_nov2022/", sep=""))
+OUTPUT_ROOT =(paste(current_directory, "proj/Cumulative_effects_HRS/Results/diabetes_new_min_revised_nov2022/check_drop_12cases_at_follow_up4", sep=""))
 SOURCE_ROOT = (paste(current_directory, "proj/Cumulative_effects_HRS/Version_2_analysis/", sep=""))
 DATAIN_ROOT = (paste(current_directory, "KCL_postDoc/Data_analysis/", sep="")) 
 
