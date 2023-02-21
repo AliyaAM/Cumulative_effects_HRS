@@ -38,7 +38,7 @@ library(Hmisc)
 current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-OUTPUT_ROOT =(paste(current_directory, "proj/Cumulative_effects_HRS/Results/diabetes_new_min_revised_nov2022/check_drop_12cases_at_follow_up4", sep=""))
+OUTPUT_ROOT =(paste(current_directory, "proj/Cumulative_effects_HRS/Results/diabetes_new_min_revised_nov2022/check_drop_12cases_at_follow_up4/", sep=""))
 SOURCE_ROOT = (paste(current_directory, "proj/Cumulative_effects_HRS/Version_2_analysis/", sep=""))
 DATAIN_ROOT = (paste(current_directory, "KCL_postDoc/Data_analysis/", sep="")) 
 
@@ -200,49 +200,49 @@ unique(HRS2008_data_initial$vigarious_physical_activity)
 HRS2008_data_initial$alcohol_days_week
 HRS2008_data_initial$checklist_depression_bin
 
-# 
-# all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA",
-#                                                     subset_value1 = "NA",
-# 
-#                                                     subset_BMI = "NA",
-#                                                     subset_BMI_value  = "NA",
-# 
-#                                                     subset_var2 = "NA",
-#                                                     subset_value2 = "NA",
-# 
-#                                                     subset_var3= "NA",
-#                                                     subset_value3 = "NA",
-# 
-#                                                     subset_name = "ALL",
-# 
-#                                                     subset_reason1 = "NA",
-#                                                     subset_reason1_value = "NA",
-# 
-#                                                     subset_reason2 = "NA",
-#                                                     subset_reason2_value =  "NA",
-# 
-# 
-#                                                     subset_reason3 = "NA",
-#                                                     subset_reason3_value = "NA",
-# 
-#                                                     HRS2008_data = HRS2008_data,
-#                                                     HRS2010_data = HRS2010_data,
-#                                                     HRS2012_data = HRS2012_data,
-#                                                     HRS2014_data = HRS2014_data,
-#                                                     HRS2016_data = HRS2016_data,
-#                                                     HRS2018_data = HRS2018_data,
-# 
-#                                                     exposure = exposure,
-#                                                     outcome = outcome)
-# 
-# 
-# 
-# write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin.csv", sep=""))
-# 
-# 
-# # all_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = all_discrim_bin_diabetes_thisWAVE_7models,
-# #                                                             subset_name = "All", 
-# #                                                             Model = Model)
+
+all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "NA",
+                                                    subset_value1 = "NA",
+
+                                                    subset_BMI = "NA",
+                                                    subset_BMI_value  = "NA",
+
+                                                    subset_var2 = "NA",
+                                                    subset_value2 = "NA",
+
+                                                    subset_var3= "NA",
+                                                    subset_value3 = "NA",
+
+                                                    subset_name = "ALL",
+
+                                                    subset_reason1 = "NA",
+                                                    subset_reason1_value = "NA",
+
+                                                    subset_reason2 = "NA",
+                                                    subset_reason2_value =  "NA",
+
+
+                                                    subset_reason3 = "NA",
+                                                    subset_reason3_value = "NA",
+
+                                                    HRS2008_data = HRS2008_data,
+                                                    HRS2010_data = HRS2010_data,
+                                                    HRS2012_data = HRS2012_data,
+                                                    HRS2014_data = HRS2014_data,
+                                                    HRS2016_data = HRS2016_data,
+                                                    HRS2018_data = HRS2018_data,
+
+                                                    exposure = exposure,
+                                                    outcome = outcome)
+
+
+
+write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin.csv", sep=""))
+
+
+all_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = all_discrim_bin_diabetes_thisWAVE_7models,
+                                                            subset_name = "All",
+                                                            Model = Model)
 # 
 # 
 female_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline_no_sex(subset_var1 = "sex_1_2",
@@ -286,106 +286,106 @@ write.csv(female_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "fema
 # 
 # 
 # 
-# # female_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = female_discrim_bin_diabetes_thisWAVE_7models,
-# #                                                                subset_name = "Female", 
-# #                                                                Model = Model)
-# 
-# 
-# 
-# 
-# 
-# race_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "race_white", 
-#                                                      subset_value1 = 0, 
-#                                                      
-#                                                      subset_BMI = "NA", 
-#                                                      subset_BMI_value  = "NA", 
-#                                                      
-#                                                      subset_var2 = "NA", 
-#                                                      subset_value2 = "NA",  
-#                                                      
-#                                                      subset_var3= "NA", 
-#                                                      subset_value3 = "NA", 
-#                                                      
-#                                                      subset_reason1 = "NA", 
-#                                                      subset_reason1_value = "NA", 
-#                                                      
-#                                                      subset_reason2 = "NA", 
-#                                                      subset_reason2_value =  "NA", 
-#                                                      
-#                                                      
-#                                                      subset_reason3 = "NA", 
-#                                                      subset_reason3_value = "NA", 
-#                                                      
-#                                                      subset_name = "RACE", 
-#                                                      
-#                                                      HRS2008_data = HRS2008_data, 
-#                                                      HRS2010_data = HRS2010_data, 
-#                                                      HRS2012_data = HRS2012_data, 
-#                                                      HRS2014_data = HRS2014_data, 
-#                                                      HRS2016_data = HRS2016_data, 
-#                                                      HRS2018_data = HRS2018_data, 
-#                                                      
-#                                                      exposure = exposure, 
-#                                                      outcome = outcome) 
-# 
-# 
-# 
-# 
-# write.csv(race_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new_bin.csv", sep=""))
-# 
-# 
-# 
-# # race_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = race_discrim_bin_diabetes_thisWAVE_7models,
-# #                                                              subset_name = "Race", 
-# #                                                              Model = Model)
-# 
-# 
-# 
-# combo_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "race_white", 
-#                                                       subset_value1 = 0, 
-#                                                       
-#                                                       subset_BMI = "NA", 
-#                                                       subset_BMI_value  = "NA", 
-#                                                       
-#                                                       subset_var2 = "religion_bin", 
-#                                                       subset_value2 = 1,  
-#                                                       
-#                                                       subset_var3= "national_origin_ousideUS_bin", 
-#                                                       subset_value3 = 1, 
-#                                                       
-#                                                       subset_reason1 = "NA", 
-#                                                       subset_reason1_value = "NA", 
-#                                                       
-#                                                       subset_reason2 = "NA", 
-#                                                       subset_reason2_value =  "NA", 
-#                                                       
-#                                                       
-#                                                       subset_reason3 = "NA", 
-#                                                       subset_reason3_value = "NA", 
-#                                                       
-#                                                       subset_name = "COMBO", 
-#                                                       
-#                                                       HRS2008_data = HRS2008_data, 
-#                                                       HRS2010_data = HRS2010_data, 
-#                                                       HRS2012_data = HRS2012_data, 
-#                                                       HRS2014_data = HRS2014_data, 
-#                                                       HRS2016_data = HRS2016_data, 
-#                                                       HRS2018_data = HRS2018_data, 
-#                                                       
-#                                                       exposure = exposure, 
-#                                                       outcome = outcome) 
-# 
-# 
-# 
-# 
-# write.csv(combo_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "combo_discrim_bin_diabetes_new_bin.csv", sep=""))
-# 
-# 
-# 
-# 
-# # Combo_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = combo_discrim_bin_diabetes_thisWAVE_7models,
-# #                                                               subset_name = "Combo", 
-# #                                                               Model = Model)
+female_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = female_discrim_bin_diabetes_thisWAVE_7models,
+                                                               subset_name = "Female",
+                                                               Model = Model)
+
+
+
+
+
+race_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "race_white",
+                                                     subset_value1 = 0,
+
+                                                     subset_BMI = "NA",
+                                                     subset_BMI_value  = "NA",
+
+                                                     subset_var2 = "NA",
+                                                     subset_value2 = "NA",
+
+                                                     subset_var3= "NA",
+                                                     subset_value3 = "NA",
+
+                                                     subset_reason1 = "NA",
+                                                     subset_reason1_value = "NA",
+
+                                                     subset_reason2 = "NA",
+                                                     subset_reason2_value =  "NA",
+
+
+                                                     subset_reason3 = "NA",
+                                                     subset_reason3_value = "NA",
+
+                                                     subset_name = "RACE",
+
+                                                     HRS2008_data = HRS2008_data,
+                                                     HRS2010_data = HRS2010_data,
+                                                     HRS2012_data = HRS2012_data,
+                                                     HRS2014_data = HRS2014_data,
+                                                     HRS2016_data = HRS2016_data,
+                                                     HRS2018_data = HRS2018_data,
+
+                                                     exposure = exposure,
+                                                     outcome = outcome)
+
+
+
+
+write.csv(race_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "race_discrim_bin_diabetes_new_bin.csv", sep=""))
+
+
+
+race_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = race_discrim_bin_diabetes_thisWAVE_7models,
+                                                             subset_name = "Race",
+                                                             Model = Model)
+
+
+
+combo_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_var1 = "race_white",
+                                                      subset_value1 = 0,
+
+                                                      subset_BMI = "NA",
+                                                      subset_BMI_value  = "NA",
+
+                                                      subset_var2 = "religion_bin",
+                                                      subset_value2 = 1,
+
+                                                      subset_var3= "national_origin_ousideUS_bin",
+                                                      subset_value3 = 1,
+
+                                                      subset_reason1 = "NA",
+                                                      subset_reason1_value = "NA",
+
+                                                      subset_reason2 = "NA",
+                                                      subset_reason2_value =  "NA",
+
+
+                                                      subset_reason3 = "NA",
+                                                      subset_reason3_value = "NA",
+
+                                                      subset_name = "COMBO",
+
+                                                      HRS2008_data = HRS2008_data,
+                                                      HRS2010_data = HRS2010_data,
+                                                      HRS2012_data = HRS2012_data,
+                                                      HRS2014_data = HRS2014_data,
+                                                      HRS2016_data = HRS2016_data,
+                                                      HRS2018_data = HRS2018_data,
+
+                                                      exposure = exposure,
+                                                      outcome = outcome)
+
+
+
+
+write.csv(combo_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "combo_discrim_bin_diabetes_new_bin.csv", sep=""))
+
+
+
+
+Combo_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = combo_discrim_bin_diabetes_thisWAVE_7models,
+                                                              subset_name = "Combo",
+                                                              Model = Model)
 
 
 BMI_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline_no_BMI(subset_var1 = "NA", 
@@ -432,9 +432,9 @@ race_discrim_bin_diabetes_new_bin.csv
 combo_discrim_bin_diabetes_new_bin.csv
 BMI_discrim_bin_diabetes_new_bin.csv
 
- # BMI_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = BMI_discrim_bin_diabetes_thisWAVE_7models,
- #                                                             subset_name = "BMI", 
- #                                                             Model = Model)
+ BMI_discrim_bin_diabetes_thisWAVE_7models_pvalues = p_value_func(data = BMI_discrim_bin_diabetes_thisWAVE_7models,
+                                                             subset_name = "BMI",
+                                                             Model = Model)
 
 all_results = read.csv(paste(OUTPUT_ROOT, "done/all_discrim_bin_diabetes_new_bin.csv", sep=""))
 female_results =  read.csv(paste(OUTPUT_ROOT, "done/female_discrim_bin_diabetes_new_bin.csv", sep=""))
@@ -452,11 +452,11 @@ results = rbind(all_results[1:7,],
 write.csv(results, paste(OUTPUT_ROOT, "done/result_table_diabetes_new_bin.csv", sep=""))
 
 
-# all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
-# female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
-# race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
-# combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
-# BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+ all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+ female_results =  read.csv(paste(OUTPUT_ROOT, "Female_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+ race_results = read.csv(paste(OUTPUT_ROOT, "Race_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+ combo_results = read.csv(paste(OUTPUT_ROOT, "Combo_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
+ BMI_results = read.csv(paste(OUTPUT_ROOT, "BMI_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
 
 Model = c(1, 2, 3, 4, 5, 6, 7)
 

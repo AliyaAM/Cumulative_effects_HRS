@@ -371,10 +371,10 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   print("test 9")
   
   
-  boot2pvalue(boot.HR,
-              null = null_values,
-              estimate = 1,
-              alternative = "two.sided")
+  # boot2pvalue(boot.HR,
+  #             null = null_values,
+  #             estimate = 1,
+  #             alternative = "two.sided")
   
   print("test 10")
   
