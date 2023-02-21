@@ -2,6 +2,8 @@ library(ggplot2)
 library(ggpubr)
 theme_set(theme_pubr())
 
+library(dplyr)
+library(stats)
 data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
 
 
@@ -215,6 +217,36 @@ non_diabetes_baseline$smokes_now_bin
 
 non_diabetes_baseline$hypertension_new_bin
 non_diabetes_baseline$checklist_depression_bin
+
+
+
+all = rbind(developed_diabetes_later, non_diabetes)
+all = as.data.frame(all)
+
+ chisq.test(all$diabetes_new, all$race_white)
+
+
+# all_timepoint0 = subset(all, all$start_new == 0)
+# chisq.test(all_timepoint0$diabetes_new, all_timepoint0$discrim_bin)
+# table(all_timepoint0$diabetes_new, all_timepoint0$discrim_bin)
+
+all_timepoint1 = subset(all, all$start_new == 1)
+chisq.test(all_timepoint1$diabetes_new, all_timepoint1$discrim_bin)
+table(all_timepoint1$diabetes_new, all_timepoint1$discrim_bin)
+
+all_timepoint2 = subset(all, all$start_new == 2)
+chisq.test(all_timepoint2$diabetes_new, all_timepoint2$discrim_bin)
+table(all_timepoint2$diabetes_new, all_timepoint2$discrim_bin)
+
+all_timepoint3 = subset(all, all$start_new == 3)
+chisq.test(all_timepoint3$diabetes_new, all_timepoint3$discrim_bin)
+table(all_timepoint3$diabetes_new, all_timepoint3$discrim_bin)
+
+#all %>% group_by(start_new) %>% chisq.test(all$diabetes_new, all$discrim_bin)
+
+
+#all = rbind(developed_diabetes_later, non_diabetes)
+#all %>% group_by(all$start_new) %>% table(all$diabetes_new, all$discrim_bin)
 
 
 

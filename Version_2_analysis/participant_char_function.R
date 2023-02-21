@@ -229,6 +229,10 @@ n_baseline_depression_bin_all = nrow(data_depression_bin_all)
 percent_depression = n_baseline_depression_bin_all/nrow(data)*100
 
 
+data$race_white
+
+
+
 result_participant_char = rbind(mean_age_all, 
                             sd_age_all, 
                             range_age, 

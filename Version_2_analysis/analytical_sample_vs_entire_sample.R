@@ -2,6 +2,8 @@
 library("dplyr")
 library("tidyr")
 library("bain")
+library("ggplot2")
+library("stats")
 
 current_directory = "/Users/aliya/my_docs/"
 
@@ -21,7 +23,6 @@ HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/old/HRS2012_da
 HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/old/HRS2014_data_short_OLD.csv", sep=""))
 HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/old/HRS2016_data_short_OLD.csv", sep=""))
 HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short_OLD.csv", sep=""))
-
 
 # the analytical sample for the WCE (and the subset of it is in COX), which includes all years and each year is labeled by a new variable (start_new: 0 for baseline, 1 for the first follow-up, 2 for the second follow-up etc, at 2-year intervals)
 # the analytical sample does not include the baseline diabetes. 
@@ -261,17 +262,16 @@ non_diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$di
 non_diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 4)
 non_diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 5)
 
-table(non_diabetes_baseline$discrim_bin) 
 
-non_diabetes_baseline_and1 = inner_join(non_diabetes_baseline, 
-                                        non_diabetes_followup_1,
-                                        copy = TRUE,    
-                                        keep = FALSE, 
-                                        suffix = c("", "_new"), 
-                                        
-                                        by = "HHIDPN")
+#non_diabetes_baseline_and1 = inner_join(non_diabetes_baseline, 
+#                                        non_diabetes_followup_1,
+#                                        copy = TRUE,    
+#                                        keep = FALSE, 
+#                                        suffix = c("", "_new"), 
+#                                        
+#                                        by = "HHIDPN")
 
-non_diabetes_baseline_and1_2 = inner_join(non_diabetes_baseline_and1, 
+non_diabetes_baseline_and1_2 = inner_join(non_diabetes_followup_1, 
                                           non_diabetes_followup_2,
                                           copy = TRUE, 
                                           keep = FALSE, 
@@ -315,6 +315,8 @@ diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabet
 diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 3) 
 diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 4)
 diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 5)
+
+table(diabetes_followup_3$discrim_bin) 
 
 #diabetes_baseline_and1 = inner_join( diabetes_baseline, 
 #                                       diabetes_followup_1,
@@ -448,11 +450,16 @@ participant_characteristics
 
 diabetes_throughout_the_study$developed_diabetes = rep(1, times = nrow(diabetes_throughout_the_study))
 non_diabetes_throughout_the_study$developed_diabetes = rep(0, times = nrow(non_diabetes_throughout_the_study)) 
+nrow(non_diabetes_throughout_the_study)
 
-case = c(diabetes_throughout_the_study$developed_diabete, non_diabetes_throughout_the_study$developed_diabetes)
+case = c(diabetes_throughout_the_study$developed_diabetes, non_diabetes_throughout_the_study$developed_diabetes)
+unique(case)
+
+
 age = c(diabetes_throughout_the_study$continious_age, non_diabetes_throughout_the_study$continious_age)
 sex = c(diabetes_throughout_the_study$sex_1_2, non_diabetes_throughout_the_study$sex_1_2)
 
+race = c(diabetes_throughout_the_study$race_white, non_diabetes_throughout_the_study$race_white)
 #BMI kg/m2, mean (SD)
 
 BMI = c(diabetes_throughout_the_study$assessed_BMI, non_diabetes_throughout_the_study$assessed_BMI)
@@ -488,8 +495,9 @@ MVPA  = c(diabetes_throughout_the_study$vigarious_physical_activity, non_diabete
 wealth = c(diabetes_throughout_the_study$wealth_noIRA, 
            non_diabetes_throughout_the_study$wealth_noIRA)
 
-data_ttest = cbind(case, 
+data_ttest = data.frame(case, 
                     age, 
+                   race, 
                     sex, 
                     BMI,
                     #CVD,  n (%)
@@ -505,12 +513,10 @@ data_ttest = cbind(case,
                     MVPA,
                    wealth)
 
-data_ttest = as.data.frame(data_ttest)
-
-data_ttest$age
 
 age_diff <- t_test(age ~ case, data = data_ttest)
 BMI_diff <- t_test(BMI ~ case, data = data_ttest)
+
 #BMI_diff <- t_test(Alcohol_consumption ~ case, data = data_ttest)
 
 
@@ -527,6 +533,7 @@ chisq.test(case, depression)
 #chisq.test(case, Smoking_status)
 chisq.test(case, MVPA)
 
+chisq.test(case, race)
 #MVPA frequency, median
 
 
@@ -588,6 +595,8 @@ table(diabetes_throughout_the_study$discrim_bin)
 chisq.test(case, ses)
 table(case, ses)
 
+chisq.test(case, race)
+table(case, race)
 
 ################
 
