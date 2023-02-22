@@ -180,7 +180,7 @@ Seven_models_drop_baseline = function (subset_var1,
   dataset_noNAs_timepoints = sort_timepoints_drop_baseline(data = dataset_noNAs)
   
   # The following line to write a debug csv at this point in the code was actually really useful for debugging.
-  #write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+  write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
   dataset_noNAs_timepoints = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
   #write.csv(dataset_noNAs_timepoints, "/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
   #dataset_noNAs_timepoints = read.csv("/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
@@ -317,6 +317,20 @@ Seven_models_drop_baseline = function (subset_var1,
                              914305020, 915988020) 
   
   
+  #remove cases that were included at all four follow-ups: 
+  
+  were_present_at_four_points_ids = c(16602020,
+                                      35607020,
+                                      78026021,
+                                      145768020,
+                                      210031010,
+                                      210661010,	
+                                      501617010,	
+                                      501870010,
+                                      502417020,
+                                      57714040,	
+                                      916299010)
+
   #  Remove participant with sneaky NA in their PA variable.
   
   #physical_activity_null_ids  = c(85577030, 522550010)
