@@ -39,18 +39,18 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model 1: age and sex, wealth  [basis adjustment]
   Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
   #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-  #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
-  Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin")
+  Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
+  #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin")
   
   #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  #Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
+  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
   
-  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
+  #Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
   
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  #Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
+  Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
   Model_5 = c("continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
@@ -66,14 +66,14 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model 1: age and sex, wealth  [basis adjustment]
   Model_1_nosex = c("continious_age", "wealth_noIRA")
   #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-  #Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
-  Model_2_nosex = c("continious_age", "wealth_noIRA",  "hypertension_new_bin")
+  Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
+  #Model_2_nosex = c("continious_age", "wealth_noIRA",  "hypertension_new_bin")
   
   #Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week, var name: alcohol_days_week_new) [basic adjustment + health behaviours]
-  #Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new")
-  Model_3_nosex = c("continious_age", "wealth_noIRA")
+  Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new")
+  #Model_3_nosex = c("continious_age", "wealth_noIRA")
   
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
   Model_4_nosex = c("continious_age", "wealth_noIRA")
@@ -102,7 +102,7 @@ Seven_models_drop_baseline = function (subset_var1,
   Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
   
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
+  Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
   Model_noBMIcov_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
@@ -181,9 +181,9 @@ Seven_models_drop_baseline = function (subset_var1,
   
   # The following line to write a debug csv at this point in the code was actually really useful for debugging.
   #write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
-  #dataset_noNAs_timepoints = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
-  write.csv(dataset_noNAs_timepoints, "/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
-  dataset_noNAs_timepoints = read.csv("/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
+  dataset_noNAs_timepoints = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+  #write.csv(dataset_noNAs_timepoints, "/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
+  #dataset_noNAs_timepoints = read.csv("/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
   
    # Remove participant with sneaky NA in their sex variable.
   
@@ -319,7 +319,7 @@ Seven_models_drop_baseline = function (subset_var1,
   
   #  Remove participant with sneaky NA in their PA variable.
   
-  physical_activity_null_ids  = c(85577030, 522550010)
+  #physical_activity_null_ids  = c(85577030, 522550010)
   
   
   #  Remove participant with sneaky NA in their smoking bin variable (all NA)
@@ -327,12 +327,12 @@ Seven_models_drop_baseline = function (subset_var1,
   
   # no NA in CVD and checklist_depression bin variable 
   
-  MI_null_ids = c(17661030,  19298020,  22150010,  57921010,  78509010, 138300010,
-  172749010, 184925020, 211537020, 212253020, 212764010, 212904010,
-  501848010)
+  #MI_null_ids = c(17661030,  19298020,  22150010,  57921010,  78509010, 138300010,
+  #172749010, 184925020, 211537020, 212253020, 212764010, 212904010,
+  #501848010)
   
   #all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids, BMI_null_ids)
-  all_nas = c(sex_na, physical_activity_null_ids, hypertension_null_ids, MI_null_ids)
+  all_nas = c(sex_na, hypertension_null_ids)
   
   ID_nas = unique(all_nas)
   
