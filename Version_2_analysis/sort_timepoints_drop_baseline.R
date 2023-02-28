@@ -153,6 +153,27 @@ sort_timepoints_drop_baseline = function (data){
   
   all_waves_no_diab_baseline <- all_waves[ !(all_waves$HHIDPN %in% c(diabetes_wave_1_unique)), ]
   
+  
+  
+  were_present_at_four_points_ids = c(16602020,
+                                      35607020,
+                                      78026021,
+                                      145768020,
+                                      210031010,
+                                      210661010,	
+                                      501617010,	
+                                      501870010,
+                                      502417020,
+                                      57714040,	
+                                      916299010)
+  
+  ID_4tp = unique(were_present_at_four_points_ids)
+  
+  
+  dataset_ftp_timepoints<-all_waves_no_diab_baseline[!(all_waves_no_diab_baseline$HHIDPN %in% ID_4tp),]
+  
+  
+  
   #write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep="")))
   
   #all_waves_no_diab_baseline_unique = unique(all_waves_no_diab_baseline$HHIDPN)
@@ -180,6 +201,6 @@ sort_timepoints_drop_baseline = function (data){
   #write.csv(total_n_proportion, (paste(OUTPUT_ROOT, "total_n_nodiabatbaseline_DIAB_values.csv", sep="")))
   
   
-  return(all_waves_no_diab_baseline)
+  return(dataset_ftp_timepoints)
   
 }

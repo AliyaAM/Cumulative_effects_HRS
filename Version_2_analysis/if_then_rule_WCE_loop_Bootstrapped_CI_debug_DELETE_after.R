@@ -19,13 +19,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI,
                                         
   print(paste("nrow(dataset) after dropping nas", nrow(WCE_data_CI), sep=" = "))
   
-  print(head(WCE_data_CI))
-  
-  print(paste("unique values in hypertension", unique(WCE_data_CI$hypertension_new_bin), sep=" "))
-  print(paste("unique values in assessed_BMI", unique(WCE_data_CI$assessed_BMI), sep=" "))
-  
-  print(unique(WCE_data_CI$hypertension_new_bin))
-  print(unique(WCE_data_CI$assessed_BMI))
   
   #all values have to be numeric for this analysis 
   
@@ -37,8 +30,6 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI,
   
   #all values have to be numeric for this analysis 
   
-  WCE_data_CI$diabetes_new_bin = as.numeric(WCE_data_CI$diabetes_new_bin)
-  WCE_data_CI$discrim_bin = as.numeric(WCE_data_CI$discrim_bin)
   #WCE_data_CI$checklist_depression_bin = as.numeric(WCE_data_CI$checklist_depression_bin)
   
   WCE_data_CI$start_new = as.numeric(WCE_data_CI$start_new)
@@ -344,37 +335,3 @@ summary_score_Bootstrapped_CI = function (WCE_data_CI,
 }
 
 
-# DELETE THIS LATER!!!
-Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2", "vigarious_physical_activity_new")
-exposure = "discrim_bin"
-outcome = "diabetes_new_bin"
-loaded_df = read_csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
-
-# Remove NAs that slipped in anyway
-#loaded_df<-loaded_df[!(loaded_df$HHIDPN==BMI_null_ids),]
-
-result = summary_score_Bootstrapped_CI(loaded_df, outcome=outcome, exposure=exposure, covariates_list=Model_1)
-
-
-BMI_null_ids = c(18525020,  20634010,  24040011,  50158020,  53033031,  57630010,
-                 58974010,  81751020,  82648040,  85482020,  85630010,  87287020,
-                 87549040, 115355020, 153089010, 153479010, 184591010, 500498010,
-                 500582020, 502068011, 502328010, 502490010,  13635010,  39357040,
-                 42943020,  46558020,  47582011,  57644040,  72327040,  77744020,
-                 139930020, 141144020, 210253010, 500281020, 500286020, 501717010,
-                 502021010, 502226020, 502364020, 521251010, 524179010, 527123010,
-                 529360010, 532259020, 536403020, 537264020, 537283010, 902489020,
-                 915508010, 915508020, 920200020,  14578040, 501219020, 526342020,
-                 527180010, 526578010, 529828010, 912068010, 917056010, 917702010,
-                 204659010, 212361010, 902805020, 914269010, 915940020,  11948020,
-                 21675030,  47602020,  78026021,  80353040, 117310011, 200683020,
-                 202973010, 205110021, 501646010,  12458020,  12745020,  13734020,
-                 17234040,  18285030,  46641020,  59258030,  60232040,  60290030,
-                 71012020, 138205010, 160233010, 212572010, 900500010, 919052010)
-
-
-loaded_df<-loaded_df[!(loaded_df$HHIDPN==c(BMI_null_ids)),]
-loaded_df = subset(loaded_df, loaded_df$HHIDPN != BMI_null_ids)
-unique(loaded_df$assessed_BMI)
-
-is.na(loaded_df$assessed_BMI) 
