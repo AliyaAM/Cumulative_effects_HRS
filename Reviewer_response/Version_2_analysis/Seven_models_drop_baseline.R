@@ -5,7 +5,6 @@
 ###### So in Table 1 instead of having % ethnic minorities present the breakdown by White, Black and Hispanic. 
 ###### Add ethnicity to model 1 adjustment. (or create a model where you add ethnicity, nationality and education to the covariates?). 
 
-
 Seven_models_drop_baseline = function (subset_var1, 
                          subset_value1, 
                          
@@ -43,23 +42,26 @@ Seven_models_drop_baseline = function (subset_var1,
                          HRS2016_data,
                          HRS2018_data){
   
+  
+
+
   #Model 1: age and sex, wealth  [basis adjustment]
-  Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
+  Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2",   "education_level", "national_origin_ousideUS_bin", "race_white")
   #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-  Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
+  Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin",   "education_level", "national_origin_ousideUS_bin", "race_white")
   #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin")
   
   #Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI")
   
   #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
+  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new",   "education_level", "national_origin_ousideUS_bin", "race_white")
   
   #Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
   
   #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD")
+  Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD",   "education_level", "national_origin_ousideUS_bin", "race_white")
   #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
-  Model_5 = c("continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin")
+  Model_5 = c("continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin",   "education_level", "national_origin_ousideUS_bin", "race_white")
   #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
   
   #Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
@@ -68,58 +70,6 @@ Seven_models_drop_baseline = function (subset_var1,
   #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
   #Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
   #Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "checklist_depression_bin")
-  
-  
-  #Model 1: age and sex, wealth  [basis adjustment]
-  Model_1_nosex = c("continious_age", "wealth_noIRA")
-  #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-  Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
-  #Model_2_nosex = c("continious_age", "wealth_noIRA",  "hypertension_new_bin")
-  
-  #Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI")
-  
-  #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week, var name: alcohol_days_week_new) [basic adjustment + health behaviours]
-  Model_3_nosex = c("continious_age", "wealth_noIRA",    "vigarious_physical_activity_new")
-  #Model_3_nosex = c("continious_age", "wealth_noIRA")
-  
-  #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_4_nosex = c("continious_age", "wealth_noIRA")
-  #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
-  Model_5_nosex = c("continious_age","wealth_noIRA", "checklist_depression_bin")
-  #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-  #Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
-  #Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI","CVD")
-  
-  #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
-  #Model_7_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
-  #Model_7_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "checklist_depression_bin")
-  
-  
-  ######
-  
-  
-  #Model 1: age and sex, wealth  [basis adjustment]
-  Model_noBMIcov_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
-  #Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-  Model_noBMIcov_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin")
-  #Model_noBMIcov_2 = c("continious_age", "wealth_noIRA", "sex_1_2")
-  
-  #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-  #Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new")
-  Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
-  
-  #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-  Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD")
-  #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
-  Model_noBMIcov_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
-  #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-  
-  #Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin")
-  #Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD")
-  
-  #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
-  #Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin", "checklist_depression_bin")
-  #Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "checklist_depression_bin")
   
   
   

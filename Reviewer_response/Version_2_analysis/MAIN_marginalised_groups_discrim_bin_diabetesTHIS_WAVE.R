@@ -34,13 +34,14 @@ library(Hmisc)
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
+current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
-current_directory = "/Users/aliya/my_docs/"
+#current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-OUTPUT_ROOT =(paste(current_directory, "proj/Cumulative_effects_HRS/Results/diabetes_new_min_revised_nov2022/check_drop_12cases_at_follow_up4/", sep=""))
-SOURCE_ROOT = (paste(current_directory, "proj/Cumulative_effects_HRS/Version_2_analysis/", sep=""))
-DATAIN_ROOT = (paste(current_directory, "KCL_postDoc/Data_analysis/", sep="")) 
+OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
+DATA_ROOT = paste(directory, "/ELSA_HRS/Data_analysis/", sep = "") 
 
 # function that subsets and srts dataset for a particular var (eg., female == 1)
 
@@ -70,85 +71,16 @@ source((paste(SOURCE_ROOT, "Seven_models_drop_baseline_no_BMI.R", sep="")))
 source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
 
 #data 
-HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/old/HRS2008_data_short_OLD.csv", sep=""))
-HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2010_data/old/HRS2010_data_short_OLD.csv", sep=""))
-HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/old/HRS2012_data_short_OLD.csv", sep=""))
-HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/old/HRS2014_data_short_OLD.csv", sep=""))
-HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/old/HRS2016_data_short_OLD.csv", sep=""))
-HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short_OLD.csv", sep=""))
+HRS2008_data_initial = read.csv(paste(DATA_ROOT, "HRS_2008_data/HRS2008_data_short_education.csv", sep=""))
+HRS2010_data_initial = read.csv(paste(DATA_ROOT, "HRS_2010_data/HRS2010_data_short_education.csv", sep=""))
+HRS2012_data_initial = read.csv(paste(DATA_ROOT, "HRS_2012_data/HRS2012_data_short_education.csv", sep=""))
+HRS2014_data_initial = read.csv(paste(DATA_ROOT, "HRS_2014_data/HRS2014_data_short_education.csv", sep=""))
+HRS2016_data_initial = read.csv(paste(DATA_ROOT, "HRS_2016_data/HRS2016_data_short_education.csv", sep=""))
+HRS2018_data_initial = read.csv(paste(DATA_ROOT, "HRS_2018_data/HRS2018_data_short_education.csv", sep=""))
 
-########
-ls(HRS2018_data_initial)
-
-#national_origin_ousideUS_bin: already in the dataset 2008, 2010, 2012, 2014, 2016, 2018 
-
-### White, Black and Hispanic
-
-
-### education 
-HRS2008_data_additional = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/HRS2008_ALLData_originalVARNames.csv", sep=""))
-
-#unique(HRS2008_data_additional$LB014)
-#0. No formal education " 0" 
-#1-11. Grades  " 5"  " 6"  " 7"   " 8"  " 9"  " 10"  " 11" 
-#12. High school " 12"
-#13-15. Some college " 13" " 14" " 15"
-#16. College grad  " 16"
-#17. Post college (17+ years) " 17"
-#97. Other " 97"
-#98. Don't know; not ascertained
-#99. Refused
-#Blank. Inapplicable; partial interview #" NA" 
-
-HRS2008_data_additional$education = case_when(HRS2008_data_additional$LB014 == " 0" ~ 0, 
-                                                    HRS2008_data_additional$LB014 == " 1" ~ 1, 
-                                                    HRS2008_data_additional$LB014 == " 2" ~ 2, 
-                                                    HRS2008_data_additional$LB014 == " 3" ~ 3, 
-                                                    HRS2008_data_additional$LB014 == " 4" ~ 4, 
-                                                    HRS2008_data_additional$LB014 == " 5" ~ 5, 
-                                                    HRS2008_data_additional$LB014 == " 6" ~ 6, 
-                                                    HRS2008_data_additional$LB014 == " 7" ~ 7, 
-                                                    HRS2008_data_additional$LB014 == " 8" ~ 8, 
-                                                    HRS2008_data_additional$LB014 == " 9" ~ 9, 
-                                                    HRS2008_data_additional$LB014 == " 10" ~ 10, 
-                                                    HRS2008_data_additional$LB014 == " 11" ~ 11, 
-                                                    HRS2008_data_additional$LB014 == " 12" ~ 12, 
-                                                    HRS2008_data_additional$LB014 == " 13" ~ 13, 
-                                                    HRS2008_data_additional$LB014 == " 14" ~ 14, 
-                                                    HRS2008_data_additional$LB014 == " 15" ~ 15, 
-                                                    HRS2008_data_additional$LB014 == " 16" ~ 16, 
-                                                    HRS2008_data_additional$LB014 == " 17" ~ 17, 
-                                                    HRS2008_data_additional$LB014 == " 97" ~ 97) 
-
-
-HRS2008_data_additional$education_level = case_when(HRS2008_data_additional$education == 0 ~ 0,
-                                                    
-                                                    HRS2008_data_additional$education == 1 ~ 1, 
-                                                    HRS2008_data_additional$education == 2 ~ 1,
-                                                    HRS2008_data_additional$education == 3 ~ 1,
-                                                    HRS2008_data_additional$education == 4 ~ 1,
-                                                    HRS2008_data_additional$education == 5 ~ 1,
-                                                    HRS2008_data_additional$education == 6 ~ 1,
-                                                    HRS2008_data_additional$education == 7 ~ 1, 
-                                                    HRS2008_data_additional$education == 8 ~ 1, 
-                                                    HRS2008_data_additional$education == 9 ~ 1,
-                                                    HRS2008_data_additional$education == 10 ~ 1,
-                                                    HRS2008_data_additional$education == 11 ~ 1,
-                                                    
-                                             
-                                                    
-                                                    HRS2008_data_additional$education == 12 ~ 2,
-                                                    
-                                                    HRS2008_data_additional$education == 13 ~ 3,
-                                                    HRS2008_data_additional$education == 14 ~ 3,
-                                                    HRS2008_data_additional$education == 15 ~ 3,
-                                                    
-                                                    HRS2008_data_additional$education == 16 ~ 4,
-                                                    
-                                                    HRS2008_data_additional$education == 17 ~ 5) 
-                                                    
-                                           
-                                                    
+unique(HRS2008_data_initial$education_level)               
+unique(HRS2008_data_initial$national_origin_ousideUS_bin)
+unique(HRS2008_data_initial$race_white)
 #data 
 
 HRS2008_data_intermediate = HRS2008_data_initial

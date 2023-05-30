@@ -13,7 +13,9 @@ DATA_ROOT = paste(directory, "/ELSA_HRS/Data_analysis/", sep = "")
 H_HRS_data = read.csv(paste(DATA_ROOT, "H_HRS_c.csv", sep = ""))
 #RAND_HRS_longitudional_file = read.csv(paste(DATA_ROOT, "randhrs1992_2018v1.csv", sep=""))
 #HHIDPN = RAND_HRS_longitudional_file$HHIDPN
+unique(H_HRS_data$rahispan)
 
+ls(H_HRS_data)
 
 
 #data 
@@ -59,6 +61,16 @@ HRS2012_data_initial$education_level = H_HRS_data_2012$raeducl
 HRS2014_data_initial$education_level = H_HRS_data_2014$raeducl
 HRS2016_data_initial$education_level = H_HRS_data_2016$raeducl
 HRS2018_data_initial$education_level = H_HRS_data_2018$raeducl
+
+
+write.csv(HRS2008_data_initial, paste(DATA_ROOT, "HRS_2008_data/HRS2008_data_short_education.csv", sep=""))
+write.csv(HRS2010_data_initial, paste(DATA_ROOT, "HRS_2010_data/HRS2010_data_short_education.csv", sep=""))
+write.csv(HRS2012_data_initial, paste(DATA_ROOT, "HRS_2012_data/HRS2012_data_short_education.csv", sep=""))
+write.csv(HRS2014_data_initial, paste(DATA_ROOT, "HRS_2014_data/HRS2014_data_short_education.csv", sep=""))
+write.csv(HRS2016_data_initial, paste(DATA_ROOT, "HRS_2016_data/HRS2016_data_short_education.csv", sep=""))
+write.csv(HRS2018_data_initial, paste(DATA_ROOT, "HRS_2018_data/HRS2018_data_short_education.csv", sep=""))
+
+
 
 H_HRS_data$hhidpn
 ls(H_HRS_data)
