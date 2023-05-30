@@ -1,4 +1,11 @@
 
+
+###### the reviewer is asking for here is to additionally adjust the analyses for ethnicity. 
+###### And to include ethnicity as a multi- level variable (i.e. Black, White, Hispanic).
+###### So in Table 1 instead of having % ethnic minorities present the breakdown by White, Black and Hispanic. 
+###### Add ethnicity to model 1 adjustment. (or create a model where you add ethnicity, nationality and education to the covariates?). 
+
+
 Seven_models_drop_baseline = function (subset_var1, 
                          subset_value1, 
                          
