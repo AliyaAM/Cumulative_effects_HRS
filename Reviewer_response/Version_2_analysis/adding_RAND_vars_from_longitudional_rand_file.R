@@ -8,7 +8,6 @@ RAND_HRS_longitudional_file = read.csv(paste(DATA_ROOT, "randhrs1992_2018v1.csv"
 
 #harmonised_data_all_waves = read.csv(paste(SOURCE_ROOT, "H_HRS_c.csv", sep=""))
 
-
 HHIDPN = RAND_HRS_longitudional_file$HHIDPN
 
 cross_waves = data.frame(HHIDPN) 
@@ -16,8 +15,6 @@ cross_waves = data.frame(HHIDPN)
 #sex
 cross_waves$sex_1_2 = RAND_HRS_longitudional_file$RAGENDER	
 
-
-"C:\Users\k2147340\OneDrive - King's College London\Attachments\randhrs1992_2018v1.csv"
 
 #age at each wave (years)
 cross_waves$continious_age_1992 = RAND_HRS_longitudional_file$R1AGEY_B
