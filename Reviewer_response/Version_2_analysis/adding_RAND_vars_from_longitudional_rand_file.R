@@ -2,11 +2,12 @@
 
 
 directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
-SOURCE_ROOT = paste(directory, "proj/Cumulative_effects_HRS/", sep = "")
-DATA_ROOT = paste(directory, "proj/Cumulative_effects_HRS/data_files/", sep = "") 
-RAND_HRS_longitudional_file = read.csv(paste(DATA_ROOT, "randhrs1992_2018v1.csv", sep=""))
 
-#harmonised_data_all_waves = read.csv(paste(SOURCE_ROOT, "H_HRS_c.csv", sep=""))
+SOURCE_ROOT = paste(directory, "proj/Cumulative_effects_HRS/", sep = "")
+
+DATA_ROOT = paste(directory, "proj/Cumulative_effects_HRS/data_files/", sep = "") 
+
+RAND_HRS_longitudional_file = read.csv(paste(DATA_ROOT, "randhrs1992_2018v1.csv", sep=""))
 
 HHIDPN = RAND_HRS_longitudional_file$HHIDPN
 
