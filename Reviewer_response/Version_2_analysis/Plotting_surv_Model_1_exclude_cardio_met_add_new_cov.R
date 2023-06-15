@@ -185,7 +185,7 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 
 #cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
 
-fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white, data = cumulative_effects_dat)
+fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
 summary_all = summary(fit)
 
 # coeffcients for discrimination: 
@@ -211,5 +211,128 @@ All_results_Model_1$p_value = summary_all$logtest[3]
 
 print(All_results_Model_1)
 
-write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "All_results_Model_1_exclude_cardiomet_disease_add_cov_race.csv"))
+write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "All_results_Model_1_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+
+#Model 1: age and sex, wealth  [basis adjustment]
+##############################  Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2",   "education_level", "national_origin_ousideUS_bin", "race_white")
+#Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
+##############################  Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin",   "education_level", "national_origin_ousideUS_bin", "race_white")
+#Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin")
+
+#Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI")
+
+#Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
+##############################  Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new",   "education_level", "national_origin_ousideUS_bin", "race_white" )
+
+#Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2")
+
+#Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
+##############################  Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2", "CVD",   "education_level", "national_origin_ousideUS_bin", "race_white" )
+#Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
+##############################  Model_5 = c("continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin",   "education_level", "national_origin_ousideUS_bin", "race_white")
+
+
+
+############################## Model 2: 
+############################## "education_level", "national_origin_ousideUS_bin", "race_white"
+##############################
+
+fit_Model_2 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin  + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+summary_all_model_2 = summary(fit_Model_2)
+
+# coeffcients for discrimination: 
+summary_all_model_2$coefficients[1,]
+# exp (HR), and 95% CI: 
+summary_all_model_2$conf.int[1,]
+summary_all_model_2$waldtest
+summary_all_model_2$logtest[1]
+summary_all_model_2$n
+summary_all_model_2$nevent
+
+
+####
+### output below: 
+All_results_Model_2 = data.frame("Model_2")
+All_results_Model_2$subset  = c("All")
+All_results_Model_2$coef  = c(summary_all_model_2$conf.int[1,1])
+All_results_Model_2$lower_CI = c(summary_all_model_2$conf.int[1,3])
+All_results_Model_2$upper_CI = c(summary_all_model_2$conf.int[1,4])
+All_results_Model_2$logtest = summary_all_model_2$logtest[1]
+All_results_Model_2$df = summary_all_model_2$logtest[2]
+All_results_Model_2$p_value = summary_all_model_2$logtest[3]
+
+print(All_results_Model_2)
+
+write.csv(All_results_Model_2, paste(OUTPUT_ROOT, "All_results_Model_2_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+
+
+############################## Model 3: 
+############################## "education_level", "national_origin_ousideUS_bin", "race_white"
+##############################   Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new",   "education_level", "national_origin_ousideUS_bin", "race_white" )
+
+
+fit_Model_3 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new  + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+summary_all_model_3 = summary(fit_Model_3)
+
+# coeffcients for discrimination: 
+summary_all_model_3$coefficients[1,]
+# exp (HR), and 95% CI: 
+summary_all_model_3$conf.int[1,]
+summary_all_model_3$waldtest
+summary_all_model_3$logtest[1]
+summary_all_model_3$n
+summary_all_model_3$nevent
+
+
+####
+### output below: 
+All_results_Model_3 = data.frame("Model_3")
+All_results_Model_3$subset  = c("All")
+All_results_Model_3$coef  = c(summary_all_model_3$conf.int[1,1])
+All_results_Model_3$lower_CI = c(summary_all_model_3$conf.int[1,3])
+All_results_Model_3$upper_CI = c(summary_all_model_3$conf.int[1,4])
+All_results_Model_3$logtest = summary_all_model_3$logtest[1]
+All_results_Model_3$df = summary_all_model_3$logtest[2]
+All_results_Model_3$p_value = summary_all_model_3$logtest[3]
+
+print(All_results_Model_3)
+
+write.csv(All_results_Model_3, paste(OUTPUT_ROOT, "All_results_Model_3_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+
+
+
+###############
+###############
+############### Model 4: no covariate such as CVD since we are excuding cases on the basis of this var: instead model 4 is model 5 now which is "continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin",   "education_level", "national_origin_ousideUS_bin", "race_white"
+
+
+fit_Model_4 <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + checklist_depression_bin + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+summary_all_Model_4 = summary(fit_Model_4)
+
+# coeffcients for discrimination: 
+summary_all_Model_4$coefficients[1,]
+# exp (HR), and 95% CI: 
+summary_all_Model_4$conf.int[1,]
+summary_all_Model_4$waldtest
+summary_all_Model_4$logtest[1]
+summary_all_Model_4$n
+summary_all_Model_4$nevent
+
+
+####
+### output below: 
+All_results_Model_4 = data.frame("Model_4")
+All_results_Model_4$subset  = c("All")
+All_results_Model_4$coef  = c(summary_all_Model_4$conf.int[1,1])
+All_results_Model_4$lower_CI = c(summary_all_Model_4$conf.int[1,3])
+All_results_Model_4$upper_CI = c(summary_all_Model_4$conf.int[1,4])
+All_results_Model_4$logtest = summary_all_Model_4$logtest[1]
+All_results_Model_4$df = summary_all_Model_4$logtest[2]
+All_results_Model_4$p_value = summary_all_Model_4$logtest[3]
+
+print(All_results_Model_4)
+
+write.csv(All_results_Model_4, paste(OUTPUT_ROOT, "All_results_Model_4_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+
+
 
