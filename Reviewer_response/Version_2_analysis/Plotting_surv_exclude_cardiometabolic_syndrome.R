@@ -27,53 +27,26 @@ Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypert
 #Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
 Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
 #Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
+Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
 #Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
 Model_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
 #Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin", "CVD")
+Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
 #Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
 Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
 
 
-#Model 1: age and sex, wealth  [basis adjustment]
-Model_1_nosex = c("continious_age", "wealth_noIRA")
-#Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-Model_2_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin")
-#Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-Model_3_nosex = c("continious_age", "wealth_noIRA", "alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
-#Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-Model_4_nosex = c("continious_age", "wealth_noIRA","CVD")
-#Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
-Model_5_nosex = c("continious_age","wealth_noIRA", "checklist_depression_bin")
-#Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-Model_6_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin", "CVD")
-#Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
-Model_7_nosex = c("continious_age", "wealth_noIRA",  "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
-
-
-######
-
-
-#Model 1: age and sex, wealth  [basis adjustment]
-Model_noBMIcov_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
-#Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-Model_noBMIcov_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin")
-#Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-Model_noBMIcov_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
-#Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-Model_noBMIcov_4 = c("continious_age", "wealth_noIRA", "sex_1_2","CVD")
-#Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
-Model_noBMIcov_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
-#Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-Model_noBMIcov_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "hypertension_new_bin", "CVD")
-#Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
-Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension_new_bin", "checklist_depression_bin")
 
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
 
-cumulative_effects_dat = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+
+#exclude participants with cardiometabolic disease: 
+
+unique(cumulative_effects_dat$CVD_ever)
+cumulative_effects_dat = subset(cumulative_effects_dat, cumulative_effects_dat$CVD_ever == 1)
+
 
 ###### Adding variables to the main dataset:
 
@@ -165,7 +138,7 @@ cumulative_effects_dat$discrimination_reversed = case_when(cumulative_effects_da
                                                            cumulative_effects_dat$discrim_bin == 0 ~ 1)
 
 unique(cumulative_effects_dat$start_new)
-                                                  
+
 cumulative_effects_dat$time_point = cumulative_effects_dat$start_new
 
 cumulative_effects_dat$years = 2 * cumulative_effects_dat$start_new
@@ -185,11 +158,11 @@ unique(cumulative_effects_dat$start_new)
 sd(cumulative_effects_dat$start_new)
 
 cumulative_effects_dat$diabetes_new_bin = case_when(cumulative_effects_dat$diabetes_new == 1 ~ 1, 
-                                                             cumulative_effects_dat$diabetes_new == 0 ~ 0) 
+                                                    cumulative_effects_dat$diabetes_new == 0 ~ 0) 
 
 
 cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
-                                                       cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
+                                                             cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
 
 
 #cumulative_effects_dat$sex_1_2
@@ -213,7 +186,7 @@ summary_all_table = summary_all$table
 subset_all = rep("All", time=nrow(summary_all_table))
 summary_all_table = cbind(subset_all, summary_all_table)
 
-write.csv(summary_all_table, paste(OUTPUT_ROOT, "summary_all_table_discrimination_cat.csv")) 
+write.csv(summary_all_table, paste(OUTPUT_ROOT, "summary_all_table_discrimination_cat_no_cardiomet_disease.csv")) 
 
 Number_events_all = fit$n.event
 Number_risk_all = fit$n.risk
@@ -242,28 +215,28 @@ All_results_unadjusted = cbind(Number_events_all,
 
 subset_all_undj  = rep("All", time=nrow(All_results_unadjusted)) 
 All_results_unadjusted = cbind(subset_all_undj, All_results_unadjusted) 
-write.csv(All_results_unadjusted, paste(OUTPUT_ROOT, "All_results_unadjusted_discrimination_cat.csv", sep = "")) 
+write.csv(All_results_unadjusted, paste(OUTPUT_ROOT, "All_results_unadjusted_discrimination_cat_no_cardiomet_disease.csv", sep = "")) 
 
 
 plot_all = ggsurvplot(fit,
-           pval = TRUE, conf.int = TRUE,
-           risk.table = FALSE, # Add risk table
-           risk.table.col = "strata", # Change risk table color by groups
-           linetype = "strata", # Change line type by groups
-           surv.median.line = "hv", # Specify median survival
-           
-           surv.scale = "percent",
-           
-           ggtheme = theme_bw(),
+                      pval = TRUE, conf.int = TRUE,
+                      risk.table = FALSE, # Add risk table
+                      risk.table.col = "strata", # Change risk table color by groups
+                      linetype = "strata", # Change line type by groups
+                      surv.median.line = "hv", # Specify median survival
+                      
+                      surv.scale = "percent",
+                      
+                      ggtheme = theme_bw(),
                       ylim = c(0.5, 1),
-           pval.coord = c(0, 0.95),
-           
-           xlab = "Years from baseline", 
-           
-           ylab = "proportion of cases free of diabetes", 
-           
-           # Change ggplot2 theme
-           palette = c("#E7B800", "#2E9FDF"))
+                      pval.coord = c(0, 0.95),
+                      
+                      xlab = "Years from baseline", 
+                      
+                      ylab = "proportion of cases free of diabetes", 
+                      
+                      # Change ggplot2 theme
+                      palette = c("#E7B800", "#2E9FDF"))
 
 plot_all
 print(plot_all)  
