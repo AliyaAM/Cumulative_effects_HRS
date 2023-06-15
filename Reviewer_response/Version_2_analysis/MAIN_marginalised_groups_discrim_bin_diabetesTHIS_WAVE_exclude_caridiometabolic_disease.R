@@ -37,14 +37,16 @@ library(arsenal)
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
-current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
-#current_directory = "/Users/aliya/my_docs/"
+current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
 SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
-DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
+#DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
+
+DATA_ROOT = paste(current_directory, "KCL_postDoc/Data_analysis/", sep = "")
 
 # function that subsets and srts dataset for a particular var (eg., female == 1)
 
@@ -250,7 +252,7 @@ all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_va
 
 
 
-write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin_exclude_cardiometabolic_disorder.csv", sep=""))
+write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin_race_education_exclude_cardiometabolic_disorder.csv", sep=""))
 
 
 all_results = read.csv(paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin_exclude_cardiometabolic_disorder.csv", sep=""))
@@ -258,7 +260,7 @@ all_results = read.csv(paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin_excl
 
 results = rbind(all_results[1:7,]) 
 
-write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_new_bin_race_exclude_cardiometabolic_disorder.csv", sep=""))
+write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_new_bin_race_education_exclude_cardiometabolic_disorder.csv", sep=""))
 
 
 #  all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
