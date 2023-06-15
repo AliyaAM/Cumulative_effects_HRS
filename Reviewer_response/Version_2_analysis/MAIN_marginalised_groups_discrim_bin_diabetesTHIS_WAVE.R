@@ -258,7 +258,7 @@ all_results = read.csv(paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin.csv"
  
 results = rbind(all_results[1:7,]) 
 
-write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_new_bin_education_national_origin_race.csv", sep=""))
+write.csv(results, paste(OUTPUT_ROOT, "result_table_diabetes_new_bin_education_race.csv", sep=""))
 
 
 #  all_results = read.csv(paste(OUTPUT_ROOT, "All_clean_data_HRsonly_diabetes_new_bin.csv", sep=""))
