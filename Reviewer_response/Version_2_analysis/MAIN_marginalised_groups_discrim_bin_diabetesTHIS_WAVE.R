@@ -27,6 +27,9 @@ library(lme4)
 library(lattice)
 library(Hmisc)
 
+
+library(arsenal)
+
 #library(riskRegression)
 
 
@@ -88,9 +91,9 @@ HRS2014_data_intermediate = HRS2014_data_initial
 HRS2016_data_intermediate = HRS2016_data_initial
 HRS2018_data_intermediate = HRS2018_data_initial
 
+drop_var = c("X.2")
+HRS2008_data = HRS2008_data_intermediate[ , !(names(HRS2008_data_intermediate) %in% drop_var)]
 
-
-HRS2008_data = HRS2008_data_intermediate
 HRS2010_data = HRS2010_data_intermediate
 HRS2012_data = HRS2012_data_intermediate
 HRS2014_data = HRS2014_data_intermediate
@@ -98,7 +101,15 @@ HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
 
 
+summary(comparedf(x = HRS2008_data, y = HRS2018_data))
 
+
+list_var_2008 = ls(HRS2008_data)
+list_var_2018 = ls(HRS2018_data)
+
+
+ write.csv(list_var_2008, paste(OUTPUT_ROOT, "list_var_2008.csv", sep=""))
+ write.csv(list_var_2018, paste(OUTPUT_ROOT, "list_var_2018.csv", sep=""))
 
 
 #########
@@ -127,8 +138,6 @@ unique(HRS2008_data$diabetes_new)
                             
 ##### DIAB DIAB DIAB DIAB DIAB DIAB recode to DIAB_bin
 ##### DIAB DIAB DIAB DIAB DIAB DIAB 
-                            
-                           
                             
 HRS2008_data$diabetes_new_bin = case_when(HRS2008_data$diabetes_new == 1 ~ 1,
                                          HRS2008_data$diabetes_new == 0 ~ 0, 

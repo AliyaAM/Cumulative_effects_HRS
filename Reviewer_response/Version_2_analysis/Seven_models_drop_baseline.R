@@ -137,8 +137,8 @@ Seven_models_drop_baseline = function (subset_var1,
   dataset_noNAs_timepoints = sort_timepoints_drop_baseline(data = dataset_noNAs)
   
   # The following line to write a debug csv at this point in the code was actually really useful for debugging.
-  write.csv(dataset_noNAs_timepoints, "/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
-  dataset_noNAs_timepoints = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Results/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+  write.csv(dataset_noNAs_timepoints, paste(OUTPUT_ROOT, "dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv",  sep = ""))
+  dataset_noNAs_timepoints = read.csv(paste(OUTPUT_ROOT, "dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv",  sep = ""))
   #write.csv(dataset_noNAs_timepoints, "/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
   #dataset_noNAs_timepoints = read.csv("/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
   

@@ -143,6 +143,28 @@ subset_func = function(subset_var1,
     
   }
       
+  
+  print(ls(HRS2008_data_subset))
+  #print(ls(HRS2010_data_subset))
+  #print(ls(HRS2012_data_subset))
+  #print(ls(HRS2014_data_subset))
+  #print(ls(HRS2016_data_subset))
+  #print(ls(HRS2018_data_subset))
+  
+  print(ncol(HRS2008_data_subset))
+  print(ncol(HRS2010_data_subset))
+  print(ncol(HRS2012_data_subset))
+  print(ncol(HRS2014_data_subset))
+  print(ncol(HRS2016_data_subset))
+  print(ncol(HRS2018_data_subset))
+  
+  
+  comparedf(x = HRS2008_data_subset, y = HRS2018_data_subset)
+  
+  
+  
+  
+  
     subset_dataset = rbind(HRS2008_data_subset,
                            HRS2010_data_subset, 
                            HRS2012_data_subset,
