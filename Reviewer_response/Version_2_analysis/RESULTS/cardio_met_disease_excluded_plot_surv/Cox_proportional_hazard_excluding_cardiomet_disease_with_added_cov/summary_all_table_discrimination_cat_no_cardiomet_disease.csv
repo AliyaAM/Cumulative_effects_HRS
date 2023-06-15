@@ -1,0 +1,3 @@
+"","subset_all","records","n.max","n.start","events","rmean","se(rmean)","median","0.95LCL","0.95UCL"
+"discrimination=0","All","4540","4540","4540","239","3.88191089640365","0.010921895425262",NA,NA,NA
+"discrimination=1","All","5111","5111","5111","291","3.80019305019305","0.013175586599858",NA,NA,NA
