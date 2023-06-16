@@ -20,7 +20,6 @@ DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "")
 
 
 
-
 ###### Adding variables to the main dataset:
 
 
@@ -47,6 +46,10 @@ nrow(cumulative_effects_dat)
 nrow(cumulative_effects_dat_initial)
 
 
+#### There were only 27 people who disclosed their national origin in our subsample. 
+
+unique(cumulative_effects_dat_initial$national_origin_ousideUS_bin)
+unique(cumulative_effects_dat$national_origin_ousideUS_bin)
 
 
 
