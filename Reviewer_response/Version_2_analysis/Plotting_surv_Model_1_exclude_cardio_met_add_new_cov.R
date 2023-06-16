@@ -211,7 +211,7 @@ All_results_Model_1$p_value = summary_all$logtest[3]
 
 print(All_results_Model_1)
 
-write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "All_results_Model_1_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "Model_1_nocardiometdis_race_educat_nat_origin.csv"))
 
 #Model 1: age and sex, wealth  [basis adjustment]
 ##############################  Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2",   "education_level", "national_origin_ousideUS_bin", "race_white")
@@ -263,7 +263,7 @@ All_results_Model_2$p_value = summary_all_model_2$logtest[3]
 
 print(All_results_Model_2)
 
-write.csv(All_results_Model_2, paste(OUTPUT_ROOT, "All_results_Model_2_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_2, paste(OUTPUT_ROOT, "Model_2_nocardiometdis_race_educat_nat_origin.csv"))
 
 
 ############################## Model 3: 
@@ -297,7 +297,7 @@ All_results_Model_3$p_value = summary_all_model_3$logtest[3]
 
 print(All_results_Model_3)
 
-write.csv(All_results_Model_3, paste(OUTPUT_ROOT, "All_results_Model_3_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_3, paste(OUTPUT_ROOT, "Model_3_nocardiometdis_race_educat_nat_origin.csv"))
 
 
 
@@ -332,7 +332,7 @@ All_results_Model_4$p_value = summary_all_Model_4$logtest[3]
 
 print(All_results_Model_4)
 
-write.csv(All_results_Model_4, paste(OUTPUT_ROOT, "All_results_Model_4_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_4, paste(OUTPUT_ROOT, "Model_4_nocardiometdis_race_educat_nat_origin.csv"))
 
 
 
