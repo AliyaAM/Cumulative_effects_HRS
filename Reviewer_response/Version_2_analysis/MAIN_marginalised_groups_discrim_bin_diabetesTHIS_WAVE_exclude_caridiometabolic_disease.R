@@ -255,7 +255,7 @@ all_discrim_bin_diabetes_thisWAVE_7models = Seven_models_drop_baseline(subset_va
 write.csv(all_discrim_bin_diabetes_thisWAVE_7models, paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin_race_education_exclude_cardiometabolic_disorder.csv", sep=""))
 
 
-all_results = read.csv(paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin_exclude_cardiometabolic_disorder.csv", sep=""))
+all_results = read.csv(paste(OUTPUT_ROOT, "all_discrim_bin_diabetes_new_bin_race_education_exclude_cardiometabolic_disorder.csv", sep=""))
 
 
 results = rbind(all_results[1:7,]) 
