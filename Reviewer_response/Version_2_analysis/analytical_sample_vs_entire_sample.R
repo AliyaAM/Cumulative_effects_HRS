@@ -16,6 +16,8 @@ DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "")
 
 
 
+source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
+
 
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
@@ -54,7 +56,6 @@ COX_unique_id = unique(analytical_sample_COX$HHIDPN)
 #COX_unique_id_n = length(COX_unique_id) 
 
 #######
-WCE_unique_id = unique(analytical_sample_BMI$HHIDPN)
 #WCE_unique_id_n = length(WCE_unique_id)
 
 # recode into single var  discrim_bin
@@ -283,28 +284,8 @@ non_diabetes_baseline_and1_2 = inner_join(non_diabetes_followup_1,
                                           
                                           by = "HHIDPN")
 
-non_diabetes_baseline_and1_2_3 = inner_join(non_diabetes_baseline_and1_2, 
-                                            non_diabetes_followup_3,
-                                            copy = TRUE,     
-                                            keep = FALSE, 
-                                            suffix = c("", "_new"), 
-                                            
-                                            by = "HHIDPN")
 
-non_diabetes_baseline_and1_2_3_4 = inner_join(non_diabetes_baseline_and1_2_3, 
-                                              non_diabetes_followup_4,
-                                              copy = TRUE,  
-                                              keep = FALSE, 
-                                              suffix = c("", "_new"), 
-                                              
-                                              by = "HHIDPN")
-
-non_diabetes_throughout_the_study = inner_join(non_diabetes_baseline_and1_2_3_4, 
-                                               non_diabetes_followup_5,
-                                               copy = TRUE,
-                                               keep = FALSE, 
-                                               suffix = c("", "_new"), 
-                                               by = "HHIDPN")
+non_diabetes_throughout_the_study = non_diabetes_baseline_and1_2
 
 
 ##########
@@ -365,18 +346,7 @@ subsets_n_percent = cbind(nrow(analytical_sample_COX_baseline),
                       (nrow(diabetes_throughout_the_study)/nrow(analytical_sample_COX_baseline)*100), 
                       
                       nrow(non_diabetes_throughout_the_study), 
-                      (nrow(non_diabetes_throughout_the_study)/nrow(analytical_sample_COX_baseline)*100), 
-                      
-                      nrow(data_female), 
-                      (nrow(data_female)/nrow(analytical_sample_COX_baseline)*100), 
-                      
-                      
-                      nrow(data_race), 
-                      nrow(data_race)/nrow(data_race)*100, 
-                      
-                      
-                      nrow(data_BMI), 
-                      (nrow(data_BMI)/nrow(analytical_sample_COX_baseline)*100))
+                      (nrow(non_diabetes_throughout_the_study)/nrow(analytical_sample_COX_baseline)*100))
 
 sd(as.double(non_diabetes_throughout_the_study$alcohol_days_week_new), na.rm = TRUE)
 mean(non_diabetes_throughout_the_study$alcohol_days_week_new)
@@ -556,22 +526,6 @@ non_diabetes_throughout_the_study$ses = case_when(non_diabetes_throughout_the_st
 unique(non_diabetes_throughout_the_study$ses)
 
 
-
-median(data_female$wealth_noIRA, na.rm = TRUE)
-data_female$ses = case_when(data_female$wealth_noIRA <=median(data_female$wealth_noIRA, na.rm = TRUE) ~ 1,
-                            data_female$wealth_noIRA > median(data_female$wealth_noIRA, na.rm = TRUE) ~ 2)
-unique(data_female$ses)
-
-median(data_race$wealth_noIRA, na.rm = TRUE)
-
-data_race$ses = case_when(data_race$wealth_noIRA <=median(data_race$wealth_noIRA, na.rm = TRUE) ~ 1,
-                          data_race$wealth_noIRA > median(data_race$wealth_noIRA, na.rm = TRUE) ~ 2)
-
-unique(data_race$ses)
-median(data_BMI$wealth_noIRA, na.rm = TRUE)
-data_BMI$ses = case_when(data_BMI$wealth_noIRA <=median(data_BMI$wealth_noIRA, na.rm = TRUE) ~ 1,
-                         data_BMI$wealth_noIRA > median(data_BMI$wealth_noIRA, na.rm = TRUE) ~ 2)
-unique(data_BMI$ses)
 
 
 ses = c(diabetes_throughout_the_study$ses,
