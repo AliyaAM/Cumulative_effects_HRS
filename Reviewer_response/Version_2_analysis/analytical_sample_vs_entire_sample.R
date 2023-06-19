@@ -5,35 +5,41 @@ library("bain")
 library("ggplot2")
 library("stats")
 
-current_directory = "/Users/aliya/my_docs/"
+current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+
+#current_directory = "/Users/aliya/my_docs/"
+#current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
+
+OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
+DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
 
 
-DATAIN_ROOT = (paste(current_directory, "KCL_postDoc/Data_analysis/", sep="")) 
-SOURCE_ROOT = (paste(current_directory, "proj/Cumulative_effects_HRS/Version_2_analysis/", sep=""))
-OUTPUT_ROOT =(paste(current_directory, "KCL_postDoc/Cumulative_effects/", sep=""))
 
 
-source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
+###### DATA:
+# below is the entire dataset, not subseted to anyone: 
 
-#data for each year that has all cases but only the relevent columns (vars), hense called short. OLD stands for the way the diabetes outcome was extracted (which is correct) 
+cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+nrow(cumulative_effects_dat_initial)
 
-HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2008_data/old/HRS2008_data_short_OLD.csv", sep=""))
-HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2010_data/old/HRS2010_data_short_OLD.csv", sep=""))
-HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2012_data/old/HRS2012_data_short_OLD.csv", sep=""))
-HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2014_data/old/HRS2014_data_short_OLD.csv", sep=""))
-HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2016_data/old/HRS2016_data_short_OLD.csv", sep=""))
-HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS_2018_data/old/HRS2018_data_short_OLD.csv", sep=""))
 
-# the analytical sample for the WCE (and the subset of it is in COX), which includes all years and each year is labeled by a new variable (start_new: 0 for baseline, 1 for the first follow-up, 2 for the second follow-up etc, at 2-year intervals)
-# the analytical sample does not include the baseline diabetes. 
-analytical_sample_COX = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
+#exclude participants with cardiometabolic disease at baseline: 
 
-#analytical_sample_COX = read.csv("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/data_files/all_waves_nodiabatbaseline_DIAB.csv")
+cases_with_CVD = subset(cumulative_effects_dat_initial,  CVD_ever == 1 & start_new == 0)
+
+exclude_ids = unique(cases_with_CVD$HHIDPN)
+
+
+analytical_sample_COX <- subset(cumulative_effects_dat_initial,  !(HHIDPN %in% exclude_ids))
+
+
+unique(analytical_sample_COX$CVD_ever)
+unique(analytical_sample_COX$start_new)
 nrow(analytical_sample_COX)
-#n_all = length(analytical_sample_COX_baseline_ids) 
-#this below is for those with the BMI >30 kg/m2
-analytical_sample_BMI = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
-#read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv")
+nrow(analytical_sample_COX)
+
+
 
 
 #####
@@ -241,15 +247,13 @@ unique(analytical_sample_COX$discrim_bin)
 #max(baseline_data_COX$assessed_BMI, na.rm = TRUE)
 #unique(baseline_data_COX$assessed_BMI)
 
+
+print("baseline participants are above")
+
 analytical_sample_COX_baseline = subset(analytical_sample_COX, analytical_sample_COX$start_new == 0) 
 analytical_sample_COX_baseline_ids = unique(analytical_sample_COX_baseline$HHIDPN)
 nrow(analytical_sample_COX_baseline_ids)
-data_male = subset(analytical_sample_COX_baseline, analytical_sample_COX_baseline$sex_1_2 ==1) 
-data_female = subset(analytical_sample_COX_baseline, analytical_sample_COX_baseline$sex_1_2 ==2) 
-data_race = subset(analytical_sample_COX_baseline, analytical_sample_COX_baseline$race_white == 0) 
-data_BMI = subset(analytical_sample_COX_baseline, analytical_sample_COX_baseline$assessed_BMI > 30) 
 
-unique(data_BMI$CVD_ever)
 
 #####
 
@@ -381,29 +385,18 @@ mean(non_diabetes_throughout_the_study$alcohol_days_week_new)
 all_participant_char          = participant_char_function(data = analytical_sample_COX_baseline) 
 diabetic_participant_char     = participant_char_function(data = diabetes_throughout_the_study)
 non_diabetic_participant_char = participant_char_function(data = non_diabetes_throughout_the_study) 
-female_participant_char       = participant_char_function(data = data_female) 
-race_participant_char         = participant_char_function(data = data_race) 
-BMI_participant_char          = participant_char_function(data = data_BMI) 
+
 
 subset_name = c(   "all",
                    "all",
                    "diabetes",
                    "diabetes",
                    "no diabetes", 
-                   "no diabetes", 
-                   "female",
-                   "female",
-                   "race",
-                   "race",
-                   "BMI",
-                   "BMI")
+                   "no diabetes")
 
 participant_characteristics = cbind(all_participant_char,
                                     diabetic_participant_char,
-                                    non_diabetic_participant_char,
-                                    female_participant_char,
-                                    race_participant_char,
-                                    BMI_participant_char) 
+                                    non_diabetic_participant_char) 
                                     
 
 participant_characteristics = rbind(subset_name,
