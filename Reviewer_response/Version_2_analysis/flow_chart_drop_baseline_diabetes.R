@@ -1,3 +1,50 @@
+
+
+
+library("dplyr")
+library("tidyr")
+library("bain")
+library("ggplot2")
+library("stats")
+
+current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+
+#current_directory = "/Users/aliya/my_docs/"
+#current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
+
+OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
+DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
+
+
+
+source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
+
+
+###### DATA:
+# below is the entire dataset, not subseted to anyone: 
+
+cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+nrow(cumulative_effects_dat_initial)
+
+
+#exclude participants with cardiometabolic disease at baseline: 
+
+cases_with_CVD = subset(cumulative_effects_dat_initial,  CVD_ever == 1 & start_new == 0)
+
+exclude_ids = unique(cases_with_CVD$HHIDPN)
+
+
+analytical_sample_COX <- subset(cumulative_effects_dat_initial,  !(HHIDPN %in% exclude_ids))
+
+
+unique(analytical_sample_COX$CVD_ever)
+unique(analytical_sample_COX$start_new)
+nrow(analytical_sample_COX)
+nrow(analytical_sample_COX)
+
+
+
 flow_chart_drop_baseline_diabetes = function (data){
   
   
