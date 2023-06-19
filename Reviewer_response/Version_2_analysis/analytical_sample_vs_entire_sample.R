@@ -378,7 +378,7 @@ participant_characteristics = rbind(subset_name,
 
 participant_characteristics
 
-#write.csv(participant_characteristics, paste(OUTPUT_ROOT, "participant_characteristics_TABLE_1.csv", sep = ""))
+write.csv(participant_characteristics, paste(OUTPUT_ROOT, "participant_characteristics_TABLE_1.csv", sep = ""))
 
 
 #####                                                                                                                                                                                      
