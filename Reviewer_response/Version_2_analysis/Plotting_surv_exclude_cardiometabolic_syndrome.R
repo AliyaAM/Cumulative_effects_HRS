@@ -20,23 +20,6 @@ library("dplyr")
 library("ggplot2")
 
 
-#Model 1: age and sex, wealth  [basis adjustment]
-Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2")
-#Model 2: age, sex, wealth, BMI, hypertension  [basic adjustment + diabetes risk factors]
-Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
-#Model 3: age, sex, wealth, physical activity, smoking (yes/no), and alcohol (days/week) [basic adjustment + health behaviours]
-Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2","alcohol_days_week_new",  "vigarious_physical_activity_new", 'smokes_now_bin')
-#Model 4: age, sex, wealth, CVD  [basic adjustment + CVD most common diabetes co_morbidity]
-Model_4 = c("continious_age", "wealth_noIRA", "sex_1_2")
-#Model 5: age, sex, wealth, depression  [basic adjustment + depression best researched psychosocial factor in diabetes ]
-Model_5 = c("continious_age","wealth_noIRA", "sex_1_2","checklist_depression_bin")
-#Model 6: age, sex, wealth, BMI, hypertension, CVD  [basic adjustment + diabetes risk factors+ CVD]
-Model_6 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin")
-#Model 7: age, sex, wealth, BMI, hypertension, depression  [basic adjustment + diabetes risk factors+ Depression]
-Model_7 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin", "checklist_depression_bin")
-
-
-
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
 
@@ -192,7 +175,10 @@ fit <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = cumula
 summary_all = summary(fit)
 print(summary_all)
 
+summary_all$lower
+summary_all$upper
 
+summary_all$surv
 ### output below: 
 
 summary_all_table = summary_all$table

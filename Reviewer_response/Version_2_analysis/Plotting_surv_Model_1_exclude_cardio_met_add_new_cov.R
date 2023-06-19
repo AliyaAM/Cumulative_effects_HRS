@@ -20,7 +20,6 @@ DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "")
 
 
 
-
 ###### Adding variables to the main dataset:
 
 
@@ -47,6 +46,10 @@ nrow(cumulative_effects_dat)
 nrow(cumulative_effects_dat_initial)
 
 
+#### There were only 27 people who disclosed their national origin in our subsample. 
+
+unique(cumulative_effects_dat_initial$national_origin_ousideUS_bin)
+unique(cumulative_effects_dat$national_origin_ousideUS_bin)
 
 
 
@@ -185,7 +188,7 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 
 #cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
 
-fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white, data = cumulative_effects_dat)
 summary_all = summary(fit)
 
 # coeffcients for discrimination: 
@@ -211,7 +214,7 @@ All_results_Model_1$p_value = summary_all$logtest[3]
 
 print(All_results_Model_1)
 
-write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "All_results_Model_1_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "Model_1_nocardiometdis_race_educat.csv"))
 
 #Model 1: age and sex, wealth  [basis adjustment]
 ##############################  Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2",   "education_level", "national_origin_ousideUS_bin", "race_white")
@@ -263,7 +266,7 @@ All_results_Model_2$p_value = summary_all_model_2$logtest[3]
 
 print(All_results_Model_2)
 
-write.csv(All_results_Model_2, paste(OUTPUT_ROOT, "All_results_Model_2_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_2, paste(OUTPUT_ROOT, "Model_2_nocardiometdis_race_educat.csv"))
 
 
 ############################## Model 3: 
@@ -271,7 +274,7 @@ write.csv(All_results_Model_2, paste(OUTPUT_ROOT, "All_results_Model_2_exclude_c
 ##############################   Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new",   "education_level", "national_origin_ousideUS_bin", "race_white" )
 
 
-fit_Model_3 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new  + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+fit_Model_3 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new  + race_white, data = cumulative_effects_dat)
 summary_all_model_3 = summary(fit_Model_3)
 
 # coeffcients for discrimination: 
@@ -297,7 +300,59 @@ All_results_Model_3$p_value = summary_all_model_3$logtest[3]
 
 print(All_results_Model_3)
 
-write.csv(All_results_Model_3, paste(OUTPUT_ROOT, "All_results_Model_3_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_3, paste(OUTPUT_ROOT, "Model_3_nocardiometdis_race_educat.csv"))
+
+
+
+print("FULL LIST OF HEALTH BEHAVIOURS IS BELOW: ")
+print("FULL LIST OF HEALTH BEHAVIOURS IS BELOW: ")
+print("FULL LIST OF HEALTH BEHAVIOURS IS BELOW: ")
+print("FULL LIST OF HEALTH BEHAVIOURS IS BELOW: ")
+print("FULL LIST OF HEALTH BEHAVIOURS IS BELOW: ")
+print("FULL LIST OF HEALTH BEHAVIOURS IS BELOW: ")
+
+
+############################## Model 3_full: 
+############################## "education_level", "national_origin_ousideUS_bin", "race_white"
+##############################   Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new",   "education_level", "national_origin_ousideUS_bin", "race_white" )
+#### we already dropped all NAs in this var so, the below is true:
+#### check an error in the data cleaning file
+
+if (any(is.na(cumulative_effects_dat$smokes_now_bin))) {
+  cumulative_effects_dat$smokes_now_bin[is.na(cumulative_effects_dat$smokes_now_bin)] <- 0
+}
+
+unique(cumulative_effects_dat$smokes_now_bin) 
+
+unique(cumulative_effects_dat$alcohol_days_week_new)
+
+fit_Model_3_full <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new + smokes_now_bin  + + alcohol_days_week_new +  race_white, data = cumulative_effects_dat)
+summary_all_Model_3_full = summary(fit_Model_3)
+
+# coeffcients for discrimination: 
+summary_all_Model_3_full$coefficients[1,]
+# exp (HR), and 95% CI: 
+summary_all_Model_3_full$conf.int[1,]
+summary_all_Model_3_full$waldtest
+summary_all_Model_3_full$logtest[1]
+summary_all_Model_3_full$n
+summary_all_Model_3_full$nevent
+
+
+####
+### output below: 
+All_results_Model_3_full = data.frame("Model_3_full")
+All_results_Model_3_full$subset  = c("All")
+All_results_Model_3_full$coef  = c(summary_all_Model_3_full$conf.int[1,1])
+All_results_Model_3_full$lower_CI = c(summary_all_Model_3_full$conf.int[1,3])
+All_results_Model_3_full$upper_CI = c(summary_all_Model_3_full$conf.int[1,4])
+All_results_Model_3_full$logtest = summary_all_Model_3_full$logtest[1]
+All_results_Model_3_full$df = summary_all_Model_3_full$logtest[2]
+All_results_Model_3_full$p_value = summary_all_Model_3_full$logtest[3]
+
+print(All_results_Model_3_full)
+
+write.csv(All_results_Model_3_full, paste(OUTPUT_ROOT, "Model_3_full_nocardiometdis_race_educat.csv"))
 
 
 
@@ -332,7 +387,7 @@ All_results_Model_4$p_value = summary_all_Model_4$logtest[3]
 
 print(All_results_Model_4)
 
-write.csv(All_results_Model_4, paste(OUTPUT_ROOT, "All_results_Model_4_exclude_cardiomet_disease_add_cov_race_national_origin_ousideUS_bin.csv"))
+write.csv(All_results_Model_4, paste(OUTPUT_ROOT, "Model_4_nocardiometdis_race_educat.csv"))
 
 
 
