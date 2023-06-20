@@ -32,14 +32,14 @@ library(Hmisc)
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
-
-
+#current_directory = "/Users/aliya/my_docs/"
 current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-OUTPUT_ROOT =(paste(current_directory, "/data_files/Results/DIAB_diabetes_this_wave_correct/", sep=""))
-SOURCE_ROOT = (paste(current_directory, "/Version_2_analysis/", sep=""))
-DATAIN_ROOT = (paste(current_directory, "/data_files/OLD_data_diabetes_this_wave/", sep="")) 
+OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
+#DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
 
+DATA_ROOT = paste(current_directory, "KCL_postDoc/Data_analysis/", sep = "")
 
 # function that subsets and srts dataset for a particular var (eg., female == 1)
 
@@ -64,17 +64,14 @@ source((paste(SOURCE_ROOT, "Seven_models_drop_baseline.R", sep="")))
 
 source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
 
-
-
 #data 
-HRS2008_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2008_data_short_OLD.csv", sep=""))
-HRS2010_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2010_data_short_OLD.csv", sep=""))
-HRS2012_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2012_data_short_OLD.csv", sep=""))
-HRS2014_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2014_data_short_OLD.csv", sep=""))
-HRS2016_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2016_data_short_OLD.csv", sep=""))
-HRS2018_data_initial = read.csv(paste(DATAIN_ROOT, "HRS2018_data_short_OLD.csv", sep=""))
+HRS2008_data_initial = read.csv(paste(DATA_ROOT, "HRS_2008_data/HRS2008_data_short_education.csv", sep=""))
+HRS2010_data_initial = read.csv(paste(DATA_ROOT, "HRS_2010_data/HRS2010_data_short_education.csv", sep=""))
+HRS2012_data_initial = read.csv(paste(DATA_ROOT, "HRS_2012_data/HRS2012_data_short_education.csv", sep=""))
+HRS2014_data_initial = read.csv(paste(DATA_ROOT, "HRS_2014_data/HRS2014_data_short_education.csv", sep=""))
+HRS2016_data_initial = read.csv(paste(DATA_ROOT, "HRS_2016_data/HRS2016_data_short_education.csv", sep=""))
+HRS2018_data_initial = read.csv(paste(DATA_ROOT, "HRS_2018_data/HRS2018_data_short_education.csv", sep=""))
 
-########
 
 #data 
 
@@ -85,14 +82,15 @@ HRS2014_data_intermediate = HRS2014_data_initial
 HRS2016_data_intermediate = HRS2016_data_initial
 HRS2018_data_intermediate = HRS2018_data_initial
 
+drop_var = c("X.2")
+HRS2008_data = HRS2008_data_intermediate[ , !(names(HRS2008_data_intermediate) %in% drop_var)]
 
-
-HRS2008_data = HRS2008_data_intermediate
 HRS2010_data = HRS2010_data_intermediate
 HRS2012_data = HRS2012_data_intermediate
 HRS2014_data = HRS2014_data_intermediate
 HRS2016_data = HRS2016_data_intermediate
 HRS2018_data = HRS2018_data_intermediate
+
 
 #########
 
