@@ -381,6 +381,32 @@ baseline_n = nrow(baseline_data)
 baseline_n_followup1 = nrow(followup1_data)
 baseline_n_followup2 = nrow(followup2_data)
 
+wce_subset_3 = subset(data_flow_chart, data_flow_chart$stop_new ==3)
+ids_t3 = unique(wce_subset_3$HHIDPN)
+
+wce_subset_2 = subset(data_flow_chart, data_flow_chart$stop_new ==2)
+ids_t2 = unique(wce_subset_2$HHIDPN)
+
+
+wce_subset_1 = subset(data_flow_chart, data_flow_chart$stop_new ==1)
+ids_t2 = unique(wce_subset_1$HHIDPN)
+
+ids_accross_all_ts = cbind(ids_t3, ids_t2, ids_t2)
+
+
+time_point = c("0", "1", "2", "wce_present_at_3ts")
+
+total_n = c(baseline_n, baseline_n_followup1, baseline_n_followup2, wce_total_n)
+table = cbind(time_point, total_n) 
+
+write.csv(table, file = (paste(OUTPUT_ROOT, "n_flow_chart_withoutbaselineCVD.csv", sep="")))
+
+
+
+
+unique(data_flow_chart$CVD_ever)
+
+
 
 ##### calculate the percentages for the drop in cases in CVD: at baseline, at follow-up and at second follow-up.
 
