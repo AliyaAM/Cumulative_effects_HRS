@@ -20,9 +20,11 @@ source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
 
 
 ###### DATA:
-# below is the entire dataset, not subseted to anyone: 
+# below is the entire dataset, not subseted to anyone:
 
-cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+read.csv((paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep="")))
+
+#cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
 nrow(cumulative_effects_dat_initial)
 
 

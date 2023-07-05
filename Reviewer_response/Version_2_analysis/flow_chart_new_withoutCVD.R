@@ -391,7 +391,16 @@ ids_t2 = unique(wce_subset_2$HHIDPN)
 wce_subset_1 = subset(data_flow_chart, data_flow_chart$stop_new ==1)
 ids_t2 = unique(wce_subset_1$HHIDPN)
 
-ids_accross_all_ts = cbind(ids_t3, ids_t2, ids_t2)
+ids_accross_all_ts = cbind(ids_t3,
+                           ids_t2, 
+                           ids_t1)
+
+diff_ids = setdiff(ids_t3,  
+                   ids_t2)
+
+
+diff_ids2 = setdiff(ids_t2, 
+                   ids_t1)
 
 
 time_point = c("0", "1", "2", "wce_present_at_3ts")
