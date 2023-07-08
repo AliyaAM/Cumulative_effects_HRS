@@ -143,37 +143,61 @@ subset_func = function(subset_var1,
     
   }
       
-  
+
   print(ls(HRS2008_data_subset))
-  #print(ls(HRS2010_data_subset))
-  #print(ls(HRS2012_data_subset))
-  #print(ls(HRS2014_data_subset))
-  #print(ls(HRS2016_data_subset))
-  #print(ls(HRS2018_data_subset))
+  print(ls(HRS2010_data_subset))
+  print(ls(HRS2012_data_subset))
+  print(ls(HRS2014_data_subset))
+  print(ls(HRS2016_data_subset))
+  print(ls(HRS2018_data_subset))
+
+HRS2008_data_subset$HHIDPN
+HRS2010_data_subset$HHIDPN
+HRS2012_data_subset$HHIDPN
+HRS2014_data_subset$HHIDPN
+HRS2016_data_subset$HHIDPN
+HRS2018_data_subset$HHIDPN
+
+
+#HRS2008_data_subset$RAHISPAN = HRS2010_data_subset$RAHISPAN
+#HRS2012_data_subset$RAHISPAN = HRS2010_data_subset$RAHISPAN
+#HRS2014_data_subset$RAHISPAN = HRS2010_data_subset$RAHISPAN 
+#HRS2016_data_subset$RAHISPAN = HRS2010_data_subset$RAHISPAN 
+#HRS2018_data_subset$RAHISPAN = HRS2010_data_subset$RAHISPAN 
   
-  print(ncol(HRS2008_data_subset))
-  print(ncol(HRS2010_data_subset))
-  print(ncol(HRS2012_data_subset))
-  print(ncol(HRS2014_data_subset))
-  print(ncol(HRS2016_data_subset))
-  print(ncol(HRS2018_data_subset))
   
-  
-  comparedf(x = HRS2008_data_subset, y = HRS2018_data_subset)
-  
-  
-  
-  
-  
+    #merge(HRS2008_data_subset, HRS2010_data_subset[, c("RAHISPAN")], by= "HHIDPN")
+    #merge(HRS2012_data_subset, HRS2010_data_subset[, c("RAHISPAN")], by= "HHIDPN")
+    #merge(HRS2014_data_subset, HRS2010_data_subset[, c("RAHISPAN")], by= "HHIDPN")
+    #merge(HRS2016_data_subset, HRS2010_data_subset[, c("RAHISPAN")], by= "HHIDPN")
+    #merge(HRS2018_data_subset, HRS2010_data_subset[, c("RAHISPAN")], by= "HHIDPN")
+    
+HRS2010_data_subset = subset(HRS2010_data_subset, select = -c(RAHISPAN))
+
+    print(ncol(HRS2008_data_subset))
+    print(ncol(HRS2010_data_subset))
+    print(ncol(HRS2012_data_subset))
+    print(ncol(HRS2014_data_subset))
+    print(ncol(HRS2016_data_subset))
+    print(ncol(HRS2018_data_subset))
+
+HRS2010_data_subset = subset(HRS2010_data_subset, select = -c(RAHISPAN))
+
+    
     subset_dataset = rbind(HRS2008_data_subset,
                            HRS2010_data_subset, 
                            HRS2012_data_subset,
                            HRS2014_data_subset, 
                            HRS2016_data_subset,
                            HRS2018_data_subset)
-  
-  
-  
+    
+    
+    id_vector = unique(subset_dataset$HHIDPN) 
+    
+    HRS2010_data_subset = subset(HRS2010_data_subset, HRS2010_data_subset$HHIDPN %in% id_vector)
+    
+
+    subset_dataset$RAHISPAN = HRS2010_data_subset$RAHISPAN
   
   return(subset_dataset)
 }

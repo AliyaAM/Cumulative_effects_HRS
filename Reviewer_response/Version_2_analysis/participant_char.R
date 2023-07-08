@@ -5,7 +5,7 @@ theme_set(theme_pubr())
 library(dplyr)
 library(stats)
 
-data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
+#data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
 
 data = read.csv("C:/Users/k2147340/OneDrive - King's College London/Desktop/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
 
@@ -213,7 +213,6 @@ non_diabetes_baseline$heartcondition_new_bin
 non_diabetes_baseline$heartfailure2yrs_bin
 non_diabetes_baseline$heartattack_ever_bin
 
-non_diabetes_baseline$alcohol_days_week
 non_diabetes_baseline$smokes_now_bin
 non_diabetes_baseline$vigarious_physical_activity
 non_diabetes_baseline$smokes_now_bin

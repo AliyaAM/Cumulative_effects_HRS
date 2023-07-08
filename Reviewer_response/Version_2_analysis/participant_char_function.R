@@ -11,6 +11,12 @@ data_female = subset(data, data$sex_1_2 == 2)
 n_female_all = nrow(data_female)
 percent_female = nrow(data_female)/nrow(data)*100
 
+
+data$sex_1_2
+data_female = subset(data, data$sex_1_2 == 2)
+n_female_all = nrow(data_female)
+percent_female = nrow(data_female)/nrow(data)*100
+
 ## ALL wealth 
 #create wealth quantile variable 
 
@@ -184,13 +190,6 @@ range_BMI_all = range(data$assessed_BMI, na.rm = TRUE)
 
 
 ############ frequencies for different bounds of BMI 
-
-
-
-
-
-
-
 
 #####
 #data = na.omit(data)

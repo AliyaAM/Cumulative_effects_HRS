@@ -10,15 +10,33 @@ SOURCE_ROOT = paste(directory, "proj/Cumulative_effects_HRS/", sep = "")
 
 DATA_ROOT = paste(directory, "/ELSA_HRS/Data_analysis/", sep = "") 
 
+
+### There is no 
+data_v2 = read.csv("C:/Users/k2147340/OneDrive - King's College London/Desktop/randhrs1992_2018v1.csv")
+
+data_v2$RAHISPAN
+
+
+
+
+
 H_HRS_data = read.csv(paste(DATA_ROOT, "H_HRS_c.csv", sep = ""))
-#RAND_HRS_longitudional_file = read.csv(paste(DATA_ROOT, "randhrs1992_2018v1.csv", sep=""))
+RAND_HRS_longitudional_file = read.csv(paste(DATA_ROOT, "randhrs1992_2018v1.csv", sep=""))
 #HHIDPN = RAND_HRS_longitudional_file$HHIDPN
 unique(H_HRS_data$rahispan)
-
+unique(RAND_HRS_longitudional_file$rahispan)
 ls(H_HRS_data)
+unique(H_HRS_data$RAHISPAN)
+unique(H_HRS_data$LB028)
 
+
+#ls(H_HRS_data)
+
+#H_HRS_data$r8
 
 #data 
+#HRS2008_data_initial$HRS2008_hispanic_bin
+
 HRS2008_data_initial = read.csv(paste(DATA_ROOT, "HRS_2008_data/HRS2008_data_short_OLD.csv", sep=""))
 HRS2010_data_initial = read.csv(paste(DATA_ROOT, "HRS_2010_data/HRS2010_data_short_OLD.csv", sep=""))
 HRS2012_data_initial = read.csv(paste(DATA_ROOT, "HRS_2012_data/HRS2012_data_short_OLD.csv", sep=""))

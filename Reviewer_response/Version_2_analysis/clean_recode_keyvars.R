@@ -185,6 +185,8 @@ clean_recode_keyvars =  function (data){
                                            data$discrim_harassed_bin == 0 & data$discrim_lessrespect_bin == 0 & data$discrim_medical_bin  == 0 & data$discrim_notclever_bin == 0 & data$discrim_afraidothers_bin == 0 & data$discrim_poorerservice_bin == 0 ~ 0) 
 
 
+  
+  
 ############# 
 
 
