@@ -4,7 +4,11 @@ theme_set(theme_pubr())
 
 library(dplyr)
 library(stats)
+
 data = read.csv("/Users/aliya/my_docs/KCL_postDoc/Cumulative_effects/DATA_FOR_PLOT/all_waves_nodiabatbaseline_DIAB.csv") 
+
+data = read.csv("C:/Users/k2147340/OneDrive - King's College London/Desktop/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+
 
 
 data_baseline = subset(data, data$start_new == 0)

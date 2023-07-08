@@ -24,7 +24,13 @@ source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
 
-cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+
+new_diab_each_wave = read.csv(paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIAB.csv", sep =""))
+
+
+
+cumulative_effects_dat_initial = read.csv("C:/Users/k2147340/OneDrive - King's College London/Desktop/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv")
+
 nrow(cumulative_effects_dat_initial)
 
 
@@ -33,7 +39,6 @@ nrow(cumulative_effects_dat_initial)
 cases_with_CVD = subset(cumulative_effects_dat_initial,  CVD_ever == 1 & start_new == 0)
 
 exclude_ids = unique(cases_with_CVD$HHIDPN)
-
 
 analytical_sample_COX <- subset(cumulative_effects_dat_initial,  !(HHIDPN %in% exclude_ids))
 
@@ -200,6 +205,43 @@ flow_chart_drop_baseline_diabetes = function (data){
 }
 
 
-data_flow_chart = flow_chart_drop_baseline_diabetes(data = analytical_sample_COX) 
+data_flow_chart_withoutCVD = flow_chart_drop_baseline_diabetes(data = analytical_sample_COX) 
 
+class(data_flow_chart_withoutCVD)
+ls(data_flow_chart_withoutCVD)
+unique(data_flow_chart_withoutCVD$start_new)
+
+write.csv(data_flow_chart_withoutCVD, file = (paste(OUTPUT_ROOT, "data_flow_chart_withoutCVD.csv", sep="")))
+
+baseline_data_withoutCVD = subset(data_flow_chart_withoutCVD, data_flow_chart_withoutCVD$start_new == 0) 
+followup1_data_withoutCVD = subset(data_flow_chart_withoutCVD, data_flow_chart_withoutCVD$start_new == 1) 
+followup2_data_withoutCVD = subset(data_flow_chart_withoutCVD, data_flow_chart_withoutCVD$start_new == 2) 
+
+withoutCVD = nrow(baseline_data_withoutCVD)
+withoutCVD_followup1 = nrow(followup1_data_withoutCVD)
+withoutCVD_followup2 = nrow(followup2_data_withoutCVD)
+
+
+
+### cases with CVD: 
+data_flow_chart = flow_chart_drop_baseline_diabetes(data = cumulative_effects_dat_initial) 
 write.csv(data_flow_chart, file = (paste(OUTPUT_ROOT, "data_flow_chart.csv", sep="")))
+
+baseline_data = subset(data_flow_chart, data_flow_chart$start_new == 0) 
+followup1_data = subset(data_flow_chart, data_flow_chart$start_new == 1) 
+followup2_data = subset(data_flow_chart, data_flow_chart$start_new == 2) 
+
+baseline_n = nrow(baseline_data)
+baseline_n_followup1 = nrow(followup1_data)
+baseline_n_followup2 = nrow(followup2_data)
+
+##### calculate the percentages for the drop in cases in CVD: at baseline, at follow-up and at second follow-up.
+
+percent_withCVD_baseline =  (withoutCVD*100)/baseline_n
+
+withoutCVD_followup1 =  (withoutCVD_followup1*100)/baseline_n_followup1
+
+withoutCVD_followup2 =  (withoutCVD_followup2*100)/baseline_n_followup2
+
+
+
