@@ -2,6 +2,10 @@
 current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
 OUTPUT_ROOT = "C:/Users/k2147340/OneDrive - King's College London/Desktop/"
+
+#OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+
+
 dataset_noNAs_timepoints = read.csv(paste(OUTPUT_ROOT, "dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv",  sep = ""))
 #write.csv(dataset_noNAs_timepoints, "/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
 #dataset_noNAs_timepoints = read.csv("/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
@@ -12,8 +16,6 @@ source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
 
 ### There is no 
 #data_v2 = read.csv("C:/Users/k2147340/OneDrive - King's College London/Desktop/randhrs1992_2018v1.csv")
-
-"C:/Users/k2147340/OneDrive - King's College London/Desktop"
 
 
 dataset_noNAs_timepoints<-dataset_noNAs_timepoints[!(dataset_noNAs_timepoints$HHIDPN==138300010),]
@@ -418,7 +420,6 @@ total_n = c(baseline_n, baseline_n_followup1, baseline_n_followup2, wce_total_n)
 table = cbind(time_point, total_n) 
 
 write.csv(table, file = (paste(OUTPUT_ROOT, "n_flow_chart_withoutbaselineCVD.csv", sep="")))
-
 
 
 

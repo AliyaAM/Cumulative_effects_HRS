@@ -6,6 +6,8 @@ library("ggplot2")
 library("stats")
 
 current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+data_directory = "/Users/k2147340/OneDrive - King's College London/Desktop/"
+#C:\Users\k2147340\OneDrive - King's College London\Desktop
 
 #current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
@@ -13,6 +15,7 @@ current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
 SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
 DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
+DATA2_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
 
 
 
@@ -22,7 +25,11 @@ source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
 # ###### DATA:
 # below is the entire dataset, not subseted to anyone:
 
-read.csv((paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep="")))
+cumulative_effects_dat_initial = read.csv(paste(DATA2_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+
+
+cumulative_effects_dat_initial$RAHISPAN 
+
 
 #cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
 nrow(cumulative_effects_dat_initial)
@@ -35,7 +42,10 @@ cases_with_CVD = subset(cumulative_effects_dat_initial,  CVD_ever == 1 & start_n
 exclude_ids = unique(cases_with_CVD$HHIDPN)
 
 
+
 analytical_sample_COX <- subset(cumulative_effects_dat_initial,  !(HHIDPN %in% exclude_ids))
+
+
 
 
 #####
@@ -61,6 +71,7 @@ analytical_sample_COX$wealth_noIRA
 
 quantiles_first_wealth_noIRA = quantile(analytical_sample_COX$wealth_noIRA,
                                         probs = seq(0, 0.25), na.rm = TRUE)
+
 
 quantiles_second_wealth_noIRA = quantile(analytical_sample_COX$wealth_noIRA,
                                          probs = seq(0.50, 0.75), na.rm = TRUE)
