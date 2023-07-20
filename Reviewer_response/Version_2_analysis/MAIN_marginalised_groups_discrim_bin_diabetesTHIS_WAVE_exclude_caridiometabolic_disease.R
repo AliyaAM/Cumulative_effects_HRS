@@ -76,6 +76,9 @@ source((paste(SOURCE_ROOT, "Seven_models_drop_baseline_no_BMI.R", sep="")))
 source((paste(SOURCE_ROOT, "p_value_func.R", sep="")))
 
 #data 
+
+
+
 HRS2008_data_initial = read.csv(paste(DATA_ROOT, "HRS_2008_data/HRS2008_data_short_education.csv", sep=""))
 HRS2010_data_initial = read.csv(paste(DATA_ROOT, "HRS_2010_data/HRS2010_data_short_education.csv", sep=""))
 HRS2012_data_initial = read.csv(paste(DATA_ROOT, "HRS_2012_data/HRS2012_data_short_education.csv", sep=""))
@@ -83,6 +86,12 @@ HRS2014_data_initial = read.csv(paste(DATA_ROOT, "HRS_2014_data/HRS2014_data_sho
 HRS2016_data_initial = read.csv(paste(DATA_ROOT, "HRS_2016_data/HRS2016_data_short_education.csv", sep=""))
 HRS2018_data_initial = read.csv(paste(DATA_ROOT, "HRS_2018_data/HRS2018_data_short_education.csv", sep=""))
 
+
+HRS2008_data_initial_old = read.csv(paste(DATA_ROOT, "HRS_2008_data/HRS2008_data_short_OLD.csv", sep =""))
+
+ls(HRS2008_data_initial_old)
+
+table(HRS2010_data_initial$RAHISPAN)
 
 #data 
 
@@ -92,6 +101,23 @@ HRS2012_data_intermediate = HRS2012_data_initial
 HRS2014_data_intermediate = HRS2014_data_initial
 HRS2016_data_intermediate = HRS2016_data_initial
 HRS2018_data_intermediate = HRS2018_data_initial
+
+nrow(HRS2008_data_intermediate) 
+nrow(HRS2010_data_intermediate)
+nrow(HRS2012_data_intermediate)
+nrow(HRS2014_data_intermediate)
+nrow(HRS2016_data_intermediate)
+nrow(HRS2018_data_intermediate)
+
+
+HRS2008_data_initial$HHIDPN
+HRS2010_data_initial$HHIDPN
+HRS2012_data_initial$HHIDPN
+HRS2014_data_initial$HHIDPN
+HRS2016_data_initial$HHIDPN
+HRS2018_data_initial$HHIDPN
+
+
 
 drop_var = c("X.2")
 HRS2008_data = HRS2008_data_intermediate[ , !(names(HRS2008_data_intermediate) %in% drop_var)]

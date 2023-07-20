@@ -11,7 +11,6 @@ SOURCE_ROOT = paste(directory, "proj/Cumulative_effects_HRS/", sep = "")
 DATA_ROOT = paste(directory, "/ELSA_HRS/Data_analysis/", sep = "") 
 
 
-H_HRS_c.csv
 
 RAND_HRS_longitudional_file = read.csv(paste(DATA_ROOT, "randhrs1992_2018v1.csv", sep=""))
 
@@ -65,6 +64,8 @@ cross_waves$national_origin_ousideUS  = case_when(RAND_HRS_longitudional_file$RA
 #HRS2018_race_hispanic_latino
 #HRS2018_race_white
 #HRS2018_race_black
+
+cross_waves$rahispan
 
 #race: 2008, RARACEM: 1.white/caucasian, 2.black/african american, 3.other, .m=Oth missing
 

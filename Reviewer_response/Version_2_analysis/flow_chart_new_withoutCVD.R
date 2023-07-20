@@ -2,14 +2,20 @@
 current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
 OUTPUT_ROOT = "C:/Users/k2147340/OneDrive - King's College London/Desktop/"
+
+#OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+
+
 dataset_noNAs_timepoints = read.csv(paste(OUTPUT_ROOT, "dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_24nov2022.csv",  sep = ""))
 #write.csv(dataset_noNAs_timepoints, "/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
 #dataset_noNAs_timepoints = read.csv("/Users/aliyaamirova/Desktop/removing_NAs_PA_MI/dataset_noNAs_timepoints_TEST_DELETE_AFTER_debugging_15jan2023_PA_MI.csv")
 
 # Remove participant with sneaky NA in their sex variable.
 SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
-
 source((paste(SOURCE_ROOT, "participant_char_function.R", sep="")))
+
+### There is no 
+#data_v2 = read.csv("C:/Users/k2147340/OneDrive - King's College London/Desktop/randhrs1992_2018v1.csv")
 
 
 dataset_noNAs_timepoints<-dataset_noNAs_timepoints[!(dataset_noNAs_timepoints$HHIDPN==138300010),]
@@ -389,7 +395,7 @@ ids_t2 = unique(wce_subset_2$HHIDPN)
 
 
 wce_subset_1 = subset(data_flow_chart, data_flow_chart$stop_new ==1)
-ids_t2 = unique(wce_subset_1$HHIDPN)
+ids_t1 = unique(wce_subset_1$HHIDPN)
 
 ids_accross_all_ts = cbind(ids_t3,
                            ids_t2, 
@@ -399,9 +405,14 @@ diff_ids = setdiff(ids_t3,
                    ids_t2)
 
 
-diff_ids2 = setdiff(ids_t2, 
-                   ids_t1)
+diff_ids2 = setdiff(ids_t2,
+                    ids_t1)
 
+
+
+intersect(intersect(ids_t3,ids_t2),ids_t1)
+wce_total = Reduce(intersect, list(ids_t3,ids_t2,ids_t1))
+wce_total_n = length(wce_total)
 
 time_point = c("0", "1", "2", "wce_present_at_3ts")
 
@@ -409,7 +420,6 @@ total_n = c(baseline_n, baseline_n_followup1, baseline_n_followup2, wce_total_n)
 table = cbind(time_point, total_n) 
 
 write.csv(table, file = (paste(OUTPUT_ROOT, "n_flow_chart_withoutbaselineCVD.csv", sep="")))
-
 
 
 
