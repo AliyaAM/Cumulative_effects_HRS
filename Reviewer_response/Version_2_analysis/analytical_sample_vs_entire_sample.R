@@ -5,11 +5,14 @@ library("bain")
 library("ggplot2")
 library("stats")
 
-current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
-data_directory = "/Users/k2147340/OneDrive - King's College London/Desktop/"
+#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+
+data_directory = "/Users/aliya/Downloads/"
+
+#data_directory = "/Users/k2147340/OneDrive - King's College London/Desktop/"
 #C:\Users\k2147340\OneDrive - King's College London\Desktop
 
-#current_directory = "/Users/aliya/my_docs/"
+current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
@@ -29,7 +32,8 @@ cumulative_effects_dat_initial = read.csv(paste(data_directory, "data_flow_chart
 
 
 cumulative_effects_dat_initial$RAHISPAN
-
+unique(cumulative_effects_dat_initial$education_level)
+table(cumulative_effects_dat_initial$education_level)
 
 #cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
 nrow(cumulative_effects_dat_initial)

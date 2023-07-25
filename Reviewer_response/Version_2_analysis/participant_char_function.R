@@ -78,6 +78,28 @@ high_ses_percent = high_ses_n/nrow(data) *100
 
 summary(data$wealth_noIRA)
 
+### education level: 
+## 1.less than upper secondary (less than high school)
+## 2.upper secondary and vocational training (high school, alternatives)
+## 3.tertiary (undergraduate and above)
+
+##### (less than high school/high school/some college/undergraduate and above/other)
+
+education_level1 = subset(data, data$education_level == 1)
+education_level1_n = nrow(education_level1)
+education_level1_n_percent = education_level1_n/nrow(data) *100 
+
+
+### education level: 2
+education_level2 = subset(data, data$education_level == 2)
+education_level2_n = nrow(education_level2)
+education_level2_n_percent = education_level2_n/nrow(data) *100 
+
+### education level: 3
+education_level3 = subset(data, data$education_level == 3)
+education_level3_n = nrow(education_level3)
+education_level3_n_percent = education_level3_n/nrow(data) *100 
+
 data_n = nrow(data)
 # 
 # subset_1 = subset(data, data$wealth_noIRA<summary_stat[2])
@@ -239,6 +261,16 @@ result_participant_char = rbind(mean_age_all,
                             n_female_all, 
                             percent_female,
                             
+                            education_level3_n, 
+                            education_level3_n_percent, 
+                            
+                            education_level2_n, 
+                            education_level2_n_percent, 
+                            
+                            
+                            education_level1_n, 
+                            education_level1_n_percent, 
+
                             
                             n_q1, 
                             percent_q1,
