@@ -554,6 +554,8 @@ table(case, ses)
 chisq.test(case, race)
 table(case, race)
 
+
+
 ################
 
 # summary_stat = summary(diabetes_throughout_the_study$wealth_noIRA)

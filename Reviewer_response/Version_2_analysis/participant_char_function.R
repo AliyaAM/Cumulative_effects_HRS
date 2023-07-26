@@ -101,6 +101,10 @@ education_level3_n = nrow(education_level3)
 education_level3_n_percent = education_level3_n/nrow(data) *100 
 
 data_n = nrow(data)
+
+education_diff = chisq.test(data$education_level, data$diabetes_new_bin)
+print(education_diff)
+
 # 
 # subset_1 = subset(data, data$wealth_noIRA<summary_stat[2])
 # subset_1_n = nrow(subset_1)
