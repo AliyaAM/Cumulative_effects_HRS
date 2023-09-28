@@ -147,7 +147,6 @@ Model = c(1, 2, 3, 4, 5, 6, 7)
 
 # ####### # ####### # ####### # ####### EXPOSURE # ####### # ####### # ####### # #######
 exposure = "discrim_bin"
-outcome = "diabetes_new_bin"
 
 
 
@@ -155,6 +154,7 @@ outcome = "diabetes_new_bin"
 ##### DIAB DIAB DIAB DIAB DIAB DIAB 
 ##### DIAB DIAB DIAB DIAB DIAB DIAB 
 # this is DIAB below (from older files, where diab this wave was coded as diabetes)
+outcome = "diabetes_new_bin"
 
 
 unique(HRS2008_data$diabetes_new) 
