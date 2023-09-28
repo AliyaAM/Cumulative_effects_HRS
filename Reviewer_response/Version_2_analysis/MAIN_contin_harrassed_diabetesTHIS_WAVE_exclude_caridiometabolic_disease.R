@@ -42,7 +42,7 @@ current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/
 #current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
-OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/harrassed_cont/", sep="")
 SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
 DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
 
@@ -146,7 +146,13 @@ Model = c(1, 2, 3, 4, 5, 6, 7)
 
 
 # ####### # ####### # ####### # ####### EXPOSURE # ####### # ####### # ####### # #######
-exposure = "discrim_bin"
+exposure = "discrim_harassed"
+
+### HRS2008_data_initial_old$discrim_harassed
+### HRS2008_data_initial_old$discrim_afraidothers
+### HRS2008_data_initial_old$discrim_lessrespect
+### HRS2008_data_initial_old$discrim_medical
+### HRS2008_data_initial_old$discrim_notclever
 
 
 
