@@ -29,17 +29,17 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
   #all values have to be numeric for this analysis 
   
   data_wce_subset$diabetes_new_bin = as.numeric(data_wce_subset$diabetes_new_bin)
-  data_wce_subset$discrim_poorerservice = as.numeric(data_wce_subset$discrim_poorerservice)
+  data_wce_subset$mean_discrimination = as.numeric(data_wce_subset$mean_discrimination)
   #data_wce_subset$checklist_depression_bin = as.numeric(data_wce_subset$checklist_depression_bin)
   
   data_wce_subset$start_new = as.numeric(data_wce_subset$start_new)
   data_wce_subset$stop_new = as.numeric(data_wce_subset$stop_new)
   
-  # data_wce_subset$discrim_poorerservice_bin = as.numeric(data_wce_subset$discrim_poorerservice_bin)
-  #data_wce_subset$discrim_poorerservice_bin = as.numeric(data_wce_subset$discrim_poorerservice_bin)
-  # data_wce_subset$discrim_poorerservice_bin = as.numeric(data_wce_subset$discrim_poorerservice_bin)
-  # data_wce_subset$discrim_poorerservice_bin = as.numeric(data_wce_subset$discrim_poorerservice_bin)
-  #  data_wce_subset$discrim_poorerservice_bin = as.numeric(data_wce_subset$discrim_poorerservice_bin)
+  # data_wce_subset$mean_discrimination_bin = as.numeric(data_wce_subset$mean_discrimination_bin)
+  #data_wce_subset$mean_discrimination_bin = as.numeric(data_wce_subset$mean_discrimination_bin)
+  # data_wce_subset$mean_discrimination_bin = as.numeric(data_wce_subset$mean_discrimination_bin)
+  # data_wce_subset$mean_discrimination_bin = as.numeric(data_wce_subset$mean_discrimination_bin)
+  #  data_wce_subset$mean_discrimination_bin = as.numeric(data_wce_subset$mean_discrimination_bin)
   # data_wce_subset$discrim_afraidothers_bin = as.numeric(data_wce_subset$discrim_afraidothers_bin)
   
   data_wce_subset$sex_1_2 = as.numeric(data_wce_subset$sex_1_2)
@@ -148,7 +148,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
             event = "diabetes_new_bin",
             start = "start_new",
             stop = "stop_new",
-            expos = "discrim_poorerservice",
+            expos = "mean_discrimination",
             covariates = all_of(Model_n))
       },
       error=function(cond) {
@@ -185,7 +185,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
         message(paste("length(sample_df[diabetes_new_bin])", length(sample_df$diabetes_new_bin), sep=": "))
         
         message("---")
-        message(paste("length(sample_df[discrim_poorerservice])", length(sample_df$discrim_poorerservice), sep=": "))
+        message(paste("length(sample_df[mean_discrimination])", length(sample_df$mean_discrimination), sep=": "))
         
         message("---")
         message(paste("length(sample_df[start_new])", length(sample_df$start_new), sep=": "))
@@ -206,7 +206,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
         message("---")
         print(class(sample_df$diabetes_new_bin))
         message("---")
-        print(class(sample_df$discrim_poorerservice))
+        print(class(sample_df$mean_discrimination))
         message("---")
         print(class(sample_df$continious_age))
         message("---")
@@ -232,7 +232,7 @@ summary_score_Bootstrapped_CI = function (data_wce_subset,
         message("---")
         message(paste("here is the original error again: ", cond, sep=": "))
         message("---")
-        print(checkWCE(sample_df, id = "HHIDPN", event = "diabetes_new_bin",  start = "start_new", stop = "stop_new", expos = "discrim_poorerservice"))
+        print(checkWCE(sample_df, id = "HHIDPN", event = "diabetes_new_bin",  start = "start_new", stop = "stop_new", expos = "mean_discrimination"))
         message("---")
         message(paste("crash was in i", i, sep=": "))
         
