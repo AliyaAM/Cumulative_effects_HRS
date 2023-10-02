@@ -172,7 +172,6 @@ HRS2018_data_subset$HHIDPN
     #merge(HRS2016_data_subset, HRS2010_data_subset[, c("RAHISPAN")], by= "HHIDPN")
     #merge(HRS2018_data_subset, HRS2010_data_subset[, c("RAHISPAN")], by= "HHIDPN")
     
-HRS2010_data_subset = subset(HRS2010_data_subset, select = -c(RAHISPAN))
 
     print(ncol(HRS2008_data_subset))
     print(ncol(HRS2010_data_subset))
@@ -181,7 +180,6 @@ HRS2010_data_subset = subset(HRS2010_data_subset, select = -c(RAHISPAN))
     print(ncol(HRS2016_data_subset))
     print(ncol(HRS2018_data_subset))
 
-HRS2010_data_subset = subset(HRS2010_data_subset, select = -c(RAHISPAN))
 
     
     subset_dataset = rbind(HRS2008_data_subset,
