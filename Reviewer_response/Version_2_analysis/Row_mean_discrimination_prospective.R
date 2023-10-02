@@ -186,42 +186,42 @@ summary(fit_mean_discrim)
 
 ## Model 1: age, sex, wealth, education, race (Black, Hispanic, Other, White) (basic adjustment)
 Model_1 = c("continious_age", "wealth_noIRA", "sex_1_2", 
-            #"education_level",
+            "education_level",
             #"national_origin_ousideUS_bin",
             "race_white")
 
-fit_mean_discrim_model_1 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white, data = cumulative_effects_dat)
+fit_mean_discrim_model_1 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white + education_level, data = cumulative_effects_dat)
 summary(fit_mean_discrim)
 
 
 ## Model 2: age, sex, wealth, education, race (Black, Hispanic, Other, White)  BMI, hypertension (basic adjustment + known type 2 diabetes risk factors)
 Model_2 = c("continious_age", "wealth_noIRA", "sex_1_2", "assessed_BMI", "hypertension_new_bin",
-            #"education_level", 
+            "education_level", 
             #"national_origin_ousideUS_bin",
             "race_white")
 
 
-fit_mean_discrim_model_2 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin + race_white, data = cumulative_effects_dat)
+fit_mean_discrim_model_2 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin + race_white + education_level, data = cumulative_effects_dat)
 summary(fit_mean_discrim)
 
 
 ## Model 3: age, sex, wealth, education, race (Black, Hispanic, Other, White) physical activity, smoking (yes/no), and alcohol (days/week)(basic adjustment + health behaviours)
 Model_3 = c("continious_age", "wealth_noIRA", "sex_1_2",   "vigarious_physical_activity_new", 
-            #"education_level", 
+            "education_level", 
             #"national_origin_ousideUS_bin", 
             "race_white" )
 
-fit_mean_discrim_model_3 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + vigarious_physical_activity_new  + race_white, data = cumulative_effects_dat)
+fit_mean_discrim_model_3 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + vigarious_physical_activity_new  + race_white + education_level, data = cumulative_effects_dat)
 summary(fit_mean_discrim)
 
 
 ## Model 4: age, sex, wealth, education, race (Black, Hispanic, Other, White), depression (basic adjustment + depression)
 Model_4 = c("continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin", 
-            #"education_level", 
+            "education_level", 
             #"national_origin_ousideUS_bin", 
             "race_white")
 
-fit_mean_discrim_model_4 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + checklist_depression_bin  + race_white, data = cumulative_effects_dat)
+fit_mean_discrim_model_4 <- coxph(Surv(follow_up, diabetes_new_bin) ~ mean_discrimination + continious_age + wealth_noIRA + sex_1_2 + checklist_depression_bin  + race_white + education_level, data = cumulative_effects_dat)
 summary(fit_mean_discrim)
 
 
