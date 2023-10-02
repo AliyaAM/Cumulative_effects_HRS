@@ -139,8 +139,7 @@ sort_timepoints_drop_baseline = function (data){
                                 # new_diabetes_wave5_dataset,
                                 # new_diabetes_wave6_dataset)
   
-  #write.csv(new_diabetes_each_wave, (paste(OUTPUT_ROOT, "new_diabetes_each_wave_DIAB.csv", sep="")))
-  
+
   print("About to rbind all waves together.")
   all_waves = rbind(wave_1, 
                     wave_2, 
@@ -174,7 +173,7 @@ sort_timepoints_drop_baseline = function (data){
   
   
   
-  #write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep="")))
+  write.csv(all_waves_no_diab_baseline, (paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep="")))
   
   #all_waves_no_diab_baseline_unique = unique(all_waves_no_diab_baseline$HHIDPN)
   #all_waves_no_diab_baseline_unique_values = length(all_waves_no_diab_baseline_unique)
@@ -194,12 +193,12 @@ sort_timepoints_drop_baseline = function (data){
   #new_diabetes_participant_wave_df = length(diabetes_all_waves_unique)
   
   
-  #total_n_proportion = rbind(all_waves_unique_id_value, 
-                             #all_waves_no_diab_baseline_unique_values, 
-                              #new_diabetes_participant_wave_df)
-  
-  #write.csv(total_n_proportion, (paste(OUTPUT_ROOT, "total_n_nodiabatbaseline_DIAB_values.csv", sep="")))
-  
+  # total_n_proportion = rbind(all_waves_unique_id_value, 
+  #                            all_waves_no_diab_baseline_unique_values, 
+  #                             new_diabetes_participant_wave_df)
+  # 
+  # write.csv(total_n_proportion, (paste(OUTPUT_ROOT, "total_n_nodiabatbaseline_DIAB_values.csv", sep="")))
+  # 
   
   return(dataset_ftp_timepoints)
   

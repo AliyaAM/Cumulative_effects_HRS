@@ -37,16 +37,16 @@ library(arsenal)
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
-current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
-#current_directory = "/Users/aliya/my_docs/"
+current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
 SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
-DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
+#DATA_ROOT = paste(current_directory, "ELSA_HRS/Data_analysis/", sep = "") 
 
-#DATA_ROOT = paste(current_directory, "KCL_postDoc/Data_analysis/", sep = "")
+DATA_ROOT = paste(current_directory, "KCL_postDoc/Data_analysis/", sep = "")
 
 # function that subsets and srts dataset for a particular var (eg., female == 1)
 
@@ -87,11 +87,6 @@ HRS2016_data_initial = read.csv(paste(DATA_ROOT, "HRS_2016_data/HRS2016_data_sho
 HRS2018_data_initial = read.csv(paste(DATA_ROOT, "HRS_2018_data/HRS2018_data_short_education.csv", sep=""))
 
 
-HRS2008_data_initial_old = read.csv(paste(DATA_ROOT, "HRS_2008_data/HRS2008_data_short_OLD.csv", sep =""))
-
-ls(HRS2008_data_initial_old)
-
-table(HRS2010_data_initial$RAHISPAN)
 
 #data 
 
