@@ -168,6 +168,52 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 #cumulative_effects_dat$assessed_BMI
 
 ##### discrim_harassed, discrim_lessrespect, discrim_medical, discrim_notclever, discrim_poorerservice, 
+##### reverse the scoring so that HR meaningfully reflects the direciton of the associaiton
+cumulative_effects_dat$discrim_harassed =  case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 6, 
+                                                     cumulative_effects_dat$discrim_harassed == 2 ~ 5, 
+                                                     cumulative_effects_dat$discrim_harassed == 3 ~ 4, 
+                                                     cumulative_effects_dat$discrim_harassed == 4 ~ 3, 
+                                                     cumulative_effects_dat$discrim_harassed == 5 ~ 2, 
+                                                     cumulative_effects_dat$discrim_harassed == 6 ~ 1,
+                                                     cumulative_effects_dat$discrim_harassed == 0 ~ 0) 
+
+
+cumulative_effects_dat$discrim_lessrespect =  case_when(cumulative_effects_dat$discrim_lessrespect == 1 ~ 6, 
+                                                     cumulative_effects_dat$discrim_lessrespect == 2 ~ 5, 
+                                                     cumulative_effects_dat$discrim_lessrespect == 3 ~ 4, 
+                                                     cumulative_effects_dat$discrim_lessrespect == 4 ~ 3, 
+                                                     cumulative_effects_dat$discrim_lessrespect == 5 ~ 2, 
+                                                     cumulative_effects_dat$discrim_lessrespect == 6 ~ 1,
+                                                     cumulative_effects_dat$discrim_lessrespect == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_medical =  case_when(cumulative_effects_dat$discrim_medical == 1 ~ 6, 
+                                                        cumulative_effects_dat$discrim_medical == 2 ~ 5, 
+                                                        cumulative_effects_dat$discrim_medical == 3 ~ 4, 
+                                                        cumulative_effects_dat$discrim_medical == 4 ~ 3, 
+                                                        cumulative_effects_dat$discrim_medical == 5 ~ 2, 
+                                                        cumulative_effects_dat$discrim_medical == 6 ~ 1,
+                                                        cumulative_effects_dat$discrim_medical == 0 ~ 0) 
+
+
+
+cumulative_effects_dat$discrim_notclever =  case_when(cumulative_effects_dat$discrim_notclever == 1 ~ 6, 
+                                                    cumulative_effects_dat$discrim_notclever == 2 ~ 5, 
+                                                    cumulative_effects_dat$discrim_notclever == 3 ~ 4, 
+                                                    cumulative_effects_dat$discrim_notclever == 4 ~ 3, 
+                                                    cumulative_effects_dat$discrim_notclever == 5 ~ 2, 
+                                                    cumulative_effects_dat$discrim_notclever == 6 ~ 1,
+                                                    cumulative_effects_dat$discrim_notclever == 0 ~ 0) 
+
+
+cumulative_effects_dat$discrim_poorerservice =  case_when(cumulative_effects_dat$discrim_poorerservice == 1 ~ 6, 
+                                                      cumulative_effects_dat$discrim_poorerservice == 2 ~ 5, 
+                                                      cumulative_effects_dat$discrim_poorerservice == 3 ~ 4, 
+                                                      cumulative_effects_dat$discrim_poorerservice == 4 ~ 3, 
+                                                      cumulative_effects_dat$discrim_poorerservice == 5 ~ 2, 
+                                                      cumulative_effects_dat$discrim_poorerservice == 6 ~ 1,
+                                                      cumulative_effects_dat$discrim_poorerservice == 0 ~ 0) 
 
 
 cor_matrix <- cor(cumulative_effects_dat[,c("discrim_harassed", "discrim_lessrespect", "discrim_medical", "discrim_notclever", "discrim_poorerservice")], use="complete.obs")
@@ -243,7 +289,6 @@ result = rbind(results_unadjusted,
 models = c("unadjusted", "model1", "model2", "model3", "model4")
 
 
-result$models = models
 
 
 
