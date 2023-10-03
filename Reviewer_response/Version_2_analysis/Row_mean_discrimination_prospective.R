@@ -297,3 +297,27 @@ models = c("unadjusted", "model1", "model2", "model3", "model4")
 ########
 ########
 
+# Load required package
+install.packages("lmtest")
+library(lmtest)
+
+# Fit the main effect model
+
+main_model <- glm(diabetes_new_bin ~ continious_age + sex_1_2 + wealth_noIRA + mean_discrimination, 
+                  data = cumulative_effects_dat, family = binomial)
+
+# Fit the interaction models
+interaction_age <- update(main_model, . ~ . + continious_age:mean_discrimination)
+interaction_sex <- update(main_model, . ~ . + sex_1_2:mean_discrimination)
+interaction_wealth <- update(main_model, . ~ . + wealth_noIRA:mean_discrimination)
+
+# Conduct the log-likelihood ratio tests
+test_age <- lrtest(main_model, interaction_age)
+test_sex <- lrtest(main_model, interaction_sex)
+test_wealth <- lrtest(main_model, interaction_wealth)
+
+# Print the results
+print(test_age)
+print(test_sex)
+print(test_wealth)
+
