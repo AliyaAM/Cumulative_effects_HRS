@@ -269,6 +269,7 @@ analytical_sample_COX_baseline = subset(analytical_sample_COX, analytical_sample
 analytical_sample_COX_baseline_ids = unique(analytical_sample_COX_baseline$HHIDPN)
 nrow(analytical_sample_COX_baseline_ids)
 
+#####
 
 #####
 
@@ -282,26 +283,89 @@ non_diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$di
 non_diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 5)
 
 
-#non_diabetes_baseline_and1 = inner_join(non_diabetes_baseline, 
-#                                        non_diabetes_followup_1,
-#                                        copy = TRUE,    
-#                                        keep = FALSE, 
-#                                        suffix = c("", "_new"), 
-#                                        
-#                                        by = "HHIDPN")
+#non_diabetes_baseline_and1 = inner_join( non_diabetes_baseline, 
+#                                      non_diabetes_followup_1,
 
-non_diabetes_baseline_and1_2 = inner_join(non_diabetes_followup_1, 
-                                          non_diabetes_followup_2,
-                                          copy = TRUE, 
-                                          keep = FALSE, 
+#                                       suffix = c("", "_new"), 
+
+#                                      by = "HHIDPN")
+
+non_diabetes_baseline_and1_2 = full_join(non_diabetes_followup_1, 
+                                         non_diabetes_followup_2,
+                                      
+                                      suffix = c("", "_new"), 
+                                      
+                                      by = "HHIDPN")
+
+non_diabetes_baseline_and1_2_3 = full_join(non_diabetes_baseline_and1_2, 
+                                           non_diabetes_followup_3,
+                                        
+                                        suffix = c("", "_new"), 
+                                        
+                                        by = "HHIDPN")
+
+non_diabetes_baseline_and1_2_3_4 = full_join(non_diabetes_baseline_and1_2_3, 
+                                             non_diabetes_followup_4,
+                                          
                                           suffix = c("", "_new"), 
                                           
                                           by = "HHIDPN")
 
+non_diabetes_throughout_the_study = full_join(non_diabetes_baseline_and1_2_3_4, 
+                                              non_diabetes_followup_5,
+                                           
+                                           suffix = c("", "_new"), 
+                                           by = "HHIDPN")
 
-non_diabetes_throughout_the_study = non_diabetes_baseline_and1_2
+
+##########
+##########
 
 
+
+
+diabetes_baseline = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 0) 
+diabetes_followup_1 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 1) 
+diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 2) 
+diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 3) 
+diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 4)
+diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 5)
+
+table(diabetes_followup_3$discrim_bin) 
+
+#diabetes_baseline_and1 = inner_join( diabetes_baseline, 
+#                                       diabetes_followup_1,
+
+#                                       suffix = c("", "_new"), 
+
+#                                      by = "HHIDPN")
+
+diabetes_baseline_and1_2 = full_join( diabetes_followup_1, 
+                                      diabetes_followup_2,
+                                      
+                                      suffix = c("", "_new"), 
+                                      
+                                      by = "HHIDPN")
+
+diabetes_baseline_and1_2_3 = full_join( diabetes_baseline_and1_2, 
+                                        diabetes_followup_3,
+                                        
+                                        suffix = c("", "_new"), 
+                                        
+                                        by = "HHIDPN")
+
+diabetes_baseline_and1_2_3_4 = full_join( diabetes_baseline_and1_2_3, 
+                                          diabetes_followup_4,
+                                          
+                                          suffix = c("", "_new"), 
+                                          
+                                          by = "HHIDPN")
+
+diabetes_throughout_the_study = full_join( diabetes_baseline_and1_2_3_4, 
+                                           diabetes_followup_5,
+                                           
+                                           suffix = c("", "_new"), 
+                                           by = "HHIDPN")
 ##########
 ##########
 
@@ -310,43 +374,62 @@ diabetes_throughout_the_study$developed_diabetes = rep(1, times = nrow(diabetes_
 non_diabetes_throughout_the_study$developed_diabetes = rep(0, times = nrow(non_diabetes_throughout_the_study)) 
 nrow(non_diabetes_throughout_the_study)
 
-case = c(diabetes_throughout_the_study$developed_diabetes, non_diabetes_throughout_the_study$developed_diabetes)
+case = c(diabetes_throughout_the_study$developed_diabetes,
+         non_diabetes_throughout_the_study$developed_diabetes)
+
 unique(case)
 
-education = c(diabetes_throughout_the_study$education_level, non_diabetes_throughout_the_study$education_level)
+education = c(diabetes_throughout_the_study$education_level, 
+              non_diabetes_throughout_the_study$education_level)
 
-wealth = c(diabetes_throughout_the_study$wealth_noIRA, non_diabetes_throughout_the_study$wealth_noIRA) 
+wealth = c(diabetes_throughout_the_study$wealth_noIRA, 
+           non_diabetes_throughout_the_study$wealth_noIRA) 
 
-age = c(diabetes_throughout_the_study$continious_age, non_diabetes_throughout_the_study$continious_age)
-sex = c(diabetes_throughout_the_study$sex_1_2, non_diabetes_throughout_the_study$sex_1_2)
+age = c(diabetes_throughout_the_study$continious_age, 
+        non_diabetes_throughout_the_study$continious_age)
 
-race = c(diabetes_throughout_the_study$race_white, non_diabetes_throughout_the_study$race_white)
+sex = c(diabetes_throughout_the_study$sex_1_2, 
+        non_diabetes_throughout_the_study$sex_1_2)
+
+
+diabetes_throughout_the_study$sex
+
+race = c(diabetes_throughout_the_study$race_white, 
+         non_diabetes_throughout_the_study$race_white)
+
 #BMI kg/m2, mean (SD)
 
-BMI = c(diabetes_throughout_the_study$assessed_BMI, non_diabetes_throughout_the_study$assessed_BMI)
+BMI = c(diabetes_throughout_the_study$assessed_BMI, 
+        non_diabetes_throughout_the_study$assessed_BMI)
 
 #CVD,  n (%)
 
-CVD = c(diabetes_throughout_the_study$CVD, non_diabetes_throughout_the_study$CVD)
+CVD = c(diabetes_throughout_the_study$CVD, 
+        non_diabetes_throughout_the_study$CVD)
 
 #Hypertension, n (%)
 
-hypertension = c(diabetes_throughout_the_study$hypertension_new_bin, non_diabetes_throughout_the_study$hypertension_new_bin)
+hypertension = c(diabetes_throughout_the_study$hypertension_new_bin, 
+                 non_diabetes_throughout_the_study$hypertension_new_bin)
 
 
 #Depression, n (%)
 
-depression = c(diabetes_throughout_the_study$checklist_depression_bin, non_diabetes_throughout_the_study$checklist_depression_bin)
+depression = c(diabetes_throughout_the_study$checklist_depression_bin, 
+               non_diabetes_throughout_the_study$checklist_depression_bin)
 
 
 #Alcohol consumption (days/week), Mean (SD)
 
-Alcohol_consumption  = c(diabetes_throughout_the_study$alcohol_days_week, non_diabetes_throughout_the_study$alcohol_days_week)
+Alcohol_consumption  = c(diabetes_throughout_the_study$alcohol_days_week, 
+                         non_diabetes_throughout_the_study$alcohol_days_week)
+
 Alcohol_consumption = as.numeric(Alcohol_consumption)
 
 #Smoker status, n (%)
 
-Smoking_status  = c(diabetes_throughout_the_study$smokes_now_bin, non_diabetes_throughout_the_study$smokes_now_bin)
+Smoking_status  = c(diabetes_throughout_the_study$smokes_now_bin, 
+                    non_diabetes_throughout_the_study$smokes_now_bin)
 
 
 #MVPA frequency, median
@@ -432,14 +515,20 @@ percentages_sex <- cbind(percentages_sex, `NAs (%)` = na_percentage_sex)
 #######
 #######
 
-# Create a contingency table including NAs
-table_sex_diabetes <- table(data_ttest$case, data_ttest$sex, useNA = "ifany")
 
 # Calculate total counts including NAs
 total_counts <- rowSums(table_sex_diabetes)
 
 # Calculate percentages including NAs
+# Create a contingency table including NAs
+table_sex_diabetes <- table(data_ttest$case, data_ttest$sex, useNA = "ifany")
 percentages_sex <- sweep(table_sex_diabetes, 1, total_counts, FUN = "/") * 100
+female_pvalue <- chisq.test(table(data_ttest$case, data_ttest$sex))$p.value
+
+print(table_sex_diabetes)
+print(percentages_sex)
+print(female_pvalue)
+
 
 # Combine counts and percentages
 formatted_table <- apply(table_sex_diabetes, c(1, 2), function(x, y) sprintf("%d (%.2f%%)", x, y[x]), y = percentages_sex)
@@ -456,19 +545,40 @@ formatted_table
 
 
 
-female_pvalue <- chisq.test(table(data_ttest$case, data_ttest$sex))$p.value
-print(female_pvalue)
-
-
+#### race 
+table_race_black_diabetes <- table(data_ttest$case, data_ttest$race, useNA = "ifany")
+percentages_race_black <- sweep(table_race_black_diabetes, 1, total_counts, FUN = "/") * 100
 race_black_pvalue <- chisq.test(table(data_ttest$case, data_ttest$race))$p.value
+
+#### hypertension 
+table_hypertension_diabetes <- table(data_ttest$case, data_ttest$hypertension, useNA = "ifany")
+percentages_hypertension <- sweep(table_hypertension_diabetes, 1, total_counts, FUN = "/") * 100
 hypertension_pvalue <- chisq.test(table(data_ttest$case, data_ttest$hypertension))$p.value
+
+#### depression 
+table_depression_diabetes <- table(data_ttest$case, data_ttest$depression, useNA = "ifany")
+percentages_depression <- sweep(table_depression_diabetes, 1, total_counts, FUN = "/") * 100
 depression_pvalue <- chisq.test(table(data_ttest$case, data_ttest$depression))$p.value
+
+#### smoker
+table_smoker_status_diabetes <- table(data_ttest$case, data_ttest$Smoking_status, useNA = "ifany")
+percentages_smoker_status <- sweep(table_smoker_status_diabetes, 1, total_counts, FUN = "/") * 100
 smoker_status_pvalue <- chisq.test(table(data_ttest$case, data_ttest$Smoking_status))$p.value
+
+table(data_ttest$case, useNA = "ifany")
+
+#### education 
+table_education_diabetes <- table(data_ttest$case, data_ttest$education, useNA = "ifany")
+percentages_education <- sweep(table_education_diabetes, 1, total_counts, FUN = "/") * 100
 education_pvalue <- chisq.test(table(data_ttest$case, data_ttest$education))$p.value
+
+#### wealth (this needs to change to wealth quantile)
+table_wealth_diabetes <- table(data_ttest$case, data_ttest$wealth, useNA = "ifany")
+percentages_wealth <- sweep(table_wealth_diabetes, 1, total_counts, FUN = "/") * 100
 wealth_pvalue <- chisq.test(table(data_ttest$case, data_ttest$wealth))$p.value
 
 
-# Print p-values
+# Print p-values 
 cat("Age p-value:", age_pvalue, "\n")
 cat("BMI p-value:", bmi_pvalue, "\n")
 cat("Alcohol Units p-value:", alcohol_units_pvalue, "\n")
