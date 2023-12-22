@@ -461,7 +461,9 @@ data_ttest = data.frame(case,
                         wealth)
 
 
-print(data_ttest)
+head(data_ttest)
+unique(data_ttest$case)
+
 
 # Subset the data
 group1 <- data_ttest %>% filter(case == 1)
@@ -536,7 +538,6 @@ formatted_table <- apply(table_sex_diabetes, c(1, 2), function(x, y) sprintf("%d
 # Display the formatted table
 formatted_table
 
-258 + 386  + 273
 
 #######
 #######
