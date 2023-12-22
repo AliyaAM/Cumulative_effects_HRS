@@ -335,24 +335,25 @@ unique(wealth)
 ###### Participant table: 
 
 # Explanatory or confounding variables
-explanatory = c("age", 
-                "race", 
-                "hispanic", 
-                "sex", 
+explanatory = c("age",
+                "race",
+                "hispanic",
+                "sex",
                 "BMI",
                 "education",
-                "hypertension", 
+                "hypertension",
                 "depression",
-                "Alcohol_consumption",  
+                "Alcohol_consumption",
                 "Smoking_status",
                 "MVPA",
-                "wealth") 
-# 
+                "wealth")
+#
 
 dependent = c("developed_diabetes")
 
 
 data_compared$race <- droplevels(data_compared$race)
+data_compared$hispanic = droplevels(data_compared$hispanic)
 data_compared$sex <- droplevels(data_compared$sex)
 data_compared$education <- droplevels(data_compared$education)
 data_compared$hypertension <- droplevels(data_compared$hypertension)
@@ -374,6 +375,69 @@ table1_final = data_compared %>%
                      add_row_total = TRUE) -> t
 
 write.csv(table1_final, file = paste(OUTPUT_ROOT, "table1_final.csv", sep = ""))
+
+
+
+##### table 1 final with MVPA and alcohol consumption as a median:
+#change MVPA and Alcohol consumption into double so it comes out as mean (SD)
+data_compared_v2 = as.data.frame(data_compared$HHIDPN)
+data_compared_v2$developed_diabetes = as.factor(data_compared$developed_diabetes)
+data_compared_v2$age = as.double(data_compared$age)
+data_compared_v2$sex = as.factor(data_compared$sex)
+data_compared_v2$race = as.factor(data_compared$race)
+data_compared_v2$hispanic = as.factor(data_compared$hispanic)
+data_compared_v2$BMI = as.double(data_compared$BMI)
+data_compared_v2$education = as.factor(data_compared$education)
+data_compared_v2$depression = as.factor(data_compared$depression)
+data_compared_v2$hypertension = as.factor(data_compared$hypertension)
+data_compared_v2$Alcohol_consumption = as.double(data_compared$Alcohol_consumption)
+data_compared_v2$Smoking_status = as.factor(data_compared$Smoking_status)
+data_compared_v2$MVPA = as.double(data_compared$MVPA)
+data_compared_v2$wealth = as.factor(data_compared$wealth) # wealth quantiles
+
+
+
+###### Participant table: 
+
+# Explanatory or confounding variables
+explanatory = c("age",
+                "race",
+                "hispanic",
+                "sex",
+                "BMI",
+                "education",
+                "hypertension",
+                "depression",
+                "Alcohol_consumption",
+                "Smoking_status",
+                "MVPA",
+                "wealth")
+#
+
+dependent = c("developed_diabetes")
+
+
+data_compared_v2$race <- droplevels(data_compared_v2$race)
+data_compared_v2$hispanic = droplevels(data_compared_v2$hispanic)
+data_compared_v2$sex <- droplevels(data_compared_v2$sex)
+data_compared_v2$education <- droplevels(data_compared_v2$education)
+data_compared_v2$hypertension <- droplevels(data_compared_v2$hypertension)
+data_compared_v2$depression <- droplevels(data_compared_v2$depression)
+data_compared_v2$Smoking_status <- droplevels(data_compared_v2$Smoking_status)
+data_compared_v2$wealth <- droplevels(data_compared_v2$wealth)
+
+
+summary(data_compared_v2)
+str(data_compared_v2)
+
+
+# Generating summary table for participant characteristics
+table1_final_v2 = data_compared_v2 %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
+                     total_col = TRUE,
+                     add_row_total = TRUE) -> t
+
+write.csv(table1_final_v2, file = paste(OUTPUT_ROOT, "table1_final_v2.csv", sep = ""))
 
 ##### more detailed table: 
 
@@ -418,16 +482,49 @@ generate_participant_table <- function(data, variables) {
 }
 
 # Baseline participant characteristics for the included sample
+
 table1 <- generate_participant_table(data_compared[data_compared$start_new == 0, ], explanatory)
 
 # Characteristics of participants lost to each follow-up
-head(baseline_more_than_one_followup)
+# head(baseline_more_than_one_followup)
+
+baseline_more_than_one_followup$developed_diabetes = as.factor(baseline_more_than_one_followup$developed_diabetes)
+baseline_more_than_one_followup$age = as.double(baseline_more_than_one_followup$age)
+baseline_more_than_one_followup$sex = as.factor(baseline_more_than_one_followup$sex)
+baseline_more_than_one_followup$race = as.factor(baseline_more_than_one_followup$race)
+baseline_more_than_one_followup$hispanic = as.factor(baseline_more_than_one_followup$hispanic)
+baseline_more_than_one_followup$BMI = as.double(baseline_more_than_one_followup$BMI)
+baseline_more_than_one_followup$education = as.factor(baseline_more_than_one_followup$education)
+baseline_more_than_one_followup$depression = as.factor(baseline_more_than_one_followup$depression)
+baseline_more_than_one_followup$hypertension = as.factor(baseline_more_than_one_followup$hypertension)
+baseline_more_than_one_followup$Alcohol_consumption = as.factor(baseline_more_than_one_followup$Alcohol_consumption)
+baseline_more_than_one_followup$Smoking_status = as.factor(baseline_more_than_one_followup$Smoking_status)
+baseline_more_than_one_followup$MVPA = as.factor(baseline_more_than_one_followup$MVPA)
+baseline_more_than_one_followup$wealth = as.factor(baseline_more_than_one_followup$wealth) # wealth quantiles
+
+
+
+baseline_more_than_one_followup$race <- droplevels(baseline_more_than_one_followup$race)
+baseline_more_than_one_followup$hispanic = droplevels(baseline_more_than_one_followup$hispanic)
+baseline_more_than_one_followup$sex <- droplevels(baseline_more_than_one_followup$sex)
+baseline_more_than_one_followup$education <- droplevels(baseline_more_than_one_followup$education)
+baseline_more_than_one_followup$hypertension <- droplevels(baseline_more_than_one_followup$hypertension)
+baseline_more_than_one_followup$depression <- droplevels(baseline_more_than_one_followup$depression)
+baseline_more_than_one_followup$Alcohol_consumption <- droplevels(baseline_more_than_one_followup$Alcohol_consumption)
+baseline_more_than_one_followup$Smoking_status <- droplevels(baseline_more_than_one_followup$Smoking_status)
+baseline_more_than_one_followup$MVPA <- droplevels(baseline_more_than_one_followup$MVPA)
+baseline_more_than_one_followup$wealth <- droplevels(baseline_more_than_one_followup$wealth)
+
+summary(baseline_more_than_one_followup)
+str(baseline_more_than_one_followup)
+
 table1_more_than_one_followup = baseline_more_than_one_followup %>%
   summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
                      total_col = TRUE,
                      add_row_total = TRUE) -> t
 
 
+table1_more_than_one_followup <- generate_participant_table(data = baseline_more_than_one_followup,variables = explanatory)
 
 
 table1_baseline_only_one_followup = baseline_only_one_followup %>%
