@@ -457,9 +457,25 @@ library(broom)
 data_compared_v2$start_new <- as.numeric(as.character(data_compared_v2$start_new))
 
 # Identify complete cases and those lost to follow-up
-baseline_participants <- unique(subset(data_compared_v2, start_new == 0)$HHIDPN)
-followup_participants <- unique(subset(data_compared_v2, start_new == 1 | start_new == 2 | start_new == 3)$HHIDPN)
-lost_to_followup_ids <- setdiff(baseline_participants, followup_participants)
+
+# Get unique HHIDPN for each time point
+baseline_participants <- unique(baseline_data$HHIDPN)
+followup_1_participants <- unique(followup_1_data$HHIDPN)
+followup_2_participants <- unique(followup_2_data$HHIDPN)
+followup_3_participants <- unique(followup_3_data$HHIDPN)
+
+# Identify participants present at all specified time points
+common_participants <- Reduce(intersect, list(followup_1_participants, followup_2_participants))
+
+# Identify lost to follow-up participants
+lost_to_followup1_id <- setdiff(baseline_participants, followup_1_participants)
+
+lost_to_followup2_id <- setdiff(baseline_participants, followup_2_participants)
+
+lost_to_followup3_id <- setdiff(baseline_participants, followup_3_participants)
+
+
+# Now lost_to_followup_ids contains the HHIDPN of those who were present at baseline but not at all specified follow-ups
 
 print(lost_to_followup_ids)
 
@@ -468,20 +484,39 @@ complete_cases_data <- subset(data_compared_v2, !(HHIDPN %in% lost_to_followup_i
 lost_to_followup_data <- subset(data_compared_v2, HHIDPN %in% lost_to_followup_ids & start_new == 0)
 
 library(finalfit)
+library(finalfit)
+library(dplyr)
 
-# Prepare the lost to follow-up baseline data subset
+# Define dependent and explanatory variables
+explanatory <- c("age", "race", "hispanic", "sex", "BMI", "education", "hypertension", "depression", "Alcohol_consumption", "Smoking_status", "MVPA", "wealth")
+dependent <- "developed_diabetes"
 
-# Define your explanatory (independent) and dependent variables
-explanatory = c("age", "race", "hispanic", "sex", "BMI", "education", "hypertension", "depression", "Alcohol_consumption", "Smoking_status", "MVPA", "wealth")
-dependent = "developed_diabetes"
+# Prepare lost to follow-up data subset
+lost_to_followup_data <- subset(data_compared_v2, HHIDPN %in% lost_to_followup_ids & start_new == 0)
 
-# Create the Summary Table
-lost_to_followup_summary <- summary_factorlist(lost_to_followup_data, dependent, explanatory, p = TRUE, add_dependent_label = FALSE)
+# Summary for lost to follow-up
+lost_to_followup_summary <- lost_to_followup_data %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, add_dependent_label = FALSE)
 
-# View the summary table
-print(lost_to_followup_summary)
+# Summary for total sample
+total_sample_summary <- complete_cases_data %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, add_dependent_label = FALSE)
 
-#write.csv(summaries_complete_cases, file = paste(OUTPUT_ROOT, "summaries_complete_cases.csv", sep = ""))
-write.csv(lost_to_followup_summary, file = paste(OUTPUT_ROOT, "summaries_lost_to_followup.csv", sep = ""))
+# Combine the summaries
+combined_summary <- bind_rows(
+  total_sample_summary %>% mutate(Group = "Total Sample"),
+  lost_to_followup_summary %>% mutate(Group = "Lost to Follow-Up")
+)
 
-# Function for performing chi-squared
+# Adding total N and missing N
+combined_summary_with_counts <- combined_summary %>%
+  group_by(Group, label) %>%
+  summarise(
+    Total_N = sum(!is.na(.data[[label]])),
+    Missing_N = sum(is.na(.data[[label]])),
+    .groups = "drop"
+  ) %>%
+  left_join(combined_summary, by = c("Group", "label"))
+
+# View the combined summary table
+print(combined_summary_with_counts)
