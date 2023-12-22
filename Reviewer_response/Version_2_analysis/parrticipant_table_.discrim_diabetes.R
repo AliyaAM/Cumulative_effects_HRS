@@ -467,20 +467,21 @@ print(lost_to_followup_ids)
 complete_cases_data <- subset(data_compared_v2, !(HHIDPN %in% lost_to_followup_ids))
 lost_to_followup_data <- subset(data_compared_v2, HHIDPN %in% lost_to_followup_ids & start_new == 0)
 
-# Define a function to compute summaries
-compute_summaries <- function(data, group_var) {
-  data %>%
-    group_by(!!sym(group_var)) %>%
-    summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
-              across(where(is.factor), ~sum(!is.na(.))/length(.))) %>%
-    ungroup()
-}
+library(finalfit)
 
-# Compute summaries for complete cases and lost to follow-up
-summaries_complete_cases <- compute_summaries(complete_cases_data, "developed_diabetes")
-summaries_lost_to_followup <- compute_summaries(lost_to_followup_data, "developed_diabetes")
+# Prepare the lost to follow-up baseline data subset
 
-write.csv(summaries_complete_cases, file = paste(OUTPUT_ROOT, "summaries_complete_cases.csv", sep = ""))
-write.csv(summaries_lost_to_followup, file = paste(OUTPUT_ROOT, "summaries_lost_to_followup.csv", sep = ""))
+# Define your explanatory (independent) and dependent variables
+explanatory = c("age", "race", "hispanic", "sex", "BMI", "education", "hypertension", "depression", "Alcohol_consumption", "Smoking_status", "MVPA", "wealth")
+dependent = "developed_diabetes"
+
+# Create the Summary Table
+lost_to_followup_summary <- summary_factorlist(lost_to_followup_data, dependent, explanatory, p = TRUE, add_dependent_label = FALSE)
+
+# View the summary table
+print(lost_to_followup_summary)
+
+#write.csv(summaries_complete_cases, file = paste(OUTPUT_ROOT, "summaries_complete_cases.csv", sep = ""))
+write.csv(lost_to_followup_summary, file = paste(OUTPUT_ROOT, "summaries_lost_to_followup.csv", sep = ""))
 
 # Function for performing chi-squared
