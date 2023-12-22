@@ -458,7 +458,7 @@ data_compared_v2$start_new <- as.numeric(as.character(data_compared_v2$start_new
 
 # Identify complete cases and those lost to follow-up
 baseline_participants <- unique(subset(data_compared_v2, start_new == 0)$HHIDPN)
-followup_participants <- unique(data_compared_v2$HHIDPN)
+followup_participants <- unique(subset(data_compared_v2, start_new == 1 | start_new == 2 | start_new == 3)$HHIDPN)
 lost_to_followup_ids <- setdiff(baseline_participants, followup_participants)
 
 print(lost_to_followup_ids)
@@ -479,5 +479,8 @@ compute_summaries <- function(data, group_var) {
 # Compute summaries for complete cases and lost to follow-up
 summaries_complete_cases <- compute_summaries(complete_cases_data, "developed_diabetes")
 summaries_lost_to_followup <- compute_summaries(lost_to_followup_data, "developed_diabetes")
+
+write.csv(summaries_complete_cases, file = paste(OUTPUT_ROOT, "summaries_complete_cases.csv", sep = ""))
+write.csv(summaries_lost_to_followup, file = paste(OUTPUT_ROOT, "summaries_lost_to_followup.csv", sep = ""))
 
 # Function for performing chi-squared
