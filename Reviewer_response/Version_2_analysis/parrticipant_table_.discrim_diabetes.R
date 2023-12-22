@@ -446,32 +446,38 @@ write.csv(table1_final_v2, file = paste(OUTPUT_ROOT, "table1_final_v2.csv", sep 
 #### separately report the total number of participants for each time points, also include the participant characteristics at baseline for those who were lost to follow-up and complete cases 
 #### add three tables: baseline participant characteristics for the included sample,participant characteristics for those lost to follow-up, the characteristics of the total final sample per each variable")
 
-baseline_data <- subset(data_compared_v2, start_new == 0)
+library(dplyr)
+library(tidyr)
+library(broom)
 
-# Summary for baseline data
-baseline_summary <- baseline_data %>%
-  summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
-            across(where(is.factor), ~sum(!is.na(.))/length(.)))
+# Assuming data_compared_v2 is your dataset
+# and start_new indicates the follow-up time point
 
-print(baseline_summary)
+# Convert 'start_new' to numeric if it's not already
+data_compared_v2$start_new <- as.numeric(as.character(data_compared_v2$start_new))
 
-# Identifying participants lost to follow-up
+# Identify complete cases and those lost to follow-up
 baseline_participants <- unique(subset(data_compared_v2, start_new == 0)$HHIDPN)
+followup_participants <- unique(data_compared_v2$HHIDPN)
+lost_to_followup_ids <- setdiff(baseline_participants, followup_participants)
 
-lost_to_followup_ids <- setdiff(baseline_participants, unique(data_compared_v2$HHIDPN))
+print(lost_to_followup_ids)
 
+# Create subsets of the data
+complete_cases_data <- subset(data_compared_v2, !(HHIDPN %in% lost_to_followup_ids))
 lost_to_followup_data <- subset(data_compared_v2, HHIDPN %in% lost_to_followup_ids & start_new == 0)
 
-# Summary for lost to follow-up data
-lost_to_followup_summary <- lost_to_followup_data %>%
-  summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
-            across(where(is.factor), ~sum(!is.na(.))/length(.)))
+# Define a function to compute summaries
+compute_summaries <- function(data, group_var) {
+  data %>%
+    group_by(!!sym(group_var)) %>%
+    summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
+              across(where(is.factor), ~sum(!is.na(.))/length(.))) %>%
+    ungroup()
+}
 
-print(lost_to_followup_summary)
+# Compute summaries for complete cases and lost to follow-up
+summaries_complete_cases <- compute_summaries(complete_cases_data, "developed_diabetes")
+summaries_lost_to_followup <- compute_summaries(lost_to_followup_data, "developed_diabetes")
 
-# Summary for the entire dataset
-total_sample_summary <- data_compared_v2 %>%
-  summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
-            across(where(is.factor), ~sum(!is.na(.))/length(.)))
-
-print(total_sample_summary)
+# Function for performing chi-squared
