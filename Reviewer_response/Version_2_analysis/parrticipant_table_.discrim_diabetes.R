@@ -446,154 +446,32 @@ write.csv(table1_final_v2, file = paste(OUTPUT_ROOT, "table1_final_v2.csv", sep 
 #### separately report the total number of participants for each time points, also include the participant characteristics at baseline for those who were lost to follow-up and complete cases 
 #### add three tables: baseline participant characteristics for the included sample,participant characteristics for those lost to follow-up, the characteristics of the total final sample per each variable")
 
+baseline_data <- subset(data_compared_v2, start_new == 0)
 
-# Ensure 'start_new' is numeric
-# Ensure 'start_new' is numeric
-data_compared_v2$start_new <- as.numeric(as.character(data_compared_v2$start_new))
+# Summary for baseline data
+baseline_summary <- baseline_data %>%
+  summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
+            across(where(is.factor), ~sum(!is.na(.))/length(.)))
 
-# Identify baseline participants
+print(baseline_summary)
+
+# Identifying participants lost to follow-up
 baseline_participants <- unique(subset(data_compared_v2, start_new == 0)$HHIDPN)
 
-# Function to check if participants are present in follow-up
-check_presence_in_followup <- function(time_point, baseline_ids) {
-  followup_ids <- unique(subset(data_compared_v2, start_new == time_point)$HHIDPN)
-  absent_ids <- setdiff(baseline_ids, followup_ids)
-  return(absent_ids)
-}
+lost_to_followup_ids <- setdiff(baseline_participants, unique(data_compared_v2$HHIDPN))
 
-# Checking for each follow-up
-lost_to_followup <- lapply(1:max(data_compared_v2$start_new), check_presence_in_followup, baseline_participants)
-all_lost_ids <- unique(unlist(lost_to_followup))
+lost_to_followup_data <- subset(data_compared_v2, HHIDPN %in% lost_to_followup_ids & start_new == 0)
 
-# Extract Baseline Characteristics of Lost Participants
-lost_baseline_data <- subset(data_compared_v2, HHIDPN %in% all_lost_ids & start_new == 0)
+# Summary for lost to follow-up data
+lost_to_followup_summary <- lost_to_followup_data %>%
+  summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
+            across(where(is.factor), ~sum(!is.na(.))/length(.)))
 
-# Adjust 'dependent' to be a single string, not a vector
-dependent = "developed_diabetes"
-
-# Create the Summary Table
-lost_to_followup_summary <- summary_factorlist(lost_baseline_data, explanatory, dependent, p = TRUE)
-
-# View or save the summary table
 print(lost_to_followup_summary)
 
+# Summary for the entire dataset
+total_sample_summary <- data_compared_v2 %>%
+  summarise(across(where(is.numeric), list(mean = ~mean(., na.rm = TRUE), sd = ~sd(., na.rm = TRUE))),
+            across(where(is.factor), ~sum(!is.na(.))/length(.)))
 
-# Assign 'dependent' as a single string directly
-dependent <- "developed_diabetes"
-
-# Re-check the structure of 'dependent'
-print(paste("Type of 'dependent':", class(dependent)))
-print(paste("Length of 'dependent':", length(dependent)))
-
-# Create the Summary Table
-lost_to_followup_summary <- summary_factorlist(lost_baseline_data, explanatory, dependent, p = TRUE)
-
-# View or save the summary table
-print(lost_to_followup_summary)
-
-
-
-# 
-# 
-# 
-# # Create a table of counts of follow-up visits for each participant
-# followup_counts <- table(data_compared$HHIDPN)
-# 
-# # IDs of participants who attended more than one follow-up
-# ids_more_than_one_followup <- names(followup_counts[followup_counts > 1])
-# 
-# # IDs of participants who attended only the baseline (no follow-ups)
-# ids_only_one_followup <- names(followup_counts[followup_counts == 1])
-# 
-# # Generating a list of IDs for each specific follow-up
-# ids_followup_f <- lapply(0:5, function(f) {
-#   unique(data_compared$HHIDPN[data_compared$start_new == f])
-# })
-# 
-# # If you want to see the IDs for a specific follow-up, you can access them like this:
-# # ids_followup_1 <- ids_followup_f[[2]] # For follow-up 1 (index 2 because indexing starts at 1 in R and 0 represents the baseline)
-# 
-# 
-# # Counting the number of participants at each follow-up
-# participants_per_followup <- sapply(0:5, function(f) {
-#   sum(data_compared$start_new == f)
-# })
-# print("Number of participants at each follow-up:")
-# print(participants_per_followup)
-# 
-# # Separating participants based on number of follow-ups
-# baseline_more_than_one_followup <- subset(data_compared, start_new == 0 & HHIDPN %in% ids_more_than_one_followup)
-# baseline_only_one_followup <- subset(data_compared, start_new == 0 & HHIDPN %in% ids_only_one_followup)
-# 
-# # Create function to generate participant characteristics table
-# generate_participant_table <- function(data, variables) {
-#   summary_factorlist(dependent, variables, data = data, p = TRUE, na_include = TRUE,
-#                      total_col = TRUE, add_row_total = TRUE)
-# }
-# 
-# # Baseline participant characteristics for the included sample
-# 
-# table1 <- generate_participant_table(data_compared[data_compared$start_new == 0, ], explanatory)
-# 
-# # Characteristics of participants lost to each follow-up
-# # head(baseline_more_than_one_followup)
-# 
-# baseline_more_than_one_followup$developed_diabetes = as.factor(baseline_more_than_one_followup$developed_diabetes)
-# baseline_more_than_one_followup$age = as.double(baseline_more_than_one_followup$age)
-# baseline_more_than_one_followup$sex = as.factor(baseline_more_than_one_followup$sex)
-# baseline_more_than_one_followup$race = as.factor(baseline_more_than_one_followup$race)
-# baseline_more_than_one_followup$hispanic = as.factor(baseline_more_than_one_followup$hispanic)
-# baseline_more_than_one_followup$BMI = as.double(baseline_more_than_one_followup$BMI)
-# baseline_more_than_one_followup$education = as.factor(baseline_more_than_one_followup$education)
-# baseline_more_than_one_followup$depression = as.factor(baseline_more_than_one_followup$depression)
-# baseline_more_than_one_followup$hypertension = as.factor(baseline_more_than_one_followup$hypertension)
-# baseline_more_than_one_followup$Alcohol_consumption = as.factor(baseline_more_than_one_followup$Alcohol_consumption)
-# baseline_more_than_one_followup$Smoking_status = as.factor(baseline_more_than_one_followup$Smoking_status)
-# baseline_more_than_one_followup$MVPA = as.factor(baseline_more_than_one_followup$MVPA)
-# baseline_more_than_one_followup$wealth = as.factor(baseline_more_than_one_followup$wealth) # wealth quantiles
-# 
-# 
-# 
-# baseline_more_than_one_followup$race <- droplevels(baseline_more_than_one_followup$race)
-# baseline_more_than_one_followup$hispanic = droplevels(baseline_more_than_one_followup$hispanic)
-# baseline_more_than_one_followup$sex <- droplevels(baseline_more_than_one_followup$sex)
-# baseline_more_than_one_followup$education <- droplevels(baseline_more_than_one_followup$education)
-# baseline_more_than_one_followup$hypertension <- droplevels(baseline_more_than_one_followup$hypertension)
-# baseline_more_than_one_followup$depression <- droplevels(baseline_more_than_one_followup$depression)
-# baseline_more_than_one_followup$Alcohol_consumption <- droplevels(baseline_more_than_one_followup$Alcohol_consumption)
-# baseline_more_than_one_followup$Smoking_status <- droplevels(baseline_more_than_one_followup$Smoking_status)
-# baseline_more_than_one_followup$MVPA <- droplevels(baseline_more_than_one_followup$MVPA)
-# baseline_more_than_one_followup$wealth <- droplevels(baseline_more_than_one_followup$wealth)
-# 
-# summary(baseline_more_than_one_followup)
-# str(baseline_more_than_one_followup)
-# 
-# table1_more_than_one_followup = baseline_more_than_one_followup %>%
-#   summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
-#                      total_col = TRUE,
-#                      add_row_total = TRUE) -> t
-# 
-# 
-# table1_more_than_one_followup <- generate_participant_table(data = baseline_more_than_one_followup,variables = explanatory)
-# 
-# 
-# table1_baseline_only_one_followup = baseline_only_one_followup %>%
-#   summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
-#                      total_col = TRUE,
-#                      add_row_total = TRUE) -> t
-# # Characteristics of the total final sample per each variable
-# table3 <- generate_participant_table(analytical_sample_COX, explanatory)
-# 
-# # Exporting the tables
-# write.csv(table1, file = paste(OUTPUT_ROOT, "table1_baseline_characteristics.csv", sep = ""))
-# write.csv(table1_baseline_only_one_followup, file = paste(OUTPUT_ROOT, "table2_lost_to_followup.csv", sep = ""))
-# write.csv(table1_more_than_one_followup, file = paste(OUTPUT_ROOT, "table3_final_sample_characteristics.csv", sep = ""))
-# 
-# 
-# print("separately report the total number of participants for each time points, also include the participant characteristics at baseline for those who had more than 1 timepoint and for those who were in the study for the baseline only")
-# 
-# participants_per_followup <- table(analytical_sample_COX$start_new)
-# 
-# 
-# print("add three tables: baseline participant characteristics for the included sample,participant characteristics for those who were lost to the first follow-up, lost to the second follow-up, lost to the third follow-up, the characteristics of the total final sample per each variable")
-# 15754-1789
+print(total_sample_summary)
