@@ -25,10 +25,20 @@ head(cumulative_effects_dat_initial)
 
 print("add hispanic as a variable in a different file, redo the flow chart excluding baseline cvd and diabetes")
 
+add_hispanic = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/randhrs1992_2018v1.csv")
+unique(add_hispanic$HHIDPN)
+
+nrow(add_hispanic)
+add_hispanic$RAHISPAN
+
 #hispanic_data <- read.csv("path_to_hispanic_data.csv")
 #cumulative_effects_dat_initial <- merge(cumulative_effects_dat_initial, hispanic_data, by = "common_identifier")
 
+# Merging the two dataframes
+cumulative_effects_dat_initial <- merge(cumulative_effects_dat_initial, add_hispanic[c("HHIDPN", "RAHISPAN")], by = "HHIDPN", all.x = TRUE)
 
+# Checking the first few rows of the updated dataframe
+head(cumulative_effects_dat_initial)
 
 
 # Check for unique IDs and missing values
@@ -170,6 +180,9 @@ unique(developed_diabetes)
 HHIDPN = c(baseline_data_group_developed_diabetes$HHIDPN, 
           baseline_data_group_did_not_develop_diabetes$HHIDPN)
 
+start_new = c(baseline_data_group_developed_diabetes$start_new, 
+              baseline_data_group_did_not_develop_diabetes$start_new)
+
 education = c(baseline_data_group_developed_diabetes$education_level , 
               baseline_data_group_did_not_develop_diabetes$education_level )
 
@@ -185,6 +198,9 @@ sex = c(baseline_data_group_developed_diabetes$sex_1_2 ,
 
 race = c(baseline_data_group_developed_diabetes$race_white , 
          baseline_data_group_did_not_develop_diabetes$race_white )
+
+hispanic = c(baseline_data_group_developed_diabetes$RAHISPAN, 
+             baseline_data_group_did_not_develop_diabetes$RAHISPAN)
 
 #BMI kg/m2, mean (SD)
 
@@ -238,9 +254,11 @@ MVPA  = c(baseline_data_group_developed_diabetes$vigarious_physical_activity ,
 
 
 data_compared = data.frame(HHIDPN, 
+                           start_new, 
                            developed_diabetes, # whether developed diabetes or not during the span of the study 
                         age, 
-                        race, 
+                        race,
+                        hispanic, 
                         sex, 
                         BMI,
                         education,
@@ -257,8 +275,6 @@ data_compared = data.frame(HHIDPN,
 
 nrow(data_compared)
 head(data_compared)
-unique(data_compared$case)
-table(data_compared$case)
 
 
 # Ensuring merged data integrity
@@ -267,8 +283,20 @@ if (any(duplicated(data_compared$HHIDPN))) {
 }
 
 
+
+# Find duplicated rows
+duplicated_rows <- duplicated(data_compared$HHIDPN) | duplicated(data_compared$HHIDPN, fromLast = TRUE)
+
+# Print all duplicated rows
+print(data_compared[duplicated_rows, ])
+
+# dublicates cases: 79+1710 
+
+# Keep only the rows where HHIDPN is not duplicated
+data_compared <- data_compared[!duplicated(data_compared$HHIDPN), ]
+
+
 #ensure that the variables are in the correct format 
-data_compared$developed_diabetes = as.factor(data_compared$developed_diabetes)
 
 nrow(data_compared)
 head(data_compared)
@@ -277,6 +305,7 @@ data_compared$developed_diabetes = as.factor(data_compared$developed_diabetes)
 data_compared$age = as.double(data_compared$age)
 data_compared$sex = as.factor(data_compared$sex)
 data_compared$race = as.factor(data_compared$race)
+data_compared$hispanic = as.factor(data_compared$hispanic)
 data_compared$BMI = as.double(data_compared$BMI)
 data_compared$education = as.factor(data_compared$education)
 data_compared$depression = as.factor(data_compared$depression)
@@ -308,6 +337,7 @@ unique(wealth)
 # Explanatory or confounding variables
 explanatory = c("age", 
                 "race", 
+                "hispanic", 
                 "sex", 
                 "BMI",
                 "education",
@@ -319,7 +349,7 @@ explanatory = c("age",
                 "wealth") 
 # 
 
-dependent = "developed_diabetes" 
+dependent = c("developed_diabetes")
 
 
 data_compared$race <- droplevels(data_compared$race)
@@ -391,7 +421,7 @@ generate_participant_table <- function(data, variables) {
 table1 <- generate_participant_table(data_compared[data_compared$start_new == 0, ], explanatory)
 
 # Characteristics of participants lost to each follow-up
-f
+head(baseline_more_than_one_followup)
 table1_more_than_one_followup = baseline_more_than_one_followup %>%
   summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
                      total_col = TRUE,
@@ -400,7 +430,7 @@ table1_more_than_one_followup = baseline_more_than_one_followup %>%
 
 
 
-table1_more_than_one_followup = baseline_more_than_one_followup %>%
+table1_baseline_only_one_followup = baseline_only_one_followup %>%
   summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
                      total_col = TRUE,
                      add_row_total = TRUE) -> t
@@ -409,8 +439,8 @@ table3 <- generate_participant_table(analytical_sample_COX, explanatory)
 
 # Exporting the tables
 write.csv(table1, file = paste(OUTPUT_ROOT, "table1_baseline_characteristics.csv", sep = ""))
-write.csv(table2, file = paste(OUTPUT_ROOT, "table2_lost_to_followup.csv", sep = ""))
-write.csv(table3, file = paste(OUTPUT_ROOT, "table3_final_sample_characteristics.csv", sep = ""))
+write.csv(table1_baseline_only_one_followup, file = paste(OUTPUT_ROOT, "table2_lost_to_followup.csv", sep = ""))
+write.csv(table1_more_than_one_followup, file = paste(OUTPUT_ROOT, "table3_final_sample_characteristics.csv", sep = ""))
 
 
 print("separately report the total number of participants for each time points, also include the participant characteristics at baseline for those who had more than 1 timepoint and for those who were in the study for the baseline only")
@@ -419,4 +449,4 @@ participants_per_followup <- table(analytical_sample_COX$start_new)
 
 
 print("add three tables: baseline participant characteristics for the included sample,participant characteristics for those who were lost to the first follow-up, lost to the second follow-up, lost to the third follow-up, the characteristics of the total final sample per each variable")
-
+15754-1789
