@@ -454,57 +454,54 @@ library(broom)
 # and start_new indicates the follow-up time point
 
 # Convert 'start_new' to numeric if it's not already
+# Assuming data_compared_v2 is your dataset
+# and start_new indicates the follow-up time point
+
+library(dplyr)
+library(tidyr)
+library(broom)
+
+# Convert 'start_new' to numeric if it's not already
 data_compared_v2$start_new <- as.numeric(as.character(data_compared_v2$start_new))
 
-# Identify complete cases and those lost to follow-up
+# Subset for each time point
+baseline_data <- subset(data_compared_v2, start_new == 0)
+followup_1_data <- subset(data_compared_v2, start_new == 1)
+followup_2_data <- subset(data_compared_v2, start_new == 2)
+followup_3_data <- subset(data_compared_v2, start_new == 3)
+# Add additional follow-up subsets if there are more time points
 
-# Get unique HHIDPN for each time point
-baseline_participants <- unique(baseline_data$HHIDPN)
-followup_1_participants <- unique(followup_1_data$HHIDPN)
-followup_2_participants <- unique(followup_2_data$HHIDPN)
-followup_3_participants <- unique(followup_3_data$HHIDPN)
+# Function to check if a participant is lost to follow-up
+is_lost_to_followup <- function(id, followup_data_list) {
+  for (followup_data in followup_data_list) {
+    if (!id %in% followup_data$HHIDPN) {
+      return(TRUE)
+    }
+  }
+  return(FALSE)
+}
 
-# Identify participants present at all specified time points
-common_participants <- Reduce(intersect, list(followup_1_participants, followup_2_participants))
+# List of follow-up dataframes
+followup_data_list <- list(followup_1_data, followup_2_data, followup_3_data) # Add additional follow-up dataframes if needed
 
-# Identify lost to follow-up participants
-lost_to_followup1_id <- setdiff(baseline_participants, followup_1_participants)
+# Apply the function to each participant in the baseline
+lost_to_followup_ids <- sapply(baseline_data$HHIDPN, is_lost_to_followup, followup_data_list)
 
-lost_to_followup2_id <- setdiff(baseline_participants, followup_2_participants)
+# Filter the baseline data for those lost to follow-up
+lost_to_followup_data <- baseline_data[lost_to_followup_ids, ]
 
-lost_to_followup3_id <- setdiff(baseline_participants, followup_3_participants)
-
-
-# Now lost_to_followup_ids contains the HHIDPN of those who were present at baseline but not at all specified follow-ups
-
-print(lost_to_followup_ids)
-
-# Create subsets of the data
-complete_cases_data <- subset(data_compared_v2, !(HHIDPN %in% lost_to_followup_ids))
-lost_to_followup_data <- subset(data_compared_v2, HHIDPN %in% lost_to_followup_ids & start_new == 0)
-
-library(finalfit)
-library(finalfit)
-library(dplyr)
-
-# Define dependent and explanatory variables
-explanatory <- c("age", "race", "hispanic", "sex", "BMI", "education", "hypertension", "depression", "Alcohol_consumption", "Smoking_status", "MVPA", "wealth")
-dependent <- "developed_diabetes"
-
-# Prepare lost to follow-up data subset
-lost_to_followup_data <- subset(data_compared_v2, HHIDPN %in% lost_to_followup_ids & start_new == 0)
-
-# Summary for lost to follow-up
+# Prepare lost to follow-up data subset for analysis
 lost_to_followup_summary <- lost_to_followup_data %>%
   summary_factorlist(dependent, explanatory, p = TRUE, add_dependent_label = FALSE)
 
-# Summary for total sample
-total_sample_summary <- complete_cases_data %>%
+# Prepare complete cases data for analysis
+complete_cases_data <- subset(data_compared_v2, !(HHIDPN %in% lost_to_followup_ids))
+complete_cases_summary <- complete_cases_data %>%
   summary_factorlist(dependent, explanatory, p = TRUE, add_dependent_label = FALSE)
 
 # Combine the summaries
 combined_summary <- bind_rows(
-  total_sample_summary %>% mutate(Group = "Total Sample"),
+  complete_cases_summary %>% mutate(Group = "Complete Cases"),
   lost_to_followup_summary %>% mutate(Group = "Lost to Follow-Up")
 )
 
