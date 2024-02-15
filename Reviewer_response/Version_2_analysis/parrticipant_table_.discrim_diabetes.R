@@ -24,12 +24,12 @@ cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_w
 print(paste("Number of unique IDs:", length(unique(cumulative_effects_dat_initial$HHIDPN))))
 
 # Subset for participants diagnosed with diabetes (diabetes_new = 1)
-diabetes_subset <- subset(cumulative_effects_dat_initial, diabetes_new == 1)
+diabetes_subset <- subset(cumulative_effects_dat_initial, diabetes_new_bin == 1)
 # Print the number of unique IDs in this subset
 print(paste("Number of unique IDs with diabetes:", length(unique(diabetes_subset$HHIDPN))))
 
 # Subset for participants not diagnosed with diabetes (diabetes_new = 0)
-non_diabetes_subset <- subset(cumulative_effects_dat_initial,  diabetes_new == 0)
+non_diabetes_subset <- subset(cumulative_effects_dat_initial,  diabetes_new_bin == 0)
 # Print the number of unique IDs in this subset
 print(paste("Number of unique IDs without diabetes:", length(unique(non_diabetes_subset$HHIDPN))))
 
@@ -80,52 +80,65 @@ analytical_sample_COX$wealth_quantile <- as.factor(create_wealth_quantiles(analy
 
 # Subsetting data for two  diabetes statuses at each follow-up
 
-diabetes_baseline = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 0) 
+diabetes_baseline = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 1 & analytical_sample_COX$start_new == 0 & analytical_sample_COX$diabetes_ever == 1) 
 nrow(diabetes_baseline) # this should be 0, as we are excluding people who had diabetes at the baseline 
 length(unique(diabetes_baseline$HHIDPN))
-diabetes_followup_1 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 1) 
+diabetes_followup_1 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 1 & analytical_sample_COX$start_new == 1) 
 nrow(diabetes_followup_1)
 length(unique(diabetes_followup_1$HHIDPN))
-diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 2) 
+diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 1 & analytical_sample_COX$start_new == 2) 
 nrow(diabetes_followup_2)
 length(unique(diabetes_followup_2$HHIDPN))
-diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 3) 
+diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 1 & analytical_sample_COX$start_new == 3) 
 nrow(diabetes_followup_3)
 length(unique(diabetes_followup_3$HHIDPN))
-diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 4)
+diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 1 & analytical_sample_COX$start_new == 4)
 nrow(diabetes_followup_4)
 length(unique(diabetes_followup_4$HHIDPN))
-diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 5)
+diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 1 & analytical_sample_COX$start_new == 5)
 nrow(diabetes_followup_5)
 length(unique(diabetes_followup_5$HHIDPN))
 
 
-non_diabetes_baseline = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 0) 
+non_diabetes_baseline = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 0 & analytical_sample_COX$start_new == 0) 
 nrow(non_diabetes_baseline) 
 length(unique(non_diabetes_baseline$HHIDPN))
-non_diabetes_followup_1 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 1) 
-non_diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 2) 
-non_diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 3) 
-non_diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 4)
-non_diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 5)
+non_diabetes_followup_1 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 0 & analytical_sample_COX$start_new == 1) 
+nrow(non_diabetes_followup_1) 
+length(unique(non_diabetes_followup_1$HHIDPN))
+non_diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 0 & analytical_sample_COX$start_new == 2) 
+nrow(non_diabetes_followup_2) 
+length(unique(non_diabetes_followup_2$HHIDPN))
+non_diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 0 & analytical_sample_COX$start_new == 3) 
+nrow(non_diabetes_followup_3) 
+length(unique(non_diabetes_followup_3$HHIDPN))
+non_diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 0 & analytical_sample_COX$start_new == 4)
+non_diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new_bin == 0 & analytical_sample_COX$start_new == 5)
 
+
+# identifying duplicates (diagonal by the metrix)
+baseline_cases_num = length(intersect(unique(non_diabetes_baseline$HHIDPN), unique(diabetes_baseline$HHIDPN))) # correctly showing that there are 0 casess overlapping 
+followup1_cases_num = length(intersect(unique(diabetes_followup_1$HHIDPN), unique(non_diabetes_followup_1$HHIDPN))) # correctly showing that there are 0 casess overlapping 
+followup2_cases_num = length(intersect(unique(diabetes_followup_2$HHIDPN), unique(non_diabetes_followup_2$HHIDPN))) # correctly showing that there are 0 casess overlapping 
+
+
+# identifying duplicates (diagonal by the metrix), below are the follow-ups that can overlap: 
+bsln_flw1_cases_num = length(intersect(unique(diabetes_followup_1$HHIDPN), unique(non_diabetes_baseline$HHIDPN))) #620
+bsln_flw2_cases_num = length(intersect(unique(diabetes_followup_2$HHIDPN), unique(non_diabetes_baseline$HHIDPN))) #518
+flw1_flw2_cases_num = length(intersect(unique(diabetes_followup_1$HHIDPN), unique(non_diabetes_followup_2$HHIDPN))) #27
+flw2_flw1_cases_num = length(intersect(unique(diabetes_followup_2$HHIDPN), unique(non_diabetes_followup_1$HHIDPN))) #264
 
 
 
 # Merging datasets (those who developed diabetes at some point, and those who did not develop diabetes)
 diabetes_data_merged <- rbind(diabetes_followup_1, 
-                              diabetes_followup_2, 
-                              diabetes_followup_3,
-                              diabetes_followup_4, 
-                              diabetes_followup_5)
+                              diabetes_followup_2)
 length(unique(diabetes_data_merged$HHIDPN)) #917
 
 non_diabetes_data_merged <- rbind(non_diabetes_baseline,
                                   non_diabetes_followup_1,
-                                  non_diabetes_followup_2, 
-                                  non_diabetes_followup_3, 
-                                  non_diabetes_followup_4, 
-                                  non_diabetes_followup_5)
+                                  non_diabetes_followup_2)
+
 length(unique(non_diabetes_data_merged$HHIDPN)) #14837
 
 
@@ -133,6 +146,27 @@ length(unique(non_diabetes_data_merged$HHIDPN)) #14837
 #unique ids of people who developed diabetes and who did not: 
 ids_developed_diabetes <- unique(diabetes_data_merged$HHIDPN)
 ids_did_not_develop_diabetes <- unique(non_diabetes_data_merged$HHIDPN)
+
+# figuring out why there are same cases in non_diabetes and yes_diabetes: 
+intersected_cases = intersect(ids_developed_diabetes, ids_did_not_develop_diabetes)
+length(intersected_cases)
+
+dodgy_case = setdiff(unique(cumulative_effects_dat_initial$HHIDPN), 
+                 union(unique(diabetes_data_merged$HHIDPN), unique(non_diabetes_data_merged$HHIDPN))
+                 )
+       
+
+dodgy_case_id = dodgy_case[1]
+
+dodgy_case_df <- subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN == dodgy_case_id)
+
+
+first_intersected_case = intersected_cases[1]
+second_intersected_case = intersected_cases[2]
+
+first_intersected_case_df = subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN == first_intersected_case) 
+second_intersected_case_df = subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN == second_intersected_case) 
+
 
 
 # Subset baseline data (ie., start_new = 0) into two groups: developed diabetes and did not: 
@@ -144,12 +178,6 @@ head(baseline_data_group_developed_diabetes)
 #number of people who never developed diabetes during th follow-up 
 length(ids_did_not_develop_diabetes)
 length(ids_developed_diabetes)
-
-nrow(baseline_data_group_did_not_develop_diabetes)
-
-#number of people who developed diabetes at some point during follow-up
-length(ids_developed_diabetes)
-nrow(baseline_data_group_developed_diabetes)
 
 
 # assign values to new variable describing whether ind developed diabetes during the span of the study or not: 
@@ -272,7 +300,7 @@ head(data_compared)
 #   stop("Duplicate IDs found in merged diabetes data.")
 # }
 
-print(paste("Number of unique IDs before removing duplicates:", length(unique(data_compared$HHIDPN))))
+print(paste("Number of unique IDs before removing duplicates:", length(unique(data_compared$HHIDPN)))) 
 
 
 # Find duplicated rows

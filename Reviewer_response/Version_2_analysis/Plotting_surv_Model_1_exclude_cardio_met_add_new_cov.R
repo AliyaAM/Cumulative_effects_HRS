@@ -32,7 +32,13 @@ DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "")
 
 #cumulative_effects_dat = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
 
-cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+cumulative_effects_dat_initial_first <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+unique_ids_cumulative_first = unique(cumulative_effects_dat_initial_first$HHIDPN)
+number_in_cumulative_first = length(unique_ids_cumulative_first)
+
+#dropping this particular case because it has diabetes_new = 3 and diabetes_ever = 1 but we did not drop it because 3 does not mean anything. 
+
+cumulative_effects_dat_initial = subset(cumulative_effects_dat_initial_first, cumulative_effects_dat_initial_first$HHIDPN != 907105020)
 
 unique_ids_cumulative = unique(cumulative_effects_dat_initial$HHIDPN)
 number_in_cumulative = length(unique_ids_cumulative)
@@ -44,9 +50,7 @@ number_in_cumulative = length(unique_ids_cumulative)
 # number_ids_table_1 = length(unique_ids_table1)
 # 
 # cumulative_effects_dat_initial <- subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN %in% unique_ids_table1)
-
-
-length(unique(cumulative_effects_dat_initial$HHIDPN))
+#length(unique(cumulative_effects_dat_initial$HHIDPN))
 
 #exclude participants with cardiometabolic disease at baseline: 
 
@@ -183,28 +187,10 @@ unique(cumulative_effects_dat$discrimination_cat)
 #2 = 4 years 
 #3 = 6 years 
 
-#coxph(Surv(t1, t2, stat) ∼ (age + surgery)* transplant) – time dependent covariates.
-
-unique(cumulative_effects_dat$timepoints_indiv)
-unique(cumulative_effects_dat$start_new)
-
-cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
-                                                             cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
-
-
-
-#cumulative_effects_dat$sex_1_2
-#cumulative_effects_dat$race_white
-#cumulative_effects_dat$race_white
-#cumulative_effects_dat$national_origin_ousideUS_bin
-#cumulative_effects_dat$religion_bin
-#cumulative_effects_dat$assessed_BMI
 
 
 #### plot for the entire dataset:
-#survfit.coxph
 
-#cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
 
 length(unique(cumulative_effects_dat$HHIDPN))
 
