@@ -3,15 +3,15 @@ library("dplyr")
 library("tidyr")
 library("ggplot2")
 library("stats")
-library("summarytools")
+#library("summarytools")
 # library("devtools") # Uncomment if devtools is required
 # install.packages("devtools") # Uncomment if devtools isn't installed
 # devtools::install_github("ewenharrison/finalfit") # Uncomment if finalfit isn't installed
 library("finalfit")
 
 # Setting up directories for data storage and analysis
-current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
-
+#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+current_directory <- "/Users/aliya/my_docs/"
 #current_directory <- "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 OUTPUT_ROOT <- paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
 SOURCE_ROOT <- paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
@@ -19,7 +19,7 @@ DATA_ROOT <- paste(current_directory, "ELSA_HRS/Data_analysis/", sep = "")
 
 
 # Load and preprocess data
-cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep="")) #
 
 head(cumulative_effects_dat_initial)
 
