@@ -26,9 +26,27 @@ DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "")
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
 
-cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
-nrow(cumulative_effects_dat_initial)
 
+###### DATA:
+# below is the entire dataset, not subseted to anyone: 
+
+#cumulative_effects_dat = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+
+cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+
+unique_ids_cumulative = unique(cumulative_effects_dat_initial$HHIDPN)
+number_in_cumulative = length(unique_ids_cumulative)
+
+
+data_compared_v2_table1 = read.csv(paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
+
+unique_ids_table1 = unique(data_compared_v2_table1$HHIDPN)
+number_ids_table_1 = length(unique_ids_table1)
+
+cumulative_effects_dat_initial <- subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN %in% unique_ids_table1)
+
+
+length(unique(cumulative_effects_dat_initial$HHIDPN))
 
 #exclude participants with cardiometabolic disease at baseline: 
 
@@ -240,7 +258,7 @@ write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "Model_1_nocardiometdis_race_e
 ############################## "education_level", "national_origin_ousideUS_bin", "race_white"
 ##############################
 
-fit_Model_2 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin  + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+fit_Model_2 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin  + race_white, data = cumulative_effects_dat)
 summary_all_model_2 = summary(fit_Model_2)
 
 # coeffcients for discrimination: 
@@ -361,7 +379,7 @@ write.csv(All_results_Model_3_full, paste(OUTPUT_ROOT, "Model_3_full_nocardiomet
 ############### Model 4: no covariate such as CVD since we are excuding cases on the basis of this var: instead model 4 is model 5 now which is "continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin",   "education_level", "national_origin_ousideUS_bin", "race_white"
 
 
-fit_Model_4 <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + checklist_depression_bin + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+fit_Model_4 <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + checklist_depression_bin + race_white, data = cumulative_effects_dat)
 summary_all_Model_4 = summary(fit_Model_4)
 
 # coeffcients for discrimination: 

@@ -10,22 +10,25 @@ library("summarytools")
 library("finalfit")
 
 # Setting up directories for data storage and analysis
-current_directory <- "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
-OUTPUT_ROOT <- paste(current_directory, "/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
-SOURCE_ROOT <- paste(current_directory, "/Reviewer_response/Version_2_analysis/", sep="")
-DATA_ROOT <- paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "") 
+current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
+#current_directory <- "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
+OUTPUT_ROOT <- paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
+SOURCE_ROOT <- paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
+DATA_ROOT <- paste(current_directory, "ELSA_HRS/Data_analysis/", sep = "") 
 
 
 # Load and preprocess data
-cumulative_effects_dat_initial <- read.csv(paste(current_directory, "/data_files/data_flow_chart_withoutbaselineCVD.csv", sep=""))
+cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
 
 head(cumulative_effects_dat_initial)
 
 
 print("add hispanic as a variable in a different file, redo the flow chart excluding baseline cvd and diabetes")
 
-add_hispanic = read.csv("/Users/aliyaamirova/Documents/KCL_postDoc/Data_analysis/randhrs1992_2018v1.csv")
+add_hispanic = read.csv(paste(OUTPUT_ROOT, "randhrs1992_2018v1.csv", sep=""))
+
+
 unique(add_hispanic$HHIDPN)
 
 nrow(add_hispanic)
@@ -148,6 +151,7 @@ ids_did_not_develop_diabetes <- unique(non_diabetes_data_merged$HHIDPN)
 
 # include only those with follow-up data 
 length(unique(non_diabetes_data_merged_no_baseline$HHIDPN)) #8561 
+length(unique(diabetes_data_merged$HHIDPN)) #917 
 
 # Subset baseline data (ie., start_new = 0) into two groups: developed diabetes and did not: 
 baseline_data_group_developed_diabetes <- subset(analytical_sample_COX, analytical_sample_COX$start_new == 0 & HHIDPN %in% ids_developed_diabetes)
@@ -157,6 +161,8 @@ baseline_data_group_did_not_develop_diabetes <- subset(analytical_sample_COX, an
 head(baseline_data_group_developed_diabetes)
 #number of people who never developed diabetes during th follow-up 
 length(ids_did_not_develop_diabetes)
+length(ids_developed_diabetes)
+
 nrow(baseline_data_group_did_not_develop_diabetes)
 
 #number of people who developed diabetes at some point during follow-up
@@ -179,6 +185,8 @@ unique(developed_diabetes)
 
 HHIDPN = c(baseline_data_group_developed_diabetes$HHIDPN, 
           baseline_data_group_did_not_develop_diabetes$HHIDPN)
+
+length(unique(HHIDPN))
 
 start_new = c(baseline_data_group_developed_diabetes$start_new, 
               baseline_data_group_did_not_develop_diabetes$start_new)
@@ -277,11 +285,12 @@ nrow(data_compared)
 head(data_compared)
 
 
-# Ensuring merged data integrity
-if (any(duplicated(data_compared$HHIDPN))) {
-  stop("Duplicate IDs found in merged diabetes data.")
-}
+# # Ensuring merged data integrity
+# if (any(duplicated(data_compared$HHIDPN))) {
+#   stop("Duplicate IDs found in merged diabetes data.")
+# }
 
+print(paste("Number of unique IDs before removing duplicates:", length(unique(data_compared$HHIDPN))))
 
 
 # Find duplicated rows
@@ -295,6 +304,7 @@ print(data_compared[duplicated_rows, ])
 # Keep only the rows where HHIDPN is not duplicated
 data_compared <- data_compared[!duplicated(data_compared$HHIDPN), ]
 
+print(paste("Number of unique IDs after removing duplicates:", length(unique(data_compared$HHIDPN))))
 
 #ensure that the variables are in the correct format 
 
@@ -361,7 +371,7 @@ data_compared$depression <- droplevels(data_compared$depression)
 data_compared$Alcohol_consumption <- droplevels(data_compared$Alcohol_consumption)
 data_compared$Smoking_status <- droplevels(data_compared$Smoking_status)
 data_compared$MVPA <- droplevels(data_compared$MVPA)
-data_compared$wealth <- droplevels(wealth)
+data_compared$wealth <- droplevels(data_compared$wealth)
 
 
 summary(data_compared)
@@ -397,7 +407,7 @@ data_compared_v2$Smoking_status = as.factor(data_compared$Smoking_status)
 data_compared_v2$MVPA = as.double(data_compared$MVPA)
 data_compared_v2$wealth = as.factor(data_compared$wealth) # wealth quantiles
 
-
+write.csv(data_compared_v2, file = paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
 
 ###### Participant table: 
 

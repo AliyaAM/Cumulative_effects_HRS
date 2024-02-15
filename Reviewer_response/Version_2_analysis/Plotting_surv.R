@@ -3,10 +3,11 @@
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
-#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
-current_directory = "/Users/aliya/my_docs/"
+#current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
+
 
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
 SOURCE_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/", sep="")
@@ -73,7 +74,23 @@ Model_noBMIcov_7 = c("continious_age", "wealth_noIRA", "sex_1_2",  "hypertension
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
 
-cumulative_effects_dat = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+#cumulative_effects_dat = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+
+cumulative_effects_dat <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+
+unique_ids_cumulative = unique(cumulative_effects_dat$HHIDPN)
+number_in_cumulative = length(unique_ids_cumulative)
+
+
+data_compared_v2_table1 = read.csv(paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
+
+unique_ids_table1 = unique(data_compared_v2_table1$HHIDPN)
+number_ids_table_1 = length(unique_ids_table1)
+
+cumulative_effects_dat <- subset(cumulative_effects_dat, cumulative_effects_dat$HHIDPN %in% unique_ids_table1)
+
+
+length(unique(cumulative_effects_dat$HHIDPN))
 
 ###### Adding variables to the main dataset:
 
@@ -202,7 +219,7 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 
 #### plot for the entire dataset: 
 
-fit <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
+fit <- survfit(Surv(years, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
 summary_all = summary(fit)
 print(summary_all)
 
