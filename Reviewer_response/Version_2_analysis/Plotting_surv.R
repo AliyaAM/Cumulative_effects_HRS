@@ -3,9 +3,9 @@
 # https://adibender.github.io/pammtools/articles/cumulative_effects.html
 #https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html Adding text (coefficients etc) to the plot next to the regression line 
 
-current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
-#current_directory = "/Users/aliya/my_docs/"
+current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
