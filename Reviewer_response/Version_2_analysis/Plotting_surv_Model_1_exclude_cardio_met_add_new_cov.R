@@ -344,7 +344,7 @@ unique(cumulative_effects_dat$smokes_now_bin)
 
 unique(cumulative_effects_dat$alcohol_days_week_new)
 
-fit_Model_3_full <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new + smokes_now_bin  + + alcohol_days_week_new +  race_white, data = cumulative_effects_dat)
+fit_Model_3_full <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new + smokes_now_bin  + alcohol_days_week_new +  race_white, data = cumulative_effects_dat)
 summary_all_Model_3_full = summary(fit_Model_3)
 
 # coeffcients for discrimination: 

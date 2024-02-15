@@ -30,6 +30,7 @@ number_in_cumulative = length(unique_ids_cumulative)
 
 
 data_compared_v2_table1 = read.csv(paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
+data_compared_v2_table1$education
 
 unique_ids_table1 = unique(data_compared_v2_table1$HHIDPN)
 number_ids_table_1 = length(unique_ids_table1)
@@ -64,7 +65,7 @@ nrow(cumulative_effects_dat_initial)
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-
+head(cumulative_effects_dat)
 
 cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
                                                         cumulative_effects_dat$discrim_harassed == 2 ~ 1, 
@@ -222,8 +223,9 @@ cumhaz_output_all =  fit$cumhaz
 cumhaz_output_std_all = fit$std.chaz
 
 
+fit_plot <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
 
-plot_all = ggsurvplot(fit,
+plot_all = ggsurvplot(fit_plot,
                       pval = TRUE, conf.int = TRUE,
                       risk.table = FALSE, # Add risk table
                       risk.table.col = "strata", # Change risk table color by groups

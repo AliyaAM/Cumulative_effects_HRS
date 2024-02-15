@@ -23,13 +23,13 @@ cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_w
 
 head(cumulative_effects_dat_initial)
 
+length(unique(cumulative_effects_dat_initial$HHIDPN))
 
-print("add hispanic as a variable in a different file, redo the flow chart excluding baseline cvd and diabetes")
 
 add_hispanic = read.csv(paste(OUTPUT_ROOT, "randhrs1992_2018v1.csv", sep=""))
 
 
-unique(add_hispanic$HHIDPN)
+length(unique(add_hispanic$HHIDPN))
 
 nrow(add_hispanic)
 add_hispanic$RAHISPAN
@@ -39,6 +39,8 @@ add_hispanic$RAHISPAN
 
 # Merging the two dataframes
 cumulative_effects_dat_initial <- merge(cumulative_effects_dat_initial, add_hispanic[c("HHIDPN", "RAHISPAN")], by = "HHIDPN", all.x = TRUE)
+
+length(unique(cumulative_effects_dat_initial$HHIDPN))
 
 # Checking the first few rows of the updated dataframe
 head(cumulative_effects_dat_initial)
@@ -58,8 +60,8 @@ non_diabetes_subset <- subset(cumulative_effects_dat_initial,  diabetes_new == 0
 print(paste("Number of unique IDs without diabetes:", length(unique(non_diabetes_subset$HHIDPN))))
 
 # CVD status recoding
-cumulative_effects_dat_initial$CVD <- with(cumulative_effects_dat_initial, ifelse(angina_new_bin == 1 | heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1 | heartattack_new_bin == 1, 1, 0))
-cumulative_effects_dat_initial$CVD_ever <- with(cumulative_effects_dat_initial, ifelse(heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1, 1, 0))
+#cumulative_effects_dat_initial$CVD <- with(cumulative_effects_dat_initial, ifelse(angina_new_bin == 1 | heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1 | heartattack_new_bin == 1, 1, 0))
+#cumulative_effects_dat_initial$CVD_ever <- with(cumulative_effects_dat_initial, ifelse(heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1, 1, 0))
 
 # Ensuring that all categories are covered in the recoding
 if (any(is.na(cumulative_effects_dat_initial$CVD))) {
