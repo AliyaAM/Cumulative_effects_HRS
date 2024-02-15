@@ -4,9 +4,9 @@ library("survminer")
 library("dplyr")
 
 
-current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
-#current_directory = "/Users/aliya/my_docs/"
+current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
@@ -38,12 +38,12 @@ unique_ids_cumulative = unique(cumulative_effects_dat_initial$HHIDPN)
 number_in_cumulative = length(unique_ids_cumulative)
 
 
-data_compared_v2_table1 = read.csv(paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
-
-unique_ids_table1 = unique(data_compared_v2_table1$HHIDPN)
-number_ids_table_1 = length(unique_ids_table1)
-
-cumulative_effects_dat_initial <- subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN %in% unique_ids_table1)
+# data_compared_v2_table1 = read.csv(paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
+# 
+# unique_ids_table1 = unique(data_compared_v2_table1$HHIDPN)
+# number_ids_table_1 = length(unique_ids_table1)
+# 
+# cumulative_effects_dat_initial <- subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN %in% unique_ids_table1)
 
 
 length(unique(cumulative_effects_dat_initial$HHIDPN))
@@ -205,6 +205,8 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 #survfit.coxph
 
 #cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
+
+length(unique(cumulative_effects_dat$HHIDPN))
 
 fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white, data = cumulative_effects_dat)
 summary_all = summary(fit)

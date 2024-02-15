@@ -19,34 +19,8 @@ DATA_ROOT <- paste(current_directory, "ELSA_HRS/Data_analysis/", sep = "")
 
 
 # Load and preprocess data
-cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep="")) #
+cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD_with_hispanic.csv", sep="")) #
 
-head(cumulative_effects_dat_initial)
-
-length(unique(cumulative_effects_dat_initial$HHIDPN))
-
-
-add_hispanic = read.csv(paste(OUTPUT_ROOT, "randhrs1992_2018v1.csv", sep=""))
-
-
-length(unique(add_hispanic$HHIDPN))
-
-nrow(add_hispanic)
-add_hispanic$RAHISPAN
-
-#hispanic_data <- read.csv("path_to_hispanic_data.csv")
-#cumulative_effects_dat_initial <- merge(cumulative_effects_dat_initial, hispanic_data, by = "common_identifier")
-
-# Merging the two dataframes
-cumulative_effects_dat_initial <- merge(cumulative_effects_dat_initial, add_hispanic[c("HHIDPN", "RAHISPAN")], by = "HHIDPN", all.x = TRUE)
-
-length(unique(cumulative_effects_dat_initial$HHIDPN))
-
-# Checking the first few rows of the updated dataframe
-head(cumulative_effects_dat_initial)
-
-
-# Check for unique IDs and missing values
 print(paste("Number of unique IDs:", length(unique(cumulative_effects_dat_initial$HHIDPN))))
 
 # Subset for participants diagnosed with diabetes (diabetes_new = 1)
@@ -60,8 +34,8 @@ non_diabetes_subset <- subset(cumulative_effects_dat_initial,  diabetes_new == 0
 print(paste("Number of unique IDs without diabetes:", length(unique(non_diabetes_subset$HHIDPN))))
 
 # CVD status recoding
-#cumulative_effects_dat_initial$CVD <- with(cumulative_effects_dat_initial, ifelse(angina_new_bin == 1 | heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1 | heartattack_new_bin == 1, 1, 0))
-#cumulative_effects_dat_initial$CVD_ever <- with(cumulative_effects_dat_initial, ifelse(heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1, 1, 0))
+cumulative_effects_dat_initial$CVD <- with(cumulative_effects_dat_initial, ifelse(angina_new_bin == 1 | heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1 | heartattack_new_bin == 1, 1, 0))
+cumulative_effects_dat_initial$CVD_ever <- with(cumulative_effects_dat_initial, ifelse(heartfailure2yrs_bin == 1 | heartattack_ever_bin == 1, 1, 0))
 
 # Ensuring that all categories are covered in the recoding
 if (any(is.na(cumulative_effects_dat_initial$CVD))) {
@@ -108,13 +82,27 @@ analytical_sample_COX$wealth_quantile <- as.factor(create_wealth_quantiles(analy
 
 diabetes_baseline = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 0) 
 nrow(diabetes_baseline) # this should be 0, as we are excluding people who had diabetes at the baseline 
+length(unique(diabetes_baseline$HHIDPN))
 diabetes_followup_1 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 1) 
+nrow(diabetes_followup_1)
+length(unique(diabetes_followup_1$HHIDPN))
 diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 2) 
+nrow(diabetes_followup_2)
+length(unique(diabetes_followup_2$HHIDPN))
 diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 3) 
+nrow(diabetes_followup_3)
+length(unique(diabetes_followup_3$HHIDPN))
 diabetes_followup_4 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 4)
+nrow(diabetes_followup_4)
+length(unique(diabetes_followup_4$HHIDPN))
 diabetes_followup_5 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 1 & analytical_sample_COX$start_new == 5)
+nrow(diabetes_followup_5)
+length(unique(diabetes_followup_5$HHIDPN))
+
 
 non_diabetes_baseline = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 0) 
+nrow(non_diabetes_baseline) 
+length(unique(non_diabetes_baseline$HHIDPN))
 non_diabetes_followup_1 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 1) 
 non_diabetes_followup_2 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 2) 
 non_diabetes_followup_3 = subset(analytical_sample_COX, analytical_sample_COX$diabetes_new == 0 & analytical_sample_COX$start_new == 3) 
@@ -130,6 +118,7 @@ diabetes_data_merged <- rbind(diabetes_followup_1,
                               diabetes_followup_3,
                               diabetes_followup_4, 
                               diabetes_followup_5)
+length(unique(diabetes_data_merged$HHIDPN)) #917
 
 non_diabetes_data_merged <- rbind(non_diabetes_baseline,
                                   non_diabetes_followup_1,
@@ -137,13 +126,7 @@ non_diabetes_data_merged <- rbind(non_diabetes_baseline,
                                   non_diabetes_followup_3, 
                                   non_diabetes_followup_4, 
                                   non_diabetes_followup_5)
-
-
-non_diabetes_data_merged_no_baseline <- rbind(non_diabetes_followup_1,
-                                              non_diabetes_followup_2, 
-                                              non_diabetes_followup_3, 
-                                              non_diabetes_followup_4, 
-                                              non_diabetes_followup_5)
+length(unique(non_diabetes_data_merged$HHIDPN)) #14837
 
 
 
@@ -151,9 +134,6 @@ non_diabetes_data_merged_no_baseline <- rbind(non_diabetes_followup_1,
 ids_developed_diabetes <- unique(diabetes_data_merged$HHIDPN)
 ids_did_not_develop_diabetes <- unique(non_diabetes_data_merged$HHIDPN)
 
-# include only those with follow-up data 
-length(unique(non_diabetes_data_merged_no_baseline$HHIDPN)) #8561 
-length(unique(diabetes_data_merged$HHIDPN)) #917 
 
 # Subset baseline data (ie., start_new = 0) into two groups: developed diabetes and did not: 
 baseline_data_group_developed_diabetes <- subset(analytical_sample_COX, analytical_sample_COX$start_new == 0 & HHIDPN %in% ids_developed_diabetes)
