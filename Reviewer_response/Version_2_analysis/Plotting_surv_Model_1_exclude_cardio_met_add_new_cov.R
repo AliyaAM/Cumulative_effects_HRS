@@ -4,9 +4,9 @@ library("survminer")
 library("dplyr")
 
 
-current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
+#current_directory = "/Users/k2147340/OneDrive - King's College London/Documents/"
 
-#current_directory = "/Users/aliya/my_docs/"
+current_directory = "/Users/aliya/my_docs/"
 #current_directory = "/Users/aliyaamirova/proj/Cumulative_effects_HRS"
 
 OUTPUT_ROOT = paste(current_directory, "proj/Cumulative_effects_HRS/Reviewer_response/Version_2_analysis/RESULTS/", sep="")
@@ -26,9 +26,31 @@ DATA_ROOT = paste(current_directory, "/ELSA_HRS/Data_analysis/", sep = "")
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
 
-cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
-nrow(cumulative_effects_dat_initial)
 
+###### DATA:
+# below is the entire dataset, not subseted to anyone: 
+
+#cumulative_effects_dat = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
+
+cumulative_effects_dat_initial_first <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+unique_ids_cumulative_first = unique(cumulative_effects_dat_initial_first$HHIDPN)
+number_in_cumulative_first = length(unique_ids_cumulative_first)
+
+#dropping this particular case because it has diabetes_new = 3 and diabetes_ever = 1 but we did not drop it because 3 does not mean anything. 
+
+cumulative_effects_dat_initial = subset(cumulative_effects_dat_initial_first, cumulative_effects_dat_initial_first$HHIDPN != 907105020)
+
+unique_ids_cumulative = unique(cumulative_effects_dat_initial$HHIDPN)
+number_in_cumulative = length(unique_ids_cumulative)
+
+
+# data_compared_v2_table1 = read.csv(paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
+# 
+# unique_ids_table1 = unique(data_compared_v2_table1$HHIDPN)
+# number_ids_table_1 = length(unique_ids_table1)
+# 
+# cumulative_effects_dat_initial <- subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN %in% unique_ids_table1)
+#length(unique(cumulative_effects_dat_initial$HHIDPN))
 
 #exclude participants with cardiometabolic disease at baseline: 
 
@@ -165,28 +187,12 @@ unique(cumulative_effects_dat$discrimination_cat)
 #2 = 4 years 
 #3 = 6 years 
 
-#coxph(Surv(t1, t2, stat) ∼ (age + surgery)* transplant) – time dependent covariates.
-
-unique(cumulative_effects_dat$timepoints_indiv)
-unique(cumulative_effects_dat$start_new)
-
-cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_dat$diabetes_new_bin == 1 ~ 0, 
-                                                             cumulative_effects_dat$diabetes_new_bin == 0 ~ 1) 
-
-
-
-#cumulative_effects_dat$sex_1_2
-#cumulative_effects_dat$race_white
-#cumulative_effects_dat$race_white
-#cumulative_effects_dat$national_origin_ousideUS_bin
-#cumulative_effects_dat$religion_bin
-#cumulative_effects_dat$assessed_BMI
 
 
 #### plot for the entire dataset:
-#survfit.coxph
 
-#cfit <- coxph(Surv(futime, death) ~ sex + age*hgb, data=mgus2)
+
+length(unique(cumulative_effects_dat$HHIDPN))
 
 fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + race_white, data = cumulative_effects_dat)
 summary_all = summary(fit)
@@ -240,7 +246,7 @@ write.csv(All_results_Model_1, paste(OUTPUT_ROOT, "Model_1_nocardiometdis_race_e
 ############################## "education_level", "national_origin_ousideUS_bin", "race_white"
 ##############################
 
-fit_Model_2 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin  + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+fit_Model_2 <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 + assessed_BMI + hypertension_new_bin  + race_white, data = cumulative_effects_dat)
 summary_all_model_2 = summary(fit_Model_2)
 
 # coeffcients for discrimination: 
@@ -326,7 +332,7 @@ unique(cumulative_effects_dat$smokes_now_bin)
 
 unique(cumulative_effects_dat$alcohol_days_week_new)
 
-fit_Model_3_full <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new + smokes_now_bin  + + alcohol_days_week_new +  race_white, data = cumulative_effects_dat)
+fit_Model_3_full <- coxph(Surv(follow_up, diabetes_new_bin) ~ discrimination + continious_age + wealth_noIRA + sex_1_2 +  vigarious_physical_activity_new + smokes_now_bin  + alcohol_days_week_new +  race_white, data = cumulative_effects_dat)
 summary_all_Model_3_full = summary(fit_Model_3)
 
 # coeffcients for discrimination: 
@@ -361,7 +367,7 @@ write.csv(All_results_Model_3_full, paste(OUTPUT_ROOT, "Model_3_full_nocardiomet
 ############### Model 4: no covariate such as CVD since we are excuding cases on the basis of this var: instead model 4 is model 5 now which is "continious_age","wealth_noIRA", "sex_1_2", "checklist_depression_bin",   "education_level", "national_origin_ousideUS_bin", "race_white"
 
 
-fit_Model_4 <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + checklist_depression_bin + race_white + national_origin_ousideUS_bin, data = cumulative_effects_dat)
+fit_Model_4 <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination + continious_age + wealth_noIRA + sex_1_2 + checklist_depression_bin + race_white, data = cumulative_effects_dat)
 summary_all_Model_4 = summary(fit_Model_4)
 
 # coeffcients for discrimination: 

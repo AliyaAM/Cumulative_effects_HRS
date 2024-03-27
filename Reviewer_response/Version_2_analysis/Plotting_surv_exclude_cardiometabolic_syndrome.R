@@ -23,16 +23,28 @@ library("ggplot2")
 ###### DATA:
 # below is the entire dataset, not subseted to anyone: 
 
-cumulative_effects_dat_initial = read.csv(paste(OUTPUT_ROOT, "all_waves_nodiabatbaseline_DIAB.csv", sep =""))
-nrow(cumulative_effects_dat_initial)
+cumulative_effects_dat_initial <- read.csv(paste(OUTPUT_ROOT, "data_flow_chart_withoutbaselineCVD.csv", sep=""))
+
+unique_ids_cumulative = unique(cumulative_effects_dat_initial$HHIDPN)
+number_in_cumulative = length(unique_ids_cumulative)
+
+
+data_compared_v2_table1 = read.csv(paste(OUTPUT_ROOT, "data_compared_v2_for_table_1.csv", sep = ""))
+data_compared_v2_table1$education
+
+unique_ids_table1 = unique(data_compared_v2_table1$HHIDPN)
+number_ids_table_1 = length(unique_ids_table1)
+
+cumulative_effects_dat_initial <- subset(cumulative_effects_dat_initial, cumulative_effects_dat_initial$HHIDPN %in% unique_ids_table1)
+
+
+length(unique(cumulative_effects_dat_initial$HHIDPN))
 
 
 #exclude participants with cardiometabolic disease at baseline: 
 
 cases_with_CVD = subset(cumulative_effects_dat_initial,  CVD_ever == 1 & start_new == 0)
-
 exclude_ids = unique(cases_with_CVD$HHIDPN)
-
 
 cumulative_effects_dat <- subset(cumulative_effects_dat_initial,  !(HHIDPN %in% exclude_ids))
 
@@ -53,7 +65,7 @@ nrow(cumulative_effects_dat_initial)
 ###### Adding variables to the main dataset:
 ###### Adding variables to the main dataset:
 
-
+head(cumulative_effects_dat)
 
 cumulative_effects_dat$discrim_harassed_bin = case_when(cumulative_effects_dat$discrim_harassed == 1 ~ 1, 
                                                         cumulative_effects_dat$discrim_harassed == 2 ~ 1, 
@@ -171,19 +183,32 @@ cumulative_effects_dat$diabetes_new_bin_reversed = case_when(cumulative_effects_
 
 #### plot for the entire dataset: 
 
-fit <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
+
+fit <- coxph(Surv(follow_up, diabetes_new_bin)~ discrimination, data = cumulative_effects_dat)
 summary_all = summary(fit)
-print(summary_all)
 
-summary_all$lower
-summary_all$upper
+# coeffcients for discrimination: 
+summary_all$coefficients[1,]
+# exp (HR), and 95% CI: 
+summary_all$conf.int[1,]
+summary_all$waldtest
+summary_all$logtest[1]
+summary_all$n
+summary_all$nevent
 
-summary_all$surv
+
+####
 ### output below: 
+summary_all_table = data.frame("Unadjusted")
+summary_all_table$subset  = c("All")
+summary_all_table$coef  = c(summary_all$conf.int[1,1])
+summary_all_table$lower_CI = c(summary_all$conf.int[1,3])
+summary_all_table$upper_CI = c(summary_all$conf.int[1,4])
+summary_all_table$logtest = summary_all$logtest[1]
+summary_all_table$df = summary_all$logtest[2]
+summary_all_table$p_value = summary_all$logtest[3]
 
-summary_all_table = summary_all$table
-subset_all = rep("All", time=nrow(summary_all_table))
-summary_all_table = cbind(subset_all, summary_all_table)
+print(summary_all_table)
 
 write.csv(summary_all_table, paste(OUTPUT_ROOT, "summary_all_table_discrimination_cat_no_cardiomet_disease.csv")) 
 
@@ -198,26 +223,9 @@ cumhaz_output_all =  fit$cumhaz
 cumhaz_output_std_all = fit$std.chaz
 
 
+fit_plot <- survfit(Surv(follow_up, diabetes_new_bin) ~ discrimination, data = cumulative_effects_dat)
 
-
-####
-### output below: 
-All_results_unadjusted = cbind(Number_events_all,
-                               Number_risk_all,
-                               Number_censored_all, 
-                               probability_for_nodiab_all, 
-                               probability_SE_all, 
-                               probability_lower_CI_all, 
-                               probability_upper_CI_all, 
-                               cumhaz_output_all, 
-                               cumhaz_output_std_all) 
-
-subset_all_undj  = rep("All", time=nrow(All_results_unadjusted)) 
-All_results_unadjusted = cbind(subset_all_undj, All_results_unadjusted) 
-write.csv(All_results_unadjusted, paste(OUTPUT_ROOT, "All_results_unadjusted_discrimination_cat_no_cardiomet_disease.csv", sep = "")) 
-
-
-plot_all = ggsurvplot(fit,
+plot_all = ggsurvplot(fit_plot,
                       pval = TRUE, conf.int = TRUE,
                       risk.table = FALSE, # Add risk table
                       risk.table.col = "strata", # Change risk table color by groups
